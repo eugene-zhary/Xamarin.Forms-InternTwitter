@@ -1,16 +1,27 @@
-﻿using System;
+﻿using InterTwitter.Views;
+using Prism;
+using Prism.Ioc;
+using Prism.Unity;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace InterTwitter
 {
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
-        public App()
+        public App(IPlatformInitializer initializer = null)
+            : base(initializer)
+        {
+        }
+
+        #region -- Overrides --
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+        }
+
+        protected override void OnInitialized()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
         }
 
         protected override void OnStart()
@@ -24,5 +35,7 @@ namespace InterTwitter
         protected override void OnResume()
         {
         }
+
+        #endregion
     }
 }
