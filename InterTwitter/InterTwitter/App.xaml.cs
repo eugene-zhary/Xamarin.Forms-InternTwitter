@@ -22,6 +22,8 @@ namespace InterTwitter
         protected override void OnInitialized()
         {
             InitializeComponent();
+
+            MainPage = new NavigationPage(new BaseContentPage());
         }
 
         protected override void OnStart()
