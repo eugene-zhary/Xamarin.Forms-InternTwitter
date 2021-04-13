@@ -1,4 +1,4 @@
-﻿using InterTwitter.Views;
+﻿using InterTwitter.ViewModels.Flyout;
 using InterTwitter.Views.Flyout;
 using Prism;
 using Prism.Ioc;
@@ -9,8 +9,7 @@ namespace InterTwitter
 {
     public partial class App : PrismApplication
     {
-        public App(IPlatformInitializer initializer = null)
-            : base(initializer)
+        public App(IPlatformInitializer initializer = null) : base(initializer)
         {
         }
 
@@ -18,6 +17,8 @@ namespace InterTwitter
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<FlyoutNavigationView, FlyoutNavigationViewModel>();
         }
 
         protected override void OnInitialized()

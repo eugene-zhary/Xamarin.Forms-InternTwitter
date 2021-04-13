@@ -1,36 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:InterTwitter.Controls"
              x:Class="InterTwitter.Views.Flyout.FlyoutMenuView"
-             xmlns:local="clr-namespace:InterTwitter.Views.Flyout"
-             xmlns:views="clr-namespace:InterTwitter.Views.Navigation"
+             BackgroundColor="#FCFDFE"
              Title="Flyout">
-    <StackLayout>
-        <ListView SeparatorVisibility="None" HasUnevenRows="true">
-            <ListView.ItemsSource>
-                <x:Array Type="{x:Type local:FlyoutMenuItem}">
-                    <local:FlyoutMenuItem Title="Home" IconSource="ic_home.png" TargetType="{x:Type views:HomeView}" />
-                    <local:FlyoutMenuItem Title="Search" IconSource="ic_search.png" TargetType="{x:Type views:SearchView}" />
-                    <local:FlyoutMenuItem Title="Notifycation" IconSource="ic_notifications.png" TargetType="{x:Type views:NotifycationView}" />
-                    <local:FlyoutMenuItem Title="Bookmarks" IconSource="ic_bookmarks.png" TargetType="{x:Type views:BookmarksView}" />
-                </x:Array>
-            </ListView.ItemsSource>
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Padding="5,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="ic_profile.png" Margin="10" Aspect="AspectFit"/>
+
+            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                <Label Text="Name" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                <Label Text="sample@test.com" TextColor="Gray" VerticalTextAlignment="Center"/>
+            </StackLayout>
+        </Grid>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedItem}" SeparatorVisibility="None" HasUnevenRows="true">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
+                        <Grid Padding="5,10">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="80"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
-                            <Image Source="{Binding IconSource}"/>
-
-                            <Label Grid.Column="1" VerticalTextAlignment="Center" Text="{Binding Title}"/>
+                            <controls:TintedImage Source="{Binding IconSource}" TintColor="#66696E" WidthRequest="35" HeightRequest="35"/>
+                            <Label Grid.Column="1" VerticalTextAlignment="Center" Text="{Binding Title}" FontSize="18"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
+    </Grid>
 </ContentPage>

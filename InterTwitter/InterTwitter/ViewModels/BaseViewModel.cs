@@ -3,7 +3,7 @@ using Prism.Navigation;
 
 namespace InterTwitter.ViewModels
 {
-    class BaseViewModel : BindableBase, INavigationAware, IInitialize
+    public class BaseViewModel : BindableBase, INavigationAware, IInitialize
     {
         public BaseViewModel(INavigationService navigationService)
         {

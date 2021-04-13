@@ -2,6 +2,8 @@
 <FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InterTwitter.Views.Flyout.FlyoutNavigationView"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
             xmlns:local="clr-namespace:InterTwitter.Views.Flyout">
     <FlyoutPage.Flyout>
         <local:FlyoutMenuView/>

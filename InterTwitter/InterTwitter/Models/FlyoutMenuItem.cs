@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace InterTwitter.Views.Flyout
+namespace InterTwitter.Models
 {
     public class FlyoutMenuItem
     {
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
         public string IconSource { get; set; }
