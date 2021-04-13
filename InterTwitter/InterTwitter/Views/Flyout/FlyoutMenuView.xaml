@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Views.Flyout.FlyoutMenuView"
+             xmlns:local="clr-namespace:InterTwitter.Views.Flyout"
+             xmlns:views="clr-namespace:InterTwitter.Views.Navigation"
+             Title="Flyout">
+    <StackLayout>
+        <ListView SeparatorVisibility="None" HasUnevenRows="true">
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type local:FlyoutMenuItem}">
+                    <local:FlyoutMenuItem Title="Home" IconSource="ic_home.png" TargetType="{x:Type views:HomeView}" />
+                    <local:FlyoutMenuItem Title="Search" IconSource="ic_search.png" TargetType="{x:Type views:SearchView}" />
+                    <local:FlyoutMenuItem Title="Notifycation" IconSource="ic_notifications.png" TargetType="{x:Type views:NotifycationView}" />
+                    <local:FlyoutMenuItem Title="Bookmarks" IconSource="ic_bookmarks.png" TargetType="{x:Type views:BookmarksView}" />
+                </x:Array>
+            </ListView.ItemsSource>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="{Binding IconSource}"/>
+
+                            <Label Grid.Column="1" VerticalTextAlignment="Center" Text="{Binding Title}"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

@@ -10,6 +10,8 @@ namespace InterTwitter.Views
             NavigationPage.SetHasNavigationBar(this, false);
 
             ViewModelLocator.SetAutowireViewModel(this, true);
+
+            BackgroundColor = Color.Red;
         }
     }
 }

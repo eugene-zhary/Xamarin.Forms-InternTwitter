@@ -1,4 +1,5 @@
 ﻿using InterTwitter.Views;
+using InterTwitter.Views.Flyout;
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
@@ -22,8 +23,8 @@ namespace InterTwitter
         protected override void OnInitialized()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new BaseContentPage());
+            
+            MainPage = new FlyoutNavigationView();
         }
 
         protected override void OnStart()
