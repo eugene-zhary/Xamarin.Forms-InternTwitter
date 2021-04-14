@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:InterTwitter.Controls"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InterTwitter.Views.Flyout.FlyoutMenuView"
              BackgroundColor="#FCFDFE"
              Title="Flyout">
@@ -37,13 +39,14 @@
         </Grid>
 
 
-        <ListView Grid.Row="1" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedItem}" SeparatorVisibility="None" HasUnevenRows="true">
+        <ListView Grid.Row="1" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedItem}" 
+                  SeparatorVisibility="None" HasUnevenRows="true" ItemSelected="ListView_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Spacing="20" Padding="20,12" Orientation="Horizontal">
                             <Image Source="{Binding IconSource}" WidthRequest="35" HeightRequest="35"/>
-                            <Label Text="{Binding Title}"/>
+                            <Label Text="{Binding Title}" TextColor="{Binding TextColor}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
@@ -66,6 +69,9 @@
             <StackLayout Spacing="20" Grid.Row="1" VerticalOptions="End" Orientation="Horizontal">
                 <Image Source="ic_logout_blue.png" WidthRequest="35" HeightRequest="35"/>
                 <Label Text="Logout" TextColor="#2356C5"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LogoutCommand}"/>
+                </StackLayout.GestureRecognizers>
             </StackLayout>
         </Grid>
 

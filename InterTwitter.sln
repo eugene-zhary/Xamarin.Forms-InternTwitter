@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterTwitter.Android", "Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterTwitter.iOS", "InterTwitter\InterTwitter.iOS\InterTwitter.iOS.csproj", "{AC764DC1-4C40-4BB2-B761-F3124936F5F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterTwitter", "InterTwitter\InterTwitter\InterTwitter.csproj", "{9D9964CB-1938-49B7-9048-5070C38B1E16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterTwitter", "InterTwitter\InterTwitter\InterTwitter.csproj", "{9D9964CB-1938-49B7-9048-5070C38B1E16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

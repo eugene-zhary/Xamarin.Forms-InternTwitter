@@ -1,14 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<controls:CustomTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             x:Class="InterTwitter.Views.Flyout.FlyoutTabbedView"
             xmlns:local="clr-namespace:InterTwitter.Views.Navigation"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-            android:TabbedPage.ToolbarPlacement="Bottom">
+            xmlns:prism="http://prismlibrary.com"
+            prism:ViewModelLocator.AutowireViewModel="True"
+            android:TabbedPage.IsSwipePagingEnabled="False"
+            android:TabbedPage.ToolbarPlacement="Bottom" 
+            xmlns:behaviors="clr-namespace:InterTwitter.Behaviors"
+            xmlns:controls="clr-namespace:InterTwitter.Controls"
+            SelectedTabType="{Binding SelectedTabType}">
+    <TabbedPage.Behaviors>
+        <behaviors:TabbedPageNavigationBehavior/>
+    </TabbedPage.Behaviors>
     <TabbedPage.Children>
-        <local:HomeView IconImageSource="ic_home_gray.png"/>
-        <local:SearchView IconImageSource="ic_search_gray.png"/>
-        <local:NotifycationView IconImageSource="ic_notifications_gray.png"/>
-        <local:BookmarksView IconImageSource="ic_bookmarks_gray.png"/>
+        <local:HomeView/>
+        <local:SearchView/>
+        <local:NotifycationView/>
+        <local:BookmarksView/>
     </TabbedPage.Children>
-</TabbedPage>
+</controls:CustomTabbedPage>

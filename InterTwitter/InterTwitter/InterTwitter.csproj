@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Effects\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InterTwitter.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ using Xamarin.Forms.Xaml;
 namespace InterTwitter.Views.Flyout
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FlyoutTabbedView : TabbedPage
+    public partial class FlyoutTabbedView : CustomTabbedPage
     {
         public FlyoutTabbedView()
         {
