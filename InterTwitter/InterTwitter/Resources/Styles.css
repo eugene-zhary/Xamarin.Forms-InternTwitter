@@ -1,0 +1,99 @@
+﻿.Header1 {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22;
+    line-height: 28;
+}
+
+.Header2 {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18;
+    line-height: 28;
+}
+
+.SubTitle1 {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16;
+    line-height: 24;
+}
+
+.Body1 {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16;
+    line-height: 24;
+}
+
+.SubTitle2 {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14;
+    line-height: 24;
+}
+.Body2 {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14;
+    line-height: 20;
+}
+.Button {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14;
+    line-height: 24;
+}   
+.Caption1 {
+    width: 43px;
+    height: 24px;
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12;
+    line-height: 24;
+}
+.Caption2 {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10;
+    line-height: 16;
+}
+.ColorPrimary {
+    background: #2356C5;
+}
+.FontColorPrimary {
+    color: #2356C5;
+}
+.ColorBlack {
+    background: #02060E;
+}
+.FontColorBlack {
+    color: #02060E;
+}
+.ColorDarkGray {
+    background: #66696E;
+}
+.ColorGray {
+    background: #9D9FA3;
+}
+.ColorLightGray {
+    background: #DEDFE1;
+}
+.ColorWhite {
+    background: #FCFDFE;
+}
+.FontColorWhite {
+    color: #FCFDFE;
+}
+.ColorError {
+    background: #F44336;
+}
