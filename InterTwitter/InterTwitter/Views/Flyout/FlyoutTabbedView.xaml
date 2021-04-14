@@ -6,9 +6,9 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom">
     <TabbedPage.Children>
-        <local:HomeView IconImageSource="ic_home.png"/>
-        <local:SearchView IconImageSource="ic_search.png"/>
-        <local:NotifycationView IconImageSource="ic_notifications.png"/>
-        <local:BookmarksView IconImageSource="ic_bookmarks.png"/>
+        <local:HomeView IconImageSource="ic_home_gray.png"/>
+        <local:SearchView IconImageSource="ic_search_gray.png"/>
+        <local:NotifycationView IconImageSource="ic_notifications_gray.png"/>
+        <local:BookmarksView IconImageSource="ic_bookmarks_gray.png"/>
     </TabbedPage.Children>
 </TabbedPage>

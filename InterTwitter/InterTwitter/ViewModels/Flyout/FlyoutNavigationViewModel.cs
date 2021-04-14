@@ -17,25 +17,25 @@ namespace InterTwitter.ViewModels.Flyout
                 new FlyoutMenuItem
                 {
                     Title = "Home",
-                    IconSource = "ic_home.png",
+                    IconSource = "ic_home_gray.png",
                     TargetType = typeof(HomeView)
                 },
                 new FlyoutMenuItem
                 {
                     Title = "Search",
-                    IconSource = "ic_search.png",
+                    IconSource = "ic_search_gray.png",
                     TargetType = typeof(SearchView)
                 },
                 new FlyoutMenuItem
                 {
                     Title = "Notifycation",
-                    IconSource = "ic_notifications.png",
+                    IconSource = "ic_notifications_gray.png",
                     TargetType = typeof(NotifycationView)
                 },
                 new FlyoutMenuItem
                 {
                     Title = "Bookmarks",
-                    IconSource = "ic_bookmarks.png",
+                    IconSource = "ic_bookmarks_gray.png",
                     TargetType = typeof(BookmarksView)
                 }
             };
