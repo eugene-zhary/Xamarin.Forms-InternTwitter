@@ -13,7 +13,7 @@ namespace InterTwitter.ViewModels
         #region -- Public properies --
 
         protected INavigationService NavigationService { get; }
-
+        
         #endregion
 
         #region -- INavigationAware implementation --
