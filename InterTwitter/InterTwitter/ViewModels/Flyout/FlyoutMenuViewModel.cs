@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels.Flyout
@@ -67,10 +68,10 @@ namespace InterTwitter.ViewModels.Flyout
 
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
 
-        private SingleExecutionCommand _logoutCommand;
-        public SingleExecutionCommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogout);
+        private ICommand _logoutCommand;
+        public ICommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogout);
 
-       
+
         #endregion
 
         #region -- Overrides --
@@ -79,10 +80,10 @@ namespace InterTwitter.ViewModels.Flyout
         {
             base.OnPropertyChanged(args);
 
-            switch(args.PropertyName)
+            switch (args.PropertyName)
             {
                 case nameof(SelectedItem):
-                    SendSelectedItem(SelectedItem);
+                    SendSelectedItem();
                     break;
             }
         }
@@ -101,15 +102,13 @@ namespace InterTwitter.ViewModels.Flyout
             }
         }
 
-
-
-        private void SendSelectedItem(MenuItemViewModel selectedItem)
+        private void SendSelectedItem()
         {
-            if(selectedItem != null)
+            if(SelectedItem != null)
             {
-                _eventAggregator.GetEvent<MenuItemChangedEvent>().Publish(selectedItem.TargetType);
+                _eventAggregator.GetEvent<MenuItemChangedEvent>().Publish(SelectedItem.TargetType);
                 _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(false);
-                ChangeVisualState(selectedItem.TargetType);
+                ChangeVisualState(SelectedItem.TargetType);
             }
         }
 

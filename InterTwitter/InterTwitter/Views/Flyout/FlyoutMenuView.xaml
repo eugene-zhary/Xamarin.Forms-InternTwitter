@@ -5,7 +5,10 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InterTwitter.Views.Flyout.FlyoutMenuView"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
              BackgroundColor="#FCFDFE"
+             
              Title="Flyout">
     <ContentPage.Resources>
         <Style TargetType="Label">
@@ -17,20 +20,20 @@
     
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="245"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         
-        <Grid Padding="5,10">
+        <Grid Padding="5,10" VerticalOptions="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Image Source="pic_profile_big.png" Margin="15" Aspect="AspectFit"/>
+            <Image Source="pic_profile_big.png" Margin="0"/>
 
             <StackLayout Grid.Column="1" VerticalOptions="Center">
                 <Label Text="Name" FontAttributes="Bold" FontSize="20"/>

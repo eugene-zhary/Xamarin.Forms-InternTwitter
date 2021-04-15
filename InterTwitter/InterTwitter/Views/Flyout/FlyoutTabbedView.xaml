@@ -10,7 +10,8 @@
             android:TabbedPage.ToolbarPlacement="Bottom" 
             xmlns:behaviors="clr-namespace:InterTwitter.Behaviors"
             xmlns:controls="clr-namespace:InterTwitter.Controls"
-            SelectedTabType="{Binding SelectedTabType}">
+            SelectedTabType="{Binding SelectedTabType}"
+            BackgroundColor="#FCFDFE">
     <TabbedPage.Behaviors>
         <behaviors:TabbedPageNavigationBehavior/>
     </TabbedPage.Behaviors>
