@@ -16,7 +16,7 @@
 
         <Image Grid.Row="0"
                Grid.ColumnSpan="3"
-               Source="Group30.png"
+               Source="pic_logo_small.png"
                HeightRequest="50"/>
 
         <Label Grid.Row="1"
@@ -28,10 +28,6 @@
         <StackLayout Grid.Row="2"
                      Grid.ColumnSpan="3"
                      Spacing="35">
-
-            <!--<Entry Placeholder="{x:Static resource:AppResource.Name}" />
-
-            <Entry Placeholder="{x:Static resource:AppResource.Email}" />-->
 
             <controls:RegisteringEntry/>
 

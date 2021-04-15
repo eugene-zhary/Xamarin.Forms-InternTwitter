@@ -28,7 +28,8 @@ namespace InterTwitter.ViewModels
             set => SetProperty(ref _email, value);
         }
 
-        public ICommand SignUpCommand => SingleExecutionCommand.FromFunc(OnSignUp);
+        private ICommand _SignUpCommand;
+        public ICommand SignUpCommand => _SignUpCommand ?? (_SignUpCommand = SingleExecutionCommand.FromFunc(OnSignUp));
 
         #endregion
 
