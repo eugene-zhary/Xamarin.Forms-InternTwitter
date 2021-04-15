@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace InterTwitter.Views
 {
-    class BaseContentPage : ContentPage
+    public class BaseContentPage : ContentPage
     {
         public BaseContentPage()
         {

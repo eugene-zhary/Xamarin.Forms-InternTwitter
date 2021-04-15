@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Controls.RegisteringEntry"
+             RowSpacing="0">
+
+    <Grid.RowDefinitions>
+        <!-- Text-placeholder: invisible while entry inactive, visible otherwise -->
+        <RowDefinition Height="0.2*"/>
+        <!-- Entry and two buttons -->
+        <RowDefinition Height="0.5*"/>
+        <!-- Just 1px line -->
+        <RowDefinition Height="Auto"/>
+        <!-- Error test -->
+        <RowDefinition Height="0.2*"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="0.7*"/>
+        <ColumnDefinition Width="0.15*"/>
+        <ColumnDefinition Width="0.15*"/>
+    </Grid.ColumnDefinitions>
+
+    <Label Grid.Row="0"
+           Grid.Column="0"
+           Grid.ColumnSpan="3"
+           Text="TEST TEMPORARY TEXT"
+           Padding="0"/>
+
+    <Entry Grid.Row="1"
+           Grid.Column="0"
+           Placeholder="TEST TEMPORARY TEXT"/>
+
+    <ImageButton Grid.Row="1"
+                 Grid.Column="1"
+                 Source="ic_eye_blue.png"
+                 BackgroundColor="Transparent"
+                 Padding="5"/>
+
+    <ImageButton Grid.Row="1"
+                 Grid.Column="2"
+                 Source="ic_clear.png"
+                 BackgroundColor="Transparent"
+                 Padding="5"/>
+
+    <BoxView Grid.Row="2"
+             Grid.Column="0"
+             Grid.ColumnSpan="3"
+             HeightRequest="1"
+             BackgroundColor="Black"/>
+
+    <Label Grid.Row="3"
+           Grid.Column="0"
+           Grid.ColumnSpan="3"
+           Text="TEMPORARY ERROR TEXT"
+           TextColor="#F44336"/>
+
+</Grid>

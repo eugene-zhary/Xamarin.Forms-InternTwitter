@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:prism="http://prismlibrary.com"
+                       xmlns:views="clr-namespace:InterTwitter.Views;assembly=InterTwitter"
+                       xmlns:resource="clr-namespace:InterTwitter.Resources;assembly=InterTwitter"
+                       xmlns:controls="clr-namespace:InterTwitter.Controls;assembly=InterTwitter"
+                       prism:ViewModelLocator.AutowireViewModel="True"
+                       x:Class="InterTwitter.Views.SignUpPage">
+
+    <Grid VerticalOptions="FillAndExpand"
+          HorizontalOptions="FillAndExpand"
+          RowDefinitions="Auto, Auto, Auto, Auto"
+          ColumnDefinitions="0.15*, 0.7*, 0.15*"
+          Margin="25">
+
+        <Image Grid.Row="0"
+               Grid.ColumnSpan="3"
+               Source="Group30.png"
+               HeightRequest="50"/>
+
+        <Label Grid.Row="1"
+               Grid.ColumnSpan="3"
+               HorizontalOptions="Center"
+               Margin="0,10,0,100"
+               Text="{x:Static resource:Strings.GetYourAccount}"/>
+
+        <StackLayout Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Spacing="35">
+
+            <!--<Entry Placeholder="{x:Static resource:AppResource.Name}" />
+
+            <Entry Placeholder="{x:Static resource:AppResource.Email}" />-->
+
+            <controls:RegisteringEntry/>
+
+            <controls:RegisteringEntry/>
+
+        </StackLayout>
+
+        <StackLayout Grid.Row="3"
+                     Grid.Column="1"
+                     Spacing="20"
+                     Margin="0, 75">
+
+            <Frame CornerRadius="50"
+                   Padding="15"
+                   BackgroundColor="#2356C5">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SignUpCommand}"/>
+                </Frame.GestureRecognizers>
+
+                <Label HorizontalOptions="Center"
+                       Text="{x:Static resource:Strings.SignUp}"
+                       TextColor="White"
+                       FontAttributes="Bold"/>
+            </Frame>
+
+            <Label HorizontalOptions="Center"
+                   Text="{x:Static resource:Strings.LogIn}" 
+                   TextColor="#2356C5"/>
+
+        </StackLayout>
+
+    </Grid>
+  
+</views:BaseContentPage>
