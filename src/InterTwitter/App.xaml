@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+                        xmlns:Controls="clr-namespace:InterTwitter.Controls" 
+                        xmlns:local="clr-namespace:InterTwitter.Resources.Styles"
+                        x:Class="InterTwitter.App">
+    <prism:PrismApplication.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:Colors/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="CustomNavBar" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="{StaticResource Key=White}"/>
+            </Style>
+            <Style x:Key="Header1" TargetType="Label">
+                <Setter Property="FontFamily" Value="Ubuntu"/>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="LineHeight" Value="28"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="Header2" TargetType="Label">
+                <Setter Property="FontFamily" Value="Ubuntu"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="LineHeight" Value="28"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+
+            </Style>
+            <Style x:Key="Subtitle1" TargetType="Label">
+                <Setter Property="FontFamily" Value="Ubuntu"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="LineHeight" Value="24"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+
+            </Style>
+            <Style x:Key="Subtitle2" TargetType="Label">
+                <Setter Property="FontFamily" Value="Ubuntu"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="LineHeight" Value="24"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="Body1" TargetType="Label">
+                <Setter Property="FontFamily" Value="Ubuntu"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="LineHeight" Value="24"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="Body2" TargetType="Label">
+                <Setter Property="FontFamily" Value="Ubuntu"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="LineHeight" Value="20"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="Button" TargetType="Label">
+                <Setter Property="FontFamily" Value="Ubuntu"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="LineHeight" Value="24"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="Caption1" TargetType="Label">
+                <Setter Property="FontFamily" Value="Ubuntu"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="LineHeight" Value="24"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="Caption2" TargetType="Label">
+                <Setter Property="FontFamily" Value="Ubuntu"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="LineHeight" Value="16"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+
+        </ResourceDictionary>
+    </prism:PrismApplication.Resources>
+
+</prism:PrismApplication>
