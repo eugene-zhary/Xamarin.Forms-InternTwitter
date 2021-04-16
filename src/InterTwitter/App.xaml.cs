@@ -33,7 +33,7 @@ namespace InterTwitter
         {
             InitializeComponent();
 
-            MainPage = new FlyoutNavigationView();
+            NavigationService.NavigateAsync($"{nameof(FlyoutNavigationView)}");
         }
 
         protected override void OnStart()

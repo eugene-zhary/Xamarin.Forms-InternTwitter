@@ -5,11 +5,41 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:local="clr-namespace:InterTwitter.Views"
-             BackgroundColor="White" 
+                       xmlns:controls="clr-namespace:InterTwitter.Controls"
+                       BackgroundColor="White" 
              IconImageSource="{Binding IconPath}">
-    <ContentPage.Content>
-        <Label Text="Feed!" TextColor="#02060E"
-               VerticalOptions="CenterAndExpand" 
-               HorizontalOptions="CenterAndExpand" />
-    </ContentPage.Content>
+    <StackLayout>
+        <controls:FeedNavigationBar IsVisible="{Binding IsVisible}"/>
+        <ScrollView>
+            <ScrollView.Behaviors>
+                <prism:EventToCommandBehavior 
+                    EventName="SizeChanged"
+                    Command="{Binding ScrollSizeChanged}" 
+                    EventArgsConverterParameter="{Binding .}"/>
+                <prism:EventToCommandBehavior 
+                    EventName="Scrolled"
+                    Command="{Binding ScrolledCommand}" 
+                    EventArgsParameterPath="ScrollY"/>
+            </ScrollView.Behaviors>
+            <StackLayout>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
 </local:BaseContentPage>
