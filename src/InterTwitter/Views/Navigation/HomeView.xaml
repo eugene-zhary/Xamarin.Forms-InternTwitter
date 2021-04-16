@@ -8,9 +8,9 @@
                        xmlns:controls="clr-namespace:InterTwitter.Controls"
                        BackgroundColor="White" 
              IconImageSource="{Binding IconPath}">
-    <StackLayout>
-        <controls:FeedNavigationBar IsVisible="{Binding IsVisible}"/>
-        <ScrollView>
+    <StackLayout BackgroundColor="{StaticResource White}">
+        <controls:FeedNavigationBar Margin="{Binding Margin}"/>
+        <ScrollView Margin="{Binding Margin}">
             <ScrollView.Behaviors>
                 <prism:EventToCommandBehavior 
                     EventName="SizeChanged"

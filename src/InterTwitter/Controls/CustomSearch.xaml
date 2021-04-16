@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InterTwitter.Controls.CustomSearch">
 
-    <Frame  HeightRequest="48" CornerRadius="20" Style="{StaticResource Light Grey}">
-        <Entry HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+    <Frame  HeightRequest="48" CornerRadius="20" Padding="0,-10,0,0" BackgroundColor="{StaticResource Light Grey}" >
+        <Entry HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="5,0,0,-10" Style="{StaticResource EntryCaption}"/>
     </Frame>
 
 </Grid>

@@ -10,7 +10,7 @@
     </Grid.RowDefinitions>
     <Image Source="pic_profile_big" Grid.Column="0" HorizontalOptions="Start" Margin="12,12,12,12" HeightRequest="24">
         <Image.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding Path=PicProfileTapGestureRecognizer, Source={x:Reference customNavigationBar}}" CommandParameter="{Binding .}"/>
+            <TapGestureRecognizer Command="{Binding PicProfileTapGestureRecognizer}" CommandParameter="{Binding .}"/>
         </Image.GestureRecognizers>
     </Image>
     <Label Text="Home" Grid.Column="1" Style="{StaticResource Header2}"/>
