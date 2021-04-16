@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Views.Navigation.HomeView"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:local="clr-namespace:InterTwitter.Views"
+                       xmlns:controls="clr-namespace:InterTwitter.Controls"
+                       BackgroundColor="White" 
+             IconImageSource="{Binding IconPath}">
+    <StackLayout>
+        <controls:FeedNavigationBar IsVisible="{Binding IsVisible}"/>
+        <ScrollView>
+            <ScrollView.Behaviors>
+                <prism:EventToCommandBehavior 
+                    EventName="SizeChanged"
+                    Command="{Binding ScrollSizeChanged}" 
+                    EventArgsConverterParameter="{Binding .}"/>
+                <prism:EventToCommandBehavior 
+                    EventName="Scrolled"
+                    Command="{Binding ScrolledCommand}" 
+                    EventArgsParameterPath="ScrollY"/>
+            </ScrollView.Behaviors>
+            <StackLayout>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+                <Button/>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</local:BaseContentPage>
