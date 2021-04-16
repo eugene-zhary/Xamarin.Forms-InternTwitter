@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Controls.FeedNavigationBar"
+      x:Name="customNavigationBar" Style="{StaticResource CustomNavBar}">
+
+    <Grid.RowDefinitions >
+        <RowDefinition Height="48"/>
+        <RowDefinition Height="1"/>
+    </Grid.RowDefinitions>
+    <Image Source="pic_profile_big" Grid.Column="0" HorizontalOptions="Start" Margin="12,12,12,12" HeightRequest="24">
+        <Image.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding PicProfileTapGestureRecognizer}" CommandParameter="{Binding .}"/>
+        </Image.GestureRecognizers>
+    </Image>
+    <Label Text="Home" Grid.Column="1" Style="{StaticResource Header2}"/>
+    <Image Source="ic_add_blue" Grid.Column="2" HorizontalOptions="End" Margin="15,15,15,15" HeightRequest="18">
+        <Image.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Path=AddPostTapGestureRecognizer, Source={x:Reference customNavigationBar}}" CommandParameter="{Binding .}"/>
+        </Image.GestureRecognizers>
+    </Image>
+    <Line Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" BackgroundColor="{StaticResource Light Grey}"/>
+
+
+</Grid>

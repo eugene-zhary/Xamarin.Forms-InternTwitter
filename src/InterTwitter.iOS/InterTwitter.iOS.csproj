@@ -68,8 +68,8 @@
     <MtouchLink>SdkOnly</MtouchLink>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|iPhoneSimulator'">
-    <OutputPath>bin\iPhoneSimulator\DEV\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|iPhoneSimulator'">
+    <OutputPath>bin\iPhoneSimulator\Dev\</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;DEV;</DefineConstants>
     <Optimize>true</Optimize>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -77,9 +77,11 @@
     <ErrorReport>prompt</ErrorReport>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
+    <CodesignProvision>iOS Team Provisioning Profile: *</CodesignProvision>
+    <CodesignKey>Apple Development: Sergii Gerasymenko (34LZA5X38D)</CodesignKey>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|iPhone'">
-    <OutputPath>bin\iPhone\DEV\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|iPhone'">
+    <OutputPath>bin\iPhone\Dev\</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -88,22 +90,21 @@
     <ErrorReport>prompt</ErrorReport>
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignProvision>iOS Team Provisioning Profile: *</CodesignProvision>
     <CodesignKey>Apple Development: Sergii Gerasymenko (34LZA5X38D)</CodesignKey>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'STAGE|iPhoneSimulator'">
-    <OutputPath>bin\iPhoneSimulator\STAGE\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|iPhoneSimulator'">
+    <OutputPath>bin\iPhoneSimulator\Stage\</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;STAGE;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <LangVersion>8.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <MtouchArch>x86_64</MtouchArch>
+    <RunCodeAnalysis>false</RunCodeAnalysis><MtouchArch>x86_64</MtouchArch>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'STAGE|iPhone'">
-    <OutputPath>bin\iPhone\STAGE\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|iPhone'">
+    <OutputPath>bin\iPhone\Stage\</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -117,6 +118,7 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Controls\TintedImageRenderer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\BorderlessEntryRenderer .cs" />
@@ -190,6 +192,21 @@
       <Project>{9D9964CB-1938-49B7-9048-5070C38B1E16}</Project>
       <Name>InterTwitter</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default-Portrait.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default-Portrait%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_add_blue.png" />
@@ -597,13 +614,12 @@
     <BundleResource Include="Resources\pic_profile_big%403x.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\pic_profile_small.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\pic_profile_small%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\pic_profile_small%403x.png" />
   </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\pic_profile_small.png" />
-  </ItemGroup>
-  <ItemGroup />
 </Project>

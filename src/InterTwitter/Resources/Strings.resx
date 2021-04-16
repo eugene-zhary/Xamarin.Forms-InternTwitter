@@ -132,6 +132,18 @@
   <data name="LogIn" xml:space="preserve">
     <value>Log In</value>
   </data>
+  <data name="LogoutAlertBody" xml:space="preserve">
+    <value>Are you sure that you want to logout?</value>
+  </data>
+  <data name="LogoutAlertCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="LogoutAlertOk" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="LogoutAlertTitle" xml:space="preserve">
+    <value>Logout</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>

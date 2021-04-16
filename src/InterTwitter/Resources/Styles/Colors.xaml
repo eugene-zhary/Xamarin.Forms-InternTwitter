@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Resources.Styles.Colors">
+
+    <Color x:Key="White">#FCFDFE</Color>
+    <Color x:Key="Black">#02060E</Color>
+    <Color x:Key="Dark Grey">#66696E</Color>
+    <Color x:Key="Grey">#9D9FA3</Color>
+    <Color x:Key="Light Grey">#DEDFE1</Color>
+    <Color x:Key="Error">#F44336</Color>
+    <Color x:Key="Primary">#2356C5</Color>
+
+</ResourceDictionary>
+    
+    

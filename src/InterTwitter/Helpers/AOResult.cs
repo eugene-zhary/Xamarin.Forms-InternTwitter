@@ -7,32 +7,25 @@ namespace InterTwitter.Helpers
     public class AOResult
     {
         private readonly DateTime _creationUtcTime;
-
         public AOResult(
             [CallerMemberName] string callerName = null,
             [CallerFilePath] string callerFile = null,
             [CallerLineNumber] int callerLineNumber = 0)
         {
+
+
             _creationUtcTime = DateTime.UtcNow;
             CallerName = callerName;
             CallerFile = callerFile;
             CallerLineNumber = callerLineNumber;
         }
-
         #region -- Public properties --
-
         public TimeSpan OperationTime { get; private set; }
-
         public bool IsSuccess { get; private set; }
-
         public Exception Exception { get; private set; }
-
         public string ErrorId { get; private set; }
-
         public string Message { get; private set; }
-
         public string CallerName { get; private set; }
-
         public string CallerFile { get; private set; }
 
         public int CallerLineNumber { get; private set; }

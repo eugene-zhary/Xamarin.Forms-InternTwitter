@@ -106,6 +106,42 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want to logout?.
+        /// </summary>
+        internal static string LogoutAlertBody {
+            get {
+                return ResourceManager.GetString("LogoutAlertBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string LogoutAlertCancel {
+            get {
+                return ResourceManager.GetString("LogoutAlertCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string LogoutAlertOk {
+            get {
+                return ResourceManager.GetString("LogoutAlertOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        internal static string LogoutAlertTitle {
+            get {
+                return ResourceManager.GetString("LogoutAlertTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {

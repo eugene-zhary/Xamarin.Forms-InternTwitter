@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -89,7 +91,7 @@ namespace InterTwitter.Helpers
             }
 
             _isExecuting = true;
-
+            
             await _command(parameter);
             if (_delayMillisec > 0)
             {
