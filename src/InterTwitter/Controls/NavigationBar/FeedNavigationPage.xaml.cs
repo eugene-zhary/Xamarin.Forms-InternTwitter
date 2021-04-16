@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InterTwitter.Helpers;
+using Prism.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -22,12 +24,8 @@ namespace InterTwitter.Controls
             propertyName: nameof(ImagePath),
             returnType: typeof(string),
             declaringType: typeof(FeedNavigationBar));
+       
 
-        public ICommand PicProfileTapGestureRecognizer => new Command<object>(OnPicProfileTapGestureRecognizer);
-        private static void OnPicProfileTapGestureRecognizer(object obj)
-        {
-            //todo : OpenSidePageCommand
-        }
         public ICommand AddPostTapGestureRecognizer => new Command<object>(OnAddPostTapTapGestureRecognizer);
         private static void OnAddPostTapTapGestureRecognizer(object obj)
         {

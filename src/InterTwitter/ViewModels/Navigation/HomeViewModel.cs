@@ -1,4 +1,5 @@
 ﻿using InterTwitter.Helpers;
+using Prism.Events;
 using Prism.Navigation;
 using System;
 using System.Threading.Tasks;
@@ -9,8 +10,11 @@ namespace InterTwitter.ViewModels.Navigation
 {
     public class HomeViewModel : BaseTabViewModel
     {
-        public HomeViewModel(INavigationService navigation) : base(navigation)
+        private readonly IEventAggregator _eventAggregator;
+
+        public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator) : base(navigation)
         {
+            _eventAggregator = eventAggregator;
             IconPath = "ic_home_gray.png";
         }
 
@@ -28,40 +32,55 @@ namespace InterTwitter.ViewModels.Navigation
 
         #endregion
 
-        private bool _IsVisible = true;
-        public bool IsVisible
+        private Thickness _Margin;
+        public Thickness Margin
         {
-            get => _IsVisible;
-            set => SetProperty(ref _IsVisible, value);
+            get => _Margin;
+            set => SetProperty(ref _Margin, value);
         }
 
-        public ICommand ScrollSizeChanged => new Command<object>(OnScrollSizeChanged);
-        private void OnScrollSizeChanged(object obj)
+        public ICommand PicProfileTapGestureRecognizer => new Command<object>(OnPicProfileTapGestureRecognizer);
+        private void OnPicProfileTapGestureRecognizer(object obj)
         {
-
-            Console.WriteLine();
+            _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(true);
         }
 
         private double OldScrollParameter = 0;
         public ICommand ScrolledCommand => SingleExecutionCommand.FromFunc<double>(OnScrolledCommand, delayMillisec: 200);
-        private Task<double> OnScrolledCommand(double obj)
+        private async Task<double> OnScrolledCommand(double obj)
         {
-            if (Math.Abs(obj - OldScrollParameter) > 60)
+            if (Math.Abs(obj - OldScrollParameter) > 48)
             {
                 if (obj > OldScrollParameter)
                 {
-                    IsVisible = false;
+                    if (Margin.Top != -48)
+                    {
+                        for (int i = 0; i <= 48; i++)
+                        {
+                            Margin = new Thickness(0, -i, 0, 0);
+                            await Task.Delay(1);
+                        }
+                    }
+
                 }
                 else
                 {
-                    IsVisible = true;
+                    if (Margin.Top != 0)
+                    {
+                        for (int i = 48; i >= 0; i--)
+                        {
+                            Margin = new Thickness(0, -i, 0, 0);
+                            await Task.Delay(1);
+                        }
+                    }
+
                 }
                 OldScrollParameter = obj;
 
                 Console.WriteLine(obj);
             }
 
-            return Task.FromResult(.1d);
+            return await Task.FromResult(.1d);
         }
     }
 }
