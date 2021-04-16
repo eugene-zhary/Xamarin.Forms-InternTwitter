@@ -109,6 +109,7 @@ namespace InterTwitter.ViewModels.Flyout
                 _eventAggregator.GetEvent<MenuItemChangedEvent>().Publish(SelectedItem.TargetType);
                 _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(false);
                 ChangeVisualState(SelectedItem.TargetType);
+                SelectedItem = null;
             }
         }
 
