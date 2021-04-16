@@ -51,8 +51,8 @@
     <DefineConstants>
     </DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
-    <OutputPath>bin\DEV\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
+    <OutputPath>bin\Dev\</OutputPath>
     <Optimize>true</Optimize>
     <DebugType></DebugType>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
@@ -66,8 +66,8 @@
 <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
 <AndroidSupportedAbis>armeabi-v7a</AndroidSupportedAbis>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'STAGE|AnyCPU'">
-    <OutputPath>bin\STAGE\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <OutputPath>bin\Stage\</OutputPath>
     <Optimize>true</Optimize>
     <DebugType></DebugType>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
