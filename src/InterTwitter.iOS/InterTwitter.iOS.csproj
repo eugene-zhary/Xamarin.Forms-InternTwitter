@@ -67,8 +67,8 @@
     <MtouchLink>SdkOnly</MtouchLink>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|iPhoneSimulator'">
-    <OutputPath>bin\iPhoneSimulator\DEV\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|iPhoneSimulator'">
+    <OutputPath>bin\iPhoneSimulator\Dev\</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;DEV;</DefineConstants>
     <Optimize>true</Optimize>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -76,9 +76,11 @@
     <ErrorReport>prompt</ErrorReport>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
+    <CodesignProvision>iOS Team Provisioning Profile: *</CodesignProvision>
+    <CodesignKey>Apple Development: Sergii Gerasymenko (34LZA5X38D)</CodesignKey>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|iPhone'">
-    <OutputPath>bin\iPhone\DEV\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|iPhone'">
+    <OutputPath>bin\iPhone\Dev\</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -87,11 +89,10 @@
     <ErrorReport>prompt</ErrorReport>
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignProvision>iOS Team Provisioning Profile: *</CodesignProvision>
     <CodesignKey>Apple Development: Sergii Gerasymenko (34LZA5X38D)</CodesignKey>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'STAGE|iPhoneSimulator'">
-    <OutputPath>bin\iPhoneSimulator\STAGE\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|iPhoneSimulator'">
+    <OutputPath>bin\iPhoneSimulator\Stage\</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;STAGE;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -99,9 +100,10 @@
     <LangVersion>8.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
 <RunCodeAnalysis>false</RunCodeAnalysis><MtouchArch>x86_64</MtouchArch>
+<MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'STAGE|iPhone'">
-    <OutputPath>bin\iPhone\STAGE\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|iPhone'">
+    <OutputPath>bin\iPhone\Stage\</OutputPath>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
