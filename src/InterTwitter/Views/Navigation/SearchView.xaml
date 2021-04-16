@@ -4,12 +4,10 @@
              x:Class="InterTwitter.Views.Navigation.SearchView"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
-             xmlns:local="clr-namespace:InterTwitter.Views"
-             BackgroundColor="White"
+             xmlns:local="clr-namespace:InterTwitter.Views" xmlns:controls="clr-namespace:InterTwitter.Controls"
+                       BackgroundColor="White"
              IconImageSource="{Binding IconPath}">
-    <ContentPage.Content>
-        <Label Text="Search!" TextColor="#02060E"
-               VerticalOptions="CenterAndExpand" 
-               HorizontalOptions="CenterAndExpand" />
-    </ContentPage.Content>
+    <StackLayout>
+        <controls:SearchNavigationPage />
+    </StackLayout>
 </local:BaseContentPage>
