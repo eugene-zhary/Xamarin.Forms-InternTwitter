@@ -18,7 +18,11 @@ namespace InterTwitter.Droid.Renderers
             base.OnElementChanged(e);
 
             if (e.OldElement == null)
+            {
                 Control.Background = null;
+
+                Control.SetPadding(0, 0, 0, 0);
+            }
         }
     }
 }

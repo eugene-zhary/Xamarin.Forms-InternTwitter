@@ -1,4 +1,6 @@
-﻿using InterTwitter.iOS.Renderers;
+﻿using CoreGraphics;
+using InterTwitter.iOS.Renderers;
+using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
@@ -14,6 +16,11 @@ namespace InterTwitter.iOS.Renderers
             if (Control != null)
             {
                 Control.BorderStyle = UIKit.UITextBorderStyle.None;
+
+                Control.LeftView = new UIView(new CGRect(0, 0, 0, 0));
+                Control.LeftViewMode = UITextFieldViewMode.Always;
+                Control.RightView = new UIView(new CGRect(0, 0, 0, 0));
+                Control.RightViewMode = UITextFieldViewMode.Always;
             }
         }
     }
