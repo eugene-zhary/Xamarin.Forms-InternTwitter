@@ -61,6 +61,15 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This field cannot be blank!.
+        /// </summary>
+        internal static string CannotBeBlank {
+            get {
+                return ResourceManager.GetString("CannotBeBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         internal static string Confirm {
@@ -84,6 +93,15 @@ namespace InterTwitter.Resources {
         internal static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email! It should contain @ and a domain..
+        /// </summary>
+        internal static string EmailInputError {
+            get {
+                return ResourceManager.GetString("EmailInputError", resourceCulture);
             }
         }
         
@@ -151,11 +169,38 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name should contain only latin characters!.
+        /// </summary>
+        internal static string NameInputError {
+            get {
+                return ResourceManager.GetString("NameInputError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There mustn&apos;t be whitespaces inside your name!.
+        /// </summary>
+        internal static string NameMustNotContainWhitespace {
+            get {
+                return ResourceManager.GetString("NameMustNotContainWhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weak password: use at least 6 symbols, 1 upper case and 1 digit..
+        /// </summary>
+        internal static string PasswordInputInvalid {
+            get {
+                return ResourceManager.GetString("PasswordInputInvalid", resourceCulture);
             }
         }
         

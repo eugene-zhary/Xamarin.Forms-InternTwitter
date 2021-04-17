@@ -5,6 +5,9 @@
                        xmlns:views="clr-namespace:InterTwitter.Views;assembly=InterTwitter"
                        xmlns:resource="clr-namespace:InterTwitter.Resources;assembly=InterTwitter"
                        xmlns:controls="clr-namespace:InterTwitter.Controls;assembly=InterTwitter"
+                       xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                       xmlns:behaviors="clr-namespace:InterTwitter.Behaviors;assembly=InterTwitter"
+                       ios:Page.UseSafeArea="True"
                        prism:ViewModelLocator.AutowireViewModel="True"
                        x:Class="InterTwitter.Views.SignUpPage">
 
@@ -16,33 +19,54 @@
 
         <Image Grid.Row="0"
                Grid.ColumnSpan="3"
-               Source="pic_logo_small.png"
-               HeightRequest="50"/>
+               Source="pic_logo_small.png"/>
 
         <Label Grid.Row="1"
                Grid.ColumnSpan="3"
                HorizontalOptions="Center"
-               Margin="0,10,0,100"
-               Text="{x:Static resource:Strings.GetYourAccount}"/>
+               Margin="0,10,0,80"
+               Text="{x:Static resource:Strings.GetYourAccount}"
+               Style="{StaticResource Header2}"
+               TextColor="{StaticResource Primary}"/>
 
-        <StackLayout Grid.Row="2"
-                     Grid.ColumnSpan="3"
-                     Spacing="35">
+        <Grid Grid.Row="2"
+              Grid.ColumnSpan="3"
+              RowDefinitions="0.5*, 0.5*"
+              RowSpacing="10">
 
-            <controls:RegisteringEntry/>
+            <controls:RegisteringEntry Grid.Row="0"
+                                       Text="{Binding Name}"
+                                       Placeholder="{x:Static resource:Strings.Name}"
+                                       ErrorText="{x:Static resource:Strings.NameInputError}">
 
-            <controls:RegisteringEntry/>
+                <controls:RegisteringEntry.Behaviors>
+                    <behaviors:NameValidationBehavior/>
+                </controls:RegisteringEntry.Behaviors>
 
-        </StackLayout>
+            </controls:RegisteringEntry>
+
+            <controls:RegisteringEntry Grid.Row="1"
+                                       Text="{Binding Email}"
+                                       Placeholder="{x:Static resource:Strings.Email}"
+                                       ErrorText="{x:Static resource:Strings.EmailInputError}">
+
+                <controls:RegisteringEntry.Behaviors>
+                    <behaviors:EmailValidationBehavior/>
+                </controls:RegisteringEntry.Behaviors>
+
+            </controls:RegisteringEntry>
+
+        </Grid>
 
         <StackLayout Grid.Row="3"
                      Grid.Column="1"
                      Spacing="20"
                      Margin="0, 75">
 
-            <Frame CornerRadius="50"
+            <Frame HasShadow="False"
                    Padding="15"
-                   BackgroundColor="#2356C5">
+                   BackgroundColor="{StaticResource Primary}"
+                   CornerRadius="25">
 
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SignUpCommand}"/>
@@ -50,13 +74,14 @@
 
                 <Label HorizontalOptions="Center"
                        Text="{x:Static resource:Strings.SignUp}"
-                       TextColor="White"
-                       FontAttributes="Bold"/>
+                       Style="{StaticResource Button}"
+                       TextColor="{StaticResource White}"/>
             </Frame>
 
             <Label HorizontalOptions="Center"
-                   Text="{x:Static resource:Strings.LogIn}" 
-                   TextColor="#2356C5"/>
+                   Text="{x:Static resource:Strings.LogIn}"
+                   Style="{StaticResource Button}"
+                   TextColor="{StaticResource Primary}"/>
 
         </StackLayout>
 

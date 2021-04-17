@@ -1,5 +1,7 @@
+using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
+using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
 using Prism;
@@ -34,7 +36,7 @@ namespace InterTwitter
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync(nameof(SignUpPage));
+            NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignUpPage)}");
         }
 
         protected override void OnStart()
