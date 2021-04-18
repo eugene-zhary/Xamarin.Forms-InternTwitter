@@ -9,7 +9,7 @@
                        xmlns:behaviors="clr-namespace:InterTwitter.Behaviors;assembly=InterTwitter"
                        ios:Page.UseSafeArea="True"
                        prism:ViewModelLocator.AutowireViewModel="True"
-                       x:Class="InterTwitter.Views.SignUpPage">
+                       x:Class="InterTwitter.Views.SignUpStartPage">
 
     <Grid VerticalOptions="FillAndExpand"
           HorizontalOptions="FillAndExpand"
@@ -25,7 +25,7 @@
                Grid.ColumnSpan="3"
                HorizontalOptions="Center"
                Margin="0,10,0,80"
-               Text="{x:Static resource:Strings.GetYourAccount}"
+               Text="{x:Static resource:Strings.CreateYourAccount}"
                Style="{StaticResource Header2}"
                TextColor="{StaticResource Primary}"/>
 
@@ -37,7 +37,7 @@
             <controls:RegisteringEntry Grid.Row="0"
                                        Text="{Binding Name}"
                                        Placeholder="{x:Static resource:Strings.Name}"
-                                       ErrorText="{x:Static resource:Strings.NameInputError}">
+                                       MaxLength="30">
 
                 <controls:RegisteringEntry.Behaviors>
                     <behaviors:NameValidationBehavior/>
@@ -47,8 +47,7 @@
 
             <controls:RegisteringEntry Grid.Row="1"
                                        Text="{Binding Email}"
-                                       Placeholder="{x:Static resource:Strings.Email}"
-                                       ErrorText="{x:Static resource:Strings.EmailInputError}">
+                                       Placeholder="{x:Static resource:Strings.Email}">
 
                 <controls:RegisteringEntry.Behaviors>
                     <behaviors:EmailValidationBehavior/>
@@ -81,7 +80,13 @@
             <Label HorizontalOptions="Center"
                    Text="{x:Static resource:Strings.LogIn}"
                    Style="{StaticResource Button}"
-                   TextColor="{StaticResource Primary}"/>
+                   TextColor="{StaticResource Primary}">
+
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LogInCommand}"/>
+                </Label.GestureRecognizers>
+
+            </Label>
 
         </StackLayout>
 

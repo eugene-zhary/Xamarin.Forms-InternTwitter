@@ -1,8 +1,8 @@
 ﻿namespace InterTwitter.Views
 {
-    public partial class SignUpPage : BaseContentPage
+    public partial class SignUpEndPage : BaseContentPage
     {
-        public SignUpPage()
+        public SignUpEndPage()
         {
             InitializeComponent();
         }

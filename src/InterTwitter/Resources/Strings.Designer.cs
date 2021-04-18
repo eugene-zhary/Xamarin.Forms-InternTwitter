@@ -61,11 +61,20 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This field cannot be blank!.
+        ///   Looks up a localized string similar to Please, type your email.
         /// </summary>
-        internal static string CannotBeBlank {
+        internal static string BlankEmailError {
             get {
-                return ResourceManager.GetString("CannotBeBlank", resourceCulture);
+                return ResourceManager.GetString("BlankEmailError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please, type your name.
+        /// </summary>
+        internal static string BlankNameError {
+            get {
+                return ResourceManager.GetString("BlankNameError", resourceCulture);
             }
         }
         
@@ -88,6 +97,24 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create your account.
+        /// </summary>
+        internal static string CreateYourAccount {
+            get {
+                return ResourceManager.GetString("CreateYourAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords do not match.
+        /// </summary>
+        internal static string DoNotMatch {
+            get {
+                return ResourceManager.GetString("DoNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         internal static string Email {
@@ -106,6 +133,15 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have empty fields! Please, fill them..
+        /// </summary>
+        internal static string EmptyFieldsError {
+            get {
+                return ResourceManager.GetString("EmptyFieldsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Get your account.
         /// </summary>
         internal static string GetYourAccount {
@@ -115,11 +151,29 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use at least 1 uppercase letter and 1 digit.
+        /// </summary>
+        internal static string InvalidPasswordMessage {
+            get {
+                return ResourceManager.GetString("InvalidPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log In.
         /// </summary>
         internal static string LogIn {
             get {
                 return ResourceManager.GetString("LogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log In error!.
+        /// </summary>
+        internal static string LogInErrorTitle {
+            get {
+                return ResourceManager.GetString("LogInErrorTitle", resourceCulture);
             }
         }
         
@@ -187,6 +241,15 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string Password {
@@ -205,11 +268,38 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type at least 6 symbols.
+        /// </summary>
+        internal static string PasswordLengthError {
+            get {
+                return ResourceManager.GetString("PasswordLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign Up.
         /// </summary>
         internal static string SignUp {
             get {
                 return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your inputs are not valid! Please, check them once more and try again!.
+        /// </summary>
+        internal static string SignUpErrorMessage {
+            get {
+                return ResourceManager.GetString("SignUpErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Up error!.
+        /// </summary>
+        internal static string SignUpErrorTitle {
+            get {
+                return ResourceManager.GetString("SignUpErrorTitle", resourceCulture);
             }
         }
         
