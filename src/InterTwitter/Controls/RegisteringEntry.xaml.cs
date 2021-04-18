@@ -121,6 +121,23 @@ namespace InterTwitter.Controls
             set => SetValue(IsErrorTextVisibleProperty, value);
         }
 
+        public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(
+            propertyName: nameof(MaxLength),
+            returnType: typeof(int),
+            declaringType: typeof(RegisteringEntry),
+            defaultValue: default(int),
+            defaultBindingMode: BindingMode.TwoWay);
+
+        public int MaxLength
+        {
+            get => (int) GetValue(MaxLengthProperty);
+            set
+            {
+                SetValue(MaxLengthProperty, value); 
+                OnPropertyChanged(nameof(MaxLength));
+            }
+        }
+
         private ICommand _clearClickedCommand;
         public ICommand ClearClickedCommand =>
             _clearClickedCommand ??= SingleExecutionCommand.FromFunc(OnClearClicked);
@@ -165,6 +182,11 @@ namespace InterTwitter.Controls
 
                 CorrectEntryWidth();
             }
+
+            if (propertyName == nameof(MaxLength))
+            {
+                BorderlessEntry.MaxLength = MaxLength;
+            }
         }
 
         #endregion
@@ -174,7 +196,11 @@ namespace InterTwitter.Controls
         private Task OnClearClicked()
         {
             Text = string.Empty;
-            OnBorderlessEntryUnfocused(BorderlessEntry, EventArgs.Empty);
+
+            if (!BorderlessEntry.Focus())
+            {
+                OnBorderlessEntryUnfocused(BorderlessEntry, EventArgs.Empty);
+            }
 
             return Task.CompletedTask;
         }
