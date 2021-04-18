@@ -35,7 +35,7 @@ namespace InterTwitter.Behaviors
 
                 if (string.IsNullOrWhiteSpace(preparedInput))
                 {
-                    SetEntryStyles(registeringEntry, true, Color.Red, Strings.CannotBeBlank);
+                    SetEntryStyles(registeringEntry, true, Color.Red, Strings.BlankNameError);
                 }
                 else if (preparedInput.Contains(" "))
                 {

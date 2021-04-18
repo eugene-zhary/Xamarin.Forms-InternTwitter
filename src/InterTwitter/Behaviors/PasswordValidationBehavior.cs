@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace InterTwitter.Behaviors
 {
-    class EmailValidationBehavior : Behavior<RegisteringEntry>
+    class PasswordValidationBehavior : Behavior<RegisteringEntry>
     {
         #region -- Overrides --
 
@@ -27,27 +27,34 @@ namespace InterTwitter.Behaviors
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
+            var password = e.NewTextValue;
+
             if (sender is RegisteringEntry registeringEntry)
             {
-                var preparedInput = e.NewTextValue.Trim();
-
-                if (string.IsNullOrWhiteSpace(preparedInput))
+                if (password.Length < 6)
                 {
-                    registeringEntry.IsErrorTextVisible = true;
-                    registeringEntry.UnderlineColor = Color.Red;
-                    registeringEntry.ErrorText = Strings.BlankEmailError;
+                    SetEntryStyles(registeringEntry, true, Color.Red, Strings.PasswordLengthError);
                 }
-                else if (!StringValidator.Validate(preparedInput, StringValidator.Email))
+                else if (!StringValidator.Validate(password, StringValidator.Password))
                 {
-                    registeringEntry.IsErrorTextVisible = true;
-                    registeringEntry.UnderlineColor = Color.Red;
-                    registeringEntry.ErrorText = Strings.EmailInputError;
+                    SetEntryStyles(registeringEntry, true, Color.Red, Strings.InvalidPasswordMessage);
                 }
                 else
                 {
-                    registeringEntry.IsErrorTextVisible = false;
-                    registeringEntry.UnderlineColor = Color.Black;
+                    SetEntryStyles(registeringEntry, false, Color.Black);
                 }
+            }
+        }
+
+        private void SetEntryStyles(RegisteringEntry entry, bool isErrorTextVisible, Color underlineColor,
+            string errorText = null)
+        {
+            entry.IsErrorTextVisible = isErrorTextVisible;
+            entry.UnderlineColor = underlineColor;
+
+            if (errorText != null)
+            {
+                entry.ErrorText = errorText;
             }
         }
 
