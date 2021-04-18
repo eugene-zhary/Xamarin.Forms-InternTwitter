@@ -32,7 +32,6 @@ namespace InterTwitter.Controls
             base.OnScrolled(e);
 
             ScrollState = (e.VerticalOffset > _scrolledOffset) ? EScrollState.ScrollDown : EScrollState.ScrollUp;
-
             _scrolledOffset = e.VerticalOffset;
         }
 

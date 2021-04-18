@@ -9,6 +9,7 @@ namespace InterTwitter.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FeedNavigationBar : Grid
     {
+
         public FeedNavigationBar()
         {
             InitializeComponent();
@@ -56,14 +57,21 @@ namespace InterTwitter.Controls
 
             if(navBar != null && oldState != newState)
             {
-                if(newState == EScrollState.ScrollUp)
-                {
+                TranslatePosition(navBar, newState);
+            }
+        }
+
+        private static void TranslatePosition(FeedNavigationBar navBar, EScrollState state)
+        {
+            switch(state)
+            {
+                case EScrollState.ScrollUp:
                     navBar.TranslateTo(0, 0);
-                }
-                else
-                {
+                    break;
+
+                case EScrollState.ScrollDown:
                     navBar.TranslateTo(0, -navBar.Height);
-                }
+                    break;
             }
         }
 

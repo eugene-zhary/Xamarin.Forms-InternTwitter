@@ -33,13 +33,6 @@ namespace InterTwitter.ViewModels.Navigation
 
         public ObservableCollection<Post> PostCollection { get; set; }
 
-        private EScrollState _scrollState;
-        public EScrollState ScrollState
-        {
-            get => _scrollState;
-            set => SetProperty(ref _scrollState, value, nameof(ScrollState));
-        }
-
         private Thickness _Margin;
         public Thickness Margin
         {
@@ -58,14 +51,12 @@ namespace InterTwitter.ViewModels.Navigation
         {
             base.Initialize(parameters);
 
-            // TODO: ask why it doesn't work
-            //UpdateColleciton();
+            UpdateColleciton();
         }
 
         public override void OnAppearing()
         {
             IconPath = "ic_home_blue.png";
-            UpdateColleciton();
         }
 
         public override void OnDisappearing()
@@ -83,6 +74,7 @@ namespace InterTwitter.ViewModels.Navigation
             var mockPosts = _mockManager.GetPosts();
             mockPosts.ToList().ForEach(PostCollection.Add);
         }
+
 
 
         private void OnPicProfileTapGestureRecognizer(object obj)
