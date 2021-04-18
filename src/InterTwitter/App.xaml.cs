@@ -1,4 +1,5 @@
-﻿using InterTwitter.ViewModels.Flyout;
+﻿using InterTwitter.Services;
+using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
@@ -19,6 +20,8 @@ namespace InterTwitter
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterInstance<IMockManager>(Container.Resolve<MockManager>());
+
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<FlyoutMenuView, FlyoutMenuViewModel>();
             containerRegistry.RegisterForNavigation<FlyoutTabbedView, FlyoutTabbedViewMode>();
@@ -29,11 +32,11 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
         }
 
-        protected override void OnInitialized()
+        protected override async void OnInitialized()
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync($"{nameof(FlyoutNavigationView)}");
+            await NavigationService.NavigateAsync($"{nameof(FlyoutNavigationView)}");
         }
 
         protected override void OnStart()

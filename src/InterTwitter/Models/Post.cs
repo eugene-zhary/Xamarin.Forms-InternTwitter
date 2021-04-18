@@ -4,7 +4,7 @@ using InterTwitter.Enums;
 
 namespace InterTwitter.Models
 {
-    class Post : IEntityBase
+    public class Post : IEntityBase
     {
         public int Id { get; set; }
 

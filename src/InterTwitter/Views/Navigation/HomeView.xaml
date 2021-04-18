@@ -5,41 +5,37 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:local="clr-namespace:InterTwitter.Views"
-                       xmlns:controls="clr-namespace:InterTwitter.Controls"
-                       BackgroundColor="White" 
+             xmlns:controls="clr-namespace:InterTwitter.Controls"
              IconImageSource="{Binding IconPath}">
-    <StackLayout BackgroundColor="{StaticResource White}">
-        <controls:FeedNavigationBar Margin="{Binding Margin}"/>
-        <ScrollView Margin="{Binding Margin}">
-            <ScrollView.Behaviors>
-                <prism:EventToCommandBehavior 
-                    EventName="SizeChanged"
-                    Command="{Binding ScrollSizeChanged}" 
-                    EventArgsConverterParameter="{Binding .}"/>
-                <prism:EventToCommandBehavior 
-                    EventName="Scrolled"
-                    Command="{Binding ScrolledCommand}" 
-                    EventArgsParameterPath="ScrollY"/>
-            </ScrollView.Behaviors>
-            <StackLayout>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-            </StackLayout>
-        </ScrollView>
-    </StackLayout>
+    <Grid RowSpacing="0">
+
+        <controls:CustomCollectionView ItemsSource="{Binding PostCollection}" ItemsUpdatingScrollMode="KeepItemsInView"
+                                       ScrollState="{Binding ScrollState}">
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="{Binding Text}" Style="{StaticResource Body1}"/>
+                        <Image Grid.Row="1" Source="pic_empty_state.png"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </controls:CustomCollectionView>
+
+        <controls:FloationActionButton ScrollState="{Binding ScrollState}"
+                                       VerticalOptions="End" HorizontalOptions="End" 
+                                       ImageSource="ic_add_white.png"
+                                       Margin="30" HeightRequest="55" WidthRequest="55"
+                                       CornerRadius="30" BackgroundColor="#2356C5"/>
+
+        <controls:FeedNavigationBar VerticalOptions="Start" HorizontalOptions="FillAndExpand"
+                                    Margin="{Binding Margin}" ScrollState="{Binding ScrollState}"/>
+        
+    </Grid>
 </local:BaseContentPage>

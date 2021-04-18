@@ -6,6 +6,7 @@ using Prism;
 using Prism.Ioc;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using AndroidX.AppCompat.App;
 
 namespace InterTwitter.Droid
 {
@@ -20,6 +21,9 @@ namespace InterTwitter.Droid
 
             Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
+
+            AppCompatDelegate.DefaultNightMode = AppCompatDelegate.ModeNightNo;
+
             LoadApplication(new App(new AndroidInitializer()));
         }
 

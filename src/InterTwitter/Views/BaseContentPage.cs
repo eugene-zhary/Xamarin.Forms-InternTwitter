@@ -9,10 +9,6 @@ namespace InterTwitter.Views
         public BaseContentPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
-
-            ViewModelLocator.SetAutowireViewModel(this, true);
-
-            BackgroundColor = Color.Red;
         }
 
         #region -- Overrides --
