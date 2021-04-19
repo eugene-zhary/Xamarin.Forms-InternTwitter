@@ -133,14 +133,22 @@ namespace InterTwitter.ViewModels
                             ProfileImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
                         };
 
-                        await _userService.InsertUserAsync(newUser);
+                        var insertionResult = await _userService.InsertUserAsync(newUser);
 
-                        var parameters = new NavigationParameters
+                        if (insertionResult.IsSuccess)
                         {
-                            {nameof(User), newUser}
-                        };
+                            var parameters = new NavigationParameters
+                            {
+                                {nameof(User), newUser}
+                            };
                         
-                        await NavigationService.NavigateAsync(nameof(SignInPage), parameters);
+                            await NavigationService.NavigateAsync(nameof(SignInPage), parameters);
+                        }
+                        else
+                        {
+                            await _pageDialogService.DisplayAlertAsync(Strings.SignUpErrorTitle,
+                                insertionResult.Message, Strings.Ok);
+                        }
                     }
                     else
                     {

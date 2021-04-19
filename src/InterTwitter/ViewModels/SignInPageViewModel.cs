@@ -4,8 +4,11 @@ using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Resources;
 using InterTwitter.Services.UserService;
+using InterTwitter.Views;
+using InterTwitter.Views.Flyout;
 using Prism.Navigation;
 using Prism.Services;
+using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels
 {
@@ -42,6 +45,9 @@ namespace InterTwitter.ViewModels
         private ICommand _signInCommand;
         public ICommand SignInCommand => _signInCommand ??= SingleExecutionCommand.FromFunc(OnSignIn);
 
+        private ICommand _signUpCommand;
+        public ICommand SignUpCommand => _signUpCommand ??= SingleExecutionCommand.FromFunc(OnSignUp);
+
         #endregion
 
         #region -- Overrides --
@@ -65,14 +71,31 @@ namespace InterTwitter.ViewModels
             if (!string.IsNullOrWhiteSpace(Email) &&
                 !string.IsNullOrEmpty(Password))
             {
-                // todo : check user through service and if success then
-                // await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(FlyoutNavigationView)}");
+                Email = Email.Trim();
+
+                var result = await _userService.GetUserAsync(u => u.Email == Email && u.Password == Password);
+
+                if (result.IsSuccess)
+                {
+                    var authorizedUser = result.Result;
+                    await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
+                }
+                else
+                {
+                    await _pageDialogService.DisplayAlertAsync(Strings.LogInErrorTitle, Strings.NoSuchUser, Strings.Ok);
+                }
+
             }
             else
             {
                 await _pageDialogService.DisplayAlertAsync(Strings.LogInErrorTitle, Strings.EmptyFieldsError,
                     Strings.Ok);
             }
+        }
+
+        private async Task OnSignUp()
+        {
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignUpStartPage)}");
         }
 
         #endregion
