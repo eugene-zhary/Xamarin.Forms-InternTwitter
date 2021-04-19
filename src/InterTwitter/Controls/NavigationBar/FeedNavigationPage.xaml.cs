@@ -1,5 +1,4 @@
 ﻿using InterTwitter.Enums;
-using System;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -9,7 +8,6 @@ namespace InterTwitter.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FeedNavigationBar : Grid
     {
-
         public FeedNavigationBar()
         {
             InitializeComponent();
@@ -66,11 +64,12 @@ namespace InterTwitter.Controls
             switch(state)
             {
                 case EScrollState.ScrollUp:
-                    navBar.TranslateTo(0, 0);
+                    
+                    navBar.TranslateTo(0, 0, easing: Easing.Linear);
                     break;
 
                 case EScrollState.ScrollDown:
-                    navBar.TranslateTo(0, -navBar.Height);
+                    navBar.TranslateTo(0, -navBar.Height, easing: Easing.Linear);
                     break;
             }
         }

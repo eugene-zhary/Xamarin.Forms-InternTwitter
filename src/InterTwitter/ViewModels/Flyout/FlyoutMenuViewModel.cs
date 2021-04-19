@@ -1,8 +1,10 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Resources;
+using InterTwitter.Views;
 using InterTwitter.Views.Navigation;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -18,7 +20,6 @@ namespace InterTwitter.ViewModels.Flyout
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IPageDialogService _pageDialog;
-
         public FlyoutMenuViewModel(IEventAggregator aggregator, IPageDialogService pageDialog)
         {
             _eventAggregator = aggregator;
@@ -70,7 +71,6 @@ namespace InterTwitter.ViewModels.Flyout
 
         private ICommand _logoutCommand;
         public ICommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogout);
-
 
         #endregion
 

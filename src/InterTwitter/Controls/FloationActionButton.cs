@@ -1,7 +1,4 @@
 ﻿using InterTwitter.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace InterTwitter.Controls
@@ -34,11 +31,11 @@ namespace InterTwitter.Controls
             {
                 if(newState == EScrollState.ScrollUp)
                 {
-                    button.TranslateTo(0, 100);
+                    button.TranslateTo(0, 100, easing: Easing.Linear);
                 }
                 else
                 {
-                    button.TranslateTo(0, 0);
+                    button.TranslateTo(0, 0, easing: Easing.Linear);
                 }
             }
         }

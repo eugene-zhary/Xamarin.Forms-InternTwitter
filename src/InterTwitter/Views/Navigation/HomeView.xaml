@@ -7,40 +7,36 @@
              xmlns:local="clr-namespace:InterTwitter.Views"
              xmlns:controls="clr-namespace:InterTwitter.Controls"
              xmlns:behaviors ="clr-namespace:InterTwitter.Behaviors"
+             xmlns:templates="clr-namespace:InterTwitter.Views.Templates"
              BackgroundColor="White"
              IconImageSource="{Binding IconPath}">
-    <local:BaseContentPage.Behaviors>
+    <ContentPage.Behaviors>
         <behaviors:TabPageBehavior/>
-    </local:BaseContentPage.Behaviors>
+    </ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <templates:PostDataTemplate x:Key="postDataTemplate"/>
+    </ContentPage.Resources>
     <Grid>
-        <controls:CustomCollectionView ItemsSource="{Binding PostCollection}" x:Name="collectionView">
+        
+        <!-- COLLECTION VIEW -->
+        <controls:CustomCollectionView x:Name="collectionView" 
+                                       ItemsSource="{Binding PostCollection}"
+                                       ItemTemplate="{StaticResource postDataTemplate}">
             <controls:CustomCollectionView.Header>
                 <BoxView HeightRequest="55" BackgroundColor="White"/>
             </controls:CustomCollectionView.Header>
-
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="200"/>
-                        </Grid.RowDefinitions>
-
-                        <Label Text="{Binding Text}" Style="{StaticResource Body1}"/>
-                        <Image Grid.Row="1" Source="pic_empty_state.png"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-
         </controls:CustomCollectionView>
 
+        <!-- FLOATING ACTION BUTTON -->
         <controls:FloationActionButton ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
-                                       VerticalOptions="End" HorizontalOptions="End" 
-                                       ImageSource="ic_add_white.png"
+                                       VerticalOptions="End" HorizontalOptions="End" ImageSource="ic_add_white.png"
                                        Margin="30" HeightRequest="55" WidthRequest="55"
-                                       CornerRadius="30" BackgroundColor="#2356C5"/>
+                                       CornerRadius="30" BackgroundColor="{StaticResource Primary}"/>
 
+        
+        <!-- NAVIGATION BAR -->
         <controls:FeedNavigationBar VerticalOptions="Start" HorizontalOptions="FillAndExpand" ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
                                     Margin="{Binding Margin}"/>
+
     </Grid>
 </local:BaseContentPage>

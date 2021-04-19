@@ -1,8 +1,6 @@
-﻿using InterTwitter.Models;
-using System;
+﻿using InterTwitter.Enums;
+using InterTwitter.Models;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InterTwitter.Services
 {
@@ -14,22 +12,27 @@ namespace InterTwitter.Services
             {
                 new Post
                 {
+                    MediaType = EMediaType.Photo,
                     Text = "comming soon..."
                 },
                 new Post
                 {
+                    MediaType = EMediaType.Gif,
                     Text = "comming soon..."
                 },
                 new Post
                 {
+                    MediaType = EMediaType.Video,
                     Text = "comming soon..."
                 },
                 new Post
                 {
+                    MediaType = EMediaType.Photo,
                     Text = "comming soon..."
                 },
                 new Post
                 {
+                    MediaType = EMediaType.Video,
                     Text = "comming soon..."
                 },
             };

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Views.Templates.PostDataTemplate">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Image Source="https://static-s.aa-cdn.net/img/ios/985085520/4a524a664a06eed6202a2f51c5e47f6d?v=1"/>
+
+        <StackLayout Grid.Column="1">
+            <Label Text="Big Baby"/>
+            <Label Text="{Binding Text}"/>
+        </StackLayout>
+    </Grid>
+</DataTemplate>
