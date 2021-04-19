@@ -1,6 +1,7 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Services;
+using InterTwitter.ViewModels.Posts;
 using Prism.Events;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
@@ -13,20 +14,20 @@ namespace InterTwitter.ViewModels.Navigation
     public class HomeViewModel : BaseTabViewModel
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly IMockManager _mockManager;
+        private readonly IPostManager _postManager;
         
-        public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator, IMockManager mockManager) : base(navigation)
+        public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator, IPostManager postManager) : base(navigation)
         {
             _eventAggregator = eventAggregator;
-            _mockManager = mockManager;
+            _postManager = postManager;
 
             IconPath = "ic_home_gray.png";
-            PostCollection = new ObservableCollection<Post>();
+            PostCollection = new ObservableCollection<BasePostViewModel>();
         }
 
         #region -- Public region --
 
-        public ObservableCollection<Post> PostCollection { get; set; }
+        public ObservableCollection<BasePostViewModel> PostCollection { get; set; }
 
         private Thickness _Margin;
         public Thickness Margin
@@ -65,8 +66,9 @@ namespace InterTwitter.ViewModels.Navigation
         private void UpdateColleciton()
         {
             PostCollection.Clear();
-            var mockPosts = _mockManager.GetPosts();
-            mockPosts.ToList().ForEach(PostCollection.Add);
+
+            var posts = _postManager.GetPosts();
+            posts.ToList().ForEach(PostCollection.Add);
         }
 
         private void OnPicProfileTapGestureRecognizer()

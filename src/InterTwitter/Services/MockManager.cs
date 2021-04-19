@@ -6,34 +6,48 @@ namespace InterTwitter.Services
 {
     public class MockManager : IMockManager
     {
-        public IEnumerable<Post> GetPosts()
+        // random pictures :
+        //https://picsum.photos/400/400/?random
+
+        public IEnumerable<Post> GetMockedPosts()
         {
             var mock = new List<Post>
             {
                 new Post
                 {
                     MediaType = EMediaType.Photo,
-                    Text = "comming soon..."
-                },
-                new Post
-                {
-                    MediaType = EMediaType.Gif,
-                    Text = "comming soon..."
-                },
-                new Post
-                {
-                    MediaType = EMediaType.Video,
-                    Text = "comming soon..."
+                    Text = "comming soon...",
+                    MediaPaths = new List<string>
+                    {
+                        "https://i.picsum.photos/id/959/400/400.jpg?hmac=j0GPhzbNUAQj4NRpMirUEUwNEbvFCxEiUPyXucYpBHg"
+                    }
                 },
                 new Post
                 {
                     MediaType = EMediaType.Photo,
-                    Text = "comming soon..."
+                    Text = "comming soon...",
+                    MediaPaths = new List<string>
+                    {
+                        "https://i.picsum.photos/id/565/400/400.jpg?hmac=u7Whpa6_lgizpVIu4_25vL1BSD-lz3EZl0Ipaj4445E"
+                    }
                 },
                 new Post
                 {
-                    MediaType = EMediaType.Video,
-                    Text = "comming soon..."
+                    MediaType = EMediaType.Photo,
+                    Text = "comming soon...",
+                    MediaPaths = new List<string>
+                    {
+                        "https://i.picsum.photos/id/1040/400/400.jpg?hmac=vOoeuciVz-_9Ejrgf5PpfD1ic7vTu0GYm3kn8BxdrHs"
+                    }
+                },
+                new Post
+                {
+                    MediaType = EMediaType.Photo,
+                    Text = "comming soon...",
+                    MediaPaths = new List<string>
+                    {
+                        "https://i.picsum.photos/id/904/400/400.jpg?hmac=f6UILh_efUs-iFYkEzhc1EFcHjQBgidgfhFwBbScofs"
+                    }
                 },
             };
 

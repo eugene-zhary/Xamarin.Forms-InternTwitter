@@ -5,6 +5,6 @@ namespace InterTwitter.Services
 {
     public interface IMockManager
     {
-        IEnumerable<Post> GetPosts();
+        IEnumerable<Post> GetMockedPosts();
     }
 }

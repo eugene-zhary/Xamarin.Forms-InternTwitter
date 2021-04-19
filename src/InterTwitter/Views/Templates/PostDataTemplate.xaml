@@ -1,23 +1,42 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InterTwitter.Views.Templates.PostDataTemplate">
-    <Grid>
+             x:Class="InterTwitter.Views.Templates.PostDataTemplate"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+    <Grid Padding="15,15,15,0" ColumnSpacing="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="300"/>
+            <RowDefinition Height="240"/>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="1"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Image Source="https://static-s.aa-cdn.net/img/ios/985085520/4a524a664a06eed6202a2f51c5e47f6d?v=1"/>
+        <ffimageloading:CachedImage Source="https://static-s.aa-cdn.net/img/ios/985085520/4a524a664a06eed6202a2f51c5e47f6d?v=1" VerticalOptions="Start">
+            <ffimageloading:CachedImage.Transformations>
+                <fftransformations:CircleTransformation/>
+            </ffimageloading:CachedImage.Transformations>
+        </ffimageloading:CachedImage>
 
-        <StackLayout Grid.Column="1">
+        <StackLayout Grid.Column="1" VerticalOptions="Start">
             <Label Text="Big Baby"/>
             <Label Text="{Binding Text}"/>
         </StackLayout>
+
+        <ffimageloading:CachedImage Source="{Binding PhotoSource}" Grid.Row="1" Grid.Column="1" Aspect="Fill">
+            <ffimageloading:CachedImage.Transformations>
+                <fftransformations:CornersTransformation CornersTransformType="AllRounded"
+                                                         TopLeftCornerSize="3" TopRightCornerSize="3"
+                                                         BottomLeftCornerSize="3" BottomRightCornerSize="3"/>
+            </ffimageloading:CachedImage.Transformations>
+        </ffimageloading:CachedImage>
+
+        <Label Grid.Row="2" Grid.Column="1" Text="todo: datetime, likes, bookmarks" VerticalOptions="Center" HorizontalOptions="Center"/>
+
+        <BoxView Grid.Row="3" BackgroundColor="#DEDFE1" Grid.ColumnSpan="2" Margin="-15,0"/>
     </Grid>
 </DataTemplate>

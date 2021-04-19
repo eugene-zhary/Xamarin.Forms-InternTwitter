@@ -39,7 +39,6 @@ namespace InterTwitter.Controls
 
         #endregion
 
-
         #region -- Private helpers --
 
         private static void OnAddPostTapTapGestureRecognizer(object obj)
