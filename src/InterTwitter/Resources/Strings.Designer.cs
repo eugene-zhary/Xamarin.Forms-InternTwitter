@@ -241,6 +241,15 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There&apos;s no any user with such email and password! Please, check your inputs once more or visit Sign Up page..
+        /// </summary>
+        internal static string NoSuchUser {
+            get {
+                return ResourceManager.GetString("NoSuchUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         internal static string Ok {
@@ -300,6 +309,15 @@ namespace InterTwitter.Resources {
         internal static string SignUpErrorTitle {
             get {
                 return ResourceManager.GetString("SignUpErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with this email already exists!.
+        /// </summary>
+        internal static string SuchUserAlreadyExists {
+            get {
+                return ResourceManager.GetString("SuchUserAlreadyExists", resourceCulture);
             }
         }
         

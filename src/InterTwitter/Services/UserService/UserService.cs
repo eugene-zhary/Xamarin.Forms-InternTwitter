@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using InterTwitter.Helpers;
 using InterTwitter.Models;
+using InterTwitter.Resources;
 
 namespace InterTwitter.Services.UserService
 {
@@ -132,6 +133,15 @@ namespace InterTwitter.Services.UserService
                 var users = await GetUserMocksAsync();
 
                 var resultUser = users.Where(predicate.Compile()).FirstOrDefault();
+
+                if (resultUser != null)
+                {
+                    result.SetSuccess(resultUser);
+                }
+                else
+                {
+                    result.SetFailure();
+                }
             }
             catch
             {
@@ -147,9 +157,18 @@ namespace InterTwitter.Services.UserService
 
             try
             {
-                var insertedUserId = await InsertUserToMockCollectionAsync(user);
+                var sameUser = _mockedUsers.FirstOrDefault(u => u.Email == user.Email);
 
-                result.SetSuccess(insertedUserId);
+                if (sameUser == null)
+                {
+                    var insertedUserId = await InsertUserToMockCollectionAsync(user);
+
+                    result.SetSuccess(insertedUserId);
+                }
+                else
+                {
+                    result.SetFailure(Strings.SuchUserAlreadyExists);
+                }
             }
             catch
             {
@@ -210,7 +229,7 @@ namespace InterTwitter.Services.UserService
             var lastUserId = _mockedUsers.Last().Id;
             user.Id = ++lastUserId;
 
-            (_mockedUsers as List<User>).Add(user);
+            (_mockedUsers as List<User>)?.Add(user);
 
             await Task.Delay(300);
 
@@ -221,11 +240,11 @@ namespace InterTwitter.Services.UserService
         {
             var oldUser = _mockedUsers.FirstOrDefault(u => u.Id == user.Id);
 
-            (_mockedUsers as List<User>).Remove(oldUser);
+            (_mockedUsers as List<User>)?.Remove(oldUser);
 
-            (_mockedUsers as List<User>).Add(user);
+            (_mockedUsers as List<User>)?.Add(user);
 
-            (_mockedUsers as List<User>).Sort((u1, u2) => u1.Id.CompareTo(u2.Id));
+            (_mockedUsers as List<User>)?.Sort((u1, u2) => u1.Id.CompareTo(u2.Id));
 
             await Task.Delay(100);
 

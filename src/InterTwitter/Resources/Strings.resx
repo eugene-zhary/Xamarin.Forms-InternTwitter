@@ -177,6 +177,9 @@
   <data name="NameMustNotContainWhitespace" xml:space="preserve">
     <value>There mustn't be whitespaces inside your name!</value>
   </data>
+  <data name="NoSuchUser" xml:space="preserve">
+    <value>There's no any user with such email and password! Please, check your inputs once more or visit Sign Up page.</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
@@ -197,6 +200,9 @@
   </data>
   <data name="SignUpErrorTitle" xml:space="preserve">
     <value>Sign Up error!</value>
+  </data>
+  <data name="SuchUserAlreadyExists" xml:space="preserve">
+    <value>User with this email already exists!</value>
   </data>
   <data name="YouLlNeedAPassword" xml:space="preserve">
     <value>You'll need a password</value>
