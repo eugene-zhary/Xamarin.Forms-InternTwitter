@@ -8,7 +8,7 @@ namespace InterTwitter.Validators
 
         // accepts only latin symbols
         private const string USERNAME_REGEX =
-            @"^[A-Za-z]{1,}$";
+            @"^[A-Za-z ]{1,}$";
 
         private const string EMAIL_REGEX =
             @"^[\w\.]+@([\w-]+\.)+[\w-]{1,}$";

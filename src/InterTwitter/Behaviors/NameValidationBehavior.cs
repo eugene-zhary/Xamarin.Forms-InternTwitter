@@ -37,10 +37,6 @@ namespace InterTwitter.Behaviors
                 {
                     SetEntryStyles(registeringEntry, true, Color.Red, Strings.BlankNameError);
                 }
-                else if (preparedInput.Contains(" "))
-                {
-                    SetEntryStyles(registeringEntry, true, Color.Red, Strings.NameMustNotContainWhitespace);
-                }
                 else if (!StringValidator.Validate(preparedInput, StringValidator.Name))
                 {
                     SetEntryStyles(registeringEntry, true, Color.Red, Strings.NameInputError);
