@@ -27,6 +27,8 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
+            containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
+            containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
         }
 
         protected override void OnInitialized()

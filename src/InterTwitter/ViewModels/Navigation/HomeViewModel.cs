@@ -46,41 +46,5 @@ namespace InterTwitter.ViewModels.Navigation
         }
 
         private double OldScrollParameter = 0;
-        public ICommand ScrolledCommand => SingleExecutionCommand.FromFunc<double>(OnScrolledCommand, delayMillisec: 200);
-        private async Task<double> OnScrolledCommand(double obj)
-        {
-            if (Math.Abs(obj - OldScrollParameter) > 48)
-            {
-                if (obj > OldScrollParameter)
-                {
-                    if (Margin.Top != -48)
-                    {
-                        for (int i = 0; i <= 48; i++)
-                        {
-                            Margin = new Thickness(0, -i, 0, 0);
-                            await Task.Delay(1);
-                        }
-                    }
-
-                }
-                else
-                {
-                    if (Margin.Top != 0)
-                    {
-                        for (int i = 48; i >= 0; i--)
-                        {
-                            Margin = new Thickness(0, -i, 0, 0);
-                            await Task.Delay(1);
-                        }
-                    }
-
-                }
-                OldScrollParameter = obj;
-
-                Console.WriteLine(obj);
-            }
-
-            return await Task.FromResult(.1d);
-        }
     }
 }

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage 
+    xmlns:views="clr-namespace:InterTwitter.Views"             
+    xmlns="http://xamarin.com/schemas/2014/forms"    
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"   
+    xmlns:prism="http://prismlibrary.com"    
+    prism:ViewModelLocator.AutowireViewModel="True"
+    x:Class="InterTwitter.Views.Navigation.ProfileView">
+
+    <AbsoluteLayout>
+        
+        <Grid AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="170*"/>
+                <RowDefinition Height="78*"/>
+                <RowDefinition Height="32*"/>
+                <RowDefinition Height="271*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="32*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="138*"/>
+                    <ColumnDefinition Width="17*"/>
+                    <ColumnDefinition Width="141*"/>
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Row="0" Grid.Column="2" HorizontalOptions="EndAndExpand" Margin="0,0,12,0" Padding="0,0,0,0" CornerRadius="24" BorderColor="{StaticResource Dark Grey}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="22*"/>
+                            <ColumnDefinition Width="97*"/>
+                            <ColumnDefinition Width="22*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="ChangeProfile" Style="{StaticResource Button}" TextColor="{StaticResource Dark Grey}" Grid.Column="1"/>
+                    </Grid>
+                </Frame>
+                <StackLayout Grid.Row="1" Grid.Column="0"  Padding="12,0,0,0" >
+                    <Label Text="Jaylon Kenter" Style="{StaticResource Subtitle1}" TextColor="{StaticResource Black}"/>
+                    <Label Text="jaylonkender@gmail.com" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Dark Grey}"/>
+                </StackLayout>
+            </Grid>
+            <Image Source="pic_profile_big" BackgroundColor="{StaticResource Primary}"/>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32*"/>
+                    <RowDefinition Height="1"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Posts" HorizontalTextAlignment="Center"/>
+                <Label Text="Likes" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                <Line BackgroundColor="{StaticResource Light Grey}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"/>
+                <Line BackgroundColor="{StaticResource Primary}" Grid.Row="1"/>
+                <Line BackgroundColor="{StaticResource Light Grey}" Grid.Row="1" Grid.Column="1"/>
+            </Grid>
+        </Grid>
+        <Frame Padding="0,0,0,0" Margin="12,12" BackgroundColor="#9902060E" CornerRadius="12" HeightRequest="24" WidthRequest="24">
+            <Image Source="ic_left_white" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackNavigationCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Frame>
+        <Frame Padding="0,0,0,0" Margin="12,12" BackgroundColor="#9902060E" CornerRadius="12" HeightRequest="24" WidthRequest="24" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="1,0">
+            <Image Source="ic_hidden_menu_white" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+        </Frame>
+        <Frame AbsoluteLayout.LayoutFlags="PositionProportional" 
+               AbsoluteLayout.LayoutBounds="0,.278" 
+               HeightRequest="48" WidthRequest="48"
+               Padding="2,2,2,2" Margin="12,0"
+               VerticalOptions="Start"
+               HorizontalOptions="Center"
+               CornerRadius="500">
+            <Image Source="Group30"/>
+        </Frame>
+    </AbsoluteLayout>
+
+
+</views:BaseContentPage>

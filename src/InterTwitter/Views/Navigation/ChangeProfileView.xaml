@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Views:BaseContentPage  xmlns:Views="clr-namespace:InterTwitter.Views"
+                        xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="InterTwitter.Views.Navigation.ChangeProfileView">
+
+    <Grid>
+        <Grid.RowDefinitions >
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="170*"/>
+            <RowDefinition Height="398*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions >
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48*"/>
+                <ColumnDefinition Width="260*"/>
+                <ColumnDefinition Width="48*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="ic_left_gray" Grid.Column="0" HorizontalOptions="Start" Margin="12,12,12,12" HeightRequest="24">
+                <Image.GestureRecognizers>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label Grid.Column="1" Text="Change Profile" Style="{StaticResource Header2}" HorizontalTextAlignment="Center"/>
+
+            <Image Source="ic_check_blue" Grid.Column="2" Margin="12,12,12,12" HeightRequest="24">
+            </Image>
+        </Grid>
+        <AbsoluteLayout Grid.Row="1">
+            <Image Source="pic_profile_big" BackgroundColor="{StaticResource Primary}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,1,1,1"/>
+            <Frame AbsoluteLayout.LayoutFlags="PositionProportional" 
+               AbsoluteLayout.LayoutBounds="0,1" 
+               HeightRequest="48" WidthRequest="48"
+               Padding="2,2,2,2" Margin="12,-24"
+               VerticalOptions="Start"
+               HorizontalOptions="Center"
+               CornerRadius="500">
+                <Image Source="Group30"/>
+            </Frame>
+        </AbsoluteLayout>
+    </Grid>
+
+</Views:BaseContentPage>

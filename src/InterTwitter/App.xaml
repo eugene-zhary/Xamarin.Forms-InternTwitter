@@ -18,7 +18,7 @@
                 <Setter Property="LineHeight" Value="28"/>
                 <Setter Property="TextColor" Value="{StaticResource Black}"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
             </Style>
             <Style x:Key="Header2" TargetType="Label">
                 <Setter Property="FontFamily" Value="Ubuntu"/>
@@ -26,7 +26,7 @@
                 <Setter Property="LineHeight" Value="28"/>
                 <Setter Property="TextColor" Value="{StaticResource Black}"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
 
             </Style>
             <Style x:Key="Subtitle1" TargetType="Label">
@@ -36,7 +36,7 @@
                 <Setter Property="LineHeight" Value="24"/>
                 <Setter Property="TextColor" Value="{StaticResource Black}"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
 
             </Style>
             <Style x:Key="Subtitle2" TargetType="Label">
@@ -45,7 +45,7 @@
                 <Setter Property="LineHeight" Value="24"/>
                 <Setter Property="TextColor" Value="{StaticResource Black}"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
             </Style>
             <Style x:Key="Body1" TargetType="Label">
                 <Setter Property="FontFamily" Value="Ubuntu"/>
@@ -53,7 +53,7 @@
                 <Setter Property="LineHeight" Value="24"/>
                 <Setter Property="TextColor" Value="{StaticResource Black}"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
             </Style>
             <Style x:Key="Body2" TargetType="Label">
                 <Setter Property="FontFamily" Value="Ubuntu"/>
@@ -61,7 +61,7 @@
                 <Setter Property="LineHeight" Value="20"/>
                 <Setter Property="TextColor" Value="{StaticResource Black}"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
             </Style>
             <Style x:Key="Button" TargetType="Label">
                 <Setter Property="FontFamily" Value="Ubuntu"/>
@@ -69,7 +69,14 @@
                 <Setter Property="LineHeight" Value="24"/>
                 <Setter Property="TextColor" Value="{StaticResource Black}"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
+            </Style>
+            <Style x:Key="LabelCaption1" TargetType="Label">
+                <Setter Property="FontFamily" Value="Ubuntu"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
             </Style>
             <Style x:Key="EntryCaption" TargetType="Entry">
                 <Setter Property="FontFamily" Value="Ubuntu"/>
@@ -84,7 +91,7 @@
                 <Setter Property="LineHeight" Value="16"/>
                 <Setter Property="TextColor" Value="{StaticResource Black}"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
             </Style>
 
         </ResourceDictionary>
