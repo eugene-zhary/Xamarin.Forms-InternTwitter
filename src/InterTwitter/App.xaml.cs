@@ -1,3 +1,5 @@
+using InterTwitter.Services.Authorization;
+using InterTwitter.Services.Settings;
 using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
@@ -37,13 +39,15 @@ namespace InterTwitter
 
             // Services
             containerRegistry.RegisterSingleton<IUserService, UserService>();
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
         }
 
-        protected override void OnInitialized()
+        protected override async void OnInitialized()
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignUpStartPage)}");
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignUpStartPage)}");
         }
 
         protected override void OnStart()

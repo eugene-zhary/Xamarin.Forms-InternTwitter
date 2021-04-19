@@ -231,7 +231,7 @@ namespace InterTwitter.Services.UserService
 
             (_mockedUsers as List<User>)?.Add(user);
 
-            await Task.Delay(300);
+            await Task.Delay(100);
 
             return user.Id;
         }
@@ -246,7 +246,7 @@ namespace InterTwitter.Services.UserService
 
             (_mockedUsers as List<User>)?.Sort((u1, u2) => u1.Id.CompareTo(u2.Id));
 
-            await Task.Delay(100);
+            await Task.Delay(300);
 
             return user.Id;
         }

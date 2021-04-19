@@ -59,7 +59,6 @@
 
         <StackLayout Grid.Row="3"
                      Grid.Column="1"
-                     Spacing="20"
                      Margin="0, 75">
 
             <Frame HasShadow="False"
@@ -77,16 +76,19 @@
                        TextColor="{StaticResource White}"/>
             </Frame>
 
-            <Label HorizontalOptions="Center"
-                   Text="{x:Static resource:Strings.LogIn}"
-                   Style="{StaticResource Button}"
-                   TextColor="{StaticResource Primary}">
+            <Frame HasShadow="False"
+                   Padding="15"
+                   BackgroundColor="Transparent">
 
-                <Label.GestureRecognizers>
+                <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding LogInCommand}"/>
-                </Label.GestureRecognizers>
+                </Frame.GestureRecognizers>
 
-            </Label>
+                <Label HorizontalOptions="Center"
+                       Text="{x:Static resource:Strings.LogIn}"
+                       Style="{StaticResource Button}"
+                       TextColor="{StaticResource Primary}"/>
+            </Frame>
 
         </StackLayout>
 

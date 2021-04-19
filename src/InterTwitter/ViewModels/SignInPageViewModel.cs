@@ -3,6 +3,7 @@ using System.Windows.Input;
 using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Resources;
+using InterTwitter.Services.Authorization;
 using InterTwitter.Services.UserService;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
@@ -16,14 +17,17 @@ namespace InterTwitter.ViewModels
     {
         private readonly IPageDialogService _pageDialogService;
         private readonly IUserService _userService;
+        private readonly IAuthorizationService _authorizationService;
 
         public SignInPageViewModel(INavigationService navigationService,
             IPageDialogService pageDialogService,
-            IUserService userService)
+            IUserService userService,
+            IAuthorizationService authorizationService)
             : base(navigationService)
         {
             _pageDialogService = pageDialogService;
             _userService = userService;
+            _authorizationService = authorizationService;
         }
 
         #region -- Public Properties --
@@ -78,6 +82,9 @@ namespace InterTwitter.ViewModels
                 if (result.IsSuccess)
                 {
                     var authorizedUser = result.Result;
+
+                    _authorizationService.Authorize(authorizedUser.Id);
+
                     await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
                 }
                 else

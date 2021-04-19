@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using InterTwitter.Services.Authorization;
 using InterTwitter.Views;
 using Prism.Navigation;
 using Xamarin.Forms;
@@ -19,14 +20,18 @@ namespace InterTwitter.ViewModels.Flyout
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IPageDialogService _pageDialog;
+        private readonly IAuthorizationService _authorizationService;
 
         public FlyoutMenuViewModel(INavigationService navigationService,
             IEventAggregator aggregator,
-            IPageDialogService pageDialog)
+            IPageDialogService pageDialog,
+            IAuthorizationService authorizationService)
             : base(navigationService)
         {
             _eventAggregator = aggregator;
             _pageDialog = pageDialog;
+            _authorizationService = authorizationService;
+
             aggregator.GetEvent<MenuItemChangedEvent>().Subscribe(OnMenuItemChanged);
 
             MenuItems = new ObservableCollection<MenuItemViewModel>
@@ -103,6 +108,7 @@ namespace InterTwitter.ViewModels.Flyout
 
             if(shouldLogOut)
             {
+                _authorizationService.UnAuthorize();
                 await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
             }
         }
