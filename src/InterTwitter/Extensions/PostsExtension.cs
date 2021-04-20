@@ -1,10 +1,12 @@
 ﻿using InterTwitter.Enums;
 using InterTwitter.Models;
+using InterTwitter.Services;
 using InterTwitter.ViewModels.Posts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unity;
 
 namespace InterTwitter.Extensions
 {
@@ -12,16 +14,17 @@ namespace InterTwitter.Extensions
     {
         #region -- Public methods --
 
-        public static BasePostViewModel ToViewModel(this Post postModel)
+        public static BasePostViewModel ToViewModel(this Post postModel, IMockManager mock)
         {
             BasePostViewModel postViewModel = null;
 
-            if(postModel != null)
+            if (postModel != null)
             {
-                switch(postModel.MediaType)
+                User userModel = mock.GetMockedUsers(user => user.Id == postModel.UserId).FirstOrDefault();
+                switch (postModel.MediaType)
                 {
                     case EMediaType.Photo:
-                        postViewModel = new PhotoPostViewModel(postModel);
+                        postViewModel = new PhotoPostViewModel(userModel, postModel);
                         break;
                 }
             }
@@ -29,14 +32,14 @@ namespace InterTwitter.Extensions
             return postViewModel;
         }
 
-        public static IEnumerable<BasePostViewModel> ToViewModelCollection(this IEnumerable<Post> postCollection)
+        public static IEnumerable<BasePostViewModel> ToViewModelCollection(this IEnumerable<Post> postCollection, IMockManager mock)
         {
             List<BasePostViewModel> viewModelCollection = null;
 
-            if(postCollection.Any())
+            if (postCollection.Any())
             {
                 viewModelCollection = new List<BasePostViewModel>();
-                postCollection.ToList().ForEach(p => viewModelCollection.Add(p.ToViewModel()));
+                postCollection.ToList().ForEach(p => viewModelCollection.Add(p.ToViewModel(mock)));
             }
 
             return viewModelCollection;

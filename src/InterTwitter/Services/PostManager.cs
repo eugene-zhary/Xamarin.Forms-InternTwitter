@@ -1,11 +1,6 @@
 ﻿using InterTwitter.ViewModels.Posts;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 using InterTwitter.Extensions;
-using InterTwitter.Helpers;
-using System.Threading.Tasks;
 
 namespace InterTwitter.Services
 {
@@ -20,7 +15,7 @@ namespace InterTwitter.Services
 
         public IEnumerable<BasePostViewModel> GetPosts()
         {
-            return _mock.GetMockedPosts().ToViewModelCollection();
+            return _mock.GetMockedPosts().ToViewModelCollection(_mock);
         }
     }
 }

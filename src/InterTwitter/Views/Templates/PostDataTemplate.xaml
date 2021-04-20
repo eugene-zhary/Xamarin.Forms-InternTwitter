@@ -4,11 +4,11 @@
              x:Class="InterTwitter.Views.Templates.PostDataTemplate"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
 	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
-    <Grid Padding="15,15,15,0" ColumnSpacing="15">
+    <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15">
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="210"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="240"/>
-            <RowDefinition Height="60"/>
             <RowDefinition Height="1"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -16,27 +16,60 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <ffimageloading:CachedImage Source="https://static-s.aa-cdn.net/img/ios/985085520/4a524a664a06eed6202a2f51c5e47f6d?v=1" VerticalOptions="Start">
+        <!-- USER ICON -->
+
+        <ffimageloading:CachedImage Source="{Binding UserModel.ProfileImagePath}" VerticalOptions="Start" Grid.RowSpan="3">
             <ffimageloading:CachedImage.Transformations>
                 <fftransformations:CircleTransformation/>
             </ffimageloading:CachedImage.Transformations>
         </ffimageloading:CachedImage>
 
-        <StackLayout Grid.Column="1" VerticalOptions="Start">
-            <Label Text="Big Baby"/>
-            <Label Text="{Binding Text}"/>
+        <!-- POST TEXT CONTENT -->
+        
+        <StackLayout Grid.Column="1">
+            <Label Text="{Binding UserModel.Name}" FontAttributes="Bold"/>
+            <Label Text="{Binding PostModel.Text}"/>
         </StackLayout>
 
-        <ffimageloading:CachedImage Source="{Binding PhotoSource}" Grid.Row="1" Grid.Column="1" Aspect="Fill">
-            <ffimageloading:CachedImage.Transformations>
-                <fftransformations:CornersTransformation CornersTransformType="AllRounded"
-                                                         TopLeftCornerSize="3" TopRightCornerSize="3"
-                                                         BottomLeftCornerSize="3" BottomRightCornerSize="3"/>
-            </ffimageloading:CachedImage.Transformations>
-        </ffimageloading:CachedImage>
+        
+        <!-- POST MEDIA CONTENT -->
 
-        <Label Grid.Row="2" Grid.Column="1" Text="todo: datetime, likes, bookmarks" VerticalOptions="Center" HorizontalOptions="Center"/>
+        <Frame Padding="0" Grid.Row="1" Grid.Column="1" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
+            <ffimageloading:CachedImage Source="{Binding PhotoSource}"  Aspect="AspectFill"/>
+        </Frame>
 
+
+        <!-- DATETIME, LIKES, BOOKMARKS -->
+        
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}" 
+                   HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"/>
+
+            <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
+                <ffimageloading:CachedImage Source="{Binding LikeIconSource}">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LikesCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
+
+                <Label Text="{Binding LikesCount}" TextColor="{Binding LikesCountColor}"  FontSize="14" VerticalOptions="Center" Margin="0,0,15,0"/>
+
+                <ffimageloading:CachedImage Source="{Binding BookmarksIconSource}">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BookmarksCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
+            </StackLayout>
+        </Grid>
+        
+        
+        <!-- SPLITER -->
+        
         <BoxView Grid.Row="3" BackgroundColor="#DEDFE1" Grid.ColumnSpan="2" Margin="-15,0"/>
     </Grid>
 </DataTemplate>
