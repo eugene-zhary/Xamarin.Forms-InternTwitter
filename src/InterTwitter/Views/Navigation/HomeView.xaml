@@ -8,6 +8,8 @@
              xmlns:controls="clr-namespace:InterTwitter.Controls"
              xmlns:behaviors ="clr-namespace:InterTwitter.Behaviors"
              xmlns:templates="clr-namespace:InterTwitter.Views.Templates"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
              BackgroundColor="White"
              IconImageSource="{Binding IconPath}">
     <ContentPage.Behaviors>
