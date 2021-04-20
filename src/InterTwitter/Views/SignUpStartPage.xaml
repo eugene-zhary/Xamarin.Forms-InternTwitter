@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:prism="http://prismlibrary.com"
+                       xmlns:views="clr-namespace:InterTwitter.Views;assembly=InterTwitter"
+                       xmlns:resource="clr-namespace:InterTwitter.Resources;assembly=InterTwitter"
+                       xmlns:controls="clr-namespace:InterTwitter.Controls;assembly=InterTwitter"
+                       xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                       xmlns:behaviors="clr-namespace:InterTwitter.Behaviors;assembly=InterTwitter"
+                       ios:Page.UseSafeArea="True"
+                       prism:ViewModelLocator.AutowireViewModel="True"
+                       x:Class="InterTwitter.Views.SignUpStartPage">
+
+    <Grid VerticalOptions="FillAndExpand"
+          HorizontalOptions="FillAndExpand"
+          RowDefinitions="Auto, Auto, Auto, Auto"
+          ColumnDefinitions="0.15*, 0.7*, 0.15*"
+          Margin="25">
+
+        <Image Grid.Row="0"
+               Grid.ColumnSpan="3"
+               Source="pic_logo_small.png"/>
+
+        <Label Grid.Row="1"
+               Grid.ColumnSpan="3"
+               HorizontalOptions="Center"
+               Margin="0,10,0,80"
+               Text="{x:Static resource:Strings.CreateYourAccount}"
+               Style="{StaticResource Header2}"
+               TextColor="{StaticResource Primary}"/>
+
+        <Grid Grid.Row="2"
+              Grid.ColumnSpan="3"
+              RowDefinitions="0.5*, 0.5*"
+              RowSpacing="10">
+
+            <controls:RegisteringEntry Grid.Row="0"
+                                       Text="{Binding Name}"
+                                       Placeholder="{x:Static resource:Strings.Name}"
+                                       MaxLength="30">
+
+                <controls:RegisteringEntry.Behaviors>
+                    <behaviors:NameValidationBehavior/>
+                </controls:RegisteringEntry.Behaviors>
+
+            </controls:RegisteringEntry>
+
+            <controls:RegisteringEntry Grid.Row="1"
+                                       Text="{Binding Email}"
+                                       Placeholder="{x:Static resource:Strings.Email}">
+
+                <controls:RegisteringEntry.Behaviors>
+                    <behaviors:EmailValidationBehavior/>
+                </controls:RegisteringEntry.Behaviors>
+
+            </controls:RegisteringEntry>
+
+        </Grid>
+
+        <StackLayout Grid.Row="3"
+                     Grid.Column="1"
+                     Margin="0, 75">
+
+            <Frame HasShadow="False"
+                   Padding="15"
+                   BackgroundColor="{StaticResource Primary}"
+                   CornerRadius="25">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SignUpCommand}"/>
+                </Frame.GestureRecognizers>
+
+                <Label HorizontalOptions="Center"
+                       Text="{x:Static resource:Strings.SignUp}"
+                       Style="{StaticResource Button}"
+                       TextColor="{StaticResource White}"/>
+            </Frame>
+
+            <Frame HasShadow="False"
+                   Padding="15"
+                   BackgroundColor="Transparent">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LogInCommand}"/>
+                </Frame.GestureRecognizers>
+
+                <Label HorizontalOptions="Center"
+                       Text="{x:Static resource:Strings.LogIn}"
+                       Style="{StaticResource Button}"
+                       TextColor="{StaticResource Primary}"/>
+            </Frame>
+
+        </StackLayout>
+
+    </Grid>
+  
+</views:BaseContentPage>

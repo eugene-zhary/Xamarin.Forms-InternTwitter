@@ -117,6 +117,45 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BlankEmailError" xml:space="preserve">
+    <value>Please, type your email</value>
+  </data>
+  <data name="BlankNameError" xml:space="preserve">
+    <value>Please, type your name</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="CreateYourAccount" xml:space="preserve">
+    <value>Create your account</value>
+  </data>
+  <data name="DoNotMatch" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailInputError" xml:space="preserve">
+    <value>Invalid email! It should contain @ and a domain.</value>
+  </data>
+  <data name="EmptyFieldsError" xml:space="preserve">
+    <value>You have empty fields! Please, fill them.</value>
+  </data>
+  <data name="GetYourAccount" xml:space="preserve">
+    <value>Get your account</value>
+  </data>
+  <data name="InvalidPasswordMessage" xml:space="preserve">
+    <value>Use at least 1 uppercase letter and 1 digit</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+  <data name="LogInErrorTitle" xml:space="preserve">
+    <value>Log In error!</value>
+  </data>
   <data name="LogoutAlertBody" xml:space="preserve">
     <value>Are you sure that you want to logout?</value>
   </data>
@@ -128,5 +167,44 @@
   </data>
   <data name="LogoutAlertTitle" xml:space="preserve">
     <value>Logout</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameInputError" xml:space="preserve">
+    <value>Name should contain only latin characters!</value>
+  </data>
+  <data name="NameMustNotContainWhitespace" xml:space="preserve">
+    <value>There mustn't be whitespaces inside your name!</value>
+  </data>
+  <data name="NoSuchUser" xml:space="preserve">
+    <value>There's no any user with such email and password! Please, check your inputs once more or visit Sign Up page.</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordInputInvalid" xml:space="preserve">
+    <value>Weak password: use at least 6 symbols, 1 upper case and 1 digit.</value>
+  </data>
+  <data name="PasswordLengthError" xml:space="preserve">
+    <value>Type at least 6 symbols</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="SignUpErrorMessage" xml:space="preserve">
+    <value>Your inputs are not valid! Please, check them once more and try again!</value>
+  </data>
+  <data name="SignUpErrorTitle" xml:space="preserve">
+    <value>Sign Up error!</value>
+  </data>
+  <data name="SuchUserAlreadyExists" xml:space="preserve">
+    <value>User with this email already exists!</value>
+  </data>
+  <data name="YouLlNeedAPassword" xml:space="preserve">
+    <value>You'll need a password</value>
   </data>
 </root>

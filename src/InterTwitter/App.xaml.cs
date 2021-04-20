@@ -1,5 +1,10 @@
-﻿using InterTwitter.ViewModels.Flyout;
+using InterTwitter.Services.Authorization;
+using InterTwitter.Services.Settings;
+using InterTwitter.Services.UserService;
+using InterTwitter.ViewModels;
+using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
+using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
 using Prism;
@@ -19,7 +24,11 @@ namespace InterTwitter
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignUpEndPage, SignUpEndPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
             containerRegistry.RegisterForNavigation<FlyoutMenuView, FlyoutMenuViewModel>();
             containerRegistry.RegisterForNavigation<FlyoutTabbedView, FlyoutTabbedViewMode>();
             containerRegistry.RegisterForNavigation<FlyoutNavigationView, FlyoutNavigationViewModel>();
@@ -27,13 +36,18 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
+
+            // Services
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
         }
 
-        protected override void OnInitialized()
+        protected override async void OnInitialized()
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync($"{nameof(FlyoutNavigationView)}");
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignUpStartPage)}");
         }
 
         protected override void OnStart()

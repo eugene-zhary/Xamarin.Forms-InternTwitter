@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace InterTwitter.Droid
 {
-    [Activity(Label = "@string/ApplicationName")]
+    [Activity(Label = "@string/ApplicationName", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         #region -- Overrides --
