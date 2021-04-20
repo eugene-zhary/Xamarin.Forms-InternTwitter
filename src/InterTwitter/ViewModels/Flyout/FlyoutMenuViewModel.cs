@@ -11,6 +11,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using InterTwitter.Views;
+using Prism.Navigation;
 using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels.Flyout
@@ -109,11 +111,12 @@ namespace InterTwitter.ViewModels.Flyout
 
         private async Task OnLogout()
         {
-            bool result = await _pageDialog.DisplayAlertAsync(AppResource.LogoutAlertTitle, AppResource.LogoutAlertBody, AppResource.LogoutAlertOk, AppResource.LogoutAlertCancel);
+            bool shouldLogOut = await _pageDialog.DisplayAlertAsync(Strings.LogoutAlertTitle, Strings.LogoutAlertBody,
+                Strings.LogoutAlertOk, Strings.LogoutAlertCancel);
 
-            if(result)
+            if(shouldLogOut)
             {
-                // navigate to sign up
+                await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
             }
         }
 
@@ -124,6 +127,7 @@ namespace InterTwitter.ViewModels.Flyout
                 _eventAggregator.GetEvent<MenuItemChangedEvent>().Publish(SelectedItem.TargetType);
                 _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(false);
                 ChangeVisualState(SelectedItem.TargetType);
+                SelectedItem = null;
             }
         }
 

@@ -1,5 +1,8 @@
-﻿using InterTwitter.ViewModels.Flyout;
+using InterTwitter.Services.UserService;
+using InterTwitter.ViewModels;
+using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
+using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
 using Prism;
@@ -19,7 +22,11 @@ namespace InterTwitter
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignUpEndPage, SignUpEndPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
             containerRegistry.RegisterForNavigation<FlyoutMenuView, FlyoutMenuViewModel>();
             containerRegistry.RegisterForNavigation<FlyoutTabbedView, FlyoutTabbedViewMode>();
             containerRegistry.RegisterForNavigation<FlyoutNavigationView, FlyoutNavigationViewModel>();
@@ -29,6 +36,9 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
             containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
             containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
+
+            // Services
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
         }
 
         protected override void OnInitialized()

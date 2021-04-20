@@ -1,87 +1,163 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:BaseContentPage 
-    xmlns:views="clr-namespace:InterTwitter.Views"             
-    xmlns="http://xamarin.com/schemas/2014/forms"    
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"   
-    xmlns:prism="http://prismlibrary.com"    
-    prism:ViewModelLocator.AutowireViewModel="True"
-    x:Class="InterTwitter.Views.Navigation.ProfileView">
+<views:BaseContentPage
+    x:Class="InterTwitter.Views.Navigation.ProfileView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:views="clr-namespace:InterTwitter.Views"
+    x:Name="profileView"
+    prism:ViewModelLocator.AutowireViewModel="True">
 
     <AbsoluteLayout>
-        
+
         <Grid AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
             <Grid.RowDefinitions>
-                <RowDefinition Height="170*"/>
-                <RowDefinition Height="78*"/>
-                <RowDefinition Height="32*"/>
-                <RowDefinition Height="271*"/>
+                <RowDefinition Height="170*" />
+                <RowDefinition Height="78*" />
+                <RowDefinition Height="32*" />
+                <RowDefinition Height="271*" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="1" >
+            <Image BackgroundColor="{StaticResource Primary}" Source="pic_profile_big" />
+            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="32*"/>
-                    <RowDefinition Height="20*"/>
-                    <RowDefinition Height="32*"/>
+                    <RowDefinition Height="32*" />
+                    <RowDefinition Height="20*" />
+                    <RowDefinition Height="32*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="138*"/>
-                    <ColumnDefinition Width="17*"/>
-                    <ColumnDefinition Width="141*"/>
+                    <ColumnDefinition Width="138*" />
+                    <ColumnDefinition Width="17*" />
+                    <ColumnDefinition Width="141*" />
                 </Grid.ColumnDefinitions>
-                <Frame Grid.Row="0" Grid.Column="2" HorizontalOptions="EndAndExpand" Margin="0,0,12,0" Padding="0,0,0,0" CornerRadius="24" BorderColor="{StaticResource Dark Grey}">
+
+                <Frame
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="0,0,12,0"
+                    Padding="0,0,0,0"
+                    BorderColor="{StaticResource Dark Grey}"
+                    CornerRadius="24"
+                    HorizontalOptions="EndAndExpand">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="22*"/>
-                            <ColumnDefinition Width="97*"/>
-                            <ColumnDefinition Width="22*"/>
+                            <ColumnDefinition Width="22*" />
+                            <ColumnDefinition Width="97*" />
+                            <ColumnDefinition Width="22*" />
                         </Grid.ColumnDefinitions>
-                        <Label Text="ChangeProfile" Style="{StaticResource Button}" TextColor="{StaticResource Dark Grey}" Grid.Column="1"/>
+
+                        <Label
+                            Grid.Column="1"
+                            Style="{StaticResource Button}"
+                            Text="ChangeProfile"
+                            TextColor="{StaticResource Dark Grey}" />
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigationToChangeProfileCommand}" />
+                        </Grid.GestureRecognizers>
                     </Grid>
                 </Frame>
-                <StackLayout Grid.Row="1" Grid.Column="0"  Padding="12,0,0,0" >
-                    <Label Text="Jaylon Kenter" Style="{StaticResource Subtitle1}" TextColor="{StaticResource Black}"/>
-                    <Label Text="jaylonkender@gmail.com" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Dark Grey}"/>
+
+                <StackLayout
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Padding="12,0,0,0">
+                    <Label
+                        Style="{StaticResource Subtitle1}"
+                        Text="Jaylon Kenter"
+                        TextColor="{StaticResource Black}" />
+                    <Label
+                        Style="{StaticResource LabelCaption1}"
+                        Text="jaylonkender@gmail.com"
+                        TextColor="{StaticResource Dark Grey}" />
                 </StackLayout>
             </Grid>
-            <Image Source="pic_profile_big" BackgroundColor="{StaticResource Primary}"/>
-            <Grid Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="32*"/>
-                    <RowDefinition Height="1"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Text="Posts" HorizontalTextAlignment="Center"/>
-                <Label Text="Likes" Grid.Column="1" HorizontalTextAlignment="Center"/>
-                <Line BackgroundColor="{StaticResource Light Grey}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"/>
-                <Line BackgroundColor="{StaticResource Primary}" Grid.Row="1"/>
-                <Line BackgroundColor="{StaticResource Light Grey}" Grid.Row="1" Grid.Column="1"/>
-            </Grid>
+
+            <controls:TabsControl Grid.Row="2" BindingContext="{x:Reference cube}">
+                <controls:TabsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Label
+                            Margin="10,0,0,0"
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource LabelCaption1}"
+                            Text="{Binding Title}"
+                            WidthRequest="61" />
+                    </DataTemplate>
+                </controls:TabsControl.ItemTemplate>
+            </controls:TabsControl>
+            <cards:CarouselView
+                x:Name="cube"
+                Grid.Row="3"
+                BackgroundColor="Red"
+                IsUserInteractionEnabled="False"
+                ItemsSource="{Binding Items}"
+                SelectedIndex="{Binding CurrentIndex}"
+                VerticalOptions="FillAndExpand">
+                <cards:CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <ScrollView>
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="{Binding Color}"
+                                CornerRadius="10"
+                                HasShadow="false"
+                                HeightRequest="300"
+                                HorizontalOptions="Center"
+                                IsClippedToBounds="true"
+                                VerticalOptions="Center"
+                                WidthRequest="300">
+
+                                <Image Aspect="AspectFill" Source="{Binding Source}" />
+
+                            </Frame>
+                        </ScrollView>
+                    </DataTemplate>
+                </cards:CarouselView.ItemTemplate>
+            </cards:CarouselView>
         </Grid>
-        <Frame Padding="0,0,0,0" Margin="12,12" BackgroundColor="#9902060E" CornerRadius="12" HeightRequest="24" WidthRequest="24">
-            <Image Source="ic_left_white" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+
+        <Frame
+            Margin="12,12"
+            Padding="0,0,0,0"
+            BackgroundColor="#9902060E"
+            CornerRadius="12"
+            HeightRequest="24"
+            WidthRequest="24">
+            <Image
+                HorizontalOptions="CenterAndExpand"
+                Source="ic_left_white"
+                VerticalOptions="CenterAndExpand">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding BackNavigationCommand}"/>
+                    <TapGestureRecognizer Command="{Binding BackNavigationCommand}" />
                 </Image.GestureRecognizers>
             </Image>
         </Frame>
-        <Frame Padding="0,0,0,0" Margin="12,12" BackgroundColor="#9902060E" CornerRadius="12" HeightRequest="24" WidthRequest="24" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="1,0">
-            <Image Source="ic_hidden_menu_white" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+        <Frame
+            Margin="12,12"
+            Padding="0,0,0,0"
+            AbsoluteLayout.LayoutBounds="1,0"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackgroundColor="#9902060E"
+            CornerRadius="12"
+            HeightRequest="24"
+            WidthRequest="24">
+            <Image
+                HorizontalOptions="CenterAndExpand"
+                Source="ic_hidden_menu_white"
+                VerticalOptions="CenterAndExpand" />
         </Frame>
-        <Frame AbsoluteLayout.LayoutFlags="PositionProportional" 
-               AbsoluteLayout.LayoutBounds="0,.278" 
-               HeightRequest="48" WidthRequest="48"
-               Padding="2,2,2,2" Margin="12,0"
-               VerticalOptions="Start"
-               HorizontalOptions="Center"
-               CornerRadius="500">
-            <Image Source="Group30"/>
+        <Frame
+            Margin="12,0"
+            Padding="2,2,2,2"
+            AbsoluteLayout.LayoutBounds="0,.278"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            CornerRadius="500"
+            HeightRequest="48"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"
+            WidthRequest="48">
+            <Image Source="Group30" />
         </Frame>
     </AbsoluteLayout>
-
-
 </views:BaseContentPage>

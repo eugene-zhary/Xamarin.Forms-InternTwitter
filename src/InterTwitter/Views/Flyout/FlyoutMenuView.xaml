@@ -45,8 +45,8 @@
         </Grid>
 
 
-        <ListView Grid.Row="1" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedItem}" 
-                  SeparatorVisibility="None" HasUnevenRows="true" ItemSelected="ListView_ItemSelected">
+        <ListView Grid.Row="1" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
+                  SeparatorVisibility="None" HasUnevenRows="true">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

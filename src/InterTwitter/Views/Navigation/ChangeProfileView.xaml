@@ -1,47 +1,125 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Views:BaseContentPage  xmlns:Views="clr-namespace:InterTwitter.Views"
-                        xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="InterTwitter.Views.Navigation.ChangeProfileView">
+<Views:BaseContentPage
+    x:Class="InterTwitter.Views.Navigation.ChangeProfileView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Views="clr-namespace:InterTwitter.Views"
+    xmlns:behaviors="clr-namespace:InterTwitter.Behaviors"
+    xmlns:controls="clr-namespace:InterTwitter.Controls"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:resource="clr-namespace:InterTwitter.Resources;assembly=InterTwitter"
+    prism:ViewModelLocator.AutowireViewModel="True">
 
     <Grid>
-        <Grid.RowDefinitions >
-            <RowDefinition Height="48*"/>
-            <RowDefinition Height="170*"/>
-            <RowDefinition Height="398*"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48*" />
+            <RowDefinition Height="170*" />
+            <RowDefinition Height="503*" />
         </Grid.RowDefinitions>
         <Grid>
-            <Grid.RowDefinitions >
-                <RowDefinition Height="*"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="48*"/>
-                <ColumnDefinition Width="260*"/>
-                <ColumnDefinition Width="48*"/>
+                <ColumnDefinition Width="48*" />
+                <ColumnDefinition Width="260*" />
+                <ColumnDefinition Width="48*" />
             </Grid.ColumnDefinitions>
-            <Image Source="ic_left_gray" Grid.Column="0" HorizontalOptions="Start" Margin="12,12,12,12" HeightRequest="24">
+            <Image
+                Grid.Column="0"
+                Margin="12,12,12,12"
+                HeightRequest="24"
+                HorizontalOptions="Start"
+                Source="ic_left_gray">
                 <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigationToBackCommand}" />
                 </Image.GestureRecognizers>
             </Image>
-            <Label Grid.Column="1" Text="Change Profile" Style="{StaticResource Header2}" HorizontalTextAlignment="Center"/>
+            <Label
+                Grid.Column="1"
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource Header2}"
+                Text="Change Profile" />
 
-            <Image Source="ic_check_blue" Grid.Column="2" Margin="12,12,12,12" HeightRequest="24">
-            </Image>
+            <Image
+                Grid.Column="2"
+                Margin="12,12,12,12"
+                HeightRequest="24"
+                Source="ic_check_blue" />
         </Grid>
         <AbsoluteLayout Grid.Row="1">
-            <Image Source="pic_profile_big" BackgroundColor="{StaticResource Primary}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,1,1,1"/>
-            <Frame AbsoluteLayout.LayoutFlags="PositionProportional" 
-               AbsoluteLayout.LayoutBounds="0,1" 
-               HeightRequest="48" WidthRequest="48"
-               Padding="2,2,2,2" Margin="12,-24"
-               VerticalOptions="Start"
-               HorizontalOptions="Center"
-               CornerRadius="500">
-                <Image Source="Group30"/>
+            <Image
+                AbsoluteLayout.LayoutBounds="1,1,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                BackgroundColor="{StaticResource Primary}"
+                Source="pic_profile_big" />
+            <Frame
+                Margin="0,0"
+                Padding="0,0,0,0"
+                AbsoluteLayout.LayoutBounds=".5,.5"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="#9902060E"
+                CornerRadius="24"
+                HeightRequest="48"
+                WidthRequest="48">
+                <Image
+                    HorizontalOptions="CenterAndExpand"
+                    Source="ic_add_photo"
+                    VerticalOptions="CenterAndExpand" />
             </Frame>
+            <Frame
+                Margin="12,-24"
+                Padding="2,2,2,2"
+                AbsoluteLayout.LayoutBounds="0,1"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                CornerRadius="500"
+                HeightRequest="48"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                WidthRequest="48">
+                <Grid>
+                    <Image Source="Group30" />
+                    <Frame
+                        Margin="0,0"
+                        Padding="0,0,0,0"
+                        BackgroundColor="#9902060E"
+                        CornerRadius="24"
+                        HeightRequest="48"
+                        WidthRequest="48">
+                        <Image
+                            HorizontalOptions="CenterAndExpand"
+                            Source="ic_add_photo"
+                            VerticalOptions="CenterAndExpand" />
+                    </Frame>
+                </Grid>
+            </Frame>
+
         </AbsoluteLayout>
+        <StackLayout Grid.Row="2" Margin="20,38,20,0">
+            <controls:RegisteringEntry Placeholder="{x:Static resource:Strings.Name}" Text="">
+                <controls:RegisteringEntry.Behaviors>
+                    <behaviors:NameValidationBehavior />
+                </controls:RegisteringEntry.Behaviors>
+            </controls:RegisteringEntry>
+            <controls:RegisteringEntry Placeholder="{x:Static resource:Strings.Email}" Text="">
+                <controls:RegisteringEntry.Behaviors>
+                    <behaviors:EmailValidationBehavior />
+                </controls:RegisteringEntry.Behaviors>
+            </controls:RegisteringEntry>
+            <controls:RegisteringEntry
+                IsPassword="True"
+                Placeholder="{x:Static resource:Strings.OldPassword}"
+                Text="" />
+            <controls:RegisteringEntry
+                IsPassword="True"
+                Placeholder="{x:Static resource:Strings.NewPassword}"
+                Text="">
+                <controls:RegisteringEntry.Behaviors>
+                    <behaviors:PasswordValidationBehavior />
+                </controls:RegisteringEntry.Behaviors>
+            </controls:RegisteringEntry>
+        </StackLayout>
     </Grid>
+
 
 </Views:BaseContentPage>

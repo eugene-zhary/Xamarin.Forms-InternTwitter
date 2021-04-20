@@ -13,6 +13,7 @@ namespace InterTwitter.Models
         public string Password { get; set; }
 
         public string ProfileImagePath { get; set; }
+        public string ProfileBackgroundImagePath { get; set; }
 
         public IEnumerable<int> MutedUserIds { get; set; }
 

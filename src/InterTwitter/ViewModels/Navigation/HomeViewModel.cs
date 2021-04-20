@@ -44,7 +44,5 @@ namespace InterTwitter.ViewModels.Navigation
         {
             _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(true);
         }
-
-        private double OldScrollParameter = 0;
     }
 }
