@@ -1,15 +1,12 @@
-﻿using InterTwitter.Helpers;
-using InterTwitter.Models;
-using System;
+﻿using InterTwitter.Models;
+using InterTwitter.Services;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace InterTwitter.ViewModels.Posts
 {
     public class PhotoPostViewModel : BasePostViewModel
     {
-        public PhotoPostViewModel(User userModel, Post postModel) : base(userModel, postModel)
+        public PhotoPostViewModel(User userModel, Post postModel, IPostManager postManager) : base(userModel, postModel, postManager)
         {
             PhotoSource = PostModel.MediaPaths.FirstOrDefault();
         }
@@ -17,7 +14,6 @@ namespace InterTwitter.ViewModels.Posts
         #region -- Public properties -- 
 
         public string PhotoSource { get; private set; }
-
 
         #endregion
     }

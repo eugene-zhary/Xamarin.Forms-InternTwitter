@@ -2,11 +2,8 @@
 using InterTwitter.Models;
 using InterTwitter.Services;
 using InterTwitter.ViewModels.Posts;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Unity;
 
 namespace InterTwitter.Extensions
 {
@@ -14,17 +11,18 @@ namespace InterTwitter.Extensions
     {
         #region -- Public methods --
 
-        public static BasePostViewModel ToViewModel(this Post postModel, IMockManager mock)
+        public static BasePostViewModel ToViewModel(this Post postModel, IPostManager postManager)
         {
             BasePostViewModel postViewModel = null;
 
-            if (postModel != null)
+            if(postModel != null)
             {
-                User userModel = mock.GetMockedUsers(user => user.Id == postModel.UserId).FirstOrDefault();
-                switch (postModel.MediaType)
+                User userModel = postManager.GetPostAuthor(postModel.UserId);
+
+                switch(postModel.MediaType)
                 {
                     case EMediaType.Photo:
-                        postViewModel = new PhotoPostViewModel(userModel, postModel);
+                        postViewModel = new PhotoPostViewModel(userModel, postModel, postManager);
                         break;
                 }
             }
@@ -32,14 +30,14 @@ namespace InterTwitter.Extensions
             return postViewModel;
         }
 
-        public static IEnumerable<BasePostViewModel> ToViewModelCollection(this IEnumerable<Post> postCollection, IMockManager mock)
+        public static IEnumerable<BasePostViewModel> ToViewModelCollection(this IEnumerable<Post> postCollection, IPostManager postManager)
         {
             List<BasePostViewModel> viewModelCollection = null;
 
-            if (postCollection.Any())
+            if(postCollection.Any())
             {
                 viewModelCollection = new List<BasePostViewModel>();
-                postCollection.ToList().ForEach(p => viewModelCollection.Add(p.ToViewModel(mock)));
+                postCollection.ToList().ForEach(p => viewModelCollection.Add(p.ToViewModel(postManager)));
             }
 
             return viewModelCollection;

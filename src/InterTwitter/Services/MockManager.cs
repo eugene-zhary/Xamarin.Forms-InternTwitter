@@ -3,15 +3,11 @@ using InterTwitter.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace InterTwitter.Services
 {
     public class MockManager : IMockManager
     {
-        private List<Post> _mockedPosts;
-        private List<User> _mockedUsers;
-
         public MockManager()
         {
             InitializeUserMock();
@@ -20,23 +16,8 @@ namespace InterTwitter.Services
 
         #region -- IMockManager implementation --
 
-        public IEnumerable<Post> GetMockedPosts(Func<Post, bool> predicate = null)
-        {
-            IEnumerable<Post> output = null;
-
-            output = (predicate == null) ? _mockedPosts : _mockedPosts.Where(predicate);
-
-            return output;
-        }
-
-        public IEnumerable<User> GetMockedUsers(Func<User, bool> predicate = null)
-        {
-            IEnumerable<User> output = null;
-
-            output = (predicate == null) ? _mockedUsers : _mockedUsers.Where(predicate);
-
-            return output;
-        }
+        public IList<User> MockedUsers { get; set; }
+        public IList<Post> MockedPosts { get; set; }
 
         #endregion
 
@@ -44,7 +25,7 @@ namespace InterTwitter.Services
 
         private void InitializeUserMock()
         {
-            _mockedUsers = new List<User>
+            MockedUsers = new List<User>
             {
                 new User
                 {
@@ -112,7 +93,7 @@ namespace InterTwitter.Services
         //https://picsum.photos/400/400/?random
         private void InitializePostMock()
         {
-            _mockedPosts = new List<Post>
+            MockedPosts = new List<Post>
             {
                 new Post
                 {
@@ -139,7 +120,7 @@ namespace InterTwitter.Services
                         "https://i.picsum.photos/id/565/400/400.jpg?hmac=u7Whpa6_lgizpVIu4_25vL1BSD-lz3EZl0Ipaj4445E"
                     },
                     LikedUserIds = new List<int>{1,2},
-                    BookmarkedUserIds = new List<int>{1,2},
+                    BookmarkedUserIds = new List<int>{2},
                     CreationDateTime = new DateTime(2021,4,18, 15,40,00)
                 },
                 new Post
@@ -180,7 +161,7 @@ namespace InterTwitter.Services
                     {
                         "https://i.picsum.photos/id/998/400/400.jpg?hmac=WetZ0aq7zNlX1LHIsGSzZwV5MdHfytypy_ji8IU5ocE"
                     },
-                    LikedUserIds = new List < int > { 1,3 },
+                    LikedUserIds = new List < int > { 3 },
                     BookmarkedUserIds = new List<int>{1,2},
                     CreationDateTime = new DateTime(2021,4,20, 12,40,00)
                 },

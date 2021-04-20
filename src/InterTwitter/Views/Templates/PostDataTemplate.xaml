@@ -51,18 +51,34 @@
                    HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"/>
 
             <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
-                <ffimageloading:CachedImage Source="{Binding LikeIconSource}">
+                <ffimageloading:CachedImage Source="ic_like_gray">
                     <ffimageloading:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding LikesCommand}"/>
                     </ffimageloading:CachedImage.GestureRecognizers>
+                    <ffimageloading:CachedImage.Triggers>
+                        <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding IsLiked}" Value="true">
+                            <Setter Property="Source" Value="ic_like_blue"/>
+                        </DataTrigger>
+                    </ffimageloading:CachedImage.Triggers>
                 </ffimageloading:CachedImage>
 
-                <Label Text="{Binding LikesCount}" TextColor="{Binding LikesCountColor}"  FontSize="14" VerticalOptions="Center" Margin="0,0,15,0"/>
+                <Label Text="{Binding LikesCount}" TextColor="{StaticResource Dark Grey}"  FontSize="14" VerticalOptions="Center" Margin="0,0,15,0">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding IsLiked}" Value="true">
+                            <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
 
-                <ffimageloading:CachedImage Source="{Binding BookmarksIconSource}">
+                <ffimageloading:CachedImage Source="ic_bookmarks_gray">
                     <ffimageloading:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BookmarksCommand}"/>
                     </ffimageloading:CachedImage.GestureRecognizers>
+                    <ffimageloading:CachedImage.Triggers>
+                        <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding IsBookmarked}" Value="true">
+                            <Setter Property="Source" Value="ic_bookmarks_blue"/>
+                        </DataTrigger>
+                    </ffimageloading:CachedImage.Triggers>
                 </ffimageloading:CachedImage>
             </StackLayout>
         </Grid>

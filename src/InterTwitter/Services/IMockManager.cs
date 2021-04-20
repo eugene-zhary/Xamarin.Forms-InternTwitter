@@ -7,7 +7,7 @@ namespace InterTwitter.Services
 {
     public interface IMockManager
     {
-        IEnumerable<Post> GetMockedPosts(Func<Post, bool> predicate = null);
-        IEnumerable<User> GetMockedUsers(Func<User, bool> predicate = null);
+        IList<User> MockedUsers { get; set; }
+        IList<Post> MockedPosts { get; set; }
     }
 }

@@ -1,30 +1,24 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Models;
+using InterTwitter.Services;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels.Posts
 {
     public abstract class BasePostViewModel : BindableBase
     {
-        public BasePostViewModel(User userModel, Post postModel)
+        private readonly IPostManager _postManager;
+
+        public BasePostViewModel(User userModel, Post postModel, IPostManager postManager)
         {
             _userModel = userModel;
             _postModel = postModel;
+            _postManager = postManager;
 
-            _likeIconSource = "ic_like_gray";
-            _bookmarksIconSource = "ic_bookmarks_gray";
-
-            _likesCount = _postModel.LikedUserIds.Count();
-            _likesCountColor = Color.FromHex("#66696E");
         }
-
 
         #region -- Public properties --
 
@@ -42,34 +36,24 @@ namespace InterTwitter.ViewModels.Posts
             set => SetProperty(ref _postModel, value, nameof(PostModel));
         }
 
-        private string _likeIconSource;
-        public string LikeIconSource
+        private bool _isLiked;
+        public bool IsLiked
         {
-            get => _likeIconSource;
-            set => SetProperty(ref _likeIconSource, value, nameof(LikeIconSource));
+            get => _isLiked;
+            set => SetProperty(ref _isLiked, value, nameof(IsLiked));
         }
 
-        private string _bookmarksIconSource;
-        public string BookmarksIconSource
+        private bool _isBookmarked;
+        public bool IsBookmarked
         {
-            get => _bookmarksIconSource;
-            set => SetProperty(ref _bookmarksIconSource, value, nameof(BookmarksIconSource));
+            get => _isBookmarked;
+            set => SetProperty(ref _isBookmarked, value, nameof(IsBookmarked));
         }
-
-        private int _likesCount;
+        
         public int LikesCount
         {
-            get => _likesCount;
-            set => SetProperty(ref _likesCount, value, nameof(LikesCount));
+            get => PostModel.LikedUserIds.Count();
         }
-
-        private Color _likesCountColor;
-        public Color LikesCountColor
-        {
-            get => _likesCountColor;
-            set => SetProperty(ref _likesCountColor, value, nameof(LikesCountColor));
-        }
-
 
         private ICommand _likesCommand;
         public ICommand LikesCommand => _likesCommand ??= SingleExecutionCommand.FromFunc(OnLikes);
@@ -80,45 +64,43 @@ namespace InterTwitter.ViewModels.Posts
         #endregion
 
         #region -- Private helpers --
-
+        
         private async Task OnLikes()
         {
-            ChangeLikeState(LikeIconSource.Equals("ic_like_gray"));
-            
+            IsLiked = !IsLiked;
+
+            int mockCurrentUserId = 0;
+
+            if(IsLiked)
+            {
+                _postManager.LikePost(PostModel.Id, mockCurrentUserId);
+            }
+            else
+            {
+                _postManager.UnlikePost(PostModel.Id, mockCurrentUserId);
+            }
+
+            RaisePropertyChanged(nameof(LikesCount));
+
             await Task.CompletedTask;
         }
 
         private async Task OnBookmarks()
         {
-            if (BookmarksIconSource.Equals("ic_bookmarks_gray"))
+            IsBookmarked = !IsBookmarked;
+
+            int mockCurrentUserId = 0;
+
+            if(IsBookmarked)
             {
-                BookmarksIconSource = "ic_bookmarks_blue";
-            }
-            else if (BookmarksIconSource.Equals("ic_bookmarks_blue"))
-            {
-                BookmarksIconSource = "ic_bookmarks_gray";
-            }
-
-            await Task.CompletedTask;
-        }
-
-
-        private void ChangeLikeState(bool isLiked)
-        {
-            // todo: add UserId to UserLikeIds
-
-            if (isLiked)
-            {
-                LikeIconSource = "ic_like_blue";
-                LikesCountColor = Color.FromHex("#2356C5");
-                LikesCount++;
+                _postManager.BookmarkPost(PostModel.Id, mockCurrentUserId);
             }
             else
             {
-                LikeIconSource = "ic_like_gray";
-                LikesCountColor = Color.FromHex("#66696E");
-                LikesCount--;
+                _postManager.UnbookmarkPost(PostModel.Id, mockCurrentUserId);
             }
+
+            await Task.CompletedTask;
         }
 
         #endregion

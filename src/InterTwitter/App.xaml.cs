@@ -23,6 +23,8 @@ namespace InterTwitter
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterInstance<IMockManager>(Container.Resolve<MockManager>());
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+
             containerRegistry.RegisterInstance<IPostManager>(Container.Resolve<PostManager>());
 
             containerRegistry.RegisterForNavigation<NavigationPage>();

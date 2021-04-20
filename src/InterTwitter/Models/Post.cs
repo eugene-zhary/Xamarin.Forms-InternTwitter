@@ -17,12 +17,12 @@ namespace InterTwitter.Models
         /// <summary>
         /// Collection of user id's, who liked this post
         /// </summary>
-        public IEnumerable<int> LikedUserIds { get; set; }
+        public IList<int> LikedUserIds { get; set; }
 
         /// <summary>
         /// Collection of user id's, who bookmarked this post
         /// </summary>
-        public IEnumerable<int> BookmarkedUserIds { get; set; }
+        public IList<int> BookmarkedUserIds { get; set; }
 
         public EMediaType MediaType { get; set; }
 
