@@ -9,7 +9,6 @@
     xmlns:views="clr-namespace:InterTwitter.Views"
     x:Name="profileView"
     prism:ViewModelLocator.AutowireViewModel="True">
-
     <AbsoluteLayout>
 
         <Grid AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
@@ -19,7 +18,54 @@
                 <RowDefinition Height="32*" />
                 <RowDefinition Height="271*" />
             </Grid.RowDefinitions>
-            <Image BackgroundColor="{StaticResource Primary}" Source="pic_profile_big" />
+            <Image BackgroundColor="{StaticResource Primary}" Source="{Binding UserBackGround}" />
+            <controls:CircleFrame
+                Margin="14,-24"
+                Padding="2,2,2,2"
+                BackgroundColor="{StaticResource White}"
+                HasShadow="False"
+                HorizontalOptions="Start"
+                Size="48"
+                VerticalOptions="End">
+                <controls:CircleFrame Padding="0,0,0,0" IsClippedToBounds="True">
+                    <Image Source="{Binding UserImagePath}" />
+                </controls:CircleFrame>
+            </controls:CircleFrame>
+            <controls:CircleFrame
+                Margin="12,12"
+                Padding="0,0,0,0"
+                BackgroundColor="#9902060E"
+                HasShadow="False"
+                HorizontalOptions="End"
+                Size="30"
+                VerticalOptions="Start">
+                <Image
+                    HorizontalOptions="CenterAndExpand"
+                    Source="ic_hidden_menu_white"
+                    VerticalOptions="CenterAndExpand" />
+                <controls:CircleFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowMenuCommand}" />
+                </controls:CircleFrame.GestureRecognizers>
+
+            </controls:CircleFrame>
+            <Frame
+                Margin="12,12,12,12"
+                Padding="12,8,12,8"
+                CornerRadius="4"
+                HasShadow="False"
+                HorizontalOptions="End"
+                IsVisible="{Binding IsShowMenu}"
+                VerticalOptions="Start">
+                <StackLayout>
+                    <Label Style="{StaticResource LabelCaption1}" Text="Share" />
+                    <Label Style="{StaticResource LabelCaption1}" Text="Change Profile">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigationToChangeProfileCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Frame>
+
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32*" />
@@ -38,7 +84,8 @@
                     Margin="0,0,12,0"
                     Padding="0,0,0,0"
                     BorderColor="{StaticResource Dark Grey}"
-                    CornerRadius="24"
+                    CornerRadius="15"
+                    HasShadow="False"
                     HorizontalOptions="EndAndExpand">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -50,7 +97,7 @@
                         <Label
                             Grid.Column="1"
                             Style="{StaticResource Button}"
-                            Text="ChangeProfile"
+                            Text="Change Profile"
                             TextColor="{StaticResource Dark Grey}" />
 
                         <Grid.GestureRecognizers>
@@ -58,23 +105,26 @@
                         </Grid.GestureRecognizers>
                     </Grid>
                 </Frame>
-
                 <StackLayout
                     Grid.Row="1"
                     Grid.Column="0"
                     Padding="12,0,0,0">
                     <Label
                         Style="{StaticResource Subtitle1}"
-                        Text="Jaylon Kenter"
+                        Text="{Binding UserName}"
                         TextColor="{StaticResource Black}" />
                     <Label
                         Style="{StaticResource LabelCaption1}"
-                        Text="jaylonkender@gmail.com"
+                        Text="{Binding UserMail}"
                         TextColor="{StaticResource Dark Grey}" />
                 </StackLayout>
+
             </Grid>
 
-            <controls:TabsControl Grid.Row="2" BindingContext="{x:Reference cube}">
+            <controls:TabsControl
+                Grid.Row="2"
+                BindingContext="{x:Reference cube}"
+                IsUserInteractionRunning="True">
                 <controls:TabsControl.ItemTemplate>
                     <DataTemplate>
                         <Label
@@ -89,7 +139,6 @@
             <cards:CarouselView
                 x:Name="cube"
                 Grid.Row="3"
-                BackgroundColor="Red"
                 IsUserInteractionEnabled="False"
                 ItemsSource="{Binding Items}"
                 SelectedIndex="{Binding CurrentIndex}"
@@ -99,7 +148,6 @@
                         <ScrollView>
                             <Frame
                                 Padding="0"
-                                BackgroundColor="{Binding Color}"
                                 CornerRadius="10"
                                 HasShadow="false"
                                 HeightRequest="300"
@@ -117,14 +165,14 @@
             </cards:CarouselView>
         </Grid>
 
-        <Frame
+        <controls:CircleFrame
             Margin="12,12"
             Padding="0,0,0,0"
             BackgroundColor="#9902060E"
-            CornerRadius="12"
-            HeightRequest="24"
-            WidthRequest="24">
+            HasShadow="False"
+            Size="30">
             <Image
+                Margin="-3,0,0,0"
                 HorizontalOptions="CenterAndExpand"
                 Source="ic_left_white"
                 VerticalOptions="CenterAndExpand">
@@ -132,32 +180,7 @@
                     <TapGestureRecognizer Command="{Binding BackNavigationCommand}" />
                 </Image.GestureRecognizers>
             </Image>
-        </Frame>
-        <Frame
-            Margin="12,12"
-            Padding="0,0,0,0"
-            AbsoluteLayout.LayoutBounds="1,0"
-            AbsoluteLayout.LayoutFlags="PositionProportional"
-            BackgroundColor="#9902060E"
-            CornerRadius="12"
-            HeightRequest="24"
-            WidthRequest="24">
-            <Image
-                HorizontalOptions="CenterAndExpand"
-                Source="ic_hidden_menu_white"
-                VerticalOptions="CenterAndExpand" />
-        </Frame>
-        <Frame
-            Margin="12,0"
-            Padding="2,2,2,2"
-            AbsoluteLayout.LayoutBounds="0,.278"
-            AbsoluteLayout.LayoutFlags="PositionProportional"
-            CornerRadius="500"
-            HeightRequest="48"
-            HorizontalOptions="Center"
-            VerticalOptions="Start"
-            WidthRequest="48">
-            <Image Source="Group30" />
-        </Frame>
+        </controls:CircleFrame>
+
     </AbsoluteLayout>
 </views:BaseContentPage>
