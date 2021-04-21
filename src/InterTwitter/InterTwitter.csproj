@@ -30,10 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Update="Resources\AppResource.Designer.cs">
+=======
+    <Compile Update="Resources\Strings.Designer.cs">
+>>>>>>> 31a32dac0cafa53ac674f04b303c0457528de57f
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>AppResource.resx</DependentUpon>
+      <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Update="Views\Flyout\FlyoutMenuView.xaml.cs">
       <DependentUpon>FlyoutMenuView.xaml</DependentUpon>
@@ -44,9 +48,15 @@
     <Compile Update="Views\Navigation\NotifycationView.xaml.cs">
       <DependentUpon>NotifycationView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\SignUpStartPage.xaml.cs">
+      <DependentUpon>SignUpStartPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Controls\RegisteringEntry.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Controls\CustomSearch.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -56,9 +66,18 @@
     <EmbeddedResource Update="Controls\NavigationBar\SearchNavigationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\AppResource.resx">
+    <EmbeddedResource Update="Resources\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResource.Designer.cs</LastGenOutput>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SignInPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SignUpEndPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SignUpStartPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Flyout\FlyoutNavigationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

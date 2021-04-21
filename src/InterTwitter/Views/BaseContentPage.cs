@@ -9,6 +9,8 @@ namespace InterTwitter.Views
         public BaseContentPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
+
+            ViewModelLocator.SetAutowireViewModel(this, true);
         }
 
         #region -- Overrides --

@@ -1,4 +1,7 @@
-﻿using InterTwitter.Services;
+using InterTwitter.Services;
+using InterTwitter.Services.Authorization;
+using InterTwitter.Services.Settings;
+using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
@@ -27,7 +30,15 @@ namespace InterTwitter
 
             containerRegistry.RegisterInstance<IPostManager>(Container.Resolve<PostManager>());
 
+            // Services
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignUpEndPage, SignUpEndPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
             containerRegistry.RegisterForNavigation<FlyoutMenuView, FlyoutMenuViewModel>();
             containerRegistry.RegisterForNavigation<FlyoutTabbedView, FlyoutTabbedViewMode>();
             containerRegistry.RegisterForNavigation<FlyoutNavigationView, FlyoutNavigationViewModel>();
@@ -35,13 +46,15 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
+
+            
         }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync($"{nameof(FlyoutNavigationView)}");
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignUpStartPage)}");
         }
 
         protected override void OnStart()

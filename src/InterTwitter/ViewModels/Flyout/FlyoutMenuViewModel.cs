@@ -12,18 +12,29 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using InterTwitter.Services.Authorization;
+using InterTwitter.Views;
+using Prism.Navigation;
 using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels.Flyout
 {
-    public class FlyoutMenuViewModel : BindableBase
+    public class FlyoutMenuViewModel : BaseViewModel
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IPageDialogService _pageDialog;
-        public FlyoutMenuViewModel(IEventAggregator aggregator, IPageDialogService pageDialog)
+        private readonly IAuthorizationService _authorizationService;
+
+        public FlyoutMenuViewModel(INavigationService navigationService,
+            IEventAggregator aggregator,
+            IPageDialogService pageDialog,
+            IAuthorizationService authorizationService)
+            : base(navigationService)
         {
             _eventAggregator = aggregator;
             _pageDialog = pageDialog;
+            _authorizationService = authorizationService;
+
             aggregator.GetEvent<MenuItemChangedEvent>().Subscribe(OnMenuItemChanged);
 
             MenuItems = new ObservableCollection<MenuItemViewModel>
@@ -94,11 +105,13 @@ namespace InterTwitter.ViewModels.Flyout
 
         private async Task OnLogout()
         {
-            bool result = await _pageDialog.DisplayAlertAsync(AppResource.LogoutAlertTitle, AppResource.LogoutAlertBody, AppResource.LogoutAlertOk, AppResource.LogoutAlertCancel);
+            bool shouldLogOut = await _pageDialog.DisplayAlertAsync(Strings.LogoutAlertTitle, Strings.LogoutAlertBody,
+                Strings.LogoutAlertOk, Strings.LogoutAlertCancel);
 
-            if(result)
+            if(shouldLogOut)
             {
-                // navigate to sign up
+                _authorizationService.UnAuthorize();
+                await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
             }
         }
 

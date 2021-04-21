@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:InterTwitter.Controls"
+      x:Class="InterTwitter.Controls.RegisteringEntry"
+      RowSpacing="0"
+      HeightRequest="80"
+      x:Name="_this">
+
+    <Grid.RowDefinitions>
+        <!-- Text-placeholder: invisible while entry inactive, visible otherwise -->
+        <RowDefinition Height="0.25*"/>
+        <!-- Entry and two buttons -->
+        <RowDefinition Height="0.45*"/>
+        <!-- Just 1px line -->
+        <RowDefinition Height="Auto"/>
+        <!-- Error test -->
+        <RowDefinition Height="0.25*"/>
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="0.8*"/>
+        <ColumnDefinition Width="0.1*"/>
+        <ColumnDefinition Width="0.1*"/>
+    </Grid.ColumnDefinitions>
+
+    <Label Grid.Row="0"
+           Grid.Column="0"
+           Grid.ColumnSpan="3"
+           Text="{Binding Placeholder, Source={x:Reference _this}}"
+           Style="{StaticResource EntryCaption}"
+           TextColor="{StaticResource Key=Primary}"
+           x:Name="LabelPlaceholder"/>
+
+    <controls:BorderlessEntry  Grid.Row="1"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="3"
+                               IsPassword="{Binding IsPassword, Source={x:Reference _this}}"
+                               Text="{Binding Text, Source={x:Reference _this}}"
+                               Placeholder="{Binding Placeholder, Source={x:Reference _this}}"
+                               x:Name="BorderlessEntry"/>
+
+    <ImageButton Grid.Row="1"
+                 Grid.Column="1"
+                 BackgroundColor="Transparent"
+                 Command="{Binding ChangeTextTypeCommand, Source={x:Reference _this}}"
+                 x:Name="EyeButton"/>
+
+    <ImageButton Grid.Row="1"
+                 Grid.Column="2"
+                 Source="ic_clear.png"
+                 BackgroundColor="Transparent"
+                 Command="{Binding ClearClickedCommand, Source={x:Reference _this}}"
+                 x:Name="ClearButton"/>
+
+    <BoxView Grid.Row="2"
+             Grid.Column="0"
+             Grid.ColumnSpan="3"
+             HeightRequest="1"
+             Color="{Binding UnderlineColor, Source={x:Reference _this}}"
+             BackgroundColor="Black"
+             x:Name="Underline">
+
+        <BoxView.Margin>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS" Value="0, 10, 0, 5"/>
+                <On Platform="Android" Value="0, 10, 0, 0"/>
+            </OnPlatform>
+        </BoxView.Margin>
+
+    </BoxView>
+
+    <Label Grid.Row="3"
+           Grid.Column="0"
+           Grid.ColumnSpan="3"
+           Text="{Binding ErrorText, Source={x:Reference _this}}"
+           Style="{StaticResource Key=EntryCaption}"
+           TextColor="{StaticResource Key=Error}"
+           IsVisible="{Binding IsErrorTextVisible, Source={x:Reference _this}}"/>
+
+</Grid>
