@@ -10,14 +10,13 @@ namespace InterTwitter.ViewModels.Posts
 {
     public abstract class BasePostViewModel : BindableBase
     {
-        private readonly IPostManager _postManager;
+        private readonly IPostService _postManager;
 
-        public BasePostViewModel(User userModel, Post postModel, IPostManager postManager)
+        public BasePostViewModel(User userModel, Post postModel, IPostService postManager)
         {
             _userModel = userModel;
             _postModel = postModel;
             _postManager = postManager;
-
         }
 
         #region -- Public properties --
@@ -49,7 +48,7 @@ namespace InterTwitter.ViewModels.Posts
             get => _isBookmarked;
             set => SetProperty(ref _isBookmarked, value, nameof(IsBookmarked));
         }
-        
+
         public int LikesCount
         {
             get => PostModel.LikedUserIds.Count();
@@ -64,43 +63,35 @@ namespace InterTwitter.ViewModels.Posts
         #endregion
 
         #region -- Private helpers --
-        
+
         private async Task OnLikes()
         {
             IsLiked = !IsLiked;
 
-            int mockCurrentUserId = 0;
-
-            if(IsLiked)
+            if (IsLiked)
             {
-                _postManager.LikePost(PostModel.Id, mockCurrentUserId);
+                await _postManager.LikePostAsync(PostModel.Id);
             }
             else
             {
-                _postManager.UnlikePost(PostModel.Id, mockCurrentUserId);
+                await _postManager.UnlikePostAsync(PostModel.Id);
             }
 
             RaisePropertyChanged(nameof(LikesCount));
-
-            await Task.CompletedTask;
         }
 
         private async Task OnBookmarks()
         {
             IsBookmarked = !IsBookmarked;
 
-            int mockCurrentUserId = 0;
-
-            if(IsBookmarked)
+            if (IsBookmarked)
             {
-                _postManager.BookmarkPost(PostModel.Id, mockCurrentUserId);
+                await _postManager.BookmarkPostAsync(PostModel.Id);
             }
             else
             {
-                _postManager.UnbookmarkPost(PostModel.Id, mockCurrentUserId);
+                await _postManager.UnbookmarkPostAsync(PostModel.Id);
             }
-
-            await Task.CompletedTask;
         }
 
         #endregion

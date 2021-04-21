@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace InterTwitter.Services
 {
-    public class MockManager : IMockManager
+    public class MockService : IMockService
     {
-        public MockManager()
+        public MockService()
         {
             InitializeUserMock();
             InitializePostMock();
@@ -82,6 +82,17 @@ namespace InterTwitter.Services
                     Email ="johnny.cash@email.com",
                     Password = "1111",
                     ProfileImagePath = "https://pbs.twimg.com/profile_images/961615866944040961/U7RDW7lZ_400x400.jpg",
+                    MutedUserIds = new List<int>{},
+                    BlockedUserIds = new List<int>{}
+                },
+                new User
+                {
+                    Id = 7,
+                    Name = "Developer",
+                    Email ="d",
+                    Password = "d",
+                    ProfileImagePath = "https://pbs.twimg.com/profile_images/1189945624583720960/k6MtoeIt_400x400.jpg",
+
                     MutedUserIds = new List<int>{},
                     BlockedUserIds = new List<int>{}
                 },

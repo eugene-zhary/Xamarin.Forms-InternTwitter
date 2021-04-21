@@ -4,8 +4,11 @@ using InterTwitter.Services;
 using InterTwitter.ViewModels.Posts;
 using Prism.Events;
 using Prism.Navigation;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -14,9 +17,9 @@ namespace InterTwitter.ViewModels.Navigation
     public class HomeViewModel : BaseTabViewModel
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly IPostManager _postManager;
-        
-        public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator, IPostManager postManager) : base(navigation)
+        private readonly IPostService _postManager;
+
+        public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator, IPostService postManager) : base(navigation)
         {
             _eventAggregator = eventAggregator;
             _postManager = postManager;
@@ -42,11 +45,11 @@ namespace InterTwitter.ViewModels.Navigation
 
         #region -- Overrides --
 
-        public override void Initialize(INavigationParameters parameters)
+        public override async void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
-            UpdateColleciton();
+            await UpdateCollecitonAsync();
         }
 
         public override void OnAppearing()
@@ -63,14 +66,26 @@ namespace InterTwitter.ViewModels.Navigation
 
         #region -- Private helpers --
 
-        private void UpdateColleciton()
+        private async Task<AOResult> UpdateCollecitonAsync()
         {
-            PostCollection.Clear();
+            var result = new AOResult();
 
-            var posts = _postManager.GetPosts();
-            posts.ToList().ForEach(PostCollection.Add);
+            try
+            {
+                PostCollection.Clear();
+
+                var posts = await _postManager.GetPostsAsync();
+                posts.Result.ToList().ForEach(PostCollection.Add);
+
+                result.SetSuccess();
+            }
+            catch (Exception ex)
+            {
+                result.SetError($"{nameof(UpdateCollecitonAsync)}", "Something went wrong", ex);
+            }
+
+            return result;
         }
-
         private void OnPicProfileTapGestureRecognizer()
         {
             _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(true);

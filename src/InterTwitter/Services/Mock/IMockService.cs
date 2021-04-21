@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace InterTwitter.Services
 {
-    public interface IMockManager
+    public interface IMockService
     {
         IList<User> MockedUsers { get; set; }
         IList<Post> MockedPosts { get; set; }

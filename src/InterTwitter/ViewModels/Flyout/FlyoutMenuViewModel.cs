@@ -3,7 +3,6 @@ using InterTwitter.Resources;
 using InterTwitter.Views;
 using InterTwitter.Views.Navigation;
 using Prism.Events;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using System;
@@ -13,8 +12,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using InterTwitter.Services.Authorization;
-using InterTwitter.Views;
-using Prism.Navigation;
 using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels.Flyout

@@ -11,63 +11,11 @@ namespace InterTwitter.Services.UserService
 {
     public class UserService : IUserService
     {
-        private IEnumerable<User> _mockedUsers;
+        private readonly IMockService _mock;
 
-        public UserService()
+        public UserService(IMockService mock)
         {
-            _mockedUsers = new List<User>
-            {
-                new User
-                {
-                    Id = 1,
-                    Name = "Stas",
-                    Email = "stas@gmail.com",
-                    Password = "Qwert1",
-                    BlockedUserIds = new List<int>(),
-                    MutedUserIds = new List<int>(),
-                    ProfileImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
-                },
-                new User
-                {
-                    Id = 2,
-                    Name = "Vlad",
-                    Email = "vlad@gmail.com",
-                    Password = "Qwert2",
-                    BlockedUserIds = new List<int>(),
-                    MutedUserIds = new List<int>{3},
-                    ProfileImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
-                },
-                new User
-                {
-                    Id = 3,
-                    Name = "Evgeny",
-                    Email = "evgeny@gmail.com",
-                    Password = "Qwert3",
-                    BlockedUserIds = new List<int>{2},
-                    MutedUserIds = new List<int>(),
-                    ProfileImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
-                },
-                new User
-                {
-                    Id = 4,
-                    Name = "Ilya",
-                    Email = "ilya@gmail.com",
-                    Password = "Qwert4",
-                    BlockedUserIds = new List<int>{1, 2, 3},
-                    MutedUserIds = new List<int>{5},
-                    ProfileImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
-                },
-                new User
-                {
-                    Id = 5,
-                    Name = "Alexey",
-                    Email = "lesha@gmail.com",
-                    Password = "Qwert5",
-                    BlockedUserIds = new List<int>(),
-                    MutedUserIds = new List<int>(),
-                    ProfileImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
-                }
-            };
+            _mock = mock;
         }
 
         #region -- IUserService implementation --
@@ -157,7 +105,7 @@ namespace InterTwitter.Services.UserService
 
             try
             {
-                var sameUser = _mockedUsers.FirstOrDefault(u => u.Email == user.Email);
+                var sameUser = _mock.MockedUsers.FirstOrDefault(u => u.Email == user.Email);
 
                 if (sameUser == null)
                 {
@@ -184,7 +132,7 @@ namespace InterTwitter.Services.UserService
 
             try
             {
-                var insertedUserId = await InsertUserToMockCollectionAsync(user);
+                var insertedUserId = await UpdateUserInMockCollectionAsync(user);
 
                 result.SetSuccess(insertedUserId);
             }
@@ -221,15 +169,15 @@ namespace InterTwitter.Services.UserService
         {
             await Task.Delay(300);
 
-            return _mockedUsers;
+            return _mock.MockedUsers;
         }
 
         private async Task<int> InsertUserToMockCollectionAsync(User user)
         {
-            var lastUserId = _mockedUsers.Last().Id;
+            var lastUserId = _mock.MockedUsers.Last().Id;
             user.Id = ++lastUserId;
 
-            (_mockedUsers as List<User>)?.Add(user);
+            _mock.MockedUsers?.Add(user);
 
             await Task.Delay(100);
 
@@ -238,13 +186,13 @@ namespace InterTwitter.Services.UserService
 
         private async Task<int> UpdateUserInMockCollectionAsync(User user)
         {
-            var oldUser = _mockedUsers.FirstOrDefault(u => u.Id == user.Id);
+            var oldUser = _mock.MockedUsers.FirstOrDefault(u => u.Id == user.Id);
 
-            (_mockedUsers as List<User>)?.Remove(oldUser);
+            _mock.MockedUsers?.Remove(oldUser);
 
-            (_mockedUsers as List<User>)?.Add(user);
+            _mock.MockedUsers?.Add(user);
 
-            (_mockedUsers as List<User>)?.Sort((u1, u2) => u1.Id.CompareTo(u2.Id));
+            _mock.MockedUsers.ToList()?.Sort((u1, u2) => u1.Id.CompareTo(u2.Id));
 
             await Task.Delay(300);
 
@@ -253,7 +201,7 @@ namespace InterTwitter.Services.UserService
 
         private async Task<int> DeleteUserMockAsync(User user)
         {
-            _mockedUsers = _mockedUsers.Where(u => u.Id != user.Id);
+            _mock.MockedUsers.Remove(user);
 
             await Task.Delay(300);
 

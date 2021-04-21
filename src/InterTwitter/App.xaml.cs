@@ -25,10 +25,10 @@ namespace InterTwitter
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterInstance<IMockManager>(Container.Resolve<MockManager>());
+            containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
 
-            containerRegistry.RegisterInstance<IPostManager>(Container.Resolve<PostManager>());
+            containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
 
             // Services
             containerRegistry.RegisterSingleton<IUserService, UserService>();
@@ -46,7 +46,6 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
-
             
         }
 

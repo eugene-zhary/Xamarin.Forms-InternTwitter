@@ -30,11 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Update="Resources\AppResource.Designer.cs">
-=======
     <Compile Update="Resources\Strings.Designer.cs">
->>>>>>> 31a32dac0cafa53ac674f04b303c0457528de57f
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Strings.resx</DependentUpon>
@@ -48,8 +44,11 @@
     <Compile Update="Views\Navigation\NotifycationView.xaml.cs">
       <DependentUpon>NotifycationView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\SignUpStartPage.xaml.cs">
+    <Compile Update="Views\Authorization\SignUpStartPage.xaml.cs">
       <DependentUpon>SignUpStartPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Templates\PhotoPostDataTemplate.xaml.cs">
+      <DependentUpon>PhotoPostDataTemplate.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -66,17 +65,20 @@
     <EmbeddedResource Update="Controls\NavigationBar\SearchNavigationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PostTemplates.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignInPage.xaml">
+    <EmbeddedResource Update="Views\Authorization\SignInPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignUpEndPage.xaml">
+    <EmbeddedResource Update="Views\Authorization\SignUpEndPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignUpStartPage.xaml">
+    <EmbeddedResource Update="Views\Authorization\SignUpStartPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Flyout\FlyoutNavigationView.xaml">
@@ -100,7 +102,7 @@
     <EmbeddedResource Update="Views\Navigation\SearchView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Templates\PostDataTemplate.xaml">
+    <EmbeddedResource Update="Views\Templates\PhotoPostDataTemplate.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

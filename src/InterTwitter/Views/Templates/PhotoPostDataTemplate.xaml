@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InterTwitter.Views.Templates.PostDataTemplate"
+             x:Class="InterTwitter.Views.Templates.PhotoPostDataTemplate"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
 	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
     <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15">
@@ -51,6 +51,7 @@
                    HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"/>
 
             <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
+                
                 <ffimageloading:CachedImage Source="ic_like_gray">
                     <ffimageloading:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding LikesCommand}"/>

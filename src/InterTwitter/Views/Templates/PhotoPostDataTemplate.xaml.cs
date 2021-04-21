@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace InterTwitter.Views.Templates
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PostDataTemplate : DataTemplate
+    public partial class PhotoPostDataTemplate : DataTemplate
     {
-        public PostDataTemplate()
+        public PhotoPostDataTemplate()
         {
             InitializeComponent();
         }

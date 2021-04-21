@@ -11,33 +11,36 @@ namespace InterTwitter.Extensions
     {
         #region -- Public methods --
 
-        public static BasePostViewModel ToViewModel(this Post postModel, IPostManager postManager)
+        public static BasePostViewModel ToViewModel(this Post postModel, IPostService postManager, int currentUserId)
         {
             BasePostViewModel postViewModel = null;
 
-            if(postModel != null)
+            if (postModel != null)
             {
-                User userModel = postManager.GetPostAuthor(postModel.UserId);
-
-                switch(postModel.MediaType)
+                var userModel = postManager.GetPostAuthorAsync(postModel.UserId).Result;
+                
+                switch (postModel.MediaType)
                 {
                     case EMediaType.Photo:
                         postViewModel = new PhotoPostViewModel(userModel, postModel, postManager);
                         break;
                 }
+
+                postViewModel.IsLiked = postModel.LikedUserIds.Contains(currentUserId);
+                postViewModel.IsBookmarked = postModel.BookmarkedUserIds.Contains(currentUserId);
             }
 
             return postViewModel;
         }
 
-        public static IEnumerable<BasePostViewModel> ToViewModelCollection(this IEnumerable<Post> postCollection, IPostManager postManager)
+        public static IEnumerable<BasePostViewModel> ToViewModelCollection(this IEnumerable<Post> postCollection, IPostService postManager, int currentUserId)
         {
             List<BasePostViewModel> viewModelCollection = null;
 
-            if(postCollection.Any())
+            if (postCollection.Any())
             {
                 viewModelCollection = new List<BasePostViewModel>();
-                postCollection.ToList().ForEach(p => viewModelCollection.Add(p.ToViewModel(postManager)));
+                postCollection.ToList().ForEach(p => viewModelCollection.Add(p.ToViewModel(postManager, currentUserId)));
             }
 
             return viewModelCollection;

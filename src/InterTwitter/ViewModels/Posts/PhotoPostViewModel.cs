@@ -6,7 +6,7 @@ namespace InterTwitter.ViewModels.Posts
 {
     public class PhotoPostViewModel : BasePostViewModel
     {
-        public PhotoPostViewModel(User userModel, Post postModel, IPostManager postManager) : base(userModel, postModel, postManager)
+        public PhotoPostViewModel(User userModel, Post postModel, IPostService postManager) : base(userModel, postModel, postManager)
         {
             PhotoSource = PostModel.MediaPaths.FirstOrDefault();
         }
