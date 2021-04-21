@@ -8,7 +8,6 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
              BackgroundColor="#FCFDFE"
-             
              Title="Flyout">
     <ContentPage.Resources>
         <Style TargetType="Label">
@@ -33,7 +32,11 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Image Source="pic_profile_big.png" Margin="0"/>
+            <Image Source="pic_profile_big.png" Margin="0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigationToProfileCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
 
             <StackLayout Grid.Column="1" VerticalOptions="Center">
                 <Label Text="Name" FontAttributes="Bold" FontSize="20"/>
@@ -67,6 +70,9 @@
             <StackLayout Spacing="20" VerticalOptions="Start" Orientation="Horizontal">
                 <Image Source="ic_setting.png" WidthRequest="35" HeightRequest="35"/>
                 <Label Text="Change profile"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigationToChangeProfileCommand}"/>
+                </StackLayout.GestureRecognizers>
             </StackLayout>
 
             <StackLayout Spacing="20" Grid.Row="1" VerticalOptions="End" Orientation="Horizontal">
