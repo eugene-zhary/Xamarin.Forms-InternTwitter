@@ -211,6 +211,20 @@ namespace InterTwitter.Services
                     BookmarkedUserIds = new List<int>{1,2},
                     CreationDateTime = new DateTime(2021,4,20, 12,40,00)
                 },
+                new Post
+                {
+                    Id = 7,
+                    UserId = 5,
+                    MediaType = EMediaType.Video,
+                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    MediaPaths = new List<string>
+                    {
+                        "http://vjs.zencdn.net/v/oceans.mp4",
+                    },
+                    LikedUserIds = new List < int > { 1 },
+                    BookmarkedUserIds = new List<int>{4,5},
+                    CreationDateTime = new DateTime(2021,4,20, 12,40,00)
+                },
             };
         }
 

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Views.Templates.VideoPostDataTemplate"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+    <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="210"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="1"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- USER ICON -->
+
+        <ffimageloading:CachedImage Source="{Binding UserModel.ProfileImagePath}" VerticalOptions="Start" Grid.RowSpan="3">
+            <ffimageloading:CachedImage.Transformations>
+                <fftransformations:CircleTransformation/>
+            </ffimageloading:CachedImage.Transformations>
+        </ffimageloading:CachedImage>
+
+        <!-- POST TEXT CONTENT -->
+
+        <StackLayout Grid.Column="1">
+            <Label Text="{Binding UserModel.Name}" FontAttributes="Bold"/>
+            <Label Text="{Binding PostModel.Text}"/>
+        </StackLayout>
+
+
+        <!-- POST MEDIA CONTENT -->
+
+
+        <!-- DATETIME, LIKES, BOOKMARKS -->
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}" 
+                   HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"/>
+
+            <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
+
+                <ffimageloading:CachedImage Source="ic_like_gray">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LikesCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                    <ffimageloading:CachedImage.Triggers>
+                        <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding IsLiked}" Value="true">
+                            <Setter Property="Source" Value="ic_like_blue"/>
+                        </DataTrigger>
+                    </ffimageloading:CachedImage.Triggers>
+                </ffimageloading:CachedImage>
+
+                <Label Text="{Binding LikesCount}" TextColor="{StaticResource Dark Grey}"  FontSize="14" VerticalOptions="Center" Margin="0,0,15,0">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding IsLiked}" Value="true">
+                            <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+
+                <ffimageloading:CachedImage Source="ic_bookmarks_gray">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BookmarksCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                    <ffimageloading:CachedImage.Triggers>
+                        <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding IsBookmarked}" Value="true">
+                            <Setter Property="Source" Value="ic_bookmarks_blue"/>
+                        </DataTrigger>
+                    </ffimageloading:CachedImage.Triggers>
+                </ffimageloading:CachedImage>
+            </StackLayout>
+        </Grid>
+
+
+        <!-- SPLITER -->
+
+        <BoxView Grid.Row="3" BackgroundColor="#DEDFE1" Grid.ColumnSpan="2" Margin="-15,0"/>
+    </Grid>
+</DataTemplate>

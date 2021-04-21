@@ -6,8 +6,10 @@
 
     <templates:PhotoPostDataTemplate x:Key="photoPostsTemplate"/>
     <templates:GalleryPostDataTemplate x:Key="galleryPostsTemplate"/>
+    <templates:VideoPostDataTemplate x:Key="videoPostsTemplate"/>
 
     <templates:PostDataTemplateSelector x:Key="postTemplateSelector"
                                         PhotoPostDataTemplate="{StaticResource photoPostsTemplate}"
-                                        GalleryPostDataTemplate="{StaticResource galleryPostsTemplate}"/>
+                                        GalleryPostDataTemplate="{StaticResource galleryPostsTemplate}"
+                                        VideoPostDataTemplate="{StaticResource videoPostsTemplate}"/>
 </ResourceDictionary>
