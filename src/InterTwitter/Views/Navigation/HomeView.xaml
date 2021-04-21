@@ -21,7 +21,7 @@
     <Grid>
         
         <!-- COLLECTION VIEW -->
-        <controls:CustomCollectionView x:Name="collectionView" 
+        <controls:CustomCollectionView x:Name="collectionView" ItemsUpdatingScrollMode="KeepItemsInView"
                                        ItemsSource="{Binding PostCollection}"
                                        ItemTemplate="{StaticResource postTemplateSelector}">
             <controls:CustomCollectionView.Header>

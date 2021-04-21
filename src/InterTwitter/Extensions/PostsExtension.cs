@@ -24,6 +24,10 @@ namespace InterTwitter.Extensions
                     case EMediaType.Photo:
                         postViewModel = new PhotoPostViewModel(userModel, postModel, postManager);
                         break;
+
+                    case EMediaType.Gallery:
+                        postViewModel = new GalleryPostViewModel(userModel, postModel, postManager);
+                        break;
                 }
 
                 postViewModel.IsLiked = postModel.LikedUserIds.Contains(currentUserId);

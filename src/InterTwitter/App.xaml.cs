@@ -1,3 +1,4 @@
+using DLToolkit.Forms.Controls;
 using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
 using InterTwitter.Services.Settings;
@@ -46,14 +47,14 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
-            
         }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
+            FlowListView.Init();
 
-            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignUpStartPage)}");
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(FlyoutNavigationView)}");
         }
 
         protected override void OnStart()

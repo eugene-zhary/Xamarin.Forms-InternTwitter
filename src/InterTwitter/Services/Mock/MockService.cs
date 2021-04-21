@@ -176,6 +176,41 @@ namespace InterTwitter.Services
                     BookmarkedUserIds = new List<int>{1,2},
                     CreationDateTime = new DateTime(2021,4,20, 12,40,00)
                 },
+                new Post
+                {
+                    Id = 5,
+                    UserId = 2,
+                    MediaType = EMediaType.Gallery,
+                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    MediaPaths = new List<string>
+                    {
+                        "https://i.picsum.photos/id/885/400/400.jpg?hmac=v75VLk67mKnHmkorr3_6B-7xtrh4zdu9yMXAVz72vVo",
+                        "https://i.picsum.photos/id/466/400/400.jpg?hmac=aMjqaxyL-2u_P8UZtjJ0mNgBvnbt69hTVBhIA2FiGA4",
+                        "https://i.picsum.photos/id/655/400/400.jpg?hmac=M3L8FzZNxlC4tX2iPk4hmjmxf6OZNPaxHApWCrn2CEU",
+                        "https://i.picsum.photos/id/950/400/400.jpg?hmac=BY1OAw29pHWLsIz39vMvLpa2cVbYi3S3aIdLYOPZHDo",
+                        "https://i.picsum.photos/id/528/400/400.jpg?hmac=iDyA0MPePLInmY78skZIO0dt0jmQ926rrUgAw5NwO5Q",
+                        "https://i.picsum.photos/id/367/400/400.jpg?hmac=2WjJTVP_HoKTTX5zA68CwAMQTwFka_Om39SUN-LsxAY",
+                    },
+                    LikedUserIds = new List < int > { 3 },
+                    BookmarkedUserIds = new List<int>{1,2},
+                    CreationDateTime = new DateTime(2021,4,20, 12,40,00)
+                },
+                new Post
+                {
+                    Id = 6,
+                    UserId = 3,
+                    MediaType = EMediaType.Gallery,
+                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    MediaPaths = new List<string>
+                    {
+                        "https://i.picsum.photos/id/686/400/400.jpg?hmac=vyAuUfLG282Gnl-ym3_Fh6faAR0mIj5wMllsXnlkTMY",
+                        "https://i.picsum.photos/id/666/400/400.jpg?hmac=oXtr5hh6wCLY5pMuAuXZXNHzNotByST86OGX1synSIQ",
+                        "https://i.picsum.photos/id/1/400/400.jpg?hmac=lOytrN6lDOH_Yx7NwwGIaCtxp6pyuH2V4hD6Eac-VI0",
+                    },
+                    LikedUserIds = new List < int > { 3 },
+                    BookmarkedUserIds = new List<int>{1,2},
+                    CreationDateTime = new DateTime(2021,4,20, 12,40,00)
+                },
             };
         }
 

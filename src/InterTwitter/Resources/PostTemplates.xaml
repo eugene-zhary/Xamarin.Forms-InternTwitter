@@ -5,7 +5,9 @@
              xmlns:templates="clr-namespace:InterTwitter.Views.Templates">
 
     <templates:PhotoPostDataTemplate x:Key="photoPostsTemplate"/>
+    <templates:GalleryPostDataTemplate x:Key="galleryPostsTemplate"/>
 
     <templates:PostDataTemplateSelector x:Key="postTemplateSelector"
-                                        PhotoPostDataTemplate="{StaticResource photoPostsTemplate}"/>
+                                        PhotoPostDataTemplate="{StaticResource photoPostsTemplate}"
+                                        GalleryPostDataTemplate="{StaticResource galleryPostsTemplate}"/>
 </ResourceDictionary>
