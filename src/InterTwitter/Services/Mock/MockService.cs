@@ -229,7 +229,7 @@ namespace InterTwitter.Services
                 {
                     Id = 7,
                     UserId = 5,
-                    MediaType = EMediaType.Photo,
+                    MediaType = EMediaType.Gif,
                     Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
                     MediaPaths = new List<string>
                     {

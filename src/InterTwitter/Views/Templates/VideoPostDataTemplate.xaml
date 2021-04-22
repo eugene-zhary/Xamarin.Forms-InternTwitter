@@ -37,15 +37,12 @@
 
         <Frame Padding="0" Grid.Row="1" Grid.Column="1" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
             <Grid>
-                <o:VideoPlayer Source="{Binding VideoPath}" DisplayControls="False"/>
+                <o:VideoPlayer Source="{Binding MediaPath}" DisplayControls="False"/>
 
-                <Frame CornerRadius="30" WidthRequest="40" HeightRequest="40" Padding="10" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{StaticResource Primary}">
-                    <ffimageloading:CachedImage Source="ic_play" Aspect="AspectFit">
-                    <ffimageloading:CachedImage.Transformations>
-                        <fftransformations:CircleTransformation/>
-                    </ffimageloading:CachedImage.Transformations>
-                </ffimageloading:CachedImage>
-                </Frame>
+                <Button BackgroundColor="{StaticResource Primary}" Command="{Binding OpenVideoCommand}"
+                        ImageSource="ic_play" Padding="0" CornerRadius="30" 
+                        HeightRequest="60" WidthRequest="60"
+                        HorizontalOptions="Center" VerticalOptions="Center"/>
             </Grid>
         </Frame>
 

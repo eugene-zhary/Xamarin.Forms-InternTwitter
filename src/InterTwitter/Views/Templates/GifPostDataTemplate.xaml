@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InterTwitter.Views.Templates.PhotoPostDataTemplate"
-             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+              x:Class="InterTwitter.Views.Templates.GifPostDataTemplate">
     <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -25,22 +25,24 @@
         </ffimageloading:CachedImage>
 
         <!-- POST TEXT CONTENT -->
-        
+
         <StackLayout Grid.Column="1">
             <Label Text="{Binding UserModel.Name}" FontAttributes="Bold"/>
             <Label Text="{Binding PostModel.Text}"/>
         </StackLayout>
 
-        
+
         <!-- POST MEDIA CONTENT -->
 
         <Frame Padding="0" Grid.Row="1" Grid.Column="1" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
-            <ffimageloading:CachedImage Source="{Binding MediaPath}"  Aspect="AspectFill" LoadingPlaceholder="anim_loading"/>
+            <Grid>
+                <ffimageloading:CachedImage Source="{Binding MediaPath}"  Aspect="AspectFill" LoadingPlaceholder="anim_loading"/>
+                <ffimageloading:CachedImage Source="pic_gif" VerticalOptions="End" HorizontalOptions="End" Margin="10" Aspect="AspectFit"/>
+            </Grid>
         </Frame>
 
-
         <!-- DATETIME, LIKES, BOOKMARKS -->
-        
+
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -51,7 +53,7 @@
                    HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"/>
 
             <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
-                
+
                 <ffimageloading:CachedImage Source="ic_like_gray">
                     <ffimageloading:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding LikesCommand}"/>
@@ -83,10 +85,10 @@
                 </ffimageloading:CachedImage>
             </StackLayout>
         </Grid>
-        
-        
+
+
         <!-- SPLITER -->
-        
+
         <BoxView Grid.Row="3" BackgroundColor="#DEDFE1" Grid.ColumnSpan="2" Margin="-15,0"/>
     </Grid>
 </DataTemplate>

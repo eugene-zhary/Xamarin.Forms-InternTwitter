@@ -8,18 +8,18 @@ using System.Windows.Input;
 
 namespace InterTwitter.ViewModels.Posts
 {
-    public abstract class BasePostViewModel : BindableBase
+    public class BasePostViewModel : BindableBase
     {
-        private readonly IPostService _postManager;
 
         public BasePostViewModel(User userModel, Post postModel, IPostService postManager)
         {
             _userModel = userModel;
             _postModel = postModel;
-            _postManager = postManager;
+            PostManager = postManager;
         }
 
         #region -- Public properties --
+        protected readonly IPostService PostManager;
 
         private User _userModel;
         public User UserModel
@@ -70,11 +70,11 @@ namespace InterTwitter.ViewModels.Posts
 
             if (IsLiked)
             {
-                await _postManager.LikePostAsync(PostModel.Id);
+                await PostManager.LikePostAsync(PostModel.Id);
             }
             else
             {
-                await _postManager.UnlikePostAsync(PostModel.Id);
+                await PostManager.UnlikePostAsync(PostModel.Id);
             }
 
             RaisePropertyChanged(nameof(LikesCount));
@@ -86,11 +86,11 @@ namespace InterTwitter.ViewModels.Posts
 
             if (IsBookmarked)
             {
-                await _postManager.BookmarkPostAsync(PostModel.Id);
+                await PostManager.BookmarkPostAsync(PostModel.Id);
             }
             else
             {
-                await _postManager.UnbookmarkPostAsync(PostModel.Id);
+                await PostManager.UnbookmarkPostAsync(PostModel.Id);
             }
         }
 

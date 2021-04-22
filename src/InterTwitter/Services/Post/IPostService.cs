@@ -15,5 +15,6 @@ namespace InterTwitter.Services
         Task<AOResult> UnlikePostAsync(int postId);
         Task<AOResult> BookmarkPostAsync(int postId);
         Task<AOResult> UnbookmarkPostAsync(int postId);
+        Task<AOResult> NavigateToVideoAsync(string videoPath);
     }
 }

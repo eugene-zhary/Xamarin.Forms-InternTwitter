@@ -36,20 +36,14 @@
 
         <!-- POST MEDIA CONTENT -->
 
-        <flv:FlowListView Grid.Row="1" Grid.Column="1" RowHeight="100" HorizontalScrollBarVisibility="Never"
+        <flv:FlowListView Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Never" RowHeight="100"
                           FlowColumnCount="3" HasUnevenRows="False" VerticalScrollBarVisibility="Never"
                           FlowItemsSource="{Binding PostModel.MediaPaths}">
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
-                    <ffimageloading:CachedImage Source="{Binding .}" Aspect="AspectFit" Margin="2">
-                        <ffimageloading:CachedImage.Transformations>
-                            <fftransformations:CornersTransformation CornersTransformType="AllRounded"
-                                                                     BottomLeftCornerSize="6"
-                                                                     TopLeftCornerSize="6"
-                                                                     BottomRightCornerSize="6"
-                                                                     TopRightCornerSize="6"/>
-                        </ffimageloading:CachedImage.Transformations>
-                    </ffimageloading:CachedImage>
+                    <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" HasShadow="False" Margin="2">
+                        <ffimageloading:CachedImage Source="{Binding .}" Aspect="AspectFill"/>
+                    </Frame>
                 </DataTemplate>
             </flv:FlowListView.FlowColumnTemplate>
         </flv:FlowListView>

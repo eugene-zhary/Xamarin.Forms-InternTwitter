@@ -6,6 +6,7 @@ using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
+using InterTwitter.ViewModels.Posts;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
@@ -47,6 +48,7 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
+            containerRegistry.RegisterForNavigation<WatchVideoView, WatchVideoViewModel>();
         }
 
         protected override async void OnInitialized()

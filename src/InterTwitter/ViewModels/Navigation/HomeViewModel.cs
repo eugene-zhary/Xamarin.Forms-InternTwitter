@@ -1,11 +1,10 @@
 ﻿using InterTwitter.Helpers;
-using InterTwitter.Models;
 using InterTwitter.Services;
 using InterTwitter.ViewModels.Posts;
+using InterTwitter.Views;
 using Prism.Events;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +21,7 @@ namespace InterTwitter.ViewModels.Navigation
         public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator, IPostService postManager) : base(navigation)
         {
             _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<VideoOpenedEvent>().Subscribe(OnVideoOpened);
             _postManager = postManager;
 
             IconPath = "ic_home_gray.png";
@@ -79,16 +79,27 @@ namespace InterTwitter.ViewModels.Navigation
 
                 result.SetSuccess();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 result.SetError($"{nameof(UpdateCollecitonAsync)}", "Something went wrong", ex);
             }
 
             return result;
         }
+
         private void OnPicProfileTapGestureRecognizer()
         {
             _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(true);
+        }
+
+        private async void OnVideoOpened(string VideoPath)
+        {
+            var parameters = new NavigationParameters
+            {
+                { nameof(VideoPath), VideoPath }
+            };
+
+            await NavigationService.NavigateAsync(nameof(WatchVideoView),parameters);
         }
 
         #endregion

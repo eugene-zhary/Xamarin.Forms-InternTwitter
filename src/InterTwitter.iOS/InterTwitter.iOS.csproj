@@ -626,4 +626,7 @@
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\anim_loading.gif" />
+  </ItemGroup>
 </Project>

@@ -18,19 +18,19 @@ namespace InterTwitter.Extensions
             if (postModel != null)
             {
                 var userModel = postManager.GetPostAuthorAsync(postModel.UserId).Result;
-                
-                switch (postModel.MediaType)
+
+                switch(postModel.MediaType)
                 {
                     case EMediaType.Photo:
-                        postViewModel = new PhotoPostViewModel(userModel, postModel, postManager);
+                    case EMediaType.Gif:
+                        postViewModel = new OneMediaPostViewModel(userModel, postModel, postManager);
+                        break;
+                    case EMediaType.Video:
+                        postViewModel = new VideoPostViewModel(userModel, postModel, postManager);
                         break;
 
                     case EMediaType.Gallery:
-                        postViewModel = new GalleryPostViewModel(userModel, postModel, postManager);
-                        break;
-
-                    case EMediaType.Video:
-                        postViewModel = new VideoPostViewModel(userModel, postModel, postManager);
+                        postViewModel = new BasePostViewModel(userModel, postModel, postManager);
                         break;
                 }
 
