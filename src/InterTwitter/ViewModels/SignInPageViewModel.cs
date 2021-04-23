@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Resources;
@@ -126,31 +127,34 @@ namespace InterTwitter.ViewModels
 
         private async Task OnSignIn()
         {
-            if (!string.IsNullOrWhiteSpace(Email) &&
-                !string.IsNullOrEmpty(Password))
+            using (UserDialogs.Instance.Loading(Strings.SigningIn))
             {
-                Email = Email.Trim();
-
-                var result = await _userService.GetUserAsync(u => u.Email == Email && u.Password == Password);
-
-                if (result.IsSuccess)
+                if (!string.IsNullOrWhiteSpace(Email) &&
+                    !string.IsNullOrEmpty(Password))
                 {
-                    var authorizedUser = result.Result;
+                    Email = Email.Trim();
 
-                    _authorizationService.Authorize(authorizedUser.Id);
+                    var result = await _userService.GetUserAsync(u => u.Email == Email && u.Password == Password);
 
-                    await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
+                    if (result.IsSuccess)
+                    {
+                        var authorizedUser = result.Result;
+
+                        _authorizationService.Authorize(authorizedUser.Id);
+
+                        await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
+                    }
+                    else
+                    {
+                        await _pageDialogService.DisplayAlertAsync(Strings.LogInErrorTitle, Strings.NoSuchUser, Strings.Ok);
+                    }
+
                 }
                 else
                 {
-                    await _pageDialogService.DisplayAlertAsync(Strings.LogInErrorTitle, Strings.NoSuchUser, Strings.Ok);
+                    await _pageDialogService.DisplayAlertAsync(Strings.LogInErrorTitle, Strings.EmptyFieldsError,
+                        Strings.Ok);
                 }
-
-            }
-            else
-            {
-                await _pageDialogService.DisplayAlertAsync(Strings.LogInErrorTitle, Strings.EmptyFieldsError,
-                    Strings.Ok);
             }
         }
 

@@ -195,6 +195,9 @@
   <data name="PasswordLengthError" xml:space="preserve">
     <value>Type at least 6 symbols</value>
   </data>
+  <data name="SigningIn" xml:space="preserve">
+    <value>Signing in...</value>
+  </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign Up</value>
   </data>
