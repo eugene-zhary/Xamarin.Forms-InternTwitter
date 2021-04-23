@@ -1,12 +1,12 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace InterTwitter.Resources.Styles
+namespace InterTwitter.Resources
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Colors : ResourceDictionary
+    public partial class PostTemplates : ResourceDictionary
     {
-        public Colors()
+        public PostTemplates()
         {
             InitializeComponent();
         }

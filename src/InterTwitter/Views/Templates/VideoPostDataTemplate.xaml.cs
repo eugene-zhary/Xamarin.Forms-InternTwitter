@@ -1,12 +1,12 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace InterTwitter.Resources.Styles
+namespace InterTwitter.Views.Templates
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Colors : ResourceDictionary
+    public partial class VideoPostDataTemplate : DataTemplate
     {
-        public Colors()
+        public VideoPostDataTemplate()
         {
             InitializeComponent();
         }

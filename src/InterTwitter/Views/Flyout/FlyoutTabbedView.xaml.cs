@@ -15,6 +15,7 @@ namespace InterTwitter.Views.Flyout
     {
         public FlyoutTabbedView()
         {
+
             InitializeComponent();
         }
     }

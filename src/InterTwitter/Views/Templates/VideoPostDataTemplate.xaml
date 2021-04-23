@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataTemplate
+    x:Class="InterTwitter.Views.Templates.VideoPostDataTemplate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+    <Grid
+        Padding="15,15,15,0"
+        ColumnSpacing="15"
+        RowSpacing="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="210" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="1" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--  USER ICON  -->
+
+        <ffimageloading:CachedImage
+            Grid.RowSpan="3"
+            Source="{Binding UserModel.ProfileImagePath}"
+            VerticalOptions="Start">
+            <ffimageloading:CachedImage.Transformations>
+                <fftransformations:CircleTransformation />
+            </ffimageloading:CachedImage.Transformations>
+            <ffimageloading:CachedImage.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigationToProfileCommand}" />
+            </ffimageloading:CachedImage.GestureRecognizers>
+
+        </ffimageloading:CachedImage>
+
+        <!--  POST TEXT CONTENT  -->
+
+        <StackLayout Grid.Column="1">
+            <Label FontAttributes="Bold" Text="{Binding UserModel.Name}" />
+            <Label Text="{Binding PostModel.Text}" />
+        </StackLayout>
+
+
+        <!--  POST MEDIA CONTENT  -->
+
+
+        <!--  DATETIME, LIKES, BOOKMARKS  -->
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                FontSize="14"
+                HorizontalOptions="Start"
+                Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}"
+                VerticalOptions="Center" />
+
+            <StackLayout
+                Grid.Column="1"
+                HorizontalOptions="End"
+                Orientation="Horizontal">
+
+                <ffimageloading:CachedImage Source="ic_like_gray">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LikesCommand}" />
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                    <ffimageloading:CachedImage.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsLiked}"
+                            TargetType="ffimageloading:CachedImage"
+                            Value="true">
+                            <Setter Property="Source" Value="ic_like_blue" />
+                        </DataTrigger>
+                    </ffimageloading:CachedImage.Triggers>
+                </ffimageloading:CachedImage>
+
+                <Label
+                    Margin="0,0,15,0"
+                    FontSize="14"
+                    Text="{Binding LikesCount}"
+                    TextColor="{StaticResource Dark Grey}"
+                    VerticalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsLiked}"
+                            TargetType="Label"
+                            Value="true">
+                            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+
+                <ffimageloading:CachedImage Source="ic_bookmarks_gray">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BookmarksCommand}" />
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                    <ffimageloading:CachedImage.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsBookmarked}"
+                            TargetType="ffimageloading:CachedImage"
+                            Value="true">
+                            <Setter Property="Source" Value="ic_bookmarks_blue" />
+                        </DataTrigger>
+                    </ffimageloading:CachedImage.Triggers>
+                </ffimageloading:CachedImage>
+            </StackLayout>
+        </Grid>
+
+
+        <!--  SPLITER  -->
+
+        <BoxView
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Margin="-15,0"
+            BackgroundColor="#DEDFE1" />
+    </Grid>
+</DataTemplate>

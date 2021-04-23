@@ -3,7 +3,7 @@ using Prism.Navigation;
 
 namespace InterTwitter.ViewModels
 {
-    public class BaseViewModel : BindableBase, INavigationAware, IInitialize
+    public class BaseViewModel : BindableBase, IInitialize, INavigationAware, IDestructible
     {
         public BaseViewModel(INavigationService navigationService)
         {
@@ -12,7 +12,7 @@ namespace InterTwitter.ViewModels
 
         #region -- Public properies --
 
-        protected INavigationService NavigationService { get; }
+        protected INavigationService NavigationService { get; private set; }
         
         #endregion
 
@@ -20,10 +20,12 @@ namespace InterTwitter.ViewModels
 
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
         {
+
         }
 
         public virtual void OnNavigatedTo(INavigationParameters parameters)
         {
+
         }
 
         #endregion
@@ -32,6 +34,16 @@ namespace InterTwitter.ViewModels
 
         public virtual void Initialize(INavigationParameters parameters)
         {
+
+        }
+
+        #endregion
+
+        #region -- IDestructible implementation --
+
+        public virtual void Destroy()
+        {
+
         }
 
         #endregion
