@@ -7,7 +7,7 @@
             prism:ViewModelLocator.AutowireViewModel="True"
             IsPresented="{Binding IsMenuVisible, Mode=TwoWay}">
     <FlyoutPage.Flyout>
-        <local:FlyoutMenuView />
+        <local:FlyoutMenuView/>
     </FlyoutPage.Flyout>
     <FlyoutPage.Detail>
         <local:FlyoutTabbedView/>

@@ -25,7 +25,7 @@ namespace InterTwitter.Services.UserService
                     Password = "Qwert1",
                     BlockedUserIds = new List<int>(),
                     MutedUserIds = new List<int>(),
-                    ProfileImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
+                    ProfileBackgroundImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
                 },
                 new User
                 {
@@ -35,7 +35,8 @@ namespace InterTwitter.Services.UserService
                     Password = "Qwert2",
                     BlockedUserIds = new List<int>(),
                     MutedUserIds = new List<int>{3},
-                    ProfileImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
+                    ProfileImagePath = "https://pbs.twimg.com/profile_images/1383184766959120385/MM9DHPWC_400x400.jpg",
+                    ProfileBackgroundImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
                 },
                 new User
                 {
@@ -184,7 +185,7 @@ namespace InterTwitter.Services.UserService
 
             try
             {
-                var insertedUserId = await InsertUserToMockCollectionAsync(user);
+                var insertedUserId = await UpdateUserInMockCollectionAsync(user);
 
                 result.SetSuccess(insertedUserId);
             }

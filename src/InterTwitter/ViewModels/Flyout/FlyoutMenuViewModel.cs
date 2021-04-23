@@ -2,6 +2,8 @@
 using InterTwitter.Resources;
 using InterTwitter.Views.Navigation;
 using Prism.Events;
+using Prism.Mvvm;
+using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -22,11 +24,7 @@ namespace InterTwitter.ViewModels.Flyout
         private readonly IPageDialogService _pageDialog;
         private readonly IAuthorizationService _authorizationService;
 
-        public FlyoutMenuViewModel(INavigationService navigationService,
-            IEventAggregator aggregator,
-            IPageDialogService pageDialog,
-            IAuthorizationService authorizationService)
-            : base(navigationService)
+        public FlyoutMenuViewModel(INavigationService navigationService, IEventAggregator aggregator, IPageDialogService pageDialog, IAuthorizationService authorizationService) : base(navigationService)
         {
             _eventAggregator = aggregator;
             _pageDialog = pageDialog;
@@ -65,7 +63,6 @@ namespace InterTwitter.ViewModels.Flyout
             SelectedItem = MenuItems.FirstOrDefault();
         }
 
-
         #region -- Public properties --
 
         private MenuItemViewModel _selectedItem;
@@ -80,6 +77,11 @@ namespace InterTwitter.ViewModels.Flyout
         private ICommand _logoutCommand;
         public ICommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogout);
 
+        private ICommand _navigationToProfileCommand;
+        public ICommand NavigationToProfileCommand => _navigationToProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToProfileCommand);
+      
+        private ICommand _navigationToChangeProfileCommand;
+        public ICommand NavigationToChangeProfileCommand => _navigationToChangeProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToChangeProfileCommand);
 
         #endregion
 
@@ -100,6 +102,16 @@ namespace InterTwitter.ViewModels.Flyout
         #endregion
 
         #region -- Private helpers --
+
+        private async Task OnNavigationToProfileCommand()
+        {
+            await NavigationService.NavigateAsync($"/{nameof(ProfileView)}");
+        }
+
+        private async Task OnNavigationToChangeProfileCommand()
+        {
+            await NavigationService.NavigateAsync($"/{nameof(ChangeProfileView)}");
+        }
 
         private async Task OnLogout()
         {
