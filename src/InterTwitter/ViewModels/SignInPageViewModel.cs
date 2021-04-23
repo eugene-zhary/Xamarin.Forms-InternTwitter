@@ -46,11 +46,65 @@ namespace InterTwitter.ViewModels
             set => SetProperty(ref _password, value);
         }
 
+        private bool _isNextButtonVisible;
+        public bool IsNextButtonVisible
+        {
+            get => _isNextButtonVisible;
+            set => SetProperty(ref _isNextButtonVisible, value);
+        }
+        private bool _isSignInMovableButtonVisible;
+        public bool IsSignInMovableButtonVisible
+        {
+            get => _isSignInMovableButtonVisible;
+            set => SetProperty(ref _isSignInMovableButtonVisible, value);
+        }
+
+        private bool _shouldEmailEntryBeFocused;
+        public bool ShouldEmailEntryBeFocused
+        {
+            get => _shouldEmailEntryBeFocused;
+            set => SetProperty(ref _shouldEmailEntryBeFocused, value);
+        }
+
+        private bool _shouldPasswordEntryBeFocused;
+        public bool ShouldPasswordEntryBeFocused
+        {
+            get => _shouldPasswordEntryBeFocused;
+            set => SetProperty(ref _shouldPasswordEntryBeFocused, value);
+        }
+
+        private bool _isDefaultControlsVisible = true;
+        public bool IsDefaultControlsVisible
+        {
+            get => _isDefaultControlsVisible;
+            set => SetProperty(ref _isDefaultControlsVisible, value);
+        }
+
         private ICommand _signInCommand;
         public ICommand SignInCommand => _signInCommand ??= SingleExecutionCommand.FromFunc(OnSignIn);
 
         private ICommand _signUpCommand;
         public ICommand SignUpCommand => _signUpCommand ??= SingleExecutionCommand.FromFunc(OnSignUp);
+
+        private ICommand _emailEntryFocusedCommand;
+        public ICommand EmailEntryFocusedCommand =>
+            _emailEntryFocusedCommand ??= SingleExecutionCommand.FromFunc(OnEmailEntryFocused);
+
+        private ICommand _emailEntryUnFocusedCommand;
+        public ICommand EmailEntryUnFocusedCommand =>
+            _emailEntryUnFocusedCommand ??= SingleExecutionCommand.FromFunc(OnEmailEntryUnFocused);
+
+        private ICommand _passwordEntryFocusedCommand;
+        public ICommand PasswordEntryFocusedCommand =>
+            _passwordEntryFocusedCommand ??= SingleExecutionCommand.FromFunc(OnPasswordEntryFocused);
+
+        private ICommand _passwordEntryUnFocusedCommand;
+        public ICommand PasswordEntryUnFocusedCommand =>
+            _passwordEntryUnFocusedCommand ??= SingleExecutionCommand.FromFunc(OnPasswordEntryUnFocused);
+
+        private ICommand _nextButtonClickedCommand;
+        public ICommand NextButtonClickedCommand =>
+            _nextButtonClickedCommand ??= SingleExecutionCommand.FromFunc(OnNextButtonClicked);
 
         #endregion
 
@@ -103,6 +157,56 @@ namespace InterTwitter.ViewModels
         private async Task OnSignUp()
         {
             await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignUpStartPage)}");
+        }
+
+        private async Task OnEmailEntryFocused()
+        {
+            await Task.Delay(200);
+
+            IsNextButtonVisible = true;
+            IsDefaultControlsVisible = false;
+
+            ShouldEmailEntryBeFocused = true;
+            ShouldPasswordEntryBeFocused = false;
+        }
+
+        private Task OnEmailEntryUnFocused()
+        {
+            IsNextButtonVisible = false;
+            IsDefaultControlsVisible = true;
+
+            ShouldEmailEntryBeFocused = false;
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnNextButtonClicked()
+        {
+            ShouldEmailEntryBeFocused = false;
+            ShouldPasswordEntryBeFocused = true;
+
+            return Task.CompletedTask;
+        }
+
+        private async Task OnPasswordEntryFocused()
+        {
+            await Task.Delay(200);
+
+            IsSignInMovableButtonVisible = true;
+            IsDefaultControlsVisible = false;
+
+            ShouldEmailEntryBeFocused = false;
+            ShouldPasswordEntryBeFocused = true;
+        }
+
+        private Task OnPasswordEntryUnFocused()
+        {
+            IsSignInMovableButtonVisible = false;
+            IsDefaultControlsVisible = true;
+
+            ShouldPasswordEntryBeFocused = false;
+
+            return Task.CompletedTask;
         }
 
         #endregion

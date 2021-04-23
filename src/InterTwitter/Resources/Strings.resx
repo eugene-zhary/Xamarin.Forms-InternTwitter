@@ -177,6 +177,9 @@
   <data name="NameMustNotContainWhitespace" xml:space="preserve">
     <value>There mustn't be whitespaces inside your name!</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
   <data name="NoSuchUser" xml:space="preserve">
     <value>There's no any user with such email and password! Please, check your inputs once more or visit Sign Up page.</value>
   </data>

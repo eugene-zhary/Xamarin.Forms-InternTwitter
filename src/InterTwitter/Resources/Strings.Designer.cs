@@ -241,6 +241,15 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        internal static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There&apos;s no any user with such email and password! Please, check your inputs once more or visit Sign Up page..
         /// </summary>
         internal static string NoSuchUser {
