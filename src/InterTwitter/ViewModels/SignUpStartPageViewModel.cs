@@ -134,15 +134,15 @@ namespace InterTwitter.ViewModels
             await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
         }
 
-        private async Task OnNameEntryFocused()
+        private Task OnNameEntryFocused()
         {
-            await Task.Delay(200);
-
             IsNextButtonVisible = true;
             IsDefaultControlsVisible = false;
 
             ShouldNameEntryBeFocused = true;
             ShouldEmailEntryBeFocused = false;
+
+            return Task.CompletedTask;
         }
 
         private Task OnNameEntryUnFocused()
@@ -163,14 +163,15 @@ namespace InterTwitter.ViewModels
             return Task.CompletedTask;
         }
 
-        private async Task OnEmailEntryFocused()
+        private Task OnEmailEntryFocused()
         {
-            await Task.Delay(200);
             IsSignUpMovableButtonVisible = true;
             IsDefaultControlsVisible = false;
 
             ShouldNameEntryBeFocused = false;
             ShouldEmailEntryBeFocused = true;
+
+            return Task.CompletedTask;
         }
 
         private Task OnEmailEntryUnFocused()

@@ -223,15 +223,15 @@ namespace InterTwitter.ViewModels
             }
         }
 
-        private async Task OnPasswordEntryFocused()
+        private Task OnPasswordEntryFocused()
         {
-            await Task.Delay(200);
-
             IsNextButtonVisible = true;
             IsDefaultControlsVisible = false;
 
             ShouldPasswordEntryBeFocused = true;
             ShouldConfirmPasswordEntryBeFocused = false;
+
+            return Task.CompletedTask;
         }
 
         private Task OnPasswordEntryUnFocused()
@@ -252,14 +252,15 @@ namespace InterTwitter.ViewModels
             return Task.CompletedTask;
         }
 
-        private async Task OnConfirmPasswordEntryFocused()
+        private Task OnConfirmPasswordEntryFocused()
         {
-            await Task.Delay(200);
             IsConfirmMovableButtonVisible = true;
             IsDefaultControlsVisible = false;
 
             ShouldPasswordEntryBeFocused = false;
             ShouldConfirmPasswordEntryBeFocused = true;
+
+            return Task.CompletedTask;
         }
 
         private Task OnConfirmPasswordEntryUnFocused()
