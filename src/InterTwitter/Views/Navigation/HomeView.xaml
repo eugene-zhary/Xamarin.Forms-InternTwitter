@@ -27,6 +27,7 @@
             <controls:CustomCollectionView.Header>
                 <BoxView HeightRequest="55" BackgroundColor="White"/>
             </controls:CustomCollectionView.Header>
+            
         </controls:CustomCollectionView>
 
         <!-- FLOATING ACTION BUTTON -->

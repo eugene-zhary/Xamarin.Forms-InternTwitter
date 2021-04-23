@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace InterTwitter.Views
+namespace InterTwitter.Views.PostPage
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class WatchVideoView : ContentPage
+    public partial class GifPostPage : ContentPage
     {
-        public WatchVideoView()
+        public GifPostPage()
         {
             InitializeComponent();
         }

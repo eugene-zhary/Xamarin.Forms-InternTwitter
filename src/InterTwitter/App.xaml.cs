@@ -6,10 +6,10 @@ using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
-using InterTwitter.ViewModels.Posts;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
+using InterTwitter.Views.PostPage;
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
@@ -19,6 +19,8 @@ namespace InterTwitter
 {
     public partial class App : PrismApplication
     {
+        public static T Resolve<T>() => (Application.Current as App).Container.Resolve<T>();
+
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
         }
@@ -34,7 +36,6 @@ namespace InterTwitter
 
             // Services
             containerRegistry.RegisterSingleton<IUserService, UserService>();
-            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
@@ -48,7 +49,10 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
-            containerRegistry.RegisterForNavigation<WatchVideoView, WatchVideoViewModel>();
+            containerRegistry.RegisterForNavigation<PhotoPostPage, PhotoPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<GalleryPostPage, GalleryPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<GifPostPage, GifPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<VideoPostPage, VideoPostPageViewModel>();
         }
 
         protected override async void OnInitialized()
@@ -56,7 +60,7 @@ namespace InterTwitter
             InitializeComponent();
             FlowListView.Init();
 
-            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(FlyoutNavigationView)}");
+            await NavigationService.NavigateAsync(nameof(FlyoutNavigationView));
         }
 
         protected override void OnStart()

@@ -5,6 +5,9 @@
               xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
               x:Class="InterTwitter.Views.Templates.GifPostDataTemplate">
     <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding OpenPostCommand}"/>
+        </Grid.GestureRecognizers>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="210"/>

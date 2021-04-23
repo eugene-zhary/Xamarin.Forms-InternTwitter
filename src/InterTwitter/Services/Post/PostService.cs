@@ -150,31 +150,6 @@ namespace InterTwitter.Services
             return result;
         }
 
-        public async Task<AOResult> NavigateToVideoAsync(string videoPath)
-        {
-            var result = new AOResult();
-            await Task.Delay(100);
-
-            try
-            {
-                if(videoPath == null || videoPath.Equals(String.Empty))
-                {
-                    result.SetFailure("Video path is empty");
-                }
-                else
-                {
-                    _eventAggregator.GetEvent<VideoOpenedEvent>().Publish(videoPath);
-                    result.SetSuccess();
-                }
-            }
-            catch(Exception ex)
-            {
-                result.SetError($"{nameof(NavigateToVideoAsync)}: exception", "Something went wrong", ex);
-            }
-
-            return result;
-        }
-
         #endregion
     }
 }

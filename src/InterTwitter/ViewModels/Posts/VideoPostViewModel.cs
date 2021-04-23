@@ -1,6 +1,8 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Models;
-using InterTwitter.Services;
+using InterTwitter.Views;
+using InterTwitter.Views.Flyout;
+using Prism.Navigation;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,7 +11,7 @@ namespace InterTwitter.ViewModels.Posts
 {
     public class VideoPostViewModel : BasePostViewModel
     {
-        public VideoPostViewModel(User userModel, Post postModel, IPostService postManager) : base(userModel, postModel, postManager)
+        public VideoPostViewModel(User userModel, Post postModel) : base(userModel, postModel)
         {
             VideoPath = postModel.MediaPaths?.FirstOrDefault();
         }
@@ -21,18 +23,6 @@ namespace InterTwitter.ViewModels.Posts
         {
             get => _videoPath;
             set => SetProperty(ref _videoPath, value, nameof(VideoPath));
-        }
-
-        private ICommand _openVideoCommand;
-        public ICommand OpenVideoCommand => _openVideoCommand ??= SingleExecutionCommand.FromFunc(OnOpenVideo);
-
-        #endregion
-
-        #region -- Private helpers --
-
-        private async Task OnOpenVideo()
-        {
-            await PostManager.NavigateToVideoAsync(VideoPath);
         }
 
         #endregion

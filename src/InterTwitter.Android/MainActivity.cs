@@ -51,5 +51,9 @@ namespace InterTwitter.Droid
             {
             }
         }
+
+        public override void OnBackPressed()
+        {
+        }
     }
 }

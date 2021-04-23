@@ -21,7 +21,6 @@ namespace InterTwitter.ViewModels.Navigation
         public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator, IPostService postManager) : base(navigation)
         {
             _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<VideoOpenedEvent>().Subscribe(OnVideoOpened);
             _postManager = postManager;
 
             IconPath = "ic_home_gray.png";
@@ -79,7 +78,7 @@ namespace InterTwitter.ViewModels.Navigation
 
                 result.SetSuccess();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result.SetError($"{nameof(UpdateCollecitonAsync)}", "Something went wrong", ex);
             }
@@ -90,16 +89,6 @@ namespace InterTwitter.ViewModels.Navigation
         private void OnPicProfileTapGestureRecognizer()
         {
             _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(true);
-        }
-
-        private async void OnVideoOpened(string VideoPath)
-        {
-            var parameters = new NavigationParameters
-            {
-                { nameof(VideoPath), VideoPath }
-            };
-
-            await NavigationService.NavigateAsync(nameof(WatchVideoView),parameters);
         }
 
         #endregion

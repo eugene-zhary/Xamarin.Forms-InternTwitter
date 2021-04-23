@@ -1,7 +1,11 @@
-﻿using InterTwitter.Helpers;
+﻿using InterTwitter.Enums;
+using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Services;
+using InterTwitter.Views.Navigation;
+using InterTwitter.Views.PostPage;
 using Prism.Mvvm;
+using Prism.Navigation;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -10,16 +14,19 @@ namespace InterTwitter.ViewModels.Posts
 {
     public class BasePostViewModel : BindableBase
     {
-
-        public BasePostViewModel(User userModel, Post postModel, IPostService postManager)
+        public BasePostViewModel(User userModel, Post postModel)
         {
+            NavigationService = App.Resolve<INavigationService>();
+            PostManager = App.Resolve<IPostService>();
+
             _userModel = userModel;
             _postModel = postModel;
-            PostManager = postManager;
         }
 
         #region -- Public properties --
-        protected readonly IPostService PostManager;
+
+        protected INavigationService NavigationService { get; private set; }
+        protected IPostService PostManager { get; private set; }
 
         private User _userModel;
         public User UserModel
@@ -55,16 +62,19 @@ namespace InterTwitter.ViewModels.Posts
         }
 
         private ICommand _likesCommand;
-        public ICommand LikesCommand => _likesCommand ??= SingleExecutionCommand.FromFunc(OnLikes);
+        public ICommand LikesCommand => _likesCommand ??= SingleExecutionCommand.FromFunc(OnLikesAsync);
 
         private ICommand _bookmarksCommand;
-        public ICommand BookmarksCommand => _bookmarksCommand ??= SingleExecutionCommand.FromFunc(OnBookmarks);
+        public ICommand BookmarksCommand => _bookmarksCommand ??= SingleExecutionCommand.FromFunc(OnBookmarksAsync);
+
+        private ICommand _openPostCommand;
+        public ICommand OpenPostCommand => _openPostCommand ??= SingleExecutionCommand.FromFunc(OnOpenPostAsync);
 
         #endregion
 
         #region -- Private helpers --
 
-        private async Task OnLikes()
+        private async Task OnLikesAsync()
         {
             IsLiked = !IsLiked;
 
@@ -80,7 +90,7 @@ namespace InterTwitter.ViewModels.Posts
             RaisePropertyChanged(nameof(LikesCount));
         }
 
-        private async Task OnBookmarks()
+        private async Task OnBookmarksAsync()
         {
             IsBookmarked = !IsBookmarked;
 
@@ -93,6 +103,36 @@ namespace InterTwitter.ViewModels.Posts
                 await PostManager.UnbookmarkPostAsync(PostModel.Id);
             }
         }
+        private async Task OnOpenPostAsync()
+        {
+            var paramenters = new NavigationParameters
+            {
+                { nameof(BasePostViewModel), this }
+            };
+
+            switch (PostModel.MediaType)
+            {
+                case EMediaType.Gallery:
+                    await NavigationService.NavigateAsync($"/{nameof(GalleryPostPage)}", paramenters);
+                    break;
+
+                case EMediaType.Photo:
+                    await NavigationService.NavigateAsync($"/{nameof(PhotoPostPage)}", paramenters);
+                    break;
+
+                case EMediaType.Gif:
+                    await NavigationService.NavigateAsync($"/{nameof(GifPostPage)}", paramenters);
+                    break;
+
+                case EMediaType.Video:
+                    await NavigationService.NavigateAsync($"/{nameof(VideoPostPage)}", paramenters);
+                    break;
+
+            }
+
+
+        }
+
 
         #endregion
     }

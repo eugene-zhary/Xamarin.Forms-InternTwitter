@@ -6,7 +6,7 @@ namespace InterTwitter.ViewModels.Posts
 {
     public class OneMediaPostViewModel : BasePostViewModel
     {
-        public OneMediaPostViewModel(User userModel, Post postModel, IPostService postManager) : base(userModel, postModel, postManager)
+        public OneMediaPostViewModel(User userModel, Post postModel) : base(userModel, postModel)
         {
             MediaPath = PostModel.MediaPaths?.FirstOrDefault();
         }

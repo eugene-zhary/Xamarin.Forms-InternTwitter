@@ -6,6 +6,9 @@
              xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
 	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
     <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding OpenPostCommand}"/>
+        </Grid.GestureRecognizers>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="210"/>
@@ -36,14 +39,7 @@
         <!-- POST MEDIA CONTENT -->
 
         <Frame Padding="0" Grid.Row="1" Grid.Column="1" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
-            <Grid>
-                <o:VideoPlayer Source="{Binding MediaPath}" DisplayControls="False"/>
-
-                <Button BackgroundColor="{StaticResource Primary}" Command="{Binding OpenVideoCommand}"
-                        ImageSource="ic_play" Padding="0" CornerRadius="30" 
-                        HeightRequest="60" WidthRequest="60"
-                        HorizontalOptions="Center" VerticalOptions="Center"/>
-            </Grid>
+            <o:VideoPlayer Source="{Binding VideoPath}" DisplayControls="True"/>
         </Frame>
 
         <!-- DATETIME, LIKES, BOOKMARKS -->

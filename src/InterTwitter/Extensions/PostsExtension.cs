@@ -23,14 +23,14 @@ namespace InterTwitter.Extensions
                 {
                     case EMediaType.Photo:
                     case EMediaType.Gif:
-                        postViewModel = new OneMediaPostViewModel(userModel, postModel, postManager);
+                        postViewModel = new OneMediaPostViewModel(userModel, postModel);
                         break;
                     case EMediaType.Video:
-                        postViewModel = new VideoPostViewModel(userModel, postModel, postManager);
+                        postViewModel = new VideoPostViewModel(userModel, postModel);
                         break;
 
                     case EMediaType.Gallery:
-                        postViewModel = new BasePostViewModel(userModel, postModel, postManager);
+                        postViewModel = new BasePostViewModel(userModel, postModel);
                         break;
                 }
 

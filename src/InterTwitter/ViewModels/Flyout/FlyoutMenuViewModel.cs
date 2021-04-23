@@ -78,7 +78,7 @@ namespace InterTwitter.ViewModels.Flyout
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
 
         private ICommand _logoutCommand;
-        public ICommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogout);
+        public ICommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogoutAsync);
 
         #endregion
 
@@ -100,12 +100,12 @@ namespace InterTwitter.ViewModels.Flyout
 
         #region -- Private helpers --
 
-        private async Task OnLogout()
+        private async Task OnLogoutAsync()
         {
             bool shouldLogOut = await _pageDialog.DisplayAlertAsync(Strings.LogoutAlertTitle, Strings.LogoutAlertBody,
                 Strings.LogoutAlertOk, Strings.LogoutAlertCancel);
 
-            if(shouldLogOut)
+            if (shouldLogOut)
             {
                 _authorizationService.UnAuthorize();
                 await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
