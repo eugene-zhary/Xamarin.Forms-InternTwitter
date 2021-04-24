@@ -11,29 +11,36 @@
                          prism:ViewModelLocator.AutowireViewModel="True"
                          x:Class="InterTwitter.Views.SignUpEndPage">
 
-    <Grid VerticalOptions="FillAndExpand"
-          HorizontalOptions="FillAndExpand"
-          RowDefinitions="Auto, Auto, Auto, Auto"
-          ColumnDefinitions="0.15*, 0.7*, 0.15*"
-          Margin="20">
+    <Grid RowDefinitions="Auto, Auto, Auto, *"
+          ColumnDefinitions="0.15*, 0.7*, 0.15*">
 
-        <ImageButton Grid.Row="0"
-                     Grid.Column="0"
-                     Source="ic_left_blue.png"
-                     BackgroundColor="Transparent"
-                     Padding="0"
-                     HorizontalOptions="StartAndExpand"
-                     VerticalOptions="StartAndExpand"
-                     Command="{Binding GoBackCommand}"/>
+        <Frame Grid.Row="0"
+               Grid.Column="0"
+               VerticalOptions="FillAndExpand"
+               HorizontalOptions="FillAndExpand"
+               Padding="0"
+               HasShadow="False"
+               BackgroundColor="Transparent">
+
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+            </Frame.GestureRecognizers>
+
+            <Image Source="ic_left_blue"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+
+        </Frame>
 
         <Image Grid.Row="0"
                Grid.Column="1"
+               Margin="0, 25, 0, 0"
                Source="pic_logo_small.png"/>
 
         <Label Grid.Row="1"
                Grid.ColumnSpan="3"
                HorizontalOptions="Center"
-               Margin="0,10,0,80"
+               Margin="0,10,0,60"
                Text="{x:Static resource:Strings.YouLlNeedAPassword}"
                Style="{StaticResource Header2}"
                TextColor="{StaticResource Primary}"/>
@@ -41,15 +48,24 @@
         <Grid Grid.Row="2"
               Grid.ColumnSpan="3"
               RowDefinitions="0.5*, 0.5*"
-              RowSpacing="10">
+              RowSpacing="10"
+              Margin="25, 0">
 
             <controls:RegisteringEntry Grid.Row="0"
                                        Text="{Binding Password}"
+                                       ShouldBeFocused="{Binding ShouldPasswordEntryBeFocused}"
                                        Placeholder="{x:Static resource:Strings.Password}"
                                        IsPassword="True">
 
                 <controls:RegisteringEntry.Behaviors>
+
                     <behaviors:PasswordValidationBehavior/>
+
+                    <prism:EventToCommandBehavior Command="{Binding PasswordEntryFocusedCommand}"
+                                                  EventName="Focused"/>
+                    <prism:EventToCommandBehavior Command="{Binding PasswordEntryUnFocusedCommand}"
+                                                  EventName="UnFocused"/>
+
                 </controls:RegisteringEntry.Behaviors>
 
             </controls:RegisteringEntry>
@@ -58,19 +74,76 @@
                                        Text="{Binding ConfirmPassword}"
                                        UnderlineColor="{Binding ConfirmPasswordUnderlineColor}"
                                        IsErrorTextVisible="{Binding IsConfirmPasswordErrorTextVisible}"
+                                       ShouldBeFocused="{Binding ShouldConfirmPasswordEntryBeFocused}"
                                        Placeholder="{x:Static resource:Strings.ConfirmPassword}"
                                        ErrorText="{x:Static resource:Strings.DoNotMatch}"
-                                       IsPassword="True"/>
+                                       IsPassword="True">
+
+                <controls:RegisteringEntry.Behaviors>
+
+                    <prism:EventToCommandBehavior Command="{Binding ConfirmPasswordEntryFocusedCommand}"
+                                                  EventName="Focused"/>
+
+                    <prism:EventToCommandBehavior Command="{Binding ConfirmPasswordEntryUnFocusedCommand}"
+                                                  EventName="UnFocused"/>
+
+                </controls:RegisteringEntry.Behaviors>
+
+            </controls:RegisteringEntry>
 
         </Grid>
 
-        <Frame Grid.Row="3"
-               Grid.Column="1"
-               HasShadow="False"
-               Margin="0, 75"
-               Padding="15"
-               BackgroundColor="{StaticResource Primary}"
-               CornerRadius="25">
+        <StackLayout Grid.Row="3"
+                     Grid.Column="1"
+                     Margin="25,50, 25,0"
+                     IsVisible="{Binding IsDefaultControlsVisible}">
+
+            <Frame HasShadow="False"
+                   Padding="15"
+                   BackgroundColor="{StaticResource Primary}"
+                   CornerRadius="25">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ConfirmCommand}"/>
+                </Frame.GestureRecognizers>
+
+                <Label HorizontalOptions="Center"
+                       Text="{x:Static resource:Strings.Confirm}"
+                       Style="{StaticResource Button}"
+                       TextColor="{StaticResource White}"/>
+            </Frame>
+        </StackLayout>
+
+        <!--Movable Buttons-->
+
+        <controls:MovableFrame Grid.ColumnSpan="3"
+                               Grid.RowSpan="5"
+                               VerticalOptions="End"
+                               Padding="10"
+                               HasShadow="False"
+                               CornerRadius="0"
+                               BackgroundColor="{StaticResource Primary}"
+                               IsVisible="{Binding IsNextButtonVisible}">
+
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NextButtonClickedCommand}"/>
+            </Frame.GestureRecognizers>
+
+            <Label HorizontalOptions="Center"
+                   Text="{x:Static resource:Strings.Next}"
+                   Style="{StaticResource Button}"
+                   TextColor="{StaticResource White}"/>
+
+        </controls:MovableFrame>
+
+        <controls:MovableFrame Grid.ColumnSpan="3"
+                               Grid.RowSpan="5"
+                               VerticalOptions="End"
+                               Padding="10"
+                               HasShadow="False"
+                               CornerRadius="0"
+                               IsVisible="{Binding IsConfirmMovableButtonVisible}"
+                               BackgroundColor="{StaticResource Primary}">
 
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ConfirmCommand}"/>
@@ -80,7 +153,8 @@
                    Text="{x:Static resource:Strings.Confirm}"
                    Style="{StaticResource Button}"
                    TextColor="{StaticResource White}"/>
-        </Frame>
+
+        </controls:MovableFrame>
 
     </Grid>
 

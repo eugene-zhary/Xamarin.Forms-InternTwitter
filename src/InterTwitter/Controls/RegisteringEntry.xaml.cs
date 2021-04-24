@@ -31,6 +31,8 @@ namespace InterTwitter.Controls
         }
 
         public event EventHandler<TextChangedEventArgs> TextChanged;
+        public new event EventHandler<FocusEventArgs> Focused;
+        public event EventHandler<EventArgs> UnFocused;
 
         #region -- Public properties --
 
@@ -138,6 +140,23 @@ namespace InterTwitter.Controls
             }
         }
 
+        public static readonly BindableProperty ShouldBeFocusedProperty = BindableProperty.Create(
+            propertyName: nameof(ShouldBeFocused),
+            returnType: typeof(bool),
+            declaringType: typeof(RegisteringEntry),
+            defaultValue: default(bool),
+            defaultBindingMode: BindingMode.TwoWay);
+
+        public bool ShouldBeFocused
+        {
+            get => (bool)GetValue(ShouldBeFocusedProperty);
+            set
+            {
+                SetValue(ShouldBeFocusedProperty, value);
+                OnPropertyChanged(nameof(ShouldBeFocused));
+            }
+        }
+
         private ICommand _clearClickedCommand;
         public ICommand ClearClickedCommand =>
             _clearClickedCommand ??= SingleExecutionCommand.FromFunc(OnClearClicked);
@@ -187,6 +206,18 @@ namespace InterTwitter.Controls
             {
                 BorderlessEntry.MaxLength = MaxLength;
             }
+
+            if (propertyName == nameof(ShouldBeFocused))
+            {
+                if (ShouldBeFocused)
+                {
+                    BorderlessEntry.Focus();
+                }
+                else
+                {
+                    BorderlessEntry.Unfocus();
+                }
+            }
         }
 
         #endregion
@@ -221,6 +252,8 @@ namespace InterTwitter.Controls
             {
                 _actualEntryType = IsPassword ? ActualEntryType.Password : ActualEntryType.NotPassword;
             }
+
+            Focused?.Invoke(this, new FocusEventArgs(BorderlessEntry, true));
         }
 
         private void OnBorderlessEntryUnfocused(object sender, EventArgs e)
@@ -230,6 +263,8 @@ namespace InterTwitter.Controls
                 LabelPlaceholder.IsVisible = false;
                 BorderlessEntry.Placeholder = Placeholder;
             }
+
+            UnFocused?.Invoke(this, EventArgs.Empty);
         }
 
         private void CorrectEntryWidth()

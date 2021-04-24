@@ -177,6 +177,9 @@
   <data name="NameMustNotContainWhitespace" xml:space="preserve">
     <value>There mustn't be whitespaces inside your name!</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
   <data name="NewPassword" xml:space="preserve">
     <value>New Password</value>
   </data>
@@ -197,6 +200,9 @@
   </data>
   <data name="PasswordLengthError" xml:space="preserve">
     <value>Type at least 6 symbols</value>
+  </data>
+  <data name="SigningIn" xml:space="preserve">
+    <value>Signing in...</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign Up</value>

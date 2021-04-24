@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Prism;
+using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace InterTwitter.Views.Flyout
@@ -9,6 +11,9 @@ namespace InterTwitter.Views.Flyout
         public FlyoutNavigationView()
         {
             InitializeComponent();
+
+            PrismApplicationBase.Current.On<Xamarin.Forms.PlatformConfiguration.Android>()
+                .UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Pan);
         }
     }
 }
