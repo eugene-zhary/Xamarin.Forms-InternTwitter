@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Resources;
+using InterTwitter.Services.UserService;
 using InterTwitter.Validators;
 using InterTwitter.Views;
 using Prism.Navigation;
@@ -14,12 +16,15 @@ namespace InterTwitter.ViewModels
     public class SignUpStartPageViewModel : BaseViewModel
     {
         private readonly IPageDialogService _pageDialogService;
+        private readonly IUserService _userService;
 
         public SignUpStartPageViewModel(INavigationService navigationService,
-            IPageDialogService pageDialogService)
+            IPageDialogService pageDialogService,
+            IUserService userService)
             : base(navigationService)
         {
             _pageDialogService = pageDialogService;
+            _userService = userService;
         }
 
         #region -- Public properties --
@@ -110,17 +115,34 @@ namespace InterTwitter.ViewModels
             if (StringValidator.Validate(Name, StringValidator.Name) &&
                 StringValidator.Validate(Email, StringValidator.Email))
             {
-                var userModel = new User
-                {
-                    Name = Name,
-                    Email = Email
-                };
-                var parameters = new NavigationParameters
-                {
-                    {nameof(User), userModel}
-                };
+                AOResult<User> result;
 
-                await NavigationService.NavigateAsync(nameof(SignUpEndPage), parameters);
+                using (UserDialogs.Instance.Loading())
+                {
+                    result = await _userService.GetUserAsync(u => u.Email == Email);
+                }
+
+                var doesSuchUserExist = result.IsSuccess;
+
+                if (!doesSuchUserExist)
+                {
+                    var userModel = new User
+                    {
+                        Name = Name,
+                        Email = Email
+                    };
+                    var parameters = new NavigationParameters
+                    {
+                        {nameof(User), userModel}
+                    };
+
+                    await NavigationService.NavigateAsync(nameof(SignUpEndPage), parameters);
+                }
+                else
+                {
+                    await _pageDialogService.DisplayAlertAsync(Strings.SignUpErrorTitle, Strings.SuchUserAlreadyExists,
+                        Strings.Ok);
+                }
             }
             else
             {

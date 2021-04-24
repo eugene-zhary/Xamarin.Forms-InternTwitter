@@ -123,7 +123,6 @@
                                HasShadow="False"
                                CornerRadius="0"
                                BackgroundColor="{StaticResource Primary}"
-                               TranslationY="{Binding MovableButtonTranslationY}"
                                IsVisible="{Binding IsNextButtonVisible}">
 
             <Frame.GestureRecognizers>

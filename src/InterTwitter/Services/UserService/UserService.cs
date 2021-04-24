@@ -90,9 +90,9 @@ namespace InterTwitter.Services.UserService
                     result.SetFailure("Users collection was null!");
                 }
             }
-            catch
+            catch (Exception e)
             {
-                result.SetFailure();
+                result.SetError($"{nameof(GetUserAsync)}: exception", "Something went wrong", e);
             }
 
             return result;
@@ -117,9 +117,9 @@ namespace InterTwitter.Services.UserService
                     result.SetFailure($"User with id {id} was not found!");
                 }
             }
-            catch
+            catch (Exception e)
             {
-                result.SetFailure();
+                result.SetError($"{nameof(GetUserAsync)}: exception", "Something went wrong", e);
             }
 
             return result;
@@ -144,9 +144,9 @@ namespace InterTwitter.Services.UserService
                     result.SetFailure();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                result.SetFailure();
+                result.SetError($"{nameof(GetUserAsync)}: exception", "Something went wrong", e);
             }
 
             return result;
@@ -171,9 +171,9 @@ namespace InterTwitter.Services.UserService
                     result.SetFailure(Strings.SuchUserAlreadyExists);
                 }
             }
-            catch
+            catch (Exception e)
             {
-                result.SetFailure();
+                result.SetError($"{nameof(InsertUserAsync)}: exception", "Something went wrong", e);
             }
 
             return result;
@@ -189,9 +189,9 @@ namespace InterTwitter.Services.UserService
 
                 result.SetSuccess(insertedUserId);
             }
-            catch
+            catch (Exception e)
             {
-                result.SetFailure();
+                result.SetError($"{nameof(UpdateUserAsync)}: exception", "Something went wrong", e);
             }
 
             return result;
@@ -206,9 +206,9 @@ namespace InterTwitter.Services.UserService
                 var deletedId = await DeleteUserMockAsync(user);
                 result.SetSuccess(deletedId);
             }
-            catch
+            catch (Exception e)
             {
-                result.SetFailure();
+                result.SetError($"{nameof(DeleteUserAsync)}: exception", "Something went wrong", e);
             }
 
             return result;
