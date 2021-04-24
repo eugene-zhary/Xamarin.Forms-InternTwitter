@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:BaseContentPage  xmlns:local="clr-namespace:InterTwitter.Views" xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
-             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
-             x:Class="InterTwitter.Views.Navigation.PhotoPostPage">
+<local:BaseContentPage xmlns:local="clr-namespace:InterTwitter.Views" 
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                       xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+                       xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
+                       x:Class="InterTwitter.Views.Navigation.PhotoPostPage"
+                       BackgroundColor="{StaticResource White}">
     <ContentPage.Content>
         <StackLayout Padding="15,10,15,0" Spacing="15">
 

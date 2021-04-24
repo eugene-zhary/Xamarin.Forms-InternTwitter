@@ -129,10 +129,7 @@ namespace InterTwitter.ViewModels.Posts
                     break;
 
             }
-
-
         }
-
 
         #endregion
     }

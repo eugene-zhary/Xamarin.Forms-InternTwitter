@@ -1,14 +1,13 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Services;
 using InterTwitter.ViewModels.Posts;
-using InterTwitter.Views;
 using Prism.Events;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels.Navigation
@@ -31,14 +30,14 @@ namespace InterTwitter.ViewModels.Navigation
 
         public ObservableCollection<BasePostViewModel> PostCollection { get; set; }
 
-        private Thickness _Margin;
-        public Thickness Margin
-        {
-            get => _Margin;
-            set => SetProperty(ref _Margin, value);
-        }
-
         public ICommand PicProfileTapGestureRecognizer => new Command(OnPicProfileTapGestureRecognizer);
+
+        private int _currentIndex;
+        public int CurrentIndex
+        {
+            get => _currentIndex;
+            set => SetProperty(ref _currentIndex, value, nameof(CurrentIndex));
+        }
 
         #endregion
 
@@ -49,6 +48,7 @@ namespace InterTwitter.ViewModels.Navigation
             base.Initialize(parameters);
 
             await UpdateCollecitonAsync();
+            UpdateCurrentPosition();
         }
 
         public override void OnAppearing()
@@ -74,13 +74,43 @@ namespace InterTwitter.ViewModels.Navigation
                 PostCollection.Clear();
 
                 var posts = await _postManager.GetPostsAsync();
-                posts.Result.ToList().ForEach(PostCollection.Add);
+
+                foreach(var post in posts.Result)
+                {
+                    PostCollection.Add(post);
+                }
 
                 result.SetSuccess();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 result.SetError($"{nameof(UpdateCollecitonAsync)}", "Something went wrong", ex);
+            }
+
+            return result;
+        }
+
+        private AOResult UpdateCurrentPosition()
+        {
+            var result = new AOResult();
+
+            try
+            {
+                int index = Preferences.Get(nameof(CurrentIndex), 1);
+
+                if(index <= PostCollection.Count)
+                {
+                    CurrentIndex = index;
+                    result.SetSuccess();
+                }
+                else
+                {
+                    result.SetFailure();
+                }
+            }
+            catch(Exception ex)
+            {
+                result.SetError($"{nameof(UpdateCurrentPosition)}", "Something went wrong", ex);
             }
 
             return result;

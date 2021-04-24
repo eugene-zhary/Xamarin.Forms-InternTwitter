@@ -4,7 +4,8 @@
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
              xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
-             x:Class="InterTwitter.Views.PostPage.VideoPostPage">
+             x:Class="InterTwitter.Views.PostPage.VideoPostPage"
+             BackgroundColor="{StaticResource White}">
     <ContentPage.Content>
         <StackLayout Padding="15,10,15,0" Spacing="15">
             <!-- USER ICON -->
@@ -40,7 +41,7 @@
             <!-- POST MEDIA CONTENT -->
 
             <Frame Padding="0" CornerRadius="5"  HeightRequest="260" IsClippedToBounds="True" HasShadow="False">
-                <o:VideoPlayer Source="{Binding PostViewModel.MediaPath}" DisplayControls="True"/>
+                <o:VideoPlayer Source="{Binding PostViewModel.VideoPath}" DisplayControls="True" AutoPlay="True"/>
             </Frame>
 
 

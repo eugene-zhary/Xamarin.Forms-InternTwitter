@@ -10,7 +10,7 @@
              xmlns:resources="clr-namespace:InterTwitter.Resources"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
-             BackgroundColor="White"
+             BackgroundColor="{StaticResource White}"
              IconImageSource="{Binding IconPath}">
     <ContentPage.Behaviors>
         <behaviors:TabPageBehavior/>
@@ -21,9 +21,10 @@
     <Grid>
         
         <!-- COLLECTION VIEW -->
-        <controls:CustomCollectionView x:Name="collectionView" ItemsUpdatingScrollMode="KeepItemsInView"
+        <controls:CustomCollectionView x:Name="collectionView"
                                        ItemsSource="{Binding PostCollection}"
-                                       ItemTemplate="{StaticResource postTemplateSelector}">
+                                       ItemTemplate="{StaticResource postTemplateSelector}"
+                                       CurrentIndex="{Binding CurrentIndex}">
             <controls:CustomCollectionView.Header>
                 <BoxView HeightRequest="55" BackgroundColor="White"/>
             </controls:CustomCollectionView.Header>

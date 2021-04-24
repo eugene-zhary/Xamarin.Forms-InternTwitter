@@ -39,7 +39,13 @@
         <!-- POST MEDIA CONTENT -->
 
         <Frame Padding="0" Grid.Row="1" Grid.Column="1" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
-            <o:VideoPlayer Source="{Binding VideoPath}" DisplayControls="True"/>
+            <Grid>
+                <o:VideoPlayer Source="{Binding VideoPath}" DisplayControls="True"/>
+                <Frame Padding="10" WidthRequest="40" HeightRequest="40" CornerRadius="30"
+                       VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="{StaticResource Primary}">
+                    <ffimageloading:CachedImage Source="ic_play"/>
+                </Frame>
+            </Grid>
         </Frame>
 
         <!-- DATETIME, LIKES, BOOKMARKS -->
