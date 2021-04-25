@@ -1,7 +1,9 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.ViewModels.Posts;
 using InterTwitter.Views.Flyout;
+using InterTwitter.Views.PostPage;
 using Prism.Navigation;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -26,6 +28,9 @@ namespace InterTwitter.ViewModels.Navigation
         private ICommand _goBackCommand;
         public ICommand GoBackCommand => _goBackCommand ??= SingleExecutionCommand.FromFunc(OnGoBackAsync);
 
+        private ICommand _navigateToPreviewCommand;
+        public ICommand NavigateToPreviewCommand => _navigateToPreviewCommand ??= SingleExecutionCommand.FromFunc(OnNavigateToPreviewAsync);
+
         #endregion
 
         #region -- Overrides --
@@ -34,7 +39,7 @@ namespace InterTwitter.ViewModels.Navigation
         {
             base.OnNavigatedTo(parameters);
 
-            if (parameters.ContainsKey(nameof(BasePostViewModel)))
+            if(parameters.ContainsKey(nameof(BasePostViewModel)))
             {
                 PostViewModel = parameters.GetValue<BasePostViewModel>(nameof(BasePostViewModel));
             }
@@ -48,6 +53,17 @@ namespace InterTwitter.ViewModels.Navigation
         {
             await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
         }
+
+        private async Task OnNavigateToPreviewAsync()
+        {
+            var parameters = new NavigationParameters
+            {
+                { nameof(BasePostViewModel), PostViewModel }
+            };
+
+            await NavigationService.NavigateAsync($"{nameof(PhotoPreviewPage)}", parameters, null, animated: false);
+        }
+
 
         #endregion
     }

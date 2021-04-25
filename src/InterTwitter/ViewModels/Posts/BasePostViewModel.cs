@@ -113,19 +113,19 @@ namespace InterTwitter.ViewModels.Posts
             switch (PostModel.MediaType)
             {
                 case EMediaType.Gallery:
-                    await NavigationService.NavigateAsync($"/{nameof(GalleryPostPage)}", paramenters);
+                    await NavigationService.NavigateAsync($"/{nameof(GalleryPostPage)}", paramenters,true, false);
                     break;
 
                 case EMediaType.Photo:
-                    await NavigationService.NavigateAsync($"/{nameof(PhotoPostPage)}", paramenters);
+                    await NavigationService.NavigateAsync($"/{nameof(PhotoPostPage)}", paramenters, true, false);
                     break;
 
                 case EMediaType.Gif:
-                    await NavigationService.NavigateAsync($"/{nameof(GifPostPage)}", paramenters);
+                    await NavigationService.NavigateAsync($"/{nameof(GifPostPage)}", paramenters, true, false);
                     break;
 
                 case EMediaType.Video:
-                    await NavigationService.NavigateAsync($"/{nameof(VideoPostPage)}", paramenters);
+                    await NavigationService.NavigateAsync($"/{nameof(VideoPostPage)}", paramenters, true, false);
                     break;
 
             }

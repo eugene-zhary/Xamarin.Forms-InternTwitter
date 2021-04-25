@@ -42,7 +42,11 @@
             <!-- POST MEDIA CONTENT -->
 
             <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" HasShadow="False" HeightRequest="260">
-                <ffimageloading:CachedImage Source="{Binding PostViewModel.MediaPath}"  Aspect="AspectFill" LoadingPlaceholder="anim_loading"/>
+                <ffimageloading:CachedImage Source="{Binding PostViewModel.MediaPath}"  Aspect="AspectFill" LoadingPlaceholder="anim_loading">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToPreviewCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
             </Frame>
 
 

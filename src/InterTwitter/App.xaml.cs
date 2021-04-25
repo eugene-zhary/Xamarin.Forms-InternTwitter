@@ -1,11 +1,13 @@
 using DLToolkit.Forms.Controls;
 using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
+using InterTwitter.Services.Permission;
 using InterTwitter.Services.Settings;
 using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
+using InterTwitter.ViewModels.Posts;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
@@ -31,10 +33,9 @@ namespace InterTwitter
         {
             containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            containerRegistry.RegisterInstance<IPermissionManager>(Container.Resolve<PermissionManager>());
 
             containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
-
-            // Services
             containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
 
@@ -53,6 +54,7 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<GalleryPostPage, GalleryPostPageViewModel>();
             containerRegistry.RegisterForNavigation<GifPostPage, GifPostPageViewModel>();
             containerRegistry.RegisterForNavigation<VideoPostPage, VideoPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<PhotoPreviewPage, PhotoPreviewPageViewModel>();
         }
 
         protected override async void OnInitialized()
