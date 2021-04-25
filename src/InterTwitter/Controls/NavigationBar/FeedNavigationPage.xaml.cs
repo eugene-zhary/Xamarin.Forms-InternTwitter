@@ -1,11 +1,4 @@
-﻿using InterTwitter.Helpers;
-using Prism.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InterTwitter.Enums;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -20,22 +13,66 @@ namespace InterTwitter.Controls
             InitializeComponent();
         }
 
+        #region -- Public properties --
+
+        public static readonly BindableProperty ScrollStateProperty
+            = BindableProperty.Create(nameof(ScrollState), typeof(EScrollState), typeof(CustomCollectionView), propertyChanged: OnScrollStateChanged, defaultBindingMode: BindingMode.TwoWay);
+
+        public EScrollState ScrollState
+        {
+            get => (EScrollState)GetValue(ScrollStateProperty);
+            set => SetValue(ScrollStateProperty, value);
+        }
+
         public static readonly BindableProperty ImagePathProperty = BindableProperty.Create(
             propertyName: nameof(ImagePath),
             returnType: typeof(string),
             declaringType: typeof(FeedNavigationBar));
-       
-
-        public ICommand AddPostTapGestureRecognizer => new Command<object>(OnAddPostTapTapGestureRecognizer);
-        private static void OnAddPostTapTapGestureRecognizer(object obj)
-        {
-            //todo : OpenPageAddPost
-        }
 
         public string ImagePath
         {
             get => (string)GetValue(ImagePathProperty);
             set => SetValue(ImagePathProperty, value);
         }
+
+        public ICommand AddPostTapGestureRecognizer => new Command<object>(OnAddPostTapTapGestureRecognizer);
+
+        #endregion
+
+        #region -- Private helpers --
+
+        private static void OnAddPostTapTapGestureRecognizer(object obj)
+        {
+            //todo : OpenPageAddPost
+        }
+
+        private static void OnScrollStateChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var navBar = bindable as FeedNavigationBar;
+            var oldState = (EScrollState)oldValue;
+            var newState = (EScrollState)newValue;
+
+            if(navBar != null && oldState != newState)
+            {
+                TranslatePosition(navBar, newState);
+            }
+        }
+
+        private static void TranslatePosition(FeedNavigationBar navBar, EScrollState state)
+        {
+            switch(state)
+            {
+                case EScrollState.ScrollUp:
+                    
+                    navBar.TranslateTo(0, 0, easing: Easing.Linear);
+                    break;
+
+                case EScrollState.ScrollDown:
+                    navBar.TranslateTo(0, -navBar.Height, easing: Easing.Linear);
+                    break;
+            }
+        }
+
+        #endregion
     }
 }

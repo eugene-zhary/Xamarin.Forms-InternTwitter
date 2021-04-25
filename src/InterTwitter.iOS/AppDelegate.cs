@@ -1,4 +1,6 @@
-﻿using Foundation;
+﻿using FFImageLoading.Forms.Platform;
+using Foundation;
+using Octane.Xamarin.Forms.VideoPlayer.iOS;
 using Prism;
 using Prism.Ioc;
 using UIKit;
@@ -14,6 +16,9 @@ namespace InterTwitter.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Forms.Init();
+            CachedImageRenderer.Init();
+            FormsVideoPlayer.Init();
+
             LoadApplication(new App(new IosInitializer()));
 
             return base.FinishedLaunching(app, options);

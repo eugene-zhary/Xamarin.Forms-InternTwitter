@@ -34,7 +34,7 @@ namespace InterTwitter.Views
                 actionsHandler.OnDisappearing();
             }
         }
-
+        
         #endregion
     }
 }

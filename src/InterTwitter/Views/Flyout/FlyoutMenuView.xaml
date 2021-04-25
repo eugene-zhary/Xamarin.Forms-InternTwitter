@@ -7,7 +7,7 @@
              x:Class="InterTwitter.Views.Flyout.FlyoutMenuView"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
-             BackgroundColor="#FCFDFE"
+             BackgroundColor="{StaticResource White}"
              Title="Flyout">
     <ContentPage.Resources>
         <Style TargetType="Label">
@@ -45,7 +45,7 @@
         </Grid>
 
 
-        <ListView Grid.Row="1" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
+        <ListView Grid.Row="1" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" BackgroundColor="{StaticResource White}" 
                   SeparatorVisibility="None" HasUnevenRows="true">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -59,7 +59,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <BoxView Grid.Row="2" BackgroundColor="#DEDFE1"/>
+        <BoxView Grid.Row="2" BackgroundColor="{StaticResource Light Grey}"/>
         
         <Grid Grid.Row="3" Margin="20">
             <Grid.RowDefinitions>

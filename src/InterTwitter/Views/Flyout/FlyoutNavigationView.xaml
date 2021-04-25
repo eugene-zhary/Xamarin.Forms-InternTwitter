@@ -5,6 +5,7 @@
             xmlns:local="clr-namespace:InterTwitter.Views.Flyout" 
             xmlns:prism="http://prismlibrary.com"
             prism:ViewModelLocator.AutowireViewModel="True"
+            NavigationPage.HasNavigationBar="False"
             IsPresented="{Binding IsMenuVisible, Mode=TwoWay}">
     <FlyoutPage.Flyout>
         <local:FlyoutMenuView/>

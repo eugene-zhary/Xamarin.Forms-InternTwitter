@@ -37,7 +37,7 @@ namespace InterTwitter.Droid.Controls
         {
             base.OnLayout(changed, l, t, r, b);
 
-            if (_bottomNavigationView != null)
+            if(_bottomNavigationView != null)
             {
                 _bottomNavigationView.ItemIconTintList = null;
             }

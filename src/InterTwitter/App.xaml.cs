@@ -1,3 +1,5 @@
+using DLToolkit.Forms.Controls;
+using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
 using InterTwitter.Services.Settings;
 using InterTwitter.Services.UserService;
@@ -7,6 +9,7 @@ using InterTwitter.ViewModels.Navigation;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
+using InterTwitter.Views.PostPage;
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
@@ -16,6 +19,8 @@ namespace InterTwitter
 {
     public partial class App : PrismApplication
     {
+        public static T Resolve<T>() => (Application.Current as App).Container.Resolve<T>();
+
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
         }
@@ -24,6 +29,13 @@ namespace InterTwitter
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // Services
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
+            containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
+            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
+
             // Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
@@ -38,18 +50,18 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
             containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
             containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
-
-            // Services
-            containerRegistry.RegisterSingleton<IUserService, UserService>();
-            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
-            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterForNavigation<PhotoPostPage, PhotoPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<GalleryPostPage, GalleryPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<GifPostPage, GifPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<VideoPostPage, VideoPostPageViewModel>();
         }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
+            FlowListView.Init();
 
-            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignUpStartPage)}");
+            await NavigationService.NavigateAsync(nameof(FlyoutNavigationView));
         }
 
         protected override void OnStart()

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Resources.PostTemplates"
+             xmlns:templates="clr-namespace:InterTwitter.Views.Templates">
+
+    <templates:PhotoPostDataTemplate x:Key="photoPostsTemplate"/>
+    <templates:GalleryPostDataTemplate x:Key="galleryPostsTemplate"/>
+    <templates:VideoPostDataTemplate x:Key="videoPostsTemplate"/>
+    <templates:GifPostDataTemplate x:Key="gifPostsTemplate"/>
+
+    <templates:PostDataTemplateSelector x:Key="postTemplateSelector"
+                                        PhotoPostDataTemplate="{StaticResource photoPostsTemplate}"
+                                        GalleryPostDataTemplate="{StaticResource galleryPostsTemplate}"
+                                        VideoPostDataTemplate="{StaticResource videoPostsTemplate}"
+                                        GifPostDataTemplate="{StaticResource gifPostsTemplate}"/>
+</ResourceDictionary>

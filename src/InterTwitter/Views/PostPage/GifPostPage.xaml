@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="InterTwitter.Views.PostPage.GifPostPage"
+             BackgroundColor="{StaticResource White}">
+    <ContentPage.Content>
+        <StackLayout Padding="15,10,15,0" Spacing="15">
+
+            <!-- USER ICON -->
+
+            <Grid HeightRequest="55">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="1"/>
+                </Grid.RowDefinitions>
+
+                <ffimageloading:CachedImage HorizontalOptions="Start" Source="ic_left_gray" VerticalOptions="Center">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
+
+                <Label HorizontalOptions="Center" Text="{Binding PostViewModel.UserModel.Name}" VerticalOptions="Center" FontAttributes="Bold"/>
+
+                <ffimageloading:CachedImage Source="{Binding PostViewModel.UserModel.ProfileImagePath}" VerticalOptions="Center" HorizontalOptions="End">
+                    <ffimageloading:CachedImage.Transformations>
+                        <fftransformations:CircleTransformation/>
+                    </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+
+                <BoxView Grid.Row="1" BackgroundColor="{StaticResource Light Grey}" Margin="-15,0"/>
+            </Grid>
+
+            <!-- POST TEXT CONTENT -->
+
+            <Label Text="{Binding PostViewModel.PostModel.Text}"/>
+
+
+            <!-- POST MEDIA CONTENT -->
+
+            <Frame Padding="0" CornerRadius="5" HeightRequest="260" IsClippedToBounds="True" HasShadow="False">
+                <Grid>
+                    <ffimageloading:CachedImage Source="{Binding PostViewModel.MediaPath}"  Aspect="AspectFill" LoadingPlaceholder="anim_loading"/>
+                    <ffimageloading:CachedImage Source="pic_gif" VerticalOptions="End" HorizontalOptions="End" Margin="10" Aspect="AspectFit"/>
+                </Grid>
+            </Frame>
+
+
+            <!-- DATETIME, LIKES, BOOKMARKS -->
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="{Binding PostViewModel.PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}" 
+                   HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"/>
+
+                <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
+
+                    <ffimageloading:CachedImage Source="ic_like_gray">
+                        <ffimageloading:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PostViewModel.LikesCommand}"/>
+                        </ffimageloading:CachedImage.GestureRecognizers>
+                        <ffimageloading:CachedImage.Triggers>
+                            <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding PostViewModel.IsLiked}" Value="true">
+                                <Setter Property="Source" Value="ic_like_blue"/>
+                            </DataTrigger>
+                        </ffimageloading:CachedImage.Triggers>
+                    </ffimageloading:CachedImage>
+
+                    <Label Text="{Binding PostViewModel.LikesCount}" TextColor="{StaticResource Dark Grey}"  FontSize="14" VerticalOptions="Center" Margin="0,0,15,0">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding PostViewModel.IsLiked}" Value="true">
+                                <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+
+                    <ffimageloading:CachedImage Source="ic_bookmarks_gray">
+                        <ffimageloading:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PostViewModel.BookmarksCommand}"/>
+                        </ffimageloading:CachedImage.GestureRecognizers>
+                        <ffimageloading:CachedImage.Triggers>
+                            <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding PostViewModel.IsBookmarked}" Value="true">
+                                <Setter Property="Source" Value="ic_bookmarks_blue"/>
+                            </DataTrigger>
+                        </ffimageloading:CachedImage.Triggers>
+                    </ffimageloading:CachedImage>
+                </StackLayout>
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
