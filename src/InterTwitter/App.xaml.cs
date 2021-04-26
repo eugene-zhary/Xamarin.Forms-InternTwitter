@@ -68,9 +68,7 @@ namespace InterTwitter
 
             IAuthorizationService AuthorizeService = Container.Resolve<AuthorizationService>();
 
-            AuthorizeService.Authorize(2);
-
-            await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
+            await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
         }
 
         protected override void OnStart()

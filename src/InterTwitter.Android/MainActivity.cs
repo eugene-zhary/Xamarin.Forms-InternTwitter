@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using Acr.UserDialogs;
+using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
@@ -31,6 +32,7 @@ namespace InterTwitter.Droid
             CachedImageRenderer.Init(true);
 
             AppCompatDelegate.DefaultNightMode = AppCompatDelegate.ModeNightNo;
+            UserDialogs.Init(this);
 
             LoadApplication(new App(new AndroidInitializer()));
         }

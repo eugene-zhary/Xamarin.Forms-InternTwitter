@@ -41,7 +41,7 @@
 
     <ImageButton Grid.Row="1"
                  Grid.Column="1"
-                 BackgroundColor="Transparent"
+                 BackgroundColor="Transparent" 
                  Command="{Binding ChangeTextTypeCommand, Source={x:Reference _this}}"
                  x:Name="EyeButton"/>
 

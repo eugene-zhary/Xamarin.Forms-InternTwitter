@@ -124,6 +124,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
+    <Compile Include="Renderers\MovableFrameRenderer.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -181,8 +182,11 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CardsView">
-      <Version>2.7.6</Version>
+	  <PackageReference Include="CardsView">
+		  <Version>2.7.6</Version>
+	  </PackageReference>
+    <PackageReference Include="Acr.UserDialogs">
+      <Version>7.1.0.483</Version>
     </PackageReference>
     <PackageReference Include="Prism.Unity.Forms">
       <Version>8.0.0.1909</Version>

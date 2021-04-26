@@ -11,87 +11,147 @@
                        prism:ViewModelLocator.AutowireViewModel="True"
                        x:Class="InterTwitter.Views.SignUpStartPage">
 
-    <Grid VerticalOptions="FillAndExpand"
-          HorizontalOptions="FillAndExpand"
-          RowDefinitions="Auto, Auto, Auto, Auto"
-          ColumnDefinitions="0.15*, 0.7*, 0.15*"
-          Margin="25">
+    
+        <Grid RowDefinitions="Auto, Auto, Auto, *"
+              ColumnDefinitions="0.15*, 0.7*, 0.15*">
 
-        <Image Grid.Row="0"
-               Grid.ColumnSpan="3"
-               Source="pic_logo_small.png"/>
+            <Image Grid.Row="0"
+                   Grid.ColumnSpan="3"
+                   Source="pic_logo_small.png"
+                   Margin="0, 25, 0, 0"/>
 
-        <Label Grid.Row="1"
-               Grid.ColumnSpan="3"
-               HorizontalOptions="Center"
-               Margin="0,10,0,80"
-               Text="{x:Static resource:Strings.CreateYourAccount}"
-               Style="{StaticResource Header2}"
-               TextColor="{StaticResource Primary}"/>
+            <Label Grid.Row="1"
+                   Grid.ColumnSpan="3"
+                   HorizontalOptions="Center"
+                   Margin="0,10,0,60"
+                   Text="{x:Static resource:Strings.CreateYourAccount}"
+                   Style="{StaticResource Header2}"
+                   TextColor="{StaticResource Primary}"/>
 
-        <Grid Grid.Row="2"
+            <Grid Grid.Row="2"
               Grid.ColumnSpan="3"
               RowDefinitions="0.5*, 0.5*"
-              RowSpacing="10">
+              RowSpacing="10"
+              Margin="25, 0">
 
-            <controls:RegisteringEntry Grid.Row="0"
-                                       Text="{Binding Name}"
-                                       Placeholder="{x:Static resource:Strings.Name}"
-                                       MaxLength="30">
+                <controls:RegisteringEntry Grid.Row="0"
+                                           Text="{Binding Name}"
+                                           ShouldBeFocused="{Binding ShouldNameEntryBeFocused}"
+                                           Placeholder="{x:Static resource:Strings.Name}"
+                                           MaxLength="30">
 
-                <controls:RegisteringEntry.Behaviors>
-                    <behaviors:NameValidationBehavior/>
-                </controls:RegisteringEntry.Behaviors>
+                    <controls:RegisteringEntry.Behaviors>
 
-            </controls:RegisteringEntry>
+                        <behaviors:NameValidationBehavior/>
 
-            <controls:RegisteringEntry Grid.Row="1"
-                                       Text="{Binding Email}"
-                                       Placeholder="{x:Static resource:Strings.Email}">
+                        <prism:EventToCommandBehavior Command="{Binding NameEntryFocusedCommand}"
+                                                  EventName="Focused"/>
+                        <prism:EventToCommandBehavior Command="{Binding NameEntryUnFocusedCommand}"
+                                                  EventName="UnFocused"/>
 
-                <controls:RegisteringEntry.Behaviors>
-                    <behaviors:EmailValidationBehavior/>
-                </controls:RegisteringEntry.Behaviors>
+                    </controls:RegisteringEntry.Behaviors>
 
-            </controls:RegisteringEntry>
+                </controls:RegisteringEntry>
 
-        </Grid>
+                <controls:RegisteringEntry Grid.Row="1"
+                                           Text="{Binding Email}"
+                                           ShouldBeFocused="{Binding ShouldEmailEntryBeFocused}"
+                                           Placeholder="{x:Static resource:Strings.Email}">
 
-        <StackLayout Grid.Row="3"
-                     Grid.Column="1"
-                     Margin="0, 75">
+                    <controls:RegisteringEntry.Behaviors>
 
-            <Frame HasShadow="False"
+                        <behaviors:EmailValidationBehavior/>
+
+                        <prism:EventToCommandBehavior Command="{Binding EmailEntryFocusedCommand}"
+                                                  EventName="Focused"/>
+                        <prism:EventToCommandBehavior Command="{Binding EmailEntryUnFocusedCommand}"
+                                                  EventName="UnFocused"/>
+
+                    </controls:RegisteringEntry.Behaviors>
+
+                </controls:RegisteringEntry>
+
+            </Grid>
+
+            <StackLayout Grid.Row="3"
+                         Grid.Column="1"
+                         Margin="25, 50, 25, 0">
+
+                <Frame HasShadow="False"
                    Padding="15"
+                   CornerRadius="25"
                    BackgroundColor="{StaticResource Primary}"
-                   CornerRadius="25">
+                   IsVisible="{Binding IsDefaultControlsVisible}">
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SignUpCommand}"/>
+                    </Frame.GestureRecognizers>
+
+                    <Label HorizontalOptions="Center"
+                       Text="{x:Static resource:Strings.SignUp}"
+                       Style="{StaticResource Button}"
+                       TextColor="{StaticResource White}"/>
+                </Frame>
+
+                <Frame HasShadow="False"
+                   Padding="15"
+                   BackgroundColor="Transparent"
+                   IsVisible="{Binding IsDefaultControlsVisible}">
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LogInCommand}"/>
+                    </Frame.GestureRecognizers>
+
+                    <Label HorizontalOptions="Center"
+                       Text="{x:Static resource:Strings.LogIn}"
+                       Style="{StaticResource Button}"
+                       TextColor="{StaticResource Primary}"/>
+                </Frame>
+
+            </StackLayout>
+
+            <!--Movable Buttons-->
+
+            <controls:MovableFrame Grid.ColumnSpan="3"
+                                   Grid.RowSpan="5"
+                                   VerticalOptions="End"
+                                   Padding="10"
+                                   HasShadow="False"
+                                   CornerRadius="0"
+                                   BackgroundColor="{StaticResource Primary}"
+                                   IsVisible="{Binding IsNextButtonVisible}">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NextButtonClickedCommand}"/>
+                </Frame.GestureRecognizers>
+
+                <Label HorizontalOptions="Center"
+                       Text="{x:Static resource:Strings.Next}"
+                       Style="{StaticResource Button}"
+                       TextColor="{StaticResource White}"/>
+
+            </controls:MovableFrame>
+
+            <controls:MovableFrame Grid.ColumnSpan="3"
+                                   Grid.RowSpan="5"
+                                   VerticalOptions="End"
+                                   Padding="10"
+                                   HasShadow="False"
+                                   CornerRadius="0"
+                                   BackgroundColor="{StaticResource Primary}"
+                                   IsVisible="{Binding IsSignUpMovableButtonVisible}">
 
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SignUpCommand}"/>
                 </Frame.GestureRecognizers>
 
-                <Label HorizontalOptions="Center"
-                       Text="{x:Static resource:Strings.SignUp}"
+                <Label Text="{x:Static resource:Strings.SignUp}"
+                       HorizontalOptions="Center"
                        Style="{StaticResource Button}"
                        TextColor="{StaticResource White}"/>
-            </Frame>
 
-            <Frame HasShadow="False"
-                   Padding="15"
-                   BackgroundColor="Transparent">
-
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding LogInCommand}"/>
-                </Frame.GestureRecognizers>
-
-                <Label HorizontalOptions="Center"
-                       Text="{x:Static resource:Strings.LogIn}"
-                       Style="{StaticResource Button}"
-                       TextColor="{StaticResource Primary}"/>
-            </Frame>
-
-        </StackLayout>
+            </controls:MovableFrame>
 
     </Grid>
-  
+    
 </views:BaseContentPage>

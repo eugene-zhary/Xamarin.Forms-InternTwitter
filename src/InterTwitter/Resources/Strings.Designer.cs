@@ -241,6 +241,15 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        internal static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на New Password.
         /// </summary>
         internal static string NewPassword {
@@ -250,7 +259,7 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на There&apos;s no any user with such email and password! Please, check your inputs once more or visit Sign Up page..
+        ///   Looks up a localized string similar to There&apos;s no any user with such email and password! Please, check your inputs once more or visit Sign Up page..
         /// </summary>
         internal static string NoSuchUser {
             get {
@@ -304,7 +313,16 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Sign Up.
+        ///   Looks up a localized string similar to Signing in....
+        /// </summary>
+        internal static string SigningIn {
+            get {
+                return ResourceManager.GetString("SigningIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Up.
         /// </summary>
         internal static string SignUp {
             get {
