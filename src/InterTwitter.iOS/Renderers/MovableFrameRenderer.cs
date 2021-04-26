@@ -1,4 +1,7 @@
-﻿using Foundation;
+﻿using System;
+using System.Drawing;
+using System.Linq;
+using Foundation;
 using InterTwitter.Controls;
 using InterTwitter.iOS.Renderers;
 using UIKit;
@@ -66,11 +69,16 @@ namespace InterTwitter.iOS.Renderers
         {
             NSValue result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
 
-            var keyboardSize = result.RectangleFValue.Size;
+            SizeF keyboardSize = result.RectangleFValue.Size;
+            
+            UIWindow window = UIApplication.SharedApplication.Windows.FirstOrDefault();
+            nfloat bottomPadding = window.SafeAreaInsets.Bottom;
+
+            nfloat finalOffset = keyboardSize.Height - bottomPadding; 
 
             if (Element != null)
             {
-                await Element.TranslateTo(0, -keyboardSize.Height, easing: Easing.Linear);
+                await Element.TranslateTo(0, -finalOffset, easing: Easing.Linear);
             }
         }
 
