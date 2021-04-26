@@ -286,6 +286,24 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File was saved to gallery.
+        /// </summary>
+        internal static string SaveSucces {
+            get {
+                return ResourceManager.GetString("SaveSucces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SaveTitle {
+            get {
+                return ResourceManager.GetString("SaveTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign Up.
         /// </summary>
         internal static string SignUp {

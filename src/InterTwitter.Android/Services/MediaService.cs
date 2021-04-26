@@ -1,15 +1,15 @@
 ﻿using System;
+using Android.App;
 using Android.Content;
+using Android.Widget;
 using InterTwitter.Droid.Services;
 using InterTwitter.Services;
-using Plugin.CurrentActivity;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MediaService))]
 namespace InterTwitter.Droid.Services
 {
     public class MediaService : IMediaService
     {
-        Context CurrentContext => CrossCurrentActivity.Current.Activity;
         public void SaveImageFromByte(byte[] imageByte, string fileName)
         {
             try
@@ -19,11 +19,10 @@ namespace InterTwitter.Droid.Services
                 System.IO.File.WriteAllBytes(path, imageByte);
                 var mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
                 mediaScanIntent.SetData(Android.Net.Uri.FromFile(new Java.IO.File(path)));
-                CurrentContext.SendBroadcast(mediaScanIntent);
             }
             catch(Exception ex)
             {
-
+                Toast.MakeText(Application.Context, "Error on save image", ToastLength.Long);
             }
         }
     }

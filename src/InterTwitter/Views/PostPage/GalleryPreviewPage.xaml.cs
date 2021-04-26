@@ -3,9 +3,9 @@
 namespace InterTwitter.Views.PostPage
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PhotoPreviewPage : BaseContentPage
+    public partial class GalleryPreviewPage : BaseContentPage
     {
-        public PhotoPreviewPage()
+        public GalleryPreviewPage()
         {
             InitializeComponent();
         }

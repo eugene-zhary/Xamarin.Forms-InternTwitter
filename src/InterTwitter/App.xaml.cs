@@ -1,6 +1,7 @@
 using DLToolkit.Forms.Controls;
 using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
+using InterTwitter.Services.ContextMenu;
 using InterTwitter.Services.Permission;
 using InterTwitter.Services.Settings;
 using InterTwitter.Services.UserService;
@@ -38,6 +39,7 @@ namespace InterTwitter
             containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
             containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterInstance<IContextMenuService>(Container.Resolve<ContextMenuService>());
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
@@ -55,6 +57,7 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<GifPostPage, GifPostPageViewModel>();
             containerRegistry.RegisterForNavigation<VideoPostPage, VideoPostPageViewModel>();
             containerRegistry.RegisterForNavigation<PhotoPreviewPage, PhotoPreviewPageViewModel>();
+            containerRegistry.RegisterForNavigation<GalleryPreviewPage, GalleryPreviewPageViewModel>();
         }
 
         protected override async void OnInitialized()

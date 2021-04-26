@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<local:BaseContentPage  
+             xmlns:local="clr-namespace:InterTwitter.Views" xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="InterTwitter.Views.PostPage.PhotoPreviewPage"
@@ -91,4 +92,4 @@
             </Frame>
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</local:BaseContentPage>

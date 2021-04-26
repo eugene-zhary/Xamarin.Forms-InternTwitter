@@ -3,7 +3,6 @@ using InterTwitter.ViewModels.Posts;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.PostPage;
 using Prism.Navigation;
-using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -54,16 +53,10 @@ namespace InterTwitter.ViewModels.Navigation
             await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
         }
 
-        private async Task OnNavigateToPreviewAsync()
+        protected virtual Task OnNavigateToPreviewAsync()
         {
-            var parameters = new NavigationParameters
-            {
-                { nameof(BasePostViewModel), PostViewModel }
-            };
-
-            await NavigationService.NavigateAsync($"{nameof(PhotoPreviewPage)}", parameters, null, animated: false);
+            return Task.CompletedTask;
         }
-
 
         #endregion
     }
