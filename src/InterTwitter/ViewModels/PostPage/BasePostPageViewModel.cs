@@ -1,7 +1,5 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.ViewModels.Posts;
-using InterTwitter.Views.Flyout;
-using InterTwitter.Views.PostPage;
 using Prism.Navigation;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -48,9 +46,9 @@ namespace InterTwitter.ViewModels.Navigation
 
         #region -- Private helpers --
 
-        private async Task OnGoBackAsync()
+        private Task OnGoBackAsync()
         {
-            var result = await NavigationService.GoBackToRootAsync();
+            return NavigationService.GoBackAsync();
         }
 
         protected virtual Task OnNavigateToPreviewAsync()

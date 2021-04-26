@@ -8,9 +8,13 @@
             NavigationPage.HasNavigationBar="False"
             IsPresented="{Binding IsMenuVisible, Mode=TwoWay}">
     <MasterDetailPage.Master>
-        <local:FlyoutMenuView />
+        <local:FlyoutMenuView/>
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
-        <local:FlyoutTabbedView/>
+        <NavigationPage NavigationPage.HasNavigationBar="False">
+            <x:Arguments>
+                <local:FlyoutTabbedView/>
+            </x:Arguments>
+        </NavigationPage>
     </MasterDetailPage.Detail>
 </MasterDetailPage>

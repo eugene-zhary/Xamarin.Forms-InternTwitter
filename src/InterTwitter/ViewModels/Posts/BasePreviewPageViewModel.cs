@@ -67,9 +67,9 @@ namespace InterTwitter.ViewModels.Posts
 
         #region -- Private helpers --
 
-        private async Task OnGoBackAsync()
+        private Task OnGoBackAsync()
         {
-            await NavigationService.GoBackAsync();
+            return NavigationService.GoBackAsync();
         }
 
         private async Task OnContextMenuAsync()

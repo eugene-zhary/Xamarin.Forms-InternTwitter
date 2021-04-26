@@ -65,7 +65,7 @@ namespace InterTwitter
             InitializeComponent();
             FlowListView.Init();
 
-            await NavigationService.NavigateAsync($"{nameof(FlyoutNavigationView)}");
+            await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
         }
 
         protected override void OnStart()
