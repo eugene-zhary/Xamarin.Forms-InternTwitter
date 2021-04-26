@@ -50,7 +50,7 @@ namespace InterTwitter.ViewModels.Navigation
 
         private async Task OnGoBackAsync()
         {
-            await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
+            var result = await NavigationService.GoBackToRootAsync();
         }
 
         protected virtual Task OnNavigateToPreviewAsync()

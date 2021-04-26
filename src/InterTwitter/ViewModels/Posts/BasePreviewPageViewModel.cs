@@ -69,7 +69,7 @@ namespace InterTwitter.ViewModels.Posts
 
         private async Task OnGoBackAsync()
         {
-            await NavigationService.GoBackAsync(null, null, animated: false);
+            await NavigationService.GoBackAsync();
         }
 
         private async Task OnContextMenuAsync()

@@ -8,6 +8,8 @@
              xmlns:converters="clr-namespace:InterTwitter.Converters"
              x:Class="InterTwitter.Views.PostPage.GalleryPreviewPage"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
              BackgroundColor="{StaticResource Black}">
     <ContentPage.Resources>
         <converters:CorrectIndexValueConverter x:Key="indexConverter"/>

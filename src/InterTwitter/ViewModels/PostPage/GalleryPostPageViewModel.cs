@@ -21,7 +21,7 @@ namespace InterTwitter.ViewModels.Navigation
                 { nameof(BasePostViewModel), PostViewModel }
             };
 
-            await NavigationService.NavigateAsync($"{nameof(GalleryPreviewPage)}", parameters, null, animated: false);
+            await NavigationService.NavigateAsync($"{nameof(GalleryPreviewPage)}", parameters);
         }
 
         #endregion

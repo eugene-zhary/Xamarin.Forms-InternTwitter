@@ -12,13 +12,9 @@ namespace InterTwitter.iOS.Services
         public void SaveImageFromByte(byte[] imageByte, string fileName)
         {
             var imageData = new UIImage(NSData.FromArray(imageByte));
-            imageData.SaveToPhotosAlbum((image, error) =>
-            {
-                if(error != null)
-                {
-                    Console.WriteLine(error.ToString());
-                }
-            });
+            NSData pngImg = imageData.AsJPEG();
+            bool result = pngImg.Save(fileName, false, out NSError err);
+
         }
     }
 }
