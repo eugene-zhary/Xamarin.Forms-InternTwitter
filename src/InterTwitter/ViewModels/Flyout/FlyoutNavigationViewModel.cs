@@ -1,6 +1,7 @@
 ﻿using InterTwitter.Helpers;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Navigation;
 
 namespace InterTwitter.ViewModels.Flyout
 {
@@ -10,6 +11,8 @@ namespace InterTwitter.ViewModels.Flyout
         {
             aggregator.GetEvent<MenuVisibilityChangedEvent>().Subscribe(OnMenuVisibilityChanged);
         }
+
+        
 
         #region -- Public properties --
 
@@ -28,7 +31,6 @@ namespace InterTwitter.ViewModels.Flyout
         {
             IsMenuVisible = parameter;
         }
-
         #endregion
     }
 }

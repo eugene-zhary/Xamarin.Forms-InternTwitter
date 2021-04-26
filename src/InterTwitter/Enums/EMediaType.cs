@@ -3,6 +3,7 @@
     public enum EMediaType
     {
         Photo,
+        Gallery,
         Video,
         Gif
     }

@@ -7,6 +7,9 @@ using Prism;
 using Prism.Ioc;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using AndroidX.AppCompat.App;
+using FFImageLoading.Forms.Platform;
+using PanCardView.Droid;
 
 namespace InterTwitter.Droid
 {
@@ -17,10 +20,18 @@ namespace InterTwitter.Droid
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            TabLayoutResource = Resource.Layout.Tabbar;
+            ToolbarResource = Resource.Layout.Toolbar;
+
             base.OnCreate(savedInstanceState);
+
 
             Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
+            CardsViewRenderer.Preserve();
+            CachedImageRenderer.Init(true);
+
+            AppCompatDelegate.DefaultNightMode = AppCompatDelegate.ModeNightNo;
             UserDialogs.Init(this);
 
             LoadApplication(new App(new AndroidInitializer()));

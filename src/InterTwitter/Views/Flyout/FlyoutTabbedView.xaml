@@ -11,7 +11,7 @@
             xmlns:behaviors="clr-namespace:InterTwitter.Behaviors"
             xmlns:controls="clr-namespace:InterTwitter.Controls"
             SelectedTabType="{Binding SelectedTabType}"
-            BackgroundColor="#FCFDFE">
+            BackgroundColor="{StaticResource White}">
     <TabbedPage.Behaviors>
         <behaviors:TabbedPageNavigationBehavior/>
     </TabbedPage.Behaviors>

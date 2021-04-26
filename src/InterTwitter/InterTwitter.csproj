@@ -23,12 +23,24 @@
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.483" />
     <PackageReference Include="CardsView" Version="2.7.4" />
+    <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
+    <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
     <PackageReference Include="Prism.Unity.Forms" Version="8.0.0.1909" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\NavigationBar\FeedNavigationBar.xaml.cs">
+      <DependentUpon>FeedNavigationBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\NavigationBar\SearchNavigationBar.xaml.cs">
+      <DependentUpon>SearchNavigationBar.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Strings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -43,8 +55,11 @@
     <Compile Update="Views\Navigation\NotifycationView.xaml.cs">
       <DependentUpon>NotifycationView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\SignUpStartPage.xaml.cs">
+    <Compile Update="Views\Authorization\SignUpStartPage.xaml.cs">
       <DependentUpon>SignUpStartPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Templates\PhotoPostDataTemplate.xaml.cs">
+      <DependentUpon>PhotoPostDataTemplate.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -55,23 +70,26 @@
     <EmbeddedResource Update="Controls\CustomSearch.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\NavigationBar\FeedNavigationPage.xaml">
+    <EmbeddedResource Update="Controls\NavigationBar\FeedNavigationBar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\NavigationBar\SearchNavigationPage.xaml">
+    <EmbeddedResource Update="Controls\NavigationBar\SearchNavigationBar.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PostTemplates.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignInPage.xaml">
+    <EmbeddedResource Update="Views\Authorization\SignInPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignUpEndPage.xaml">
+    <EmbeddedResource Update="Views\Authorization\SignUpEndPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignUpStartPage.xaml">
+    <EmbeddedResource Update="Views\Authorization\SignUpStartPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Flyout\FlyoutNavigationView.xaml">
@@ -99,6 +117,15 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Navigation\SearchView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Templates\GalleryPostDataTemplate.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Templates\PhotoPostDataTemplate.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Templates\VideoPostDataTemplate.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

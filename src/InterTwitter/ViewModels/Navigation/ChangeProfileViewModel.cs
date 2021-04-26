@@ -1,9 +1,11 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Services.Authorization;
+using InterTwitter.Services.Permission;
 using InterTwitter.Services.UserService;
 using InterTwitter.Validators;
 using InterTwitter.Views.Flyout;
+using Plugin.Media;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -14,20 +16,21 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace InterTwitter.ViewModels.Navigation
 {
     public class ChangeProfileViewModel : BaseViewModel, INavigatedAware
     {
         public ChangeProfileViewModel(
-            INavigationService navigationService, IAuthorizationService AuthorizationService, 
-            IUserService userService, IPageDialogService dialogService) : base(navigationService)
+            INavigationService navigationService, IAuthorizationService AuthorizationService,
+            IUserService userService, IPageDialogService dialogService, IPermissionManager permissionManager) : base(navigationService)
         {
             _authorizationService = AuthorizationService;
             _userService = userService;
             _dialogService = dialogService;
+            _permissionManager = permissionManager;
         }
-        User CurrentUser;
 
         #region -- Public properties --
 
@@ -68,18 +71,64 @@ namespace InterTwitter.ViewModels.Navigation
             get => _userName;
             set => SetProperty(ref _userName, value);
         }
-        private bool _IsEmpty;
 
-        private readonly IAuthorizationService _authorizationService;
-        private readonly IUserService _userService;
-        private readonly IPageDialogService _dialogService;
         private ICommand _navigationToBackCommand;
         public ICommand NavigationToBackCommand => _navigationToBackCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToBackCommand);
 
         private ICommand _confirmCommand;
         public ICommand ConfirmCommand => _confirmCommand ??= SingleExecutionCommand.FromFunc(OnConfirmCommand);
 
+        private ICommand _profileImagePickCommand;
+        public ICommand ProfileImagePickCommand => _profileImagePickCommand ??= SingleExecutionCommand.FromFunc(OnProfileImagePickCommand);
+        
+        private ICommand _profileBackgroundPickCommand;
+        public ICommand ProfileBackgroundPickCommand => _profileBackgroundPickCommand ??= SingleExecutionCommand.FromFunc(OnProfileBackGroundPickCommand);
+
         #endregion
+
+        private readonly IAuthorizationService _authorizationService;
+        private readonly IUserService _userService;
+        private readonly IPageDialogService _dialogService;
+        private readonly IPermissionManager _permissionManager;
+        private User CurrentUser;
+
+        private async Task OnProfileImagePickCommand()
+        {
+            try
+            {
+                if (await _permissionManager.RequestStoragePermissionAsync())
+                {
+                    var file = await MediaPicker.PickPhotoAsync();
+
+                    if (file == null)
+                        return;
+
+                    UserImagePath = file.FullPath;
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private async Task OnProfileBackGroundPickCommand()
+        {
+            try
+            {
+                if (await _permissionManager.RequestStoragePermissionAsync())
+                {
+                    var file = await MediaPicker.PickPhotoAsync();
+
+                    if (file == null)
+                        return;
+
+                    UserBackGround = file.FullPath;
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
 
         private async Task OnConfirmCommand()
         {
@@ -130,7 +179,7 @@ namespace InterTwitter.ViewModels.Navigation
             var user = await _userService.GetUserAsync(_authorizationService.GetCurrentUserId);
 
             if (user.TrackingResult)
-            { 
+            {
                 CurrentUser = user.Result;
                 UserName = CurrentUser.Name;
                 UserMail = CurrentUser.Email;
