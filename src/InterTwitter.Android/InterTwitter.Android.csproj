@@ -99,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CardsView">
-      <Version>2.7.5</Version>
+      <Version>2.7.6</Version>
     </PackageReference>
     <PackageReference Include="Octane.Xam.VideoPlayer">
       <Version>3.1.0</Version>
@@ -121,6 +121,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.MediaGallery">
+      <Version>1.0.0-alpha002</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\CustomTabbedPageRenderer.cs" />

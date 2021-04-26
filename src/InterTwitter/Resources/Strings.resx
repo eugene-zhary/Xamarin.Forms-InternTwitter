@@ -192,6 +192,9 @@
   <data name="PasswordLengthError" xml:space="preserve">
     <value>Type at least 6 symbols</value>
   </data>
+  <data name="SaveFailed" xml:space="preserve">
+    <value>Permission for saving is denied</value>
+  </data>
   <data name="SaveSucces" xml:space="preserve">
     <value>File was saved to gallery</value>
   </data>

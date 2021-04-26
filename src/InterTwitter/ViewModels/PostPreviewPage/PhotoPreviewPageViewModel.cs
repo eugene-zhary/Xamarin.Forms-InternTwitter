@@ -40,8 +40,16 @@ namespace InterTwitter.ViewModels.Posts
         {
             IsContextMenuVisible = false;
 
-            await ContextMenuService.SaveImgFromWeb(_mediaPath);
-            await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveSucces, Strings.Ok);
+            var result = await ContextMenuService.SaveImgFromWeb(_mediaPath);
+
+            if(result.IsSuccess)
+            {
+                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveSucces, Strings.Ok);
+            }
+            else
+            {
+                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveFailed, Strings.Ok);
+            }
         }
 
         #endregion

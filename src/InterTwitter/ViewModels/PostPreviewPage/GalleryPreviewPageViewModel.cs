@@ -9,9 +9,9 @@ namespace InterTwitter.ViewModels.Posts
 {
     public class GalleryPreviewPageViewModel : BasePreviewPageViewModel
     {
-        public GalleryPreviewPageViewModel(INavigationService navigationService, 
+        public GalleryPreviewPageViewModel(INavigationService navigationService,
                                            IPageDialogService pageDialogService,
-                                           IContextMenuService contextMenuService) : 
+                                           IContextMenuService contextMenuService) :
             base(navigationService, pageDialogService, contextMenuService)
         {
         }
@@ -63,8 +63,16 @@ namespace InterTwitter.ViewModels.Posts
         {
             IsContextMenuVisible = false;
 
-            await ContextMenuService.SaveImgFromWeb(SelectedMediaPath);
-            await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveSucces, Strings.Ok);
+            var result = await ContextMenuService.SaveImgFromWeb(SelectedMediaPath);
+
+            if(result.IsSuccess)
+            {
+                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveSucces, Strings.Ok);
+            }
+            else
+            {
+                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveFailed, Strings.Ok);
+            }
         }
 
         #endregion
