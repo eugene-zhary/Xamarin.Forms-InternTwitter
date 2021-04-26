@@ -5,7 +5,7 @@
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
 	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView">
-    <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15">
+    <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15" x:Name="this">
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding OpenPostCommand}" CommandParameter="{Binding .}"/>
         </Grid.GestureRecognizers>
@@ -44,7 +44,11 @@
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
                     <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" HasShadow="False" Margin="2">
-                        <ffimageloading:CachedImage Source="{Binding .}" Aspect="AspectFill"/>
+                        <ffimageloading:CachedImage Source="{Binding .}" Aspect="AspectFill">
+                            <ffimageloading:CachedImage.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OpenPostCommand}"/>
+                            </ffimageloading:CachedImage.GestureRecognizers>
+                        </ffimageloading:CachedImage>
                     </Frame>
                 </DataTemplate>
             </flv:FlowListView.FlowColumnTemplate>

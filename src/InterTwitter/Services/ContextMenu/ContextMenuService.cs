@@ -1,24 +1,19 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Services.Permission;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace InterTwitter.Services.ContextMenu
 {
     public class ContextMenuService : IContextMenuService
     {
         private readonly IPermissionManager _permissionManager;
-        private readonly IMediaService _mediaService;
 
         public ContextMenuService(IPermissionManager permissionManager)
         {
             _permissionManager = permissionManager;
-            _mediaService = DependencyService.Get<IMediaService>();
         }
 
         public async Task<AOResult> SaveImgFromWeb(string url)
@@ -53,7 +48,6 @@ namespace InterTwitter.Services.ContextMenu
         private void WebClient_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
             string fileName = $"InterTwitter.{DateTime.Now:dd.MM.yyyy_hh.mm.ss}.jpg";
-            _mediaService.SaveImageFromByte(e.Result, fileName);
         }
 
         public async Task<AOResult> ShareImg(string url)

@@ -5,7 +5,6 @@ using InterTwitter.Views.Navigation;
 using InterTwitter.Views.PostPage;
 using Prism.Events;
 using Prism.Navigation;
-using System;
 
 namespace InterTwitter.ViewModels.Flyout
 {
@@ -45,19 +44,23 @@ namespace InterTwitter.ViewModels.Flyout
             switch(arg.PostModel.MediaType)
             {
                 case EMediaType.Gallery:
-                    await NavigationService.NavigateAsync($"{nameof(GalleryPostPage)}", paramenters, true, true);
+                    await NavigationService.NavigateAsync(nameof(GalleryPostPage), paramenters, true, true);
                     break;
 
                 case EMediaType.Photo:
-                    await NavigationService.NavigateAsync($"{nameof(PhotoPostPage)}", paramenters, true, true);
+                    await NavigationService.NavigateAsync(nameof(PhotoPostPage), paramenters, true, true);
                     break;
 
                 case EMediaType.Gif:
-                    await NavigationService.NavigateAsync($"{nameof(GifPostPage)}", paramenters, true, true);
+                    await NavigationService.NavigateAsync(nameof(GifPostPage), paramenters, true, true);
                     break;
 
                 case EMediaType.Video:
-                    await NavigationService.NavigateAsync($"{nameof(VideoPostPage)}", paramenters, true, true);
+                    await NavigationService.NavigateAsync(nameof(VideoPostPage), paramenters, true, true);
+                    break;
+
+                case EMediaType.Empty:
+                    await NavigationService.NavigateAsync(nameof(EmptyPostPage), paramenters, true, true);
                     break;
             }
         }

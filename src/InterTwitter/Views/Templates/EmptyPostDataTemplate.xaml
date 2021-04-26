@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InterTwitter.Views.Templates.VideoPostDataTemplate"
-             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
-	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
-    <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15">
+<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+              x:Class="InterTwitter.Views.Templates.EmptyPostDataTemplate">
+    <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15" x:Name="this">
         <Grid.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding OpenPostCommand}"/>
+            <TapGestureRecognizer Command="{Binding OpenPostCommand}" CommandParameter="{Binding .}"/>
         </Grid.GestureRecognizers>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="210"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="1"/>
         </Grid.RowDefinitions>
@@ -35,18 +34,6 @@
             <Label Text="{Binding PostModel.Text}"/>
         </StackLayout>
 
-
-        <!-- POST MEDIA CONTENT -->
-
-        <Frame Padding="0" Grid.Row="1" Grid.Column="1" CornerRadius="5" IsClippedToBounds="True" HasShadow="False"
-               BackgroundColor="{StaticResource Black}">
-            <Grid>
-                <Frame Padding="10" WidthRequest="40" HeightRequest="40" CornerRadius="30"
-                       VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="{StaticResource Primary}">
-                    <ffimageloading:CachedImage Source="ic_play"/>
-                </Frame>
-            </Grid>
-        </Frame>
 
         <!-- DATETIME, LIKES, BOOKMARKS -->
 
@@ -92,7 +79,6 @@
                 </ffimageloading:CachedImage>
             </StackLayout>
         </Grid>
-
 
         <!-- SPLITER -->
 

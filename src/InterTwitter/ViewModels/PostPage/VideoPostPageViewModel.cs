@@ -6,7 +6,7 @@ namespace InterTwitter.ViewModels.Navigation
     {
         public VideoPostPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-
+            
         }
     }
 }

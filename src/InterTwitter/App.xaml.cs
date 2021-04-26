@@ -8,6 +8,7 @@ using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
+using InterTwitter.ViewModels.PostPage;
 using InterTwitter.ViewModels.Posts;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
@@ -58,6 +59,7 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<VideoPostPage, VideoPostPageViewModel>();
             containerRegistry.RegisterForNavigation<PhotoPreviewPage, PhotoPreviewPageViewModel>();
             containerRegistry.RegisterForNavigation<GalleryPreviewPage, GalleryPreviewPageViewModel>();
+            containerRegistry.RegisterForNavigation<EmptyPostPage, EmptyPostPageViewModel>();
         }
 
         protected override async void OnInitialized()

@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<local:BaseContentPage  xmlns:local="clr-namespace:InterTwitter.Views" xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
-             xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
-             x:Class="InterTwitter.Views.PostPage.VideoPostPage"
+             x:Class="InterTwitter.Views.PostPage.EmptyPostPage"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
-             BackgroundColor="{StaticResource White}">
+             BackgroundColor="{StaticResource White}"
+             x:Name="this" >
     <ContentPage.Content>
         <StackLayout Padding="15,10,15,0" Spacing="15">
+
             <!-- USER ICON -->
 
             <Grid HeightRequest="55">
@@ -33,18 +34,14 @@
                 </ffimageloading:CachedImage>
 
                 <BoxView Grid.Row="1" BackgroundColor="{StaticResource Light Grey}" Margin="-15,0"/>
+
             </Grid>
 
+            
             <!-- POST TEXT CONTENT -->
 
             <Label Text="{Binding PostViewModel.PostModel.Text}"/>
-
-
-            <!-- POST MEDIA CONTENT -->
-
-            <Frame Padding="0" CornerRadius="5"  HeightRequest="260" IsClippedToBounds="True" HasShadow="False">
-                <o:VideoPlayer Source="{Binding PostViewModel.MediaPath}" DisplayControls="True" AutoPlay="True"/>
-            </Frame>
+            
 
             <!-- DATETIME, LIKES, BOOKMARKS -->
 
@@ -60,9 +57,11 @@
                 <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
 
                     <ffimageloading:CachedImage Source="ic_like_gray">
+
                         <ffimageloading:CachedImage.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding PostViewModel.LikesCommand}"/>
                         </ffimageloading:CachedImage.GestureRecognizers>
+
                         <ffimageloading:CachedImage.Triggers>
                             <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding PostViewModel.IsLiked}" Value="true">
                                 <Setter Property="Source" Value="ic_like_blue"/>
@@ -88,9 +87,10 @@
                             </DataTrigger>
                         </ffimageloading:CachedImage.Triggers>
                     </ffimageloading:CachedImage>
-                </StackLayout>
-            </Grid>
 
+                </StackLayout>
+
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</local:BaseContentPage>

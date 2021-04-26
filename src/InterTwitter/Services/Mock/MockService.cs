@@ -2,7 +2,6 @@
 using InterTwitter.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace InterTwitter.Services
 {
@@ -151,6 +150,17 @@ namespace InterTwitter.Services
                 new Post
                 {
                     Id = 4,
+                    UserId = 1,
+                    MediaType = EMediaType.Empty,
+                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    MediaPaths = new List<string>(),
+                    LikedUserIds = new List<int>{1,2,3,4,5,6 },
+                    BookmarkedUserIds = new List<int>{3},
+                    CreationDateTime = new DateTime(2021,4,20, 15,40,00)
+                },
+                new Post
+                {
+                    Id =5,
                     UserId =1,
                     MediaType = EMediaType.Photo,
                     Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
@@ -164,7 +174,18 @@ namespace InterTwitter.Services
                 },
                 new Post
                 {
-                    Id = 4,
+                    Id =6,
+                    UserId =2,
+                    MediaType = EMediaType.Empty,
+                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    MediaPaths = new List<string>(),
+                    LikedUserIds = new List < int > { 1 },
+                    BookmarkedUserIds = new List<int>{5,1},
+                    CreationDateTime = new DateTime(2021,4,20, 12,40,00)
+                },
+                new Post
+                {
+                    Id = 7,
                     UserId = 5,
                     MediaType = EMediaType.Photo,
                     Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
@@ -178,7 +199,7 @@ namespace InterTwitter.Services
                 },
                 new Post
                 {
-                    Id = 5,
+                    Id = 8,
                     UserId = 2,
                     MediaType = EMediaType.Gallery,
                     Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
@@ -197,7 +218,7 @@ namespace InterTwitter.Services
                 },
                 new Post
                 {
-                    Id = 6,
+                    Id = 9,
                     UserId = 3,
                     MediaType = EMediaType.Gallery,
                     Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
@@ -213,13 +234,13 @@ namespace InterTwitter.Services
                 },
                 new Post
                 {
-                    Id = 7,
+                    Id = 10,
                     UserId = 5,
                     MediaType = EMediaType.Video,
                     Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
                     MediaPaths = new List<string>
                     {
-                        "https://thumbs.dreamstime.com/videothumb_large8850/88502209.mp4",
+                        "https://thumbs.dreamstime.com/videothumb_large3644/36445906.mp4",
                     },
                     LikedUserIds = new List < int > { 1 },
                     BookmarkedUserIds = new List<int>{4,5},
@@ -227,7 +248,7 @@ namespace InterTwitter.Services
                 },
                 new Post
                 {
-                    Id = 7,
+                    Id = 11,
                     UserId = 5,
                     MediaType = EMediaType.Gif,
                     Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",

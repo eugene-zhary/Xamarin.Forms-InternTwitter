@@ -1,9 +1,6 @@
-﻿using InterTwitter.Enums;
-using InterTwitter.Helpers;
+﻿using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Services;
-using InterTwitter.Views.Navigation;
-using InterTwitter.Views.PostPage;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -20,8 +17,6 @@ namespace InterTwitter.ViewModels.Posts
         public BasePostViewModel(User userModel, Post postModel)
         {
             _eventAggregator = App.Resolve<IEventAggregator>();
-
-            NavigationService = App.Resolve<INavigationService>();
             PostService = App.Resolve<IPostService>();
 
             _userModel = userModel;
@@ -109,33 +104,11 @@ namespace InterTwitter.ViewModels.Posts
             }
         }
 
-        private async Task OnOpenPostAsync()
+        private Task OnOpenPostAsync()
         {
             _eventAggregator.GetEvent<NavigationEvent>().Publish(this);
-            await Task.CompletedTask;
-            //var paramenters = new NavigationParameters
-            //{
-            //    { nameof(BasePostViewModel), this }
-            //};
 
-            //switch (PostModel.MediaType)
-            //{
-            //    case EMediaType.Gallery:
-            //        await NavigationService.NavigateAsync($"{nameof(GalleryPostPage)}", paramenters, null, animated: false);
-            //        break;
-
-            //    case EMediaType.Photo:
-            //        await NavigationService.NavigateAsync($"{nameof(PhotoPostPage)}", paramenters, null, animated: false);
-            //        break;
-
-            //    case EMediaType.Gif:
-            //        await NavigationService.NavigateAsync($"{nameof(GifPostPage)}", paramenters, null, animated: false);
-            //        break;
-
-            //    case EMediaType.Video:
-            //        await NavigationService.NavigateAsync($"{nameof(VideoPostPage)}", paramenters, null, animated: false);
-            //        break;
-            //}
+            return Task.CompletedTask;
         }
 
         #endregion
