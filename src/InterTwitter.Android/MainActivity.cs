@@ -8,6 +8,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using AndroidX.AppCompat.App;
 using FFImageLoading.Forms.Platform;
+using PanCardView.Droid;
 
 namespace InterTwitter.Droid
 {
@@ -26,7 +27,7 @@ namespace InterTwitter.Droid
 
             Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
-
+            CardsViewRenderer.Preserve();
             CachedImageRenderer.Init(true);
 
             AppCompatDelegate.DefaultNightMode = AppCompatDelegate.ModeNightNo;

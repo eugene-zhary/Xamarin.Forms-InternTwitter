@@ -34,6 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\NavigationBar\FeedNavigationBar.xaml.cs">
+      <DependentUpon>FeedNavigationBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\NavigationBar\SearchNavigationBar.xaml.cs">
+      <DependentUpon>SearchNavigationBar.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Strings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -63,10 +69,10 @@
     <EmbeddedResource Update="Controls\CustomSearch.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\NavigationBar\FeedNavigationPage.xaml">
+    <EmbeddedResource Update="Controls\NavigationBar\FeedNavigationBar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\NavigationBar\SearchNavigationPage.xaml">
+    <EmbeddedResource Update="Controls\NavigationBar\SearchNavigationBar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PostTemplates.xaml">

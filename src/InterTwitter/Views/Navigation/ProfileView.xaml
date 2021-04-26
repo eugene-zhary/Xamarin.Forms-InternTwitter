@@ -23,7 +23,10 @@
                 <RowDefinition Height="32*" />
                 <RowDefinition Height="271*" />
             </Grid.RowDefinitions>
-            <Image BackgroundColor="{StaticResource Primary}" Source="{Binding UserBackGround}" />
+            <Image
+                Aspect="Fill"
+                BackgroundColor="{StaticResource Primary}"
+                Source="{Binding UserBackGround}" />
             <controls:CircleFrame
                 Margin="14,-24"
                 Padding="2,2,2,2"
@@ -178,34 +181,36 @@
 
             </Grid>
 
-            <controls:TabsControl
-                Grid.Row="2"
-                BindingContext="{x:Reference cube}"
-                IsUserInteractionRunning="True">
-                <controls:TabsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Label
-                            Margin="10,0,0,0"
-                            HorizontalTextAlignment="Center"
-                            Style="{StaticResource LabelCaption1}"
-                            Text="{Binding Title}"
-                            WidthRequest="61" />
-                    </DataTemplate>
-                </controls:TabsControl.ItemTemplate>
-            </controls:TabsControl>
+            <ContentView Grid.Row="2">
+                <controls:TabsControl BindingContext="{x:Reference cube}">
+                    <controls:TabsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label
+                                Margin="10,0,0,0"
+                                HorizontalTextAlignment="Center"
+                                Style="{StaticResource LabelCaption1}"
+                                Text="{Binding Title}"
+                                WidthRequest="61" />
+                        </DataTemplate>
+                    </controls:TabsControl.ItemTemplate>
+                </controls:TabsControl>
+            </ContentView>
             <cards:CarouselView
                 x:Name="cube"
                 Grid.Row="3"
-                IsUserInteractionEnabled="False"
+                IsPanSwipeEnabled="False"
                 ItemsSource="{Binding Items}"
                 SelectedIndex="{Binding CurrentIndex}"
                 VerticalOptions="FillAndExpand">
                 <cards:CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <controls1:CustomCollectionView
-                            ItemTemplate="{StaticResource postTemplateSelector}"
-                            ItemsSource="{Binding PostCollection}"
-                            ItemsUpdatingScrollMode="KeepItemsInView" />
+                        <ContentView>
+                            <controls1:CustomCollectionView
+                                HorizontalScrollBarVisibility="Never"
+                                ItemTemplate="{StaticResource postTemplateSelector}"
+                                ItemsSource="{Binding PostCollection}"
+                                ItemsUpdatingScrollMode="KeepItemsInView" />
+                        </ContentView>
                     </DataTemplate>
                 </cards:CarouselView.ItemTemplate>
             </cards:CarouselView>

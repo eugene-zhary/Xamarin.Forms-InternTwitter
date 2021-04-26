@@ -26,20 +26,6 @@ namespace InterTwitter.ViewModels.Navigation
             _userService = userService;
             _postManager = postManager;
 
-            PanPositionChangedCommand = new Command(v =>
-			{
-				if (IsAutoAnimationRunning || IsUserInteractionRunning)
-				{
-					return;
-				}
-
-				var index = CurrentIndex + (bool.Parse(v.ToString()) ? 1 : -1);
-				if (index < 0 || index >= Items.Count)
-				{
-					return;
-				}
-				CurrentIndex = index;
-			});
 
 			RemoveCurrentItemCommand = new Command(() =>
 			{
@@ -270,15 +256,15 @@ namespace InterTwitter.ViewModels.Navigation
 			base.OnPropertyChanged(args);
 			if (args.PropertyName == nameof(CurrentIndex) && IsYourProfile)
 			{
-				for (int i = UserLikePostCollection.Count  - 1; i >= 0; i--)
-				{
+                for (int i = UserLikePostCollection.Count - 1; i >= 0; i--)
+                {
                     if (!UserLikePostCollection[i].IsLiked)
                     {
-						UserLikePostCollection.RemoveAt(i);
-					}
-				}
+                        UserLikePostCollection.RemoveAt(i);
+                    }
+                }
 
-				UserPostCollection.Where(u => u.IsLiked).Where(u => !UserLikePostCollection.Contains(u)).ToList().ForEach(UserLikePostCollection.Add);
+                UserPostCollection.Where(u => u.IsLiked).Where(u => !UserLikePostCollection.Contains(u)).ToList().ForEach(UserLikePostCollection.Add);
 
                 for (int i = 0; i < UserLikePostCollection.Count; i++)
                 {
@@ -292,8 +278,6 @@ namespace InterTwitter.ViewModels.Navigation
                         }
                     }
                 }
-
-
             }
 
         }
@@ -309,7 +293,7 @@ namespace InterTwitter.ViewModels.Navigation
 
 				var posts = await _postManager.GetPostsAsync();
 
-				posts.Result.Where(u => CurrentProfile.Id == u.UserModel.Id).ToList().ForEach(UserPostCollection.Add);
+			    posts.Result.Where(u => CurrentProfile.Id == u.UserModel.Id).ToList().ForEach(UserPostCollection.Add);
 				posts.Result.Where(u => u.PostModel.LikedUserIds.Contains(CurrentProfile.Id)).ToList().ForEach(UserLikePostCollection.Add);
 
 				result.SetSuccess();

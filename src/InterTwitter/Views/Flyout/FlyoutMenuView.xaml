@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<views:BaseContentPage
     x:Class="InterTwitter.Views.Flyout.FlyoutMenuView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:InterTwitter.Controls"
+    xmlns:controls1="clr-namespace:PanCardView.Controls;assembly=PanCardView"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:views="clr-namespace:InterTwitter.Views"
+    x:Name="flyOutMenuView"
     Title="Flyout"
     ios:Page.UseSafeArea="true"
     prism:ViewModelLocator.AutowireViewModel="True"
@@ -33,18 +36,20 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Image Margin="0" Source="pic_profile_big.png">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigationToProfileCommand}" />
-                </Image.GestureRecognizers>
-            </Image>
 
+            <controls1:CircleFrame Padding="0,0,0,0" IsClippedToBounds="True">
+                <Image Margin="0" Source="{Binding ProfileImage}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigationToProfileCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </controls1:CircleFrame>
             <StackLayout Grid.Column="1" VerticalOptions="Center">
                 <Label
                     FontAttributes="Bold"
                     FontSize="20"
-                    Text="Name" />
-                <Label Text="sample@test.com" TextColor="Gray" />
+                    Text="{Binding ProfileName}" />
+                <Label Text="{Binding ProfileMail}" TextColor="Gray" />
             </StackLayout>
         </Grid>
 
@@ -113,4 +118,4 @@
         </Grid>
 
     </Grid>
-</ContentPage>
+</views:BaseContentPage>
