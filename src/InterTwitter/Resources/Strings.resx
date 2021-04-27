@@ -219,4 +219,25 @@
   <data name="YouLlNeedAPassword" xml:space="preserve">
     <value>You'll need a password</value>
   </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DeleteAllBookmarks" xml:space="preserve">
+    <value>Delete all bookmarks</value>
+  </data>
+  <data name="DeleteAllBookmarksConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to delete all bookmarks?</value>
+  </data>
+  <data name="DeleteAllBookmarksConfirmTitle" xml:space="preserve">
+    <value>Delete all bookmarks?</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="YouHaveNoBookmarksYet" xml:space="preserve">
+    <value>You have no bookmarks yet</value>
+  </data>
 </root>

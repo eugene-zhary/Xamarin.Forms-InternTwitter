@@ -58,6 +58,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Controls\NavigationBar\BookmarksNavigationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Controls\RegisteringEntry.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
