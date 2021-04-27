@@ -1,9 +1,8 @@
-﻿using InterTwitter.Enums;
-using InterTwitter.Helpers;
+﻿using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Services;
 using InterTwitter.Views.Navigation;
-using InterTwitter.Views.PostPage;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System.Linq;
@@ -14,10 +13,14 @@ namespace InterTwitter.ViewModels.Posts
 {
     public class BasePostViewModel : BindableBase
     {
+        private readonly IEventAggregator _eventAggregator;
+
         public BasePostViewModel(User userModel, Post postModel)
         {
+            _eventAggregator = App.Resolve<IEventAggregator>();
+
+            PostService = App.Resolve<IPostService>();
             NavigationService = App.Resolve<INavigationService>();
-            PostManager = App.Resolve<IPostService>();
 
             _userModel = userModel;
             _postModel = postModel;
@@ -26,7 +29,7 @@ namespace InterTwitter.ViewModels.Posts
         #region -- Public properties --
 
         protected INavigationService NavigationService { get; private set; }
-        protected IPostService PostManager { get; private set; }
+        protected IPostService PostService { get; private set; }
 
         private User _userModel;
         public User UserModel
@@ -70,18 +73,21 @@ namespace InterTwitter.ViewModels.Posts
         private ICommand _openPostCommand;
         public ICommand OpenPostCommand => _openPostCommand ??= SingleExecutionCommand.FromFunc(OnOpenPostAsync);
 
+        private ICommand _navigateToProfileCommand;
+        public ICommand NavigateToProfileCommand => _navigateToProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToProfileAsync);
+
         #endregion
 
         #region -- Private helpers --
 
-        private async Task OnNavigationToProfile()
+        private async Task OnNavigationToProfileAsync()
         {
             var pairs = new NavigationParameters
             {
                 { nameof(UserModel), UserModel }
             };
 
-            await NavigationService.NavigateAsync($"/{nameof(ProfileView)}", pairs);
+            await NavigationService.NavigateAsync($"{nameof(ProfileView)}", pairs, true, true);
         }
 
         private async Task OnLikesAsync()
@@ -90,11 +96,11 @@ namespace InterTwitter.ViewModels.Posts
 
             if (IsLiked)
             {
-                await PostManager.LikePostAsync(PostModel.Id);
+                await PostService.LikePostAsync(PostModel.Id);
             }
             else
             {
-                await PostManager.UnlikePostAsync(PostModel.Id);
+                await PostService.UnlikePostAsync(PostModel.Id);
             }
 
             RaisePropertyChanged(nameof(LikesCount));
@@ -106,41 +112,22 @@ namespace InterTwitter.ViewModels.Posts
 
             if (IsBookmarked)
             {
-                await PostManager.BookmarkPostAsync(PostModel.Id);
+                await PostService.BookmarkPostAsync(PostModel.Id);
             }
             else
             {
-                await PostManager.UnbookmarkPostAsync(PostModel.Id);
+                await PostService.UnbookmarkPostAsync(PostModel.Id);
             }
         }
-        private async Task OnOpenPostAsync()
+
+        private Task OnOpenPostAsync()
         {
-            var paramenters = new NavigationParameters
-            {
-                { nameof(BasePostViewModel), this }
-            };
+            _eventAggregator.GetEvent<NavigationEvent>().Publish(this);
 
-            switch (PostModel.MediaType)
-            {
-                case EMediaType.Gallery:
-                    await NavigationService.NavigateAsync($"/{nameof(GalleryPostPage)}", paramenters);
-                    break;
-
-                case EMediaType.Photo:
-                    await NavigationService.NavigateAsync($"/{nameof(PhotoPostPage)}", paramenters);
-                    break;
-
-                case EMediaType.Gif:
-                    await NavigationService.NavigateAsync($"/{nameof(GifPostPage)}", paramenters);
-                    break;
-
-                case EMediaType.Video:
-                    await NavigationService.NavigateAsync($"/{nameof(VideoPostPage)}", paramenters);
-                    break;
-
-            }
+            return Task.CompletedTask;
         }
 
         #endregion
     }
+
 }

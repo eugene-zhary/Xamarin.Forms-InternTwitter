@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseContentPage  
+             xmlns:local="clr-namespace:InterTwitter.Views" xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="InterTwitter.Views.PostPage.PhotoPreviewPage"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{StaticResource Black}">
+    <ContentPage.Content>
+        <Grid Padding="15,10,15,0">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding PageFocusCommand}"/>
+            </Grid.GestureRecognizers>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+
+            <!-- HEADER -->
+
+            <Grid>
+                <ffimageloading:CachedImage HorizontalOptions="Start" Source="ic_left_white">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
+
+                <ffimageloading:CachedImage HorizontalOptions="End" Source="ic_hidden_menu_white">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ContextMenuCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
+            </Grid>
+
+            <!-- MEDIA CONTENT -->
+
+            <ffimageloading:CachedImage Grid.Row="1" Source="{Binding PostViewModel.MediaPath}" Margin="-15,0"/>
+
+            <!-- LIKES, BOOKMARKS -->
+
+            <StackLayout Grid.Row="2" VerticalOptions="Start" HorizontalOptions="End" Orientation="Horizontal">
+
+                <ffimageloading:CachedImage Source="ic_like_gray">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PostViewModel.LikesCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                    <ffimageloading:CachedImage.Triggers>
+                        <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding PostViewModel.IsLiked}" Value="true">
+                            <Setter Property="Source" Value="ic_like_blue"/>
+                        </DataTrigger>
+                    </ffimageloading:CachedImage.Triggers>
+                </ffimageloading:CachedImage>
+
+                <Label  Margin="0,0,15,0" Text="{Binding PostViewModel.LikesCount}" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Grey}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding PostViewModel.IsLiked}" Value="true">
+                            <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+
+                <ffimageloading:CachedImage Source="ic_bookmarks_gray">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PostViewModel.BookmarksCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                    <ffimageloading:CachedImage.Triggers>
+                        <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding PostViewModel.IsBookmarked}" Value="true">
+                            <Setter Property="Source" Value="ic_bookmarks_blue"/>
+                        </DataTrigger>
+                    </ffimageloading:CachedImage.Triggers>
+                </ffimageloading:CachedImage>
+            </StackLayout>
+
+            <!-- CONTEXT MENU -->
+
+            <Frame CornerRadius="5" Margin="0,5" Padding="15" Grid.RowSpan="3" 
+                   VerticalOptions="Start" HorizontalOptions="End" WidthRequest="140"
+                   BackgroundColor="{StaticResource Dark Grey}" IsVisible="{Binding IsContextMenuVisible}">
+                <StackLayout Spacing="20">
+                    <Label Text="Save" TextColor="{StaticResource White}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SaveCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="Share" TextColor="{StaticResource White}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShareCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</local:BaseContentPage>

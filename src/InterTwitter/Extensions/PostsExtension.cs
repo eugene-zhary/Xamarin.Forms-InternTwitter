@@ -24,12 +24,11 @@ namespace InterTwitter.Extensions
                 {
                     case EMediaType.Photo:
                     case EMediaType.Gif:
+                    case EMediaType.Video:
                         postViewModel = new OneMediaPostViewModel(userModel, postModel);
                         break;
-                    case EMediaType.Video:
-                        postViewModel = new VideoPostViewModel(userModel, postModel);
-                        break;
 
+                    case EMediaType.Empty:
                     case EMediaType.Gallery:
                         postViewModel = new BasePostViewModel(userModel, postModel);
                         break;
@@ -49,7 +48,11 @@ namespace InterTwitter.Extensions
             if (postCollection.Any())
             {
                 viewModelCollection = new List<BasePostViewModel>();
-                postCollection.ToList().ForEach(p => viewModelCollection.Add(p.ToViewModel(postManager, currentUserId)));
+
+                foreach(var post in postCollection)
+                {
+                    viewModelCollection.Add(post.ToViewModel(postManager, currentUserId));
+                }
             }
 
             return viewModelCollection;

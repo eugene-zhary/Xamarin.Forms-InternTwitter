@@ -33,8 +33,7 @@
                      IsRefreshing="{Binding IsRefreshing}">
 
             <controls:CustomCollectionView ItemsSource="{Binding PostCollection}"
-                                           ItemTemplate="{StaticResource postTemplateSelector}"
-                                           CurrentIndex="{Binding CurrentIndex}">
+                                           ItemTemplate="{StaticResource postTemplateSelector}">
 
                 <controls:CustomCollectionView.Header>
                     <BoxView HeightRequest="55" BackgroundColor="White"/>

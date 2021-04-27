@@ -30,7 +30,7 @@
                 <fftransformations:CircleTransformation />
             </ffimageloading:CachedImage.Transformations>
             <ffimageloading:CachedImage.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigationToProfileCommand}" />
+                <TapGestureRecognizer Command="{Binding NavigateToProfileCommand}"/>
             </ffimageloading:CachedImage.GestureRecognizers>
 
         </ffimageloading:CachedImage>
@@ -38,16 +38,16 @@
         <!--  POST TEXT CONTENT  -->
 
         <StackLayout Grid.Column="1">
-            <Label FontAttributes="Bold" Text="{Binding UserModel.Name}" />
-            <Label Text="{Binding PostModel.Text}" />
+            <Label Text="{Binding UserModel.Name}" Style="{StaticResource Subtitle2}" FontAttributes="Bold"/>
+            <Label Text="{Binding PostModel.Text}" Style="{StaticResource Body2}"/>
         </StackLayout>
 
 
         <!--  POST MEDIA CONTENT  -->
 
-        <Frame Padding="0" Grid.Row="1" Grid.Column="1" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
+        <Frame Padding="0" Grid.Row="1" Grid.Column="1" CornerRadius="5" IsClippedToBounds="True" HasShadow="False"
+               BackgroundColor="{StaticResource Black}">
             <Grid>
-                <o:VideoPlayer Source="{Binding VideoPath}" DisplayControls="True"/>
                 <Frame Padding="10" WidthRequest="40" HeightRequest="40" CornerRadius="30"
                        VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="{StaticResource Primary}">
                     <ffimageloading:CachedImage Source="ic_play"/>
@@ -63,11 +63,8 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <Label
-                FontSize="14"
-                HorizontalOptions="Start"
-                Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}"
-                VerticalOptions="Center" />
+            <Label Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}" Style="{StaticResource Body2}"
+                   TextColor="{StaticResource Dark Grey}"/>
 
             <StackLayout
                 Grid.Column="1"
@@ -88,12 +85,7 @@
                     </ffimageloading:CachedImage.Triggers>
                 </ffimageloading:CachedImage>
 
-                <Label
-                    Margin="0,0,15,0"
-                    FontSize="14"
-                    Text="{Binding LikesCount}"
-                    TextColor="{StaticResource Dark Grey}"
-                    VerticalOptions="Center">
+                <Label  Margin="0,0,15,0" Text="{Binding LikesCount}" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Dark Grey}">
                     <Label.Triggers>
                         <DataTrigger
                             Binding="{Binding IsLiked}"

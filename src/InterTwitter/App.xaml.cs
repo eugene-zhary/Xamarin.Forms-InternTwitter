@@ -1,6 +1,7 @@
 using DLToolkit.Forms.Controls;
 using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
+using InterTwitter.Services.ContextMenu;
 using InterTwitter.Services.Permission;
 using InterTwitter.Services.Settings;
 using InterTwitter.Services.UserService;
@@ -8,6 +9,7 @@ using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
 using InterTwitter.ViewModels.PostPage;
+using InterTwitter.ViewModels.Posts;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
@@ -31,15 +33,15 @@ namespace InterTwitter
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Services
+            containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IPermissionManager>(Container.Resolve<PermissionManager>());
-            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
-            containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
-            containerRegistry.RegisterSingleton<IUserService, UserService>();
+
             containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
-            
-            // Navigation
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
+            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterInstance<IContextMenuService>(Container.Resolve<ContextMenuService>());
+
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
             containerRegistry.RegisterForNavigation<SignUpEndPage, SignUpEndPageViewModel>();
@@ -51,18 +53,26 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
-            containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
-            containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
             containerRegistry.RegisterForNavigation<PhotoPostPage, PhotoPostPageViewModel>();
             containerRegistry.RegisterForNavigation<GalleryPostPage, GalleryPostPageViewModel>();
             containerRegistry.RegisterForNavigation<GifPostPage, GifPostPageViewModel>();
             containerRegistry.RegisterForNavigation<VideoPostPage, VideoPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<PhotoPreviewPage, PhotoPreviewPageViewModel>();
+            containerRegistry.RegisterForNavigation<GalleryPreviewPage, GalleryPreviewPageViewModel>();
+            containerRegistry.RegisterForNavigation<EmptyPostPage, EmptyPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
+            containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
+
+            
         }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
             FlowListView.Init();
+
+
+            IAuthorizationService AuthorizeService = Container.Resolve<AuthorizationService>();
 
             await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
         }

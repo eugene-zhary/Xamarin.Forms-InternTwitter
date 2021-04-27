@@ -56,7 +56,7 @@
                 AbsoluteLayout.LayoutBounds="1,1,1,1"
                 AbsoluteLayout.LayoutFlags="All"
                 BackgroundColor="{StaticResource Primary}"
-                Source="{Binding UserBackGround}" />
+                Source="{Binding UserBackGround}" Aspect="AspectFill"/>
 
             <Frame
                 Margin="0,0"

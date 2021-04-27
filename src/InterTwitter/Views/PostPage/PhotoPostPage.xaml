@@ -5,6 +5,8 @@
                        xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
                        xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
                        x:Class="InterTwitter.Views.Navigation.PhotoPostPage"
+                       xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                       ios:Page.UseSafeArea="true"
                        BackgroundColor="{StaticResource White}">
     <ContentPage.Content>
         <StackLayout Padding="15,10,15,0" Spacing="15">
@@ -23,12 +25,15 @@
                     </ffimageloading:CachedImage.GestureRecognizers>
                 </ffimageloading:CachedImage>
 
-                <Label HorizontalOptions="Center" Text="{Binding PostViewModel.UserModel.Name}" VerticalOptions="Center" FontAttributes="Bold"/>
+                <Label Text="{Binding PostViewModel.UserModel.Name}" Style="{StaticResource Body1}" FontAttributes="Bold" HorizontalOptions="Center"/>
 
                 <ffimageloading:CachedImage Source="{Binding PostViewModel.UserModel.ProfileImagePath}" VerticalOptions="Center" HorizontalOptions="End">
                     <ffimageloading:CachedImage.Transformations>
                         <fftransformations:CircleTransformation/>
                     </ffimageloading:CachedImage.Transformations>
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PostViewModel.NavigateToProfileCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
                 </ffimageloading:CachedImage>
 
                 <BoxView Grid.Row="1" BackgroundColor="{StaticResource Light Grey}" Margin="-15,0"/>
@@ -36,13 +41,17 @@
 
             <!-- POST TEXT CONTENT -->
 
-            <Label Text="{Binding PostViewModel.PostModel.Text}"/>
+            <Label Text="{Binding PostViewModel.PostModel.Text}" Style="{StaticResource Body2}"/>
 
 
             <!-- POST MEDIA CONTENT -->
 
             <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" HasShadow="False" HeightRequest="260">
-                <ffimageloading:CachedImage Source="{Binding PostViewModel.MediaPath}"  Aspect="AspectFill" LoadingPlaceholder="anim_loading"/>
+                <ffimageloading:CachedImage Source="{Binding PostViewModel.MediaPath}"  Aspect="AspectFill" LoadingPlaceholder="anim_loading">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToPreviewCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
             </Frame>
 
 
@@ -55,7 +64,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Text="{Binding PostViewModel.PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}" 
-                   HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"/>
+                       Style="{StaticResource Body2}" TextColor="{StaticResource Dark Grey}"/>
 
                 <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
 
@@ -70,7 +79,7 @@
                         </ffimageloading:CachedImage.Triggers>
                     </ffimageloading:CachedImage>
 
-                    <Label Text="{Binding PostViewModel.LikesCount}" TextColor="{StaticResource Dark Grey}"  FontSize="14" VerticalOptions="Center" Margin="0,0,15,0">
+                    <Label Text="{Binding PostViewModel.LikesCount}" Margin="0,0,15,0" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Dark Grey}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding PostViewModel.IsLiked}" Value="true">
                                 <Setter Property="TextColor" Value="{StaticResource Primary}"/>
@@ -90,7 +99,7 @@
                     </ffimageloading:CachedImage>
                 </StackLayout>
             </Grid>
-            
+
         </StackLayout>
     </ContentPage.Content>
 </local:BaseContentPage>

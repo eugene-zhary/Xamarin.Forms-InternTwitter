@@ -8,10 +8,12 @@
     <templates:GalleryPostDataTemplate x:Key="galleryPostsTemplate"/>
     <templates:VideoPostDataTemplate x:Key="videoPostsTemplate"/>
     <templates:GifPostDataTemplate x:Key="gifPostsTemplate"/>
+    <templates:EmptyPostDataTemplate x:Key="emptyPostsTemplate"/>
 
     <templates:PostDataTemplateSelector x:Key="postTemplateSelector"
                                         PhotoPostDataTemplate="{StaticResource photoPostsTemplate}"
                                         GalleryPostDataTemplate="{StaticResource galleryPostsTemplate}"
                                         VideoPostDataTemplate="{StaticResource videoPostsTemplate}"
-                                        GifPostDataTemplate="{StaticResource gifPostsTemplate}"/>
+                                        GifPostDataTemplate="{StaticResource gifPostsTemplate}"
+                                        EmptyPostDataTemplate="{StaticResource emptyPostsTemplate}"/>
 </ResourceDictionary>

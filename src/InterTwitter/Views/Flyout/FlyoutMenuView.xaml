@@ -3,12 +3,12 @@
     x:Class="InterTwitter.Views.Flyout.FlyoutMenuView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:InterTwitter.Controls"
-    xmlns:controls1="clr-namespace:PanCardView.Controls;assembly=PanCardView"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:prism="http://prismlibrary.com"
     xmlns:views="clr-namespace:InterTwitter.Views"
     x:Name="flyOutMenuView"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
     Title="Flyout"
     ios:Page.UseSafeArea="true"
     prism:ViewModelLocator.AutowireViewModel="True"
@@ -37,13 +37,14 @@
             </Grid.ColumnDefinitions>
 
 
-            <controls1:CircleFrame Padding="0,0,0,0" IsClippedToBounds="True">
-                <Image Margin="0" Source="{Binding ProfileImage}">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigationToProfileCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
-            </controls1:CircleFrame>
+            <ffimageloading:CachedImage Margin="10" Source="{Binding ProfileImage}" Aspect="AspectFit">
+                <ffimageloading:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenProfileCommand}" />
+                </ffimageloading:CachedImage.GestureRecognizers>
+                <ffimageloading:CachedImage.Transformations>
+                    <fftransformations:CircleTransformation/>
+                </ffimageloading:CachedImage.Transformations>
+            </ffimageloading:CachedImage>
             <StackLayout Grid.Column="1" VerticalOptions="Center">
                 <Label
                     FontAttributes="Bold"
@@ -97,7 +98,7 @@
                     WidthRequest="35" />
                 <Label Text="Change profile" />
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigationToChangeProfileCommand}" />
+                    <TapGestureRecognizer Command="{Binding ChangeProfileCommand}" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 

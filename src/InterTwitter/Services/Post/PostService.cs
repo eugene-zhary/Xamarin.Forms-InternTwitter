@@ -85,7 +85,8 @@ namespace InterTwitter.Services
 
             try
             {
-                _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault()?.LikedUserIds.Add(_settings.RememberedUserId);
+                var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
+                post.LikedUserIds.Add(_settings.RememberedUserId);
 
                 result.SetSuccess();
             }
@@ -103,13 +104,14 @@ namespace InterTwitter.Services
 
             try
             {
-                _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault()?.LikedUserIds.Remove(_settings.RememberedUserId);
+                var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
+                post.LikedUserIds.Remove(_settings.RememberedUserId);
 
                 result.SetSuccess();
             }
             catch(Exception ex)
             {
-                result.SetError($"{nameof(LikePostAsync)}: exception", "Something went wrong", ex);
+                result.SetError($"{nameof(UnlikePostAsync)}: exception", "Something went wrong", ex);
             }
 
             return result;
@@ -121,13 +123,14 @@ namespace InterTwitter.Services
 
             try
             {
-                _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault()?.BookmarkedUserIds.Add(_settings.RememberedUserId);
+                var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
+                post.BookmarkedUserIds.Add(_settings.RememberedUserId);
 
                 result.SetSuccess();
             }
             catch(Exception ex)
             {
-                result.SetError($"{nameof(LikePostAsync)}: exception", "Something went wrong", ex);
+                result.SetError($"{nameof(BookmarkPostAsync)}: exception", "Something went wrong", ex);
             }
 
             return result;
@@ -139,13 +142,14 @@ namespace InterTwitter.Services
 
             try
             {
-                _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault()?.BookmarkedUserIds.Remove(_settings.RememberedUserId);
+                var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
+                post.BookmarkedUserIds.Remove(_settings.RememberedUserId);
 
                 result.SetSuccess();
             }
             catch(Exception ex)
             {
-                result.SetError($"{nameof(LikePostAsync)}: exception", "Something went wrong", ex);
+                result.SetError($"{nameof(UnbookmarkPostAsync)}: exception", "Something went wrong", ex);
             }
 
             return result;

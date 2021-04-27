@@ -11,6 +11,7 @@ using AndroidX.AppCompat.App;
 using FFImageLoading.Forms.Platform;
 using Octane.Xamarin.Forms.VideoPlayer.Android;
 using PanCardView.Droid;
+using Android.Content;
 
 namespace InterTwitter.Droid
 {
@@ -34,6 +35,7 @@ namespace InterTwitter.Droid
             CardsViewRenderer.Preserve();
             CachedImageRenderer.Init(true);
             FormsVideoPlayer.Init();
+            Xamarin.MediaGallery.Platform.Init(this, savedInstanceState);
 
             AppCompatDelegate.DefaultNightMode = AppCompatDelegate.ModeNightNo;
 
@@ -47,6 +49,16 @@ namespace InterTwitter.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
+        {
+            if(Xamarin.MediaGallery.Platform.CheckCanProcessResult(requestCode, resultCode, intent))
+            {
+                Xamarin.MediaGallery.Platform.OnActivityResult(requestCode, resultCode, intent);
+            }
+
+            base.OnActivityResult(requestCode, resultCode, intent);
+        }
+
         #endregion
 
         public class AndroidInitializer : IPlatformInitializer
@@ -56,8 +68,5 @@ namespace InterTwitter.Droid
             }
         }
 
-        public override void OnBackPressed()
-        {
-        }
     }
 }
