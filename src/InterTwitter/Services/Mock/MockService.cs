@@ -34,6 +34,7 @@ namespace InterTwitter.Services
                     Email ="jhon.lennon@email.com",
                     Password = "1111",
                     ProfileImagePath = "https://pbs.twimg.com/profile_images/428144059446599680/KSLIq_WY_400x400.jpeg",
+                    ProfileBackgroundImagePath = "https://pbs.twimg.com/profile_images/428144059446599680/KSLIq_WY_400x400.jpeg",
                     MutedUserIds = new List<int>{2},
                     BlockedUserIds = new List<int>{2}
                 },
@@ -44,8 +45,9 @@ namespace InterTwitter.Services
                     Email ="elvis.presley@email.com",
                     Password = "1111",
                     ProfileImagePath = "https://pbs.twimg.com/profile_images/424180229016268800/k1UVHgjq_400x400.jpeg",
-                    MutedUserIds = new List<int>{},
-                    BlockedUserIds = new List<int>{}
+                    ProfileBackgroundImagePath = "https://pbs.twimg.com/profile_images/424180229016268800/k1UVHgjq_400x400.jpeg",
+                    MutedUserIds = new List<int>{3},
+                    BlockedUserIds = new List<int>{1}
                 },
                 new User
                 {
@@ -54,6 +56,7 @@ namespace InterTwitter.Services
                     Email ="kurt.cobain@email.com",
                     Password = "1111",
                     ProfileImagePath ="https://pbs.twimg.com/profile_images/561606018795601922/7OQvyZsl_400x400.jpeg",
+                    ProfileBackgroundImagePath = "https://pbs.twimg.com/profile_images/424180229016268800/k1UVHgjq_400x400.jpeg",
                     MutedUserIds = new List<int>{},
                     BlockedUserIds = new List<int>{}
                 },
@@ -63,6 +66,7 @@ namespace InterTwitter.Services
                     Name = "Ozzy Osbourne",
                     Email ="ozzy.osbourne@email.com",
                     Password = "1111",
+                    ProfileBackgroundImagePath = "https://pbs.twimg.com/profile_images/424180229016268800/k1UVHgjq_400x400.jpeg",
                     ProfileImagePath = "https://pbs.twimg.com/profile_images/1215311553152438273/ewie0ixT_400x400.jpg",
                 },
                 new User
@@ -71,6 +75,7 @@ namespace InterTwitter.Services
                     Name = "Michael Jackson",
                     Email ="michael.jackson@email.com",
                     Password = "1111",
+                    ProfileBackgroundImagePath = "https://pbs.twimg.com/profile_images/424180229016268800/k1UVHgjq_400x400.jpeg",
                     ProfileImagePath = "https://pbs.twimg.com/profile_images/556179314660478976/l_MadSiU_400x400.jpeg",
                     MutedUserIds = new List<int>{},
                     BlockedUserIds = new List<int>{}
@@ -81,6 +86,7 @@ namespace InterTwitter.Services
                     Name = "Johnny Cash",
                     Email ="johnny.cash@email.com",
                     Password = "1111",
+                    ProfileBackgroundImagePath = "https://pbs.twimg.com/profile_images/424180229016268800/k1UVHgjq_400x400.jpeg",
                     ProfileImagePath = "https://pbs.twimg.com/profile_images/961615866944040961/U7RDW7lZ_400x400.jpg",
                     MutedUserIds = new List<int>{},
                     BlockedUserIds = new List<int>{}
@@ -91,8 +97,8 @@ namespace InterTwitter.Services
                     Name = "Developer",
                     Email ="d",
                     Password = "d",
+                    ProfileBackgroundImagePath = "https://pbs.twimg.com/profile_images/424180229016268800/k1UVHgjq_400x400.jpeg",
                     ProfileImagePath = "https://pbs.twimg.com/profile_images/1189945624583720960/k6MtoeIt_400x400.jpg",
-
                     MutedUserIds = new List<int>{},
                     BlockedUserIds = new List<int>{}
                 },

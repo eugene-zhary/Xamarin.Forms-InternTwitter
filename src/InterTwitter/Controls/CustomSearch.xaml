@@ -2,7 +2,9 @@
 <Grid
     x:Class="InterTwitter.Controls.CustomSearch"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+    x:Name="customSearch">
 
     <Frame
         Padding="0,-10,0,0"
@@ -14,7 +16,12 @@
             Margin="5,0,0,-10"
             HorizontalOptions="FillAndExpand"
             Style="{StaticResource EntryCaption}"
-            VerticalOptions="FillAndExpand" />
+            Text="{Binding Text}"
+            VerticalOptions="FillAndExpand">
+            <Entry.Behaviors>
+                <prism:EventToCommandBehavior Command="{Binding TextChangedCommand, Source={x:Reference customSearch}}" EventName="TextChanged" />
+            </Entry.Behaviors>
+        </Entry>
     </Frame>
 
 </Grid>

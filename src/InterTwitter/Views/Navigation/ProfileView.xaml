@@ -5,10 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:controls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+    xmlns:controls1="clr-namespace:InterTwitter.Controls"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:resources="clr-namespace:InterTwitter.Resources"
     xmlns:views="clr-namespace:InterTwitter.Views"
     x:Name="profileView"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <resources:PostTemplates />
+    </ContentPage.Resources>
     <AbsoluteLayout>
 
         <Grid AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
@@ -18,7 +23,10 @@
                 <RowDefinition Height="32*" />
                 <RowDefinition Height="271*" />
             </Grid.RowDefinitions>
-            <Image BackgroundColor="{StaticResource Primary}" Source="{Binding UserBackGround}" />
+            <Image
+                Aspect="Fill"
+                BackgroundColor="{StaticResource Primary}"
+                Source="{Binding UserBackGround}" />
             <controls:CircleFrame
                 Margin="14,-24"
                 Padding="2,2,2,2"
@@ -48,6 +56,9 @@
                 </controls:CircleFrame.GestureRecognizers>
 
             </controls:CircleFrame>
+
+
+
             <Frame
                 Margin="12,12,12,12"
                 Padding="12,8,12,8"
@@ -62,6 +73,30 @@
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigationToChangeProfileCommand}" />
                         </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Frame>
+
+            <Frame
+                Margin="12,12,12,12"
+                Padding="12,8,12,8"
+                CornerRadius="4"
+                HasShadow="False"
+                HorizontalOptions="End"
+                IsVisible="{Binding IsShowAlianMenu}"
+                VerticalOptions="Start">
+                <StackLayout>
+                    <Label Style="{StaticResource LabelCaption1}" Text="Share" />
+                    <Label Style="{StaticResource LabelCaption1}" Text="{Binding MutedMessage}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UserMuteCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Style="{StaticResource LabelCaption1}" Text="{Binding BlockedMessage}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UserBlockCommand}" />
+                        </Label.GestureRecognizers>
+
                     </Label>
                 </StackLayout>
             </Frame>
@@ -86,14 +121,14 @@
                     BorderColor="{StaticResource Dark Grey}"
                     CornerRadius="15"
                     HasShadow="False"
-                    HorizontalOptions="EndAndExpand">
+                    HorizontalOptions="EndAndExpand"
+                    IsVisible="{Binding IsYourProfile}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="22*" />
                             <ColumnDefinition Width="97*" />
                             <ColumnDefinition Width="22*" />
                         </Grid.ColumnDefinitions>
-
                         <Label
                             Grid.Column="1"
                             Style="{StaticResource Button}"
@@ -105,6 +140,31 @@
                         </Grid.GestureRecognizers>
                     </Grid>
                 </Frame>
+                <Frame
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="0,0,12,0"
+                    Padding="0,0,0,0"
+                    BorderColor="{StaticResource Error}"
+                    CornerRadius="15"
+                    HasShadow="False"
+                    HorizontalOptions="EndAndExpand"
+                    IsVisible="{Binding IsAlianProfile}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="22*" />
+                            <ColumnDefinition Width="150*" />
+                            <ColumnDefinition Width="22*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="1"
+                            Style="{StaticResource Button}"
+                            Text="{Binding ProfileInfo}"
+                            TextColor="{StaticResource Error}" />
+                    </Grid>
+                </Frame>
+
+
                 <StackLayout
                     Grid.Row="1"
                     Grid.Column="0"
@@ -121,45 +181,36 @@
 
             </Grid>
 
-            <controls:TabsControl
-                Grid.Row="2"
-                BindingContext="{x:Reference cube}"
-                IsUserInteractionRunning="True">
-                <controls:TabsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Label
-                            Margin="10,0,0,0"
-                            HorizontalTextAlignment="Center"
-                            Style="{StaticResource LabelCaption1}"
-                            Text="{Binding Title}"
-                            WidthRequest="61" />
-                    </DataTemplate>
-                </controls:TabsControl.ItemTemplate>
-            </controls:TabsControl>
+            <ContentView Grid.Row="2">
+                <controls:TabsControl BindingContext="{x:Reference cube}">
+                    <controls:TabsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label
+                                Margin="10,0,0,0"
+                                HorizontalTextAlignment="Center"
+                                Style="{StaticResource LabelCaption1}"
+                                Text="{Binding Title}"
+                                WidthRequest="61" />
+                        </DataTemplate>
+                    </controls:TabsControl.ItemTemplate>
+                </controls:TabsControl>
+            </ContentView>
             <cards:CarouselView
                 x:Name="cube"
                 Grid.Row="3"
-                IsUserInteractionEnabled="False"
+                IsPanSwipeEnabled="False"
                 ItemsSource="{Binding Items}"
                 SelectedIndex="{Binding CurrentIndex}"
                 VerticalOptions="FillAndExpand">
                 <cards:CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <ScrollView>
-                            <Frame
-                                Padding="0"
-                                CornerRadius="10"
-                                HasShadow="false"
-                                HeightRequest="300"
-                                HorizontalOptions="Center"
-                                IsClippedToBounds="true"
-                                VerticalOptions="Center"
-                                WidthRequest="300">
-
-                                <Image Aspect="AspectFill" Source="{Binding Source}" />
-
-                            </Frame>
-                        </ScrollView>
+                        <ContentView>
+                            <controls1:CustomCollectionView
+                                HorizontalScrollBarVisibility="Never"
+                                ItemTemplate="{StaticResource postTemplateSelector}"
+                                ItemsSource="{Binding PostCollection}"
+                                ItemsUpdatingScrollMode="KeepItemsInView" />
+                        </ContentView>
                     </DataTemplate>
                 </cards:CarouselView.ItemTemplate>
             </cards:CarouselView>

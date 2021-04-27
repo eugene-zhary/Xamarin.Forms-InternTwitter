@@ -57,6 +57,7 @@
                 AbsoluteLayout.LayoutFlags="All"
                 BackgroundColor="{StaticResource Primary}"
                 Source="{Binding UserBackGround}" />
+
             <Frame
                 Margin="0,0"
                 Padding="0,0,0,0"
@@ -70,6 +71,9 @@
                     HorizontalOptions="CenterAndExpand"
                     Source="ic_add_photo"
                     VerticalOptions="CenterAndExpand" />
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ProfileBackgroundPickCommand}" />
+                </Frame.GestureRecognizers>
             </Frame>
             <Frame
                 Margin="12,-24"
@@ -83,7 +87,6 @@
                 WidthRequest="48">
 
                 <Grid>
-
                     <controls1:CircleFrame Padding="2,2,2,2" IsClippedToBounds="True">
                         <controls1:CircleFrame Padding="0,0,0,0" IsClippedToBounds="True">
                             <Grid>
@@ -103,6 +106,9 @@
                             </Grid>
                         </controls1:CircleFrame>
                     </controls1:CircleFrame>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ProfileImagePickCommand}" />
+                    </Grid.GestureRecognizers>
                 </Grid>
             </Frame>
 

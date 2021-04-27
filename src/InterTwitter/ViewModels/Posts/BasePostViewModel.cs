@@ -74,6 +74,16 @@ namespace InterTwitter.ViewModels.Posts
 
         #region -- Private helpers --
 
+        private async Task OnNavigationToProfile()
+        {
+            var pairs = new NavigationParameters
+            {
+                { nameof(UserModel), UserModel }
+            };
+
+            await NavigationService.NavigateAsync($"/{nameof(ProfileView)}", pairs);
+        }
+
         private async Task OnLikesAsync()
         {
             IsLiked = !IsLiked;

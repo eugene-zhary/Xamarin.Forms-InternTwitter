@@ -2,6 +2,7 @@
 using InterTwitter.Models;
 using InterTwitter.Services;
 using InterTwitter.ViewModels.Posts;
+using Prism.Navigation;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +13,7 @@ namespace InterTwitter.Extensions
         #region -- Public methods --
 
         public static BasePostViewModel ToViewModel(this Post postModel, IPostService postManager, int currentUserId)
-        {
+        { 
             BasePostViewModel postViewModel = null;
 
             if (postModel != null)

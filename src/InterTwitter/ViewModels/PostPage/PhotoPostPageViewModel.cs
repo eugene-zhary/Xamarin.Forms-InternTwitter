@@ -1,6 +1,6 @@
 ﻿using Prism.Navigation;
 
-namespace InterTwitter.ViewModels.Navigation
+namespace InterTwitter.ViewModels.PostPage
 {
     public class PhotoPostPageViewModel : BasePostPageViewModel
     {
@@ -8,8 +8,5 @@ namespace InterTwitter.ViewModels.Navigation
         {
 
         }
-
-
-
     }
 }

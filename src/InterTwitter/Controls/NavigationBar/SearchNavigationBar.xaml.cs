@@ -10,11 +10,18 @@ using Xamarin.Forms.Xaml;
 namespace InterTwitter.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SearchNavigationPage : Grid
+    public partial class SearchNavigationBar : Grid
     {
-        public SearchNavigationPage()
+        public SearchNavigationBar()
         {
             InitializeComponent();
         }
+
+
+
+
+
+
+
     }
 }

@@ -13,10 +13,10 @@
              BackgroundColor="{StaticResource White}"
              IconImageSource="{Binding IconPath}">
     <ContentPage.Behaviors>
-        <behaviors:TabPageBehavior/>
+        <behaviors:TabPageBehavior />
     </ContentPage.Behaviors>
     <ContentPage.Resources>
-        <resources:PostTemplates/>
+        <resources:PostTemplates />
     </ContentPage.Resources>
     <Grid>
         
@@ -26,21 +26,31 @@
                                        ItemTemplate="{StaticResource postTemplateSelector}"
                                        CurrentIndex="{Binding CurrentIndex}">
             <controls:CustomCollectionView.Header>
-                <BoxView HeightRequest="55" BackgroundColor="White"/>
+                <BoxView BackgroundColor="White" HeightRequest="55" />
             </controls:CustomCollectionView.Header>
             
         </controls:CustomCollectionView>
 
-        <!-- FLOATING ACTION BUTTON -->
-        <controls:FloationActionButton ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
-                                       VerticalOptions="End" HorizontalOptions="End" ImageSource="ic_add_white.png"
-                                       Margin="20" HeightRequest="50" WidthRequest="50"
-                                       CornerRadius="25" BackgroundColor="{StaticResource Primary}"/>
+        <!--  FLOATING ACTION BUTTON  -->
+        <controls:FloationActionButton
+            Margin="20"
+            BackgroundColor="{StaticResource Primary}"
+            CornerRadius="25"
+            HeightRequest="50"
+            HorizontalOptions="End"
+            ImageSource="ic_add_white.png"
+            ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
+            VerticalOptions="End"
+            WidthRequest="50" />
 
-        
-        <!-- NAVIGATION BAR -->
-        <controls:FeedNavigationBar VerticalOptions="Start" HorizontalOptions="FillAndExpand" ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
-                                    Margin="{Binding Margin}"/>
+
+        <!--  NAVIGATION BAR  -->
+        <controls:FeedNavigationBar
+            Margin="{Binding Margin}"
+            HorizontalOptions="FillAndExpand"
+            ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
+            VerticalOptions="Start" />
 
     </Grid>
+
 </local:BaseContentPage>

@@ -1,11 +1,13 @@
 using DLToolkit.Forms.Controls;
 using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
+using InterTwitter.Services.Permission;
 using InterTwitter.Services.Settings;
 using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
+using InterTwitter.ViewModels.PostPage;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
@@ -31,11 +33,12 @@ namespace InterTwitter
         {
             // Services
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
-            containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
-            containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
+            containerRegistry.RegisterInstance<IPermissionManager>(Container.Resolve<PermissionManager>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
             containerRegistry.RegisterSingleton<IUserService, UserService>();
-
+            containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
+            
             // Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
@@ -61,7 +64,7 @@ namespace InterTwitter
             InitializeComponent();
             FlowListView.Init();
 
-            await NavigationService.NavigateAsync(nameof(SignUpStartPage));
+            await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
         }
 
         protected override void OnStart()

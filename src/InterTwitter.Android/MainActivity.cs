@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using AndroidX.AppCompat.App;
 using FFImageLoading.Forms.Platform;
 using Octane.Xamarin.Forms.VideoPlayer.Android;
+using PanCardView.Droid;
 
 namespace InterTwitter.Droid
 {
@@ -30,6 +31,7 @@ namespace InterTwitter.Droid
             Forms.Init(this, savedInstanceState);
             UserDialogs.Init(this);
 
+            CardsViewRenderer.Preserve();
             CachedImageRenderer.Init(true);
             FormsVideoPlayer.Init();
 

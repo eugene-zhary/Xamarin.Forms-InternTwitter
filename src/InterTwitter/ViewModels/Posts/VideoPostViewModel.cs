@@ -1,4 +1,4 @@
-﻿using InterTwitter.Helpers;
+using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;

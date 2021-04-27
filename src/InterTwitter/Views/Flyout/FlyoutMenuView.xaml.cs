@@ -4,7 +4,7 @@ using Xamarin.Forms.Xaml;
 namespace InterTwitter.Views.Flyout
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FlyoutMenuView : ContentPage
+    public partial class FlyoutMenuView : BaseContentPage
     {
         public FlyoutMenuView()
         {
