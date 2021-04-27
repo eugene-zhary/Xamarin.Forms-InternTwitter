@@ -38,25 +38,25 @@ namespace InterTwitter.ViewModels.Flyout
             {
                 new MenuItemViewModel
                 {
-                    Title = "Home",
+                    Title = Strings.HomeTitle,
                     IconSource = "ic_home_gray.png",
                     TargetType = typeof(HomeView)
                 },
                 new MenuItemViewModel
                 {
-                    Title = "Search",
+                    Title = Strings.SearchTitle,
                     IconSource = "ic_search_gray.png",
                     TargetType = typeof(SearchView)
                 },
                 new MenuItemViewModel
                 {
-                    Title = "Notifycation",
+                    Title = Strings.NotificationTitle,
                     IconSource = "ic_notifications_gray.png",
                     TargetType = typeof(NotifycationView)
                 },
                 new MenuItemViewModel
                 {
-                    Title = "Bookmarks",
+                    Title = Strings.BookmarksTitle,
                     IconSource = "ic_bookmarks_gray.png",
                     TargetType = typeof(BookmarksView)
                 }

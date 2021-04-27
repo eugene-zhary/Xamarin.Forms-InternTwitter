@@ -52,7 +52,7 @@ namespace InterTwitter.Controls
             var oldState = (EScrollState)oldValue;
             var newState = (EScrollState)newValue;
 
-            if(navBar != null && oldState != newState)
+            if (navBar != null && oldState != newState)
             {
                 TranslatePosition(navBar, newState);
             }
@@ -60,15 +60,15 @@ namespace InterTwitter.Controls
 
         private static void TranslatePosition(FeedNavigationBar navBar, EScrollState state)
         {
-            switch(state)
+            switch (state)
             {
                 case EScrollState.ScrollUp:
-                    
+
                     navBar.TranslateTo(0, 0, easing: Easing.Linear);
                     break;
 
                 case EScrollState.ScrollDown:
-                    navBar.TranslateTo(0, -navBar.Height, easing: Easing.Linear);
+                    navBar.TranslateTo(0, (-navBar.Height * 2), easing: Easing.Linear);
                     break;
             }
         }

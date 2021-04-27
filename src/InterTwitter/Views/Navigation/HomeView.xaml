@@ -23,8 +23,7 @@
         <!-- COLLECTION VIEW -->
         <controls:CustomCollectionView x:Name="collectionView"
                                        ItemsSource="{Binding PostCollection}"
-                                       ItemTemplate="{StaticResource postTemplateSelector}"
-                                       CurrentIndex="{Binding CurrentIndex}">
+                                       ItemTemplate="{StaticResource postTemplateSelector}">
             <controls:CustomCollectionView.Header>
                 <BoxView HeightRequest="55" BackgroundColor="White"/>
             </controls:CustomCollectionView.Header>
@@ -34,8 +33,8 @@
         <!-- FLOATING ACTION BUTTON -->
         <controls:FloationActionButton ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
                                        VerticalOptions="End" HorizontalOptions="End" ImageSource="ic_add_white.png"
-                                       Margin="20" HeightRequest="50" WidthRequest="50"
-                                       CornerRadius="25" BackgroundColor="{StaticResource Primary}"/>
+                                       Margin="20,40" HeightRequest="60" WidthRequest="60"
+                                       CornerRadius="30" BackgroundColor="{StaticResource Primary}"/>
 
         
         <!-- NAVIGATION BAR -->

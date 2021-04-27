@@ -32,13 +32,6 @@ namespace InterTwitter.ViewModels.Navigation
 
         public ICommand PicProfileTapGestureRecognizer => new Command(OnPicProfileTapGestureRecognizer);
 
-        private int _currentIndex;
-        public int CurrentIndex
-        {
-            get => _currentIndex;
-            set => SetProperty(ref _currentIndex, value, nameof(CurrentIndex));
-        }
-
         #endregion
 
         #region -- Overrides --
@@ -48,7 +41,6 @@ namespace InterTwitter.ViewModels.Navigation
             base.Initialize(parameters);
 
             await UpdateCollecitonAsync();
-            UpdateCurrentPosition();
         }
 
         public override void OnAppearing()
@@ -85,32 +77,6 @@ namespace InterTwitter.ViewModels.Navigation
             catch(Exception ex)
             {
                 result.SetError($"{nameof(UpdateCollecitonAsync)}", "Something went wrong", ex);
-            }
-
-            return result;
-        }
-
-        private AOResult UpdateCurrentPosition()
-        {
-            var result = new AOResult();
-
-            try
-            {
-                int index = Preferences.Get(nameof(CurrentIndex), 1);
-
-                if(index <= PostCollection.Count)
-                {
-                    CurrentIndex = index;
-                    result.SetSuccess();
-                }
-                else
-                {
-                    result.SetFailure();
-                }
-            }
-            catch(Exception ex)
-            {
-                result.SetError($"{nameof(UpdateCurrentPosition)}", "Something went wrong", ex);
             }
 
             return result;

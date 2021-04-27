@@ -1,14 +1,22 @@
 ﻿using InterTwitter.Helpers;
+using InterTwitter.Services.Permission;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 using Xamarin.MediaGallery;
 
 namespace InterTwitter.Services.ContextMenu
 {
     public class ContextMenuService : IContextMenuService
     {
+        private readonly IPermissionManager _permissionManager;
+
+        public ContextMenuService(IPermissionManager permissionManager)
+        {
+            _permissionManager = permissionManager;
+        }
 
         public async Task<AOResult> SaveImgFromWeb(string url)
         {
@@ -16,9 +24,20 @@ namespace InterTwitter.Services.ContextMenu
 
             try
             {
-                var status = await Permissions.CheckStatusAsync<SaveMediaPermission>();
+                bool isGranted = false;
 
-                if(status == PermissionStatus.Granted)
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    isGranted = await _permissionManager.RequestStoragePermissionAsync();
+                }
+                else if (Device.RuntimePlatform == Device.Android)
+                {
+                    var status = await Permissions.CheckStatusAsync<SaveMediaPermission>();
+                    isGranted = status == PermissionStatus.Granted;
+                }
+
+
+                if (isGranted)
                 {
                     using var webClient = new WebClient();
 
@@ -31,7 +50,6 @@ namespace InterTwitter.Services.ContextMenu
                 {
                     result.SetFailure();
                 }
-
             }
             catch(Exception ex)
             {
