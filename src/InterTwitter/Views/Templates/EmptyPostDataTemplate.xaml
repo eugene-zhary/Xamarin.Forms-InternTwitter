@@ -25,6 +25,9 @@
             <ffimageloading:CachedImage.Transformations>
                 <fftransformations:CircleTransformation/>
             </ffimageloading:CachedImage.Transformations>
+            <ffimageloading:CachedImage.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToProfileCommand}"/>
+            </ffimageloading:CachedImage.GestureRecognizers>
         </ffimageloading:CachedImage>
 
         <!-- POST TEXT CONTENT -->

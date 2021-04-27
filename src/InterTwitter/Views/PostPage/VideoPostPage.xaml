@@ -30,6 +30,9 @@
                     <ffimageloading:CachedImage.Transformations>
                         <fftransformations:CircleTransformation/>
                     </ffimageloading:CachedImage.Transformations>
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PostViewModel.NavigateToProfileCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
                 </ffimageloading:CachedImage>
 
                 <BoxView Grid.Row="1" BackgroundColor="{StaticResource Light Grey}" Margin="-15,0"/>

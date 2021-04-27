@@ -72,7 +72,7 @@ namespace InterTwitter.ViewModels.Flyout
             get => _selectedItem;
             set => SetProperty(ref _selectedItem, value, nameof(SelectedItem));
         }
-        
+
         private string _profileImage;
         public string ProfileImage
         {
@@ -96,6 +96,13 @@ namespace InterTwitter.ViewModels.Flyout
 
         private ICommand _logoutCommand;
         public ICommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogoutAsync);
+
+        private ICommand _changeProfileCommand;
+        public ICommand ChangeProfileCommand => _changeProfileCommand ??= SingleExecutionCommand.FromFunc(OnChangeProfileAsync);
+
+        private ICommand _openProfileCommand;
+        public ICommand OpenProfileCommand => _openProfileCommand ??= SingleExecutionCommand.FromFunc(OnOpenProfileAsync);
+
 
         #endregion
 
@@ -129,9 +136,19 @@ namespace InterTwitter.ViewModels.Flyout
             }
         }
 
+        private Task OnChangeProfileAsync()
+        {
+            return NavigationService.NavigateAsync($"{nameof(ChangeProfileView)}", null, true, true);
+        }
+
+        private Task OnOpenProfileAsync()
+        {
+            return NavigationService.NavigateAsync($"{nameof(ProfileView)}", null, true, true);
+        }
+
         private void SendSelectedItem()
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
             {
                 _eventAggregator.GetEvent<MenuItemChangedEvent>().Publish(SelectedItem.TargetType);
                 _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(false);
@@ -142,7 +159,7 @@ namespace InterTwitter.ViewModels.Flyout
 
         private void OnMenuItemChanged(Type obj)
         {
-            if(obj != null && SelectedItem?.TargetType != obj)
+            if (obj != null && SelectedItem?.TargetType != obj)
             {
                 ChangeVisualState(obj);
             }
@@ -150,12 +167,12 @@ namespace InterTwitter.ViewModels.Flyout
 
         private void ChangeVisualState(Type selectedType)
         {
-            foreach(var item in MenuItems)
+            foreach (var item in MenuItems)
             {
                 item.IsSelected = (selectedType == item.TargetType);
                 item.TextColor = item.IsSelected ? Color.FromHex("#2356C5") : Color.FromHex("#02060E");
 
-                switch(item.TargetType.Name)
+                switch (item.TargetType.Name)
                 {
                     case nameof(HomeView):
                         item.IconSource = item.IsSelected ? "ic_home_blue.png" : "ic_home_gray.png";

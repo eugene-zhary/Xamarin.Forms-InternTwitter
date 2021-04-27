@@ -12,6 +12,11 @@ namespace InterTwitter.Services.Settings
             set => Preferences.Set(nameof(RememberedUserId), value);
         }
 
+        public void ClearLocalSettings()
+        {
+            Preferences.Clear();
+        }
+
         #endregion
     }
 }

@@ -30,7 +30,7 @@
                 <fftransformations:CircleTransformation />
             </ffimageloading:CachedImage.Transformations>
             <ffimageloading:CachedImage.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigationToProfileCommand}" />
+                <TapGestureRecognizer Command="{Binding NavigateToProfileCommand}"/>
             </ffimageloading:CachedImage.GestureRecognizers>
 
         </ffimageloading:CachedImage>

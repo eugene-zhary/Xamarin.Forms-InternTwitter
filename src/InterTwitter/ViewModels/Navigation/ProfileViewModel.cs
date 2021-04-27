@@ -171,7 +171,7 @@ namespace InterTwitter.ViewModels.Navigation
 
 		private async Task OnBackNavigationCommand()
 		{
-			await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
+			await NavigationService.GoBackAsync();
 		}
 
 		private async Task OnUserBlockCommand()

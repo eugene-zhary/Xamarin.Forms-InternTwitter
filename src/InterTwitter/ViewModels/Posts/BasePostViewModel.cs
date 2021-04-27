@@ -18,7 +18,9 @@ namespace InterTwitter.ViewModels.Posts
         public BasePostViewModel(User userModel, Post postModel)
         {
             _eventAggregator = App.Resolve<IEventAggregator>();
+
             PostService = App.Resolve<IPostService>();
+            NavigationService = App.Resolve<INavigationService>();
 
             _userModel = userModel;
             _postModel = postModel;
@@ -71,18 +73,21 @@ namespace InterTwitter.ViewModels.Posts
         private ICommand _openPostCommand;
         public ICommand OpenPostCommand => _openPostCommand ??= SingleExecutionCommand.FromFunc(OnOpenPostAsync);
 
+        private ICommand _navigateToProfileCommand;
+        public ICommand NavigateToProfileCommand => _navigateToProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToProfileAsync);
+
         #endregion
 
         #region -- Private helpers --
 
-        private async Task OnNavigationToProfile()
+        private async Task OnNavigationToProfileAsync()
         {
             var pairs = new NavigationParameters
             {
                 { nameof(UserModel), UserModel }
             };
 
-            await NavigationService.NavigateAsync($"/{nameof(ProfileView)}", pairs);
+            await NavigationService.NavigateAsync($"{nameof(ProfileView)}", pairs, true, true);
         }
 
         private async Task OnLikesAsync()
