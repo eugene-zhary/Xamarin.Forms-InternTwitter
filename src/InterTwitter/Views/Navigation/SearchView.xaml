@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InterTwitter.Views.Navigation.SearchView"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             xmlns:local="clr-namespace:InterTwitter.Views" xmlns:controls="clr-namespace:InterTwitter.Controls"
-                       BackgroundColor="White"
-             IconImageSource="{Binding IconPath}">
+<local:BaseContentPage
+    x:Class="InterTwitter.Views.Navigation.SearchView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:InterTwitter.Controls"
+    xmlns:local="clr-namespace:InterTwitter.Views"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="White"
+    IconImageSource="{Binding IconPath}">
     <StackLayout>
-        <controls:SearchNavigationPage />
+        <controls:SearchNavigationBar />
     </StackLayout>
 </local:BaseContentPage>

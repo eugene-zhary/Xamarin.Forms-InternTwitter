@@ -1,6 +1,6 @@
 ﻿using Prism.Navigation;
 
-namespace InterTwitter.ViewModels.Navigation
+namespace InterTwitter.ViewModels.PostPage
 {
     public class VideoPostPageViewModel : BasePostPageViewModel 
     {

@@ -13,26 +13,25 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using InterTwitter.Services.Authorization;
 using Xamarin.Forms;
+using InterTwitter.Services.UserService;
 
 namespace InterTwitter.ViewModels.Flyout
 {
-    public class FlyoutMenuViewModel : BaseViewModel
+    public class FlyoutMenuViewModel : BaseViewModel, IViewActionsHandler
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IPageDialogService _pageDialog;
         private readonly IAuthorizationService _authorizationService;
+        private readonly IUserService _userService;
 
-        public FlyoutMenuViewModel(INavigationService navigationService,
-            IEventAggregator aggregator,
-            IPageDialogService pageDialog,
-            IAuthorizationService authorizationService)
-            : base(navigationService)
+        public FlyoutMenuViewModel(INavigationService navigationService, IEventAggregator aggregator, IPageDialogService pageDialog, IAuthorizationService authorizationService, IUserService userService) : base(navigationService)
         {
             _eventAggregator = aggregator;
             _pageDialog = pageDialog;
             _authorizationService = authorizationService;
-
+            _userService = userService;
             aggregator.GetEvent<MenuItemChangedEvent>().Subscribe(OnMenuItemChanged);
+
 
             MenuItems = new ObservableCollection<MenuItemViewModel>
             {
@@ -65,7 +64,6 @@ namespace InterTwitter.ViewModels.Flyout
             SelectedItem = MenuItems.FirstOrDefault();
         }
 
-
         #region -- Public properties --
 
         private MenuItemViewModel _selectedItem;
@@ -73,6 +71,25 @@ namespace InterTwitter.ViewModels.Flyout
         {
             get => _selectedItem;
             set => SetProperty(ref _selectedItem, value, nameof(SelectedItem));
+        }
+        
+        private string _profileImage;
+        public string ProfileImage
+        {
+            get => _profileImage;
+            set => SetProperty(ref _profileImage, value);
+        }
+        private string _profileName;
+        public string ProfileName
+        {
+            get => _profileName;
+            set => SetProperty(ref _profileName, value);
+        }
+        private string _profileMail;
+        public string ProfileMail
+        {
+            get => _profileMail;
+            set => SetProperty(ref _profileMail, value);
         }
 
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
@@ -157,6 +174,20 @@ namespace InterTwitter.ViewModels.Flyout
                         break;
                 }
             }
+        }
+
+        public async void OnAppearing()
+        {
+            var user = await _userService.GetUserAsync(_authorizationService.GetCurrentUserId);
+
+            ProfileImage = user.Result.ProfileImagePath;
+            ProfileName = user.Result.Name;
+            ProfileMail = user.Result.Email;
+        }
+
+        public void OnDisappearing()
+        {
+
         }
 
         #endregion

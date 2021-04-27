@@ -1,6 +1,7 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Services;
+using InterTwitter.Views.Navigation;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -73,6 +74,16 @@ namespace InterTwitter.ViewModels.Posts
         #endregion
 
         #region -- Private helpers --
+
+        private async Task OnNavigationToProfile()
+        {
+            var pairs = new NavigationParameters
+            {
+                { nameof(UserModel), UserModel }
+            };
+
+            await NavigationService.NavigateAsync($"/{nameof(ProfileView)}", pairs);
+        }
 
         private async Task OnLikesAsync()
         {

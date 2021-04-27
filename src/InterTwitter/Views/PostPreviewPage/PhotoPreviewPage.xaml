@@ -54,7 +54,7 @@
                     </ffimageloading:CachedImage.Triggers>
                 </ffimageloading:CachedImage>
 
-                <Label Text="{Binding PostViewModel.LikesCount}" TextColor="{StaticResource Grey}"  FontSize="14" VerticalOptions="Center" Margin="0,0,15,0">
+                <Label  Margin="0,0,15,0" Text="{Binding PostViewModel.LikesCount}" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Grey}">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label" Binding="{Binding PostViewModel.IsLiked}" Value="true">
                             <Setter Property="TextColor" Value="{StaticResource Primary}"/>

@@ -3,13 +3,118 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InterTwitter.Views.Navigation.BookmarksView"
              xmlns:prism="http://prismlibrary.com"
-             xmlns:local="clr-namespace:InterTwitter.Views"
              prism:ViewModelLocator.AutowireViewModel="True"
-             BackgroundColor="White"
+             xmlns:local="clr-namespace:InterTwitter.Views"
+             xmlns:controls="clr-namespace:InterTwitter.Controls;assembly=InterTwitter"
+             xmlns:resources="clr-namespace:InterTwitter.Resources;assembly=InterTwitter"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:behaviors="clr-namespace:InterTwitter.Behaviors;assembly=InterTwitter"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{StaticResource White}"
              IconImageSource="{Binding IconPath}">
-    <ContentPage.Content>
-        <Label Text="Bookmarks!" TextColor="#02060E"
-               VerticalOptions="CenterAndExpand" 
-               HorizontalOptions="CenterAndExpand" />
-    </ContentPage.Content>
+
+    <ContentPage.Behaviors>
+        <behaviors:TabPageBehavior/>
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <resources:PostTemplates/>
+    </ContentPage.Resources>
+
+    <Grid>
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding HideMenuButtonCommand}"/>
+        </Grid.GestureRecognizers>
+
+        <!-- COLLECTION VIEW -->
+        <RefreshView IsVisible="{Binding IsThereAnyBookmarks}"
+                     Command="{Binding RefreshCommand}"
+                     IsRefreshing="{Binding IsRefreshing}">
+
+            <controls:CustomCollectionView ItemsSource="{Binding PostCollection}"
+                                           ItemTemplate="{StaticResource postTemplateSelector}">
+
+                <controls:CustomCollectionView.Header>
+                    <BoxView HeightRequest="55" BackgroundColor="White"/>
+                </controls:CustomCollectionView.Header>
+
+            </controls:CustomCollectionView>
+
+        </RefreshView>
+
+        <!-- Empty state fillings -->
+
+        <StackLayout IsVisible="{Binding IsEmptyState}"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="CenterAndExpand">
+
+            <Image Source="pic_empty_state"/>
+
+            <Label Text="{x:Static resources:Strings.YouHaveNoBookmarksYet}"
+                   Style="{StaticResource Body1}"
+                   TextColor="{StaticResource Black}"
+                   HorizontalOptions="Center"/>
+
+        </StackLayout>
+
+        <!-- Navbar -->
+
+        <Grid VerticalOptions="Start"
+              HeightRequest="55"
+              BackgroundColor="{StaticResource White}"
+              RowDefinitions="*">
+
+            <Label Grid.Row="0"
+                   Text="{x:Static resources:Strings.Bookmarks}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Style="{StaticResource Header2}"
+                   TextColor="{StaticResource Black}"/>
+
+            <Frame Grid.Row="0"
+                   Padding="10, 0"
+                   HorizontalOptions="End"
+                   BackgroundColor="Transparent"
+                   HasShadow="False"
+                   IsVisible="{Binding IsThereAnyBookmarks}">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding HiddenMenuTapCommand}"/>
+                </Frame.GestureRecognizers>
+
+                <Image Source="ic_hidden_menu_gray"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"/>
+            </Frame>
+
+            <BoxView VerticalOptions="End"
+                     HeightRequest="1"
+                     BackgroundColor="{StaticResource Light Grey}" />
+
+        </Grid>
+
+        <!-- Delete all bookmarks button -->
+
+        <Frame IsVisible="{Binding IsMenuButtonVisible}"
+               HorizontalOptions="End"
+               VerticalOptions="Start"
+               Margin="0,30,15,0"
+               Padding="10"
+               HasShadow="True"
+               CornerRadius="5">
+
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DeleteAllBookmarksCommand}"/>
+            </Frame.GestureRecognizers>
+
+            <Label Text="{x:Static resources:Strings.DeleteAllBookmarks}"
+                   Style="{StaticResource Body2}"
+                   TextColor="{StaticResource Black}"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+
+        </Frame>
+
+    </Grid>
 </local:BaseContentPage>

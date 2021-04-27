@@ -14,14 +14,14 @@ namespace InterTwitter.Services.Permission
         private async Task<PermissionStatus> RequestPermissionAsync<T>() where T : BasePermission, new()
         {
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync<T>();
-            if(status == PermissionStatus.Denied)
-            {
-                CrossPermissions.Current.OpenAppSettings();
-                status = await CrossPermissions.Current.CheckPermissionStatusAsync<T>();
+            if (status == PermissionStatus.Denied) 
+            { 
+                CrossPermissions.Current.OpenAppSettings(); 
+                status = await CrossPermissions.Current.CheckPermissionStatusAsync<T>(); 
             }
-            if(status != PermissionStatus.Granted)
+            if (status != PermissionStatus.Granted) 
             {
-                status = await CrossPermissions.Current.RequestPermissionAsync<T>();
+                status = await CrossPermissions.Current.RequestPermissionAsync<T>(); 
             }
             return status;
         }

@@ -2,10 +2,14 @@
 <resources>
 
 	<style name="MyTheme.Base" parent="Theme.AppCompat.Light">
-	</style>
+  </style>
 
 	<style name="MyTheme" parent="MyTheme.Base">
-	</style>
+  </style>
+
+	<style name="MainTheme" parent="MainTheme.Base">
+    <item name="colorAccent">#2356C5</item>
+  </style>
 
 	<style name="MyTheme.Splash" parent ="Theme.AppCompat.Light.NoActionBar">
 		<item name="android:windowBackground">@drawable/splash_screen</item>

@@ -1,6 +1,8 @@
 ﻿using InterTwitter.Helpers;
 using Prism.Mvvm;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Page = Xamarin.Forms.PlatformConfiguration.iOSSpecific.Page;
 
 namespace InterTwitter.Views
 {
@@ -11,6 +13,8 @@ namespace InterTwitter.Views
             NavigationPage.SetHasNavigationBar(this, false);
 
             ViewModelLocator.SetAutowireViewModel(this, true);
+
+            Page.SetUseSafeArea(On<iOS>(), true);
         }
 
         #region -- Overrides --

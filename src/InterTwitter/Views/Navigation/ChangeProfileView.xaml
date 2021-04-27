@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Views:BaseContentPage
+    x:Class="InterTwitter.Views.Navigation.ChangeProfileView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Views="clr-namespace:InterTwitter.Views"
+    xmlns:behaviors="clr-namespace:InterTwitter.Behaviors"
+    xmlns:controls="clr-namespace:InterTwitter.Controls"
+    xmlns:controls1="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:resource="clr-namespace:InterTwitter.Resources;assembly=InterTwitter"
+    prism:ViewModelLocator.AutowireViewModel="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48*" />
+            <RowDefinition Height="122*" />
+            <RowDefinition Height="503*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48*" />
+                <ColumnDefinition Width="260*" />
+                <ColumnDefinition Width="48*" />
+            </Grid.ColumnDefinitions>
+            <controls1:CircleFrame
+                Grid.Column="0"
+                Margin="12,12,0,6"
+                HorizontalOptions="Start"
+                Size="30">
+                <Image Source="ic_left_gray" />
+                <controls1:CircleFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigationToBackCommand}" />
+                </controls1:CircleFrame.GestureRecognizers>
+            </controls1:CircleFrame>
+            <Label
+                Grid.Column="1"
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource Header2}"
+                Text="Change Profile" />
+            <controls1:CircleFrame
+                Grid.Column="2"
+                Margin="12,12,12,6"
+                HeightRequest="24">
+                <Image Source="ic_check_blue" />
+                <controls1:CircleFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ConfirmCommand}" />
+                </controls1:CircleFrame.GestureRecognizers>
+            </controls1:CircleFrame>
+        </Grid>
+        <AbsoluteLayout Grid.Row="1">
+            <Image
+                AbsoluteLayout.LayoutBounds="1,1,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                BackgroundColor="{StaticResource Primary}"
+                Source="{Binding UserBackGround}" />
+
+            <Frame
+                Margin="0,0"
+                Padding="0,0,0,0"
+                AbsoluteLayout.LayoutBounds=".5,.5"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="#9902060E"
+                CornerRadius="24"
+                HeightRequest="48"
+                WidthRequest="48">
+                <Image
+                    HorizontalOptions="CenterAndExpand"
+                    Source="ic_add_photo"
+                    VerticalOptions="CenterAndExpand" />
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ProfileBackgroundPickCommand}" />
+                </Frame.GestureRecognizers>
+            </Frame>
+            <Frame
+                Margin="12,-24"
+                Padding="2,2,2,2"
+                AbsoluteLayout.LayoutBounds="0,1"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                CornerRadius="500"
+                HeightRequest="48"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                WidthRequest="48">
+
+                <Grid>
+                    <controls1:CircleFrame Padding="2,2,2,2" IsClippedToBounds="True">
+                        <controls1:CircleFrame Padding="0,0,0,0" IsClippedToBounds="True">
+                            <Grid>
+                                <Image Source="{Binding UserImagePath}" />
+                                <controls1:CircleFrame
+                                    Margin="0,0"
+                                    Padding="0,0,0,0"
+                                    BackgroundColor="#9902060E"
+                                    CornerRadius="24"
+                                    HeightRequest="48"
+                                    WidthRequest="48">
+                                    <Image
+                                        HorizontalOptions="CenterAndExpand"
+                                        Source="ic_add_photo"
+                                        VerticalOptions="CenterAndExpand" />
+                                </controls1:CircleFrame>
+                            </Grid>
+                        </controls1:CircleFrame>
+                    </controls1:CircleFrame>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ProfileImagePickCommand}" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+            </Frame>
+
+        </AbsoluteLayout>
+        <StackLayout Grid.Row="2" Margin="20,38,20,0">
+            <controls:RegisteringEntry Placeholder="{x:Static resource:Strings.Name}" Text="{Binding UserName}">
+                <controls:RegisteringEntry.Behaviors>
+                    <behaviors:NameValidationBehavior />
+                </controls:RegisteringEntry.Behaviors>
+            </controls:RegisteringEntry>
+            <controls:RegisteringEntry Placeholder="{x:Static resource:Strings.Email}" Text="{Binding UserMail}">
+                <controls:RegisteringEntry.Behaviors>
+                    <behaviors:EmailValidationBehavior />
+                </controls:RegisteringEntry.Behaviors>
+            </controls:RegisteringEntry>
+            <controls:RegisteringEntry
+                IsPassword="True"
+                Placeholder="{x:Static resource:Strings.OldPassword}"
+                Text="{Binding OldPassword}" />
+            <controls:RegisteringEntry
+                IsPassword="True"
+                Placeholder="{x:Static resource:Strings.NewPassword}"
+                Text="{Binding NewPassword}">
+                <controls:RegisteringEntry.Behaviors>
+                    <behaviors:PasswordValidationBehavior />
+                </controls:RegisteringEntry.Behaviors>
+            </controls:RegisteringEntry>
+        </StackLayout>
+    </Grid>
+
+
+</Views:BaseContentPage>

@@ -43,6 +43,13 @@ namespace InterTwitter.ViewModels.Navigation
             await UpdateCollecitonAsync();
         }
 
+        public override async void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            await UpdateCollecitonAsync();
+        }
+
         public override void OnAppearing()
         {
             IconPath = "ic_home_blue.png";

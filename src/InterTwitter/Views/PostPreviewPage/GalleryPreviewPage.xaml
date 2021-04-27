@@ -60,12 +60,10 @@
 
             <Grid Grid.Row="2" VerticalOptions="Start">
 
-                <StackLayout HorizontalOptions="Start" Orientation="Horizontal" Spacing="0">
-                    <Label Text="{Binding SelectedMediaIndex,Converter={StaticResource indexConverter}}" TextColor="{StaticResource Grey}" 
-                           FontSize="14" VerticalOptions="Center"/>
+                <StackLayout HorizontalOptions="Start" Orientation="Horizontal" Spacing="0" VerticalOptions="Center">
+                    <Label Text="{Binding SelectedMediaIndex,Converter={StaticResource indexConverter}}" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Grey}"/>
 
-                    <Label Text="{Binding MediaPathCount, StringFormat='{} - {0}'}" TextColor="{StaticResource Grey}" 
-                           FontSize="14" VerticalOptions="Center"/>
+                    <Label Text="{Binding MediaPathCount, StringFormat='{} - {0}'}" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Grey}"/>
                 </StackLayout>
 
                 <StackLayout HorizontalOptions="End" Orientation="Horizontal">
@@ -81,7 +79,7 @@
                         </ffimageloading:CachedImage.Triggers>
                     </ffimageloading:CachedImage>
 
-                    <Label Text="{Binding PostViewModel.LikesCount}" TextColor="{StaticResource Grey}"  FontSize="14" VerticalOptions="Center" Margin="0,0,15,0">
+                    <Label Text="{Binding PostViewModel.LikesCount}"  Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Grey}" Margin="0,0,15,0">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding PostViewModel.IsLiked}" Value="true">
                                 <Setter Property="TextColor" Value="{StaticResource Primary}"/>

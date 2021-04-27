@@ -61,11 +61,65 @@ namespace InterTwitter.ViewModels
             set => SetProperty(ref _isConfirmPasswordErrorTextVisible, value);
         }
 
+        private bool _isNextButtonVisible;
+        public bool IsNextButtonVisible
+        {
+            get => _isNextButtonVisible;
+            set => SetProperty(ref _isNextButtonVisible, value);
+        }
+        private bool _isConfirmMovableButtonVisible;
+        public bool IsConfirmMovableButtonVisible
+        {
+            get => _isConfirmMovableButtonVisible;
+            set => SetProperty(ref _isConfirmMovableButtonVisible, value);
+        }
+
+        private bool _shouldPasswordEntryBeFocused;
+        public bool ShouldPasswordEntryBeFocused
+        {
+            get => _shouldPasswordEntryBeFocused;
+            set => SetProperty(ref _shouldPasswordEntryBeFocused, value);
+        }
+
+        private bool _shouldConfirmPasswordEntryBeFocused;
+        public bool ShouldConfirmPasswordEntryBeFocused
+        {
+            get => _shouldConfirmPasswordEntryBeFocused;
+            set => SetProperty(ref _shouldConfirmPasswordEntryBeFocused, value);
+        }
+
+        private bool _isDefaultControlsVisible = true;
+        public bool IsDefaultControlsVisible
+        {
+            get => _isDefaultControlsVisible;
+            set => SetProperty(ref _isDefaultControlsVisible, value);
+        }
+
         private ICommand _goBackCommand;
         public ICommand GoBackCommand => _goBackCommand ??= SingleExecutionCommand.FromFunc(OnGoBack);
 
         private ICommand _confirmCommand;
         public ICommand ConfirmCommand => _confirmCommand ??= SingleExecutionCommand.FromFunc(OnConfirm);
+
+        private ICommand _passwordEntryFocusedCommand;
+        public ICommand PasswordEntryFocusedCommand =>
+            _passwordEntryFocusedCommand ??= SingleExecutionCommand.FromFunc(OnPasswordEntryFocused);
+
+        private ICommand _passwordEntryUnFocusedCommand;
+        public ICommand PasswordEntryUnFocusedCommand =>
+            _passwordEntryUnFocusedCommand ??= SingleExecutionCommand.FromFunc(OnPasswordEntryUnFocused);
+
+        private ICommand _confirmPasswordEntryFocusedCommand;
+        public ICommand ConfirmPasswordEntryFocusedCommand =>
+            _confirmPasswordEntryFocusedCommand ??= SingleExecutionCommand.FromFunc(OnConfirmPasswordEntryFocused);
+
+        private ICommand _confirmPasswordEntryUnFocusedCommand;
+        public ICommand ConfirmPasswordEntryUnFocusedCommand =>
+            _confirmPasswordEntryUnFocusedCommand ??= SingleExecutionCommand.FromFunc(OnConfirmPasswordEntryUnFocused);
+
+        private ICommand _nextButtonClickedCommand;
+        public ICommand NextButtonClickedCommand =>
+            _nextButtonClickedCommand ??= SingleExecutionCommand.FromFunc(OnNextButtonClicked);
 
         #endregion
 
@@ -90,7 +144,7 @@ namespace InterTwitter.ViewModels
                 args.PropertyName == nameof(ConfirmPassword))
             {
                 var shouldShowErrorMsg = !string.IsNullOrEmpty(ConfirmPassword) &&
-                                         !Password.Equals(ConfirmPassword);
+                                         !ConfirmPassword.Equals(Password);
 
                 if (shouldShowErrorMsg)
                 {
@@ -167,6 +221,56 @@ namespace InterTwitter.ViewModels
                 await _pageDialogService.DisplayAlertAsync(Strings.SignUpErrorTitle, Strings.PasswordLengthError,
                     Strings.Ok);
             }
+        }
+
+        private Task OnPasswordEntryFocused()
+        {
+            IsNextButtonVisible = true;
+            IsDefaultControlsVisible = false;
+
+            ShouldPasswordEntryBeFocused = true;
+            ShouldConfirmPasswordEntryBeFocused = false;
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnPasswordEntryUnFocused()
+        {
+            IsNextButtonVisible = false;
+            IsDefaultControlsVisible = true;
+
+            ShouldPasswordEntryBeFocused = false;
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnNextButtonClicked()
+        {
+            ShouldPasswordEntryBeFocused = false;
+            ShouldConfirmPasswordEntryBeFocused = true;
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnConfirmPasswordEntryFocused()
+        {
+            IsConfirmMovableButtonVisible = true;
+            IsDefaultControlsVisible = false;
+
+            ShouldPasswordEntryBeFocused = false;
+            ShouldConfirmPasswordEntryBeFocused = true;
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnConfirmPasswordEntryUnFocused()
+        {
+            IsConfirmMovableButtonVisible = false;
+            IsDefaultControlsVisible = true;
+
+            ShouldConfirmPasswordEntryBeFocused = false;
+
+            return Task.CompletedTask;
         }
 
         #endregion

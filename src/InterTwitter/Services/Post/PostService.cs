@@ -8,6 +8,7 @@ using InterTwitter.Services.Settings;
 using System.Threading.Tasks;
 using InterTwitter.Helpers;
 using Prism.Events;
+using Prism.Navigation;
 
 namespace InterTwitter.Services
 {

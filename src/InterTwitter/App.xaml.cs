@@ -60,6 +60,10 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<PhotoPreviewPage, PhotoPreviewPageViewModel>();
             containerRegistry.RegisterForNavigation<GalleryPreviewPage, GalleryPreviewPageViewModel>();
             containerRegistry.RegisterForNavigation<EmptyPostPage, EmptyPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
+            containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
+
+            
         }
 
         protected override async void OnInitialized()
@@ -67,7 +71,10 @@ namespace InterTwitter
             InitializeComponent();
             FlowListView.Init();
 
-            await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
+
+            IAuthorizationService AuthorizeService = Container.Resolve<AuthorizationService>();
+
+            await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
         }
 
         protected override void OnStart()

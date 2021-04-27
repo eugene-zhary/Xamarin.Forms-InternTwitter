@@ -81,9 +81,27 @@ namespace InterTwitter.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Bookmarks.
         /// </summary>
+        internal static string Bookmarks {
+            get {
+                return ResourceManager.GetString("Bookmarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookmarks.
+        /// </summary>
         internal static string BookmarksTitle {
             get {
                 return ResourceManager.GetString("BookmarksTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -111,6 +129,33 @@ namespace InterTwitter.Resources {
         internal static string CreateYourAccount {
             get {
                 return ResourceManager.GetString("CreateYourAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete all bookmarks.
+        /// </summary>
+        internal static string DeleteAllBookmarks {
+            get {
+                return ResourceManager.GetString("DeleteAllBookmarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete all bookmarks?.
+        /// </summary>
+        internal static string DeleteAllBookmarksConfirmMessage {
+            get {
+                return ResourceManager.GetString("DeleteAllBookmarksConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete all bookmarks?.
+        /// </summary>
+        internal static string DeleteAllBookmarksConfirmTitle {
+            get {
+                return ResourceManager.GetString("DeleteAllBookmarksConfirmTitle", resourceCulture);
             }
         }
         
@@ -259,6 +304,24 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Password.
+        /// </summary>
+        internal static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        internal static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There&apos;s no any user with such email and password! Please, check your inputs once more or visit Sign Up page..
         /// </summary>
         internal static string NoSuchUser {
@@ -282,6 +345,15 @@ namespace InterTwitter.Resources {
         internal static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Password.
+        /// </summary>
+        internal static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
             }
         }
         
@@ -349,6 +421,15 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Signing in....
+        /// </summary>
+        internal static string SigningIn {
+            get {
+                return ResourceManager.GetString("SigningIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign Up.
         /// </summary>
         internal static string SignUp {
@@ -381,6 +462,24 @@ namespace InterTwitter.Resources {
         internal static string SuchUserAlreadyExists {
             get {
                 return ResourceManager.GetString("SuchUserAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have no bookmarks yet.
+        /// </summary>
+        internal static string YouHaveNoBookmarksYet {
+            get {
+                return ResourceManager.GetString("YouHaveNoBookmarksYet", resourceCulture);
             }
         }
         

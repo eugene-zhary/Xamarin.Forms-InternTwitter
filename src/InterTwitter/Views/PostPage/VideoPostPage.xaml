@@ -24,7 +24,7 @@
                     </ffimageloading:CachedImage.GestureRecognizers>
                 </ffimageloading:CachedImage>
 
-                <Label HorizontalOptions="Center" Text="{Binding PostViewModel.UserModel.Name}" VerticalOptions="Center" FontAttributes="Bold"/>
+                <Label Text="{Binding PostViewModel.UserModel.Name}" Style="{StaticResource Body1}" FontAttributes="Bold" HorizontalOptions="Center"/>
 
                 <ffimageloading:CachedImage Source="{Binding PostViewModel.UserModel.ProfileImagePath}" VerticalOptions="Center" HorizontalOptions="End">
                     <ffimageloading:CachedImage.Transformations>
@@ -37,7 +37,7 @@
 
             <!-- POST TEXT CONTENT -->
 
-            <Label Text="{Binding PostViewModel.PostModel.Text}"/>
+            <Label Text="{Binding PostViewModel.PostModel.Text}" Style="{StaticResource Body2}"/>
 
 
             <!-- POST MEDIA CONTENT -->
@@ -55,7 +55,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Text="{Binding PostViewModel.PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}" 
-                   HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"/>
+                       Style="{StaticResource Body2}" TextColor="{StaticResource Dark Grey}"/>
 
                 <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
 
@@ -70,7 +70,7 @@
                         </ffimageloading:CachedImage.Triggers>
                     </ffimageloading:CachedImage>
 
-                    <Label Text="{Binding PostViewModel.LikesCount}" TextColor="{StaticResource Dark Grey}"  FontSize="14" VerticalOptions="Center" Margin="0,0,15,0">
+                    <Label Text="{Binding PostViewModel.LikesCount}" Margin="0,0,15,0" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Dark Grey}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding PostViewModel.IsLiked}" Value="true">
                                 <Setter Property="TextColor" Value="{StaticResource Primary}"/>

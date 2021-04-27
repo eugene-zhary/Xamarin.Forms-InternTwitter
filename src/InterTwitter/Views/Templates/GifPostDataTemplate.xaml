@@ -30,8 +30,8 @@
         <!-- POST TEXT CONTENT -->
 
         <StackLayout Grid.Column="1">
-            <Label Text="{Binding UserModel.Name}" FontAttributes="Bold"/>
-            <Label Text="{Binding PostModel.Text}"/>
+            <Label Text="{Binding UserModel.Name}" Style="{StaticResource Subtitle2}" FontAttributes="Bold"/>
+            <Label Text="{Binding PostModel.Text}" Style="{StaticResource Body2}"/>
         </StackLayout>
 
 
@@ -53,7 +53,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}" 
-                   HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"/>
+                   TextColor="{StaticResource Dark Grey}" Style="{StaticResource Body2}"/>
 
             <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
 
@@ -68,7 +68,7 @@
                     </ffimageloading:CachedImage.Triggers>
                 </ffimageloading:CachedImage>
 
-                <Label Text="{Binding LikesCount}" TextColor="{StaticResource Dark Grey}"  FontSize="14" VerticalOptions="Center" Margin="0,0,15,0">
+                <Label Margin="0,0,15,0" Text="{Binding LikesCount}" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Dark Grey}" >
                     <Label.Triggers>
                         <DataTrigger TargetType="Label" Binding="{Binding IsLiked}" Value="true">
                             <Setter Property="TextColor" Value="{StaticResource Primary}"/>

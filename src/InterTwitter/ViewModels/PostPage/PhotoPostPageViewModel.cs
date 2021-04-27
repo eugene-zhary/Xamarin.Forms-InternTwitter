@@ -3,7 +3,7 @@ using InterTwitter.Views.PostPage;
 using Prism.Navigation;
 using System.Threading.Tasks;
 
-namespace InterTwitter.ViewModels.Navigation
+namespace InterTwitter.ViewModels.PostPage
 {
     public class PhotoPostPageViewModel : BasePostPageViewModel
     {

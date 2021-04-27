@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    x:Class="InterTwitter.Controls.SearchNavigationBar"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:InterTwitter.Controls"
+    x:Name="searchNavBar">
+
+    <Grid.RowDefinitions>
+        <RowDefinition Height="48*" />
+        <RowDefinition Height="1*" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="48*" />
+        <ColumnDefinition Width="260*" />
+        <ColumnDefinition Width="12*" />
+    </Grid.ColumnDefinitions>
+    <Image
+        Grid.Column="0"
+        Margin="12,12,12,12"
+        HeightRequest="24"
+        HorizontalOptions="Start"
+        Source="ic_left_gray">
+        <Image.GestureRecognizers />
+    </Image>
+
+    <controls:CustomSearch Grid.Column="1" Margin="0,9,0,11" />
+
+    <Line
+        Grid.Row="1"
+        Grid.Column="0"
+        Grid.ColumnSpan="3"
+        BackgroundColor="{StaticResource Light Grey}" />
+
+
+</Grid>

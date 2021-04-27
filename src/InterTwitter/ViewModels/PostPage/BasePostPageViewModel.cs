@@ -4,7 +4,7 @@ using Prism.Navigation;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace InterTwitter.ViewModels.Navigation
+namespace InterTwitter.ViewModels.PostPage
 {
     public class BasePostPageViewModel : BaseViewModel
     {
