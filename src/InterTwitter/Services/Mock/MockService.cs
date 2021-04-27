@@ -225,7 +225,21 @@ namespace InterTwitter.Services
                     Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
                     MediaPaths = new List<string>
                     {
-                        "http://vjs.zencdn.net/v/oceans.mp4",
+                        "https://thumbs.dreamstime.com/videothumb_large8850/88502209.mp4",
+                    },
+                    LikedUserIds = new List < int > { 1 },
+                    BookmarkedUserIds = new List<int>{4,5},
+                    CreationDateTime = new DateTime(2021,4,20, 12,40,00)
+                },
+                new Post
+                {
+                    Id = 7,
+                    UserId = 5,
+                    MediaType = EMediaType.Gif,
+                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    MediaPaths = new List<string>
+                    {
+                        "https://media.giphy.com/media/zPJMDg46u7yJZ1MT91/giphy.gif"
                     },
                     LikedUserIds = new List < int > { 1 },
                     BookmarkedUserIds = new List<int>{4,5},

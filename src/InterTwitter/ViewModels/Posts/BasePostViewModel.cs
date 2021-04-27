@@ -1,30 +1,32 @@
-﻿using InterTwitter.Helpers;
+﻿using InterTwitter.Enums;
+using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Services;
 using InterTwitter.Views.Navigation;
+using InterTwitter.Views.PostPage;
 using Prism.Mvvm;
 using Prism.Navigation;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace InterTwitter.ViewModels.Posts
 {
-    public abstract class BasePostViewModel : BindableBase
+    public class BasePostViewModel : BindableBase
     {
-        private readonly IPostService _postManager;
-        private readonly INavigationService _navigationService;
-
-        public BasePostViewModel(User userModel, Post postModel, IPostService postManager, INavigationService navigation)
+        public BasePostViewModel(User userModel, Post postModel)
         {
+            NavigationService = App.Resolve<INavigationService>();
+            PostManager = App.Resolve<IPostService>();
+
             _userModel = userModel;
             _postModel = postModel;
-            _postManager = postManager;
-            _navigationService = navigation;
         }
 
         #region -- Public properties --
+
+        protected INavigationService NavigationService { get; private set; }
+        protected IPostService PostManager { get; private set; }
 
         private User _userModel;
         public User UserModel
@@ -60,13 +62,13 @@ namespace InterTwitter.ViewModels.Posts
         }
 
         private ICommand _likesCommand;
-        public ICommand LikesCommand => _likesCommand ??= SingleExecutionCommand.FromFunc(OnLikes);
+        public ICommand LikesCommand => _likesCommand ??= SingleExecutionCommand.FromFunc(OnLikesAsync);
 
         private ICommand _bookmarksCommand;
-        public ICommand BookmarksCommand => _bookmarksCommand ??= SingleExecutionCommand.FromFunc(OnBookmarks);
-        
-        private ICommand _navigationToProfileCommand;
-        public ICommand NavigationToProfileCommand => _navigationToProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToProfile);
+        public ICommand BookmarksCommand => _bookmarksCommand ??= SingleExecutionCommand.FromFunc(OnBookmarksAsync);
+
+        private ICommand _openPostCommand;
+        public ICommand OpenPostCommand => _openPostCommand ??= SingleExecutionCommand.FromFunc(OnOpenPostAsync);
 
         #endregion
 
@@ -79,36 +81,63 @@ namespace InterTwitter.ViewModels.Posts
                 { nameof(UserModel), UserModel }
             };
 
-            await _navigationService.NavigateAsync($"/{nameof(ProfileView)}", pairs);
+            await NavigationService.NavigateAsync($"/{nameof(ProfileView)}", pairs);
         }
 
-        private async Task OnLikes()
+        private async Task OnLikesAsync()
         {
             IsLiked = !IsLiked;
 
             if (IsLiked)
             {
-                await _postManager.LikePostAsync(PostModel.Id);
+                await PostManager.LikePostAsync(PostModel.Id);
             }
             else
             {
-                await _postManager.UnlikePostAsync(PostModel.Id);
+                await PostManager.UnlikePostAsync(PostModel.Id);
             }
 
             RaisePropertyChanged(nameof(LikesCount));
         }
 
-        private async Task OnBookmarks()
+        private async Task OnBookmarksAsync()
         {
             IsBookmarked = !IsBookmarked;
 
             if (IsBookmarked)
             {
-                await _postManager.BookmarkPostAsync(PostModel.Id);
+                await PostManager.BookmarkPostAsync(PostModel.Id);
             }
             else
             {
-                await _postManager.UnbookmarkPostAsync(PostModel.Id);
+                await PostManager.UnbookmarkPostAsync(PostModel.Id);
+            }
+        }
+        private async Task OnOpenPostAsync()
+        {
+            var paramenters = new NavigationParameters
+            {
+                { nameof(BasePostViewModel), this }
+            };
+
+            switch (PostModel.MediaType)
+            {
+                case EMediaType.Gallery:
+                    await NavigationService.NavigateAsync($"/{nameof(GalleryPostPage)}", paramenters);
+                    break;
+
+                case EMediaType.Photo:
+                    await NavigationService.NavigateAsync($"/{nameof(PhotoPostPage)}", paramenters);
+                    break;
+
+                case EMediaType.Gif:
+                    await NavigationService.NavigateAsync($"/{nameof(GifPostPage)}", paramenters);
+                    break;
+
+                case EMediaType.Video:
+                    await NavigationService.NavigateAsync($"/{nameof(VideoPostPage)}", paramenters);
+                    break;
+
             }
         }
 

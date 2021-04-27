@@ -7,10 +7,11 @@ using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
+using InterTwitter.ViewModels.PostPage;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
-using Plugin.Media;
+using InterTwitter.Views.PostPage;
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
@@ -20,6 +21,8 @@ namespace InterTwitter
 {
     public partial class App : PrismApplication
     {
+        public static T Resolve<T>() => (Application.Current as App).Container.Resolve<T>();
+
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
         }
@@ -28,18 +31,15 @@ namespace InterTwitter
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
-            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
-
-            containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
-
-            containerRegistry.RegisterInstance<IPermissionManager>(Container.Resolve<PermissionManager>());
-
             // Services
-            containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            containerRegistry.RegisterInstance<IPermissionManager>(Container.Resolve<PermissionManager>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
-
+            containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
+            containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
+            
+            // Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
             containerRegistry.RegisterForNavigation<SignUpEndPage, SignUpEndPageViewModel>();
@@ -53,20 +53,16 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
             containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
             containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
-
-            // Services
-            containerRegistry.RegisterSingleton<IUserService, UserService>();
-            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
-            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterForNavigation<PhotoPostPage, PhotoPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<GalleryPostPage, GalleryPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<GifPostPage, GifPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<VideoPostPage, VideoPostPageViewModel>();
         }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
             FlowListView.Init();
-
-
-            IAuthorizationService AuthorizeService = Container.Resolve<AuthorizationService>();
 
             await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
         }

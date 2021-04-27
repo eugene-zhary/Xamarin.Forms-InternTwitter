@@ -9,11 +9,12 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using AndroidX.AppCompat.App;
 using FFImageLoading.Forms.Platform;
+using Octane.Xamarin.Forms.VideoPlayer.Android;
 using PanCardView.Droid;
 
 namespace InterTwitter.Droid
 {
-    [Activity(Label = "@string/ApplicationName", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "@string/ApplicationName", Icon = "@mipmap/launcher_foreground", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         #region -- Overrides --
@@ -28,11 +29,13 @@ namespace InterTwitter.Droid
 
             Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
+            UserDialogs.Init(this);
+
             CardsViewRenderer.Preserve();
             CachedImageRenderer.Init(true);
+            FormsVideoPlayer.Init();
 
             AppCompatDelegate.DefaultNightMode = AppCompatDelegate.ModeNightNo;
-            UserDialogs.Init(this);
 
             LoadApplication(new App(new AndroidInitializer()));
         }
@@ -51,6 +54,10 @@ namespace InterTwitter.Droid
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
             }
+        }
+
+        public override void OnBackPressed()
+        {
         }
     }
 }

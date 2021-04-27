@@ -1,7 +1,7 @@
 ﻿using FFImageLoading.Forms.Platform;
 using Foundation;
+using Octane.Xamarin.Forms.VideoPlayer.iOS;
 using PanCardView.iOS;
-using Plugin.Media;
 using Prism;
 using Prism.Ioc;
 using UIKit;
@@ -19,6 +19,7 @@ namespace InterTwitter.iOS
             Forms.Init();
             CardsViewRenderer.Preserve();
             CachedImageRenderer.Init();
+            FormsVideoPlayer.Init();
 
             LoadApplication(new App(new IosInitializer()));
 

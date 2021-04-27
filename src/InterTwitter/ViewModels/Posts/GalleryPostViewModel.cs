@@ -6,7 +6,7 @@ namespace InterTwitter.ViewModels.Posts
 {
     public class GalleryPostViewModel : BasePostViewModel
     {
-        public GalleryPostViewModel(User userModel, Post postModel, IPostService postManager, INavigationService navigationService) : base(userModel, postModel, postManager, navigationService)
+        public GalleryPostViewModel(User userModel, Post postModel): base(userModel, postModel)
         {
 
         }

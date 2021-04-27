@@ -3,7 +3,6 @@ using InterTwitter.Resources;
 using InterTwitter.Views;
 using InterTwitter.Views.Navigation;
 using Prism.Events;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using System;
@@ -96,13 +95,7 @@ namespace InterTwitter.ViewModels.Flyout
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
 
         private ICommand _logoutCommand;
-        public ICommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogout);
-
-        private ICommand _navigationToProfileCommand;
-        public ICommand NavigationToProfileCommand => _navigationToProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToProfileCommand);
-      
-        private ICommand _navigationToChangeProfileCommand;
-        public ICommand NavigationToChangeProfileCommand => _navigationToChangeProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToChangeProfileCommand);
+        public ICommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogoutAsync);
 
         #endregion
 
@@ -124,22 +117,12 @@ namespace InterTwitter.ViewModels.Flyout
 
         #region -- Private helpers --
 
-        private async Task OnNavigationToProfileCommand()
-        {
-            await NavigationService.NavigateAsync($"/{nameof(ProfileView)}");
-        }
-
-        private async Task OnNavigationToChangeProfileCommand()
-        {
-            await NavigationService.NavigateAsync($"/{nameof(ChangeProfileView)}");
-        }
-
-        private async Task OnLogout()
+        private async Task OnLogoutAsync()
         {
             bool shouldLogOut = await _pageDialog.DisplayAlertAsync(Strings.LogoutAlertTitle, Strings.LogoutAlertBody,
                 Strings.LogoutAlertOk, Strings.LogoutAlertCancel);
 
-            if(shouldLogOut)
+            if (shouldLogOut)
             {
                 _authorizationService.UnAuthorize();
                 await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
