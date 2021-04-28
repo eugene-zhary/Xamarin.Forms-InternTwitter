@@ -1,4 +1,5 @@
 ﻿using InterTwitter.Models;
+using InterTwitter.ViewModels.Posts;
 using Prism.Mvvm;
 
 namespace InterTwitter.ViewModels.Notification
@@ -14,8 +15,8 @@ namespace InterTwitter.ViewModels.Notification
             set => SetProperty(ref _actor, value);
         }
 
-        private Post _post;
-        public Post Post
+        private BasePostViewModel _post;
+        public BasePostViewModel Post
         {
             get => _post;
             set => SetProperty(ref _post, value);

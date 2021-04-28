@@ -1,10 +1,14 @@
 ﻿using InterTwitter.Services.Notification;
 using Prism.Navigation;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using InterTwitter.Extensions;
 using InterTwitter.Services.UserService;
 using InterTwitter.Services;
+using InterTwitter.Services.Settings;
+using InterTwitter.ViewModels.Notification;
 
 namespace InterTwitter.ViewModels.Navigation
 {
@@ -13,22 +17,45 @@ namespace InterTwitter.ViewModels.Navigation
         private readonly INotificationService _notificationService;
         private readonly IUserService _userService;
         private readonly IPostService _postService;
+        private readonly ISettingsManager _settingsManager;
 
         public NotifycationViewModel(
             INavigationService navigation,
             INotificationService notificationService,
             IUserService userService,
-            IPostService postService)
+            IPostService postService,
+            ISettingsManager settingsManager)
             : base(navigation)
         {
             _notificationService = notificationService;
             _userService = userService;
             _postService = postService;
+            _settingsManager = settingsManager;
 
             IconPath = "ic_notifications_gray";
+
+            NotificationCollection = new ObservableCollection<NotificationViewModel>();
         }
 
+        #region -- Public properties --
+
+        private ObservableCollection<NotificationViewModel> _notificationCollection;
+        public ObservableCollection<NotificationViewModel> NotificationCollection
+        {
+            get => _notificationCollection;
+            set => SetProperty(ref _notificationCollection, value);
+        }
+
+        #endregion
+
         #region -- Overrides --
+
+        public override async void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+
+            await UpdateCollectionAsync();
+        }
 
         public override void OnAppearing()
         {
@@ -40,36 +67,69 @@ namespace InterTwitter.ViewModels.Navigation
             IconPath = "ic_notifications_gray";
         }
 
-        public async override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
-            var result = await _notificationService.GetNotificationsAsync(u => true);
+            await UpdateCollectionAsync();
+        }
 
-            if (result.IsSuccess)
+        #endregion
+
+        #region -- Private helpers --
+
+        private async Task UpdateCollectionAsync()
+        {
+            // getting all my posts
+            var postResult = await _postService.GetPostsAsync(p => p.UserId == _settingsManager.RememberedUserId);
+
+            if (postResult.IsSuccess)
             {
-                // TODO :
-                // получить айдишники всех постов, у которых я - автор
-                // получить все уведомленая по этим постам
-                // конвертировать их во вбюмодели и добавить обзервабл коллекшн
+                var posts = postResult.Result.ToList();
 
-                var notifics = result.Result.ToList();
+                List<NotificationViewModel> notificationViewModels = new List<NotificationViewModel>();
 
-                IList<Notification.NotificationViewModel> notificationVms = new List<Notification.NotificationViewModel>();
-
-                foreach (var notification in notifics)
+                foreach (var post in posts)
                 {
-                    var userResult = await _userService.GetUserAsync(notification.ActorId);
-                    var postResult = await _postService.GetPostsAsync(p => p.Id == notification.PostId);
+                    // getting all notification for each my post
+                    var notificationResult =
+                        await _notificationService.GetNotificationsAsync(n => n.PostId == post.PostModel.Id);
 
-                    if (userResult.IsSuccess && postResult.IsSuccess)
+                    if (notificationResult.IsSuccess)
                     {
-                        var user = userResult.Result;
-                        var post = postResult.Result.FirstOrDefault().PostModel;
+                        var notifications = notificationResult.Result.ToList();
 
-                        notificationVms.Add(notification.ToViewModel(user, post));
+                        foreach (var notification in notifications)
+                        {
+                            // getting actor of each notification (the user who liked/bookmarked)
+                            var actorResult = await _userService.GetUserAsync(notification.ActorId);
+
+                            if (actorResult.IsSuccess)
+                            {
+                                notificationViewModels.Add(notification.ToViewModel(actorResult.Result, post));
+                            }
+                        }
                     }
                 }
+
+                // sort: newest first
+                notificationViewModels.Sort((n1, n2) =>
+                {
+                    int result = 0;
+
+                    if (n1.Notification.Id > n2.Notification.Id)
+                    {
+                        result = -1;
+                    }
+                    else if (n1.Notification.Id < n2.Notification.Id)
+                    {
+                        result = 1;
+                    }
+
+                    return result;
+                });
+
+                NotificationCollection = new ObservableCollection<NotificationViewModel>(notificationViewModels);
             }
         }
 
