@@ -40,6 +40,7 @@ namespace InterTwitter.Services
 
                 if(posts.Any())
                 {
+                    posts.ToList().Sort((p1, p2) => p1.PostModel.CreationDateTime.CompareTo(p2.PostModel.CreationDateTime));
                     result.SetSuccess(posts);
                 }
                 else
