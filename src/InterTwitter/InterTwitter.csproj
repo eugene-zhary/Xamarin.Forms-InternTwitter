@@ -42,8 +42,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\Flyout\FlyoutMenuView.xaml.cs">
-      <DependentUpon>FlyoutMenuView.xaml</DependentUpon>
+    <Compile Update="Views\Flyout\DetailTabbedView.xaml.cs">
+      <DependentUpon>DetailTabbedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Flyout\MasterDetailNavigationView.xaml.cs">
+      <DependentUpon>MasterDetailNavigationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Flyout\MasterMenuView.xaml.cs">
+      <DependentUpon>MasterMenuView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Navigation\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -91,19 +97,16 @@
     <EmbeddedResource Update="Views\Authorization\SignUpStartPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Flyout\FlyoutNavigationView.xaml">
+    <EmbeddedResource Update="Views\Flyout\MasterDetailNavigationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Flyout\FlyoutMenuView.xaml">
+    <EmbeddedResource Update="Views\Flyout\MasterMenuView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Flyout\FlyoutTabbedView.xaml">
+    <EmbeddedResource Update="Views\Flyout\DetailTabbedView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Navigation\BookmarksView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\PostPage\AddPostPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PostPage\EmptyPostPage.xaml">

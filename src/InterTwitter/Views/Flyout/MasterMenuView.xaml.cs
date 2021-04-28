@@ -1,12 +1,11 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace InterTwitter.Views.Flyout
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FlyoutMenuView : BaseContentPage
+    public partial class MasterMenuView : BaseContentPage
     {
-        public FlyoutMenuView()
+        public MasterMenuView()
         {
             InitializeComponent();
         }

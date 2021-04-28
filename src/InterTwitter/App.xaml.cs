@@ -46,9 +46,9 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
             containerRegistry.RegisterForNavigation<SignUpEndPage, SignUpEndPageViewModel>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
-            containerRegistry.RegisterForNavigation<FlyoutMenuView, FlyoutMenuViewModel>();
-            containerRegistry.RegisterForNavigation<FlyoutTabbedView, FlyoutTabbedViewMode>();
-            containerRegistry.RegisterForNavigation<FlyoutNavigationView, FlyoutNavigationViewModel>();
+            containerRegistry.RegisterForNavigation<MasterMenuView, MasterMenuViewModel>();
+            containerRegistry.RegisterForNavigation<DetailTabbedView, DetailTabbedViewMode>();
+            containerRegistry.RegisterForNavigation<MasterDetailNavigationView, MasterDetailNavigationViewModel>();
             containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>();
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
@@ -62,8 +62,6 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<EmptyPostPage, EmptyPostPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
             containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
-
-            
         }
 
         protected override async void OnInitialized()

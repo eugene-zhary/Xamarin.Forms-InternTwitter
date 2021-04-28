@@ -165,7 +165,7 @@ namespace InterTwitter.ViewModels.Navigation
             }
             else
             {
-                await NavigationService.NavigateAsync($"{nameof(FlyoutNavigationView)}");
+                await NavigationService.NavigateAsync($"{nameof(MasterDetailNavigationView)}");
             }
         }
 

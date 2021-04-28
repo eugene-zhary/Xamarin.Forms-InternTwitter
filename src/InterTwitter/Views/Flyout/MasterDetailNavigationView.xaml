@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            x:Class="InterTwitter.Views.Flyout.FlyoutNavigationView"
+            x:Class="InterTwitter.Views.Flyout.MasterDetailNavigationView"
             xmlns:local="clr-namespace:InterTwitter.Views.Flyout" 
             xmlns:prism="http://prismlibrary.com"
             prism:ViewModelLocator.AutowireViewModel="True"
             NavigationPage.HasNavigationBar="False"
             IsPresented="{Binding IsMenuVisible, Mode=TwoWay}">
     <MasterDetailPage.Master>
-        <local:FlyoutMenuView/>
+        <local:MasterMenuView/>
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
         <NavigationPage NavigationPage.HasNavigationBar="False">
             <x:Arguments>
-                <local:FlyoutTabbedView/>
+                <local:DetailTabbedView/>
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

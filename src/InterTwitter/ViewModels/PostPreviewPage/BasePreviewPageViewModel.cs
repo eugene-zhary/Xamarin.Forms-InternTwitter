@@ -1,5 +1,8 @@
-﻿using InterTwitter.Helpers;
+﻿using Acr.UserDialogs;
+using InterTwitter.Helpers;
+using InterTwitter.Resources;
 using InterTwitter.Services.ContextMenu;
+using InterTwitter.Services.Permission;
 using Prism.Navigation;
 using Prism.Services;
 using System.Threading.Tasks;
@@ -9,16 +12,22 @@ namespace InterTwitter.ViewModels.Posts
 {
     public class BasePreviewPageViewModel : BaseViewModel
     {
-        public BasePreviewPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService, IContextMenuService contextMenuService) : base(navigationService)
+        public BasePreviewPageViewModel(
+            INavigationService navigationService,
+            IPageDialogService pageDialogService,
+            IContextMenuService contextMenuService,
+            IPermissionManager permissionManager) : base(navigationService)
         {
             PageDialogService = pageDialogService;
             ContextMenuService = contextMenuService;
+            PermissionManager = permissionManager;
         }
 
         #region -- Public properties --
 
         protected IPageDialogService PageDialogService { get; private set; }
         protected IContextMenuService ContextMenuService { get; private set; }
+        protected IPermissionManager PermissionManager { get; private set; }
 
         private BasePostViewModel _postViewModel;
         public BasePostViewModel PostViewModel
@@ -65,6 +74,52 @@ namespace InterTwitter.ViewModels.Posts
 
         #endregion
 
+        #region -- Protected helpers --
+
+        protected virtual Task OnShareAsync()
+        {
+            return Task.CompletedTask;
+        }
+
+        protected virtual Task OnSaveAsync()
+        {
+            return Task.CompletedTask;
+        }
+
+        protected async Task SavePhotoAsync(string MediaPath)
+        {
+            IsContextMenuVisible = false;
+
+            var isPermissionGranted = await PermissionManager.RequestStoragePermissionAsync();
+
+            if(isPermissionGranted)
+            {
+                AOResult result = null;
+
+                using(UserDialogs.Instance.Loading(Strings.Saving))
+                {
+                    result = await ContextMenuService.SaveImg(MediaPath);
+                    await Task.Delay(500);
+                }
+
+                await DisplaySaveResultAsync(result.IsSuccess);
+            }
+            else
+            {
+                await AskForSettingsAsync();
+            }
+        }
+
+
+        protected async Task SharePhotoAsync(string MediaPath)
+        {
+            IsContextMenuVisible = false;
+
+            await ContextMenuService.ShareImg(MediaPath);
+        }
+
+        #endregion
+
         #region -- Private helpers --
 
         private Task OnGoBackAsync()
@@ -72,27 +127,40 @@ namespace InterTwitter.ViewModels.Posts
             return NavigationService.GoBackAsync();
         }
 
-        private async Task OnContextMenuAsync()
+        private Task OnContextMenuAsync()
         {
             IsContextMenuVisible = true;
 
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
-        private async Task OnPageFocusAsync()
+        private Task OnPageFocusAsync()
         {
             IsContextMenuVisible = false;
 
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
-        protected virtual Task OnShareAsync()
+        private async Task AskForSettingsAsync()
         {
-            return Task.CompletedTask;
+            bool isAgree = await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.AskForStoragePermission, Strings.SettingsTitle, Strings.Ok);
+
+            if(isAgree)
+            {
+                PermissionManager.GoToAppSettings();
+            }
         }
-        protected virtual Task OnSaveAsync()
+
+        private async Task DisplaySaveResultAsync(bool result)
         {
-            return Task.CompletedTask;
+            if(result)
+            {
+                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveSucces, Strings.Ok);
+            }
+            else
+            {
+                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveFailed, Strings.Ok);
+            }
         }
 
         #endregion
