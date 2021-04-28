@@ -42,10 +42,22 @@ namespace InterTwitter.ViewModels.Navigation
 
         #region -- Public region --
 
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set => SetProperty(ref _isRefreshing, value, nameof(IsRefreshing));
+        }
+
         public ObservableCollection<BasePostViewModel> PostCollection { get; set; }
 
-        public ICommand PicProfileTapGestureRecognizer => new Command(OnPicProfileTapGestureRecognizer);
+        private ICommand _picProfileTapGestureRecognizer;
+        public ICommand PicProfileTapGestureRecognizer => _picProfileTapGestureRecognizer ??= SingleExecutionCommand.FromFunc(OnPicProfileTapGestureRecognizerAsync);
 
+        private ICommand _refreshCommand;
+        public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefreshAsync, delayMillisec: 0);
+
+        
         #endregion
 
         #region -- Overrides --
@@ -55,13 +67,6 @@ namespace InterTwitter.ViewModels.Navigation
             base.Initialize(parameters);
 
             ImagePath = (await _userService.GetUserAsync(_authorizationService.GetCurrentUserId)).Result.ProfileImagePath;
-
-            await UpdateCollecitonAsync();
-        }
-
-        public override async void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
 
             await UpdateCollecitonAsync();
         }
@@ -80,9 +85,16 @@ namespace InterTwitter.ViewModels.Navigation
 
         #region -- Private helpers --
 
+        private Task OnRefreshAsync()
+        {
+            return UpdateCollecitonAsync();
+        }
+
         private async Task<AOResult> UpdateCollecitonAsync()
         {
             var result = new AOResult();
+
+            IsRefreshing = true;
 
             try
             {
@@ -102,12 +114,16 @@ namespace InterTwitter.ViewModels.Navigation
                 result.SetError($"{nameof(UpdateCollecitonAsync)}", "Something went wrong", ex);
             }
 
+            IsRefreshing = false;
+
             return result;
         }
 
-        private void OnPicProfileTapGestureRecognizer()
+        private Task OnPicProfileTapGestureRecognizerAsync()
         {
             _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(true);
+
+            return Task.CompletedTask;
         }
 
         #endregion

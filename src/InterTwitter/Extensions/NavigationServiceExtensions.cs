@@ -86,7 +86,7 @@ namespace InterTwitter.Extensions
         {
             try
             {
-                var currentPage = ((IPageAware)navigationService).Page as FlyoutPage;
+                var currentPage = ((IPageAware)navigationService).Page as MasterDetailPage;
 
                 var canNavigate = await PageUtilities.CanNavigateAsync(currentPage, parameters);
                 if (!canNavigate)
@@ -98,6 +98,14 @@ namespace InterTwitter.Extensions
                 {
                     tabbedPage = currentPage?.Detail as TabbedPage;
                 }
+                else if (currentPage.Detail is NavigationPage navPage)
+                {
+                    if (navPage.CurrentPage != null && navPage.CurrentPage is CustomTabbedPage parent2)
+                    {
+                        tabbedPage = parent2;
+                    }
+                }
+
 
                 if (tabbedPage == null)
                     throw new Exception("No parent TabbedPage could be found");
