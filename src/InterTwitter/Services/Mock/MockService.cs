@@ -11,12 +11,14 @@ namespace InterTwitter.Services
         {
             InitializeUserMock();
             InitializePostMock();
+            InitializeNotificationMock();
         }
 
         #region -- IMockManager implementation --
 
         public IList<User> MockedUsers { get; set; }
         public IList<Post> MockedPosts { get; set; }
+        public IList<Models.Notification> MockedNotifications { get; set; }
 
         #endregion
 
@@ -266,6 +268,143 @@ namespace InterTwitter.Services
                     BookmarkedUserIds = new List<int>{4,5},
                     CreationDateTime = new DateTime(2021,4,20, 12,40,00)
                 },
+            };
+        }
+
+        private void InitializeNotificationMock()
+        {
+            MockedNotifications = new List<Models.Notification>
+            {
+                // post 1
+                new Models.Notification
+                {
+                    Id = 1,
+                    PostId = 1,
+                    ActorId = 1,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 2,
+                    PostId = 1,
+                    ActorId = 2,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 3,
+                    PostId = 1,
+                    ActorId = 3,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 4,
+                    PostId = 1,
+                    ActorId = 2,
+                    NotificationType = ENotificationTypes.Bookmarked
+                },
+                new Models.Notification
+                {
+                    Id = 5,
+                    PostId = 1,
+                    ActorId = 3,
+                    NotificationType = ENotificationTypes.Bookmarked
+                },
+                // post 2
+                new Models.Notification
+                {
+                    Id = 6,
+                    PostId = 2,
+                    ActorId = 1,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 7,
+                    PostId = 2,
+                    ActorId = 2,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 8,
+                    PostId = 2,
+                    ActorId = 2,
+                    NotificationType = ENotificationTypes.Bookmarked
+                },
+                // ... actually useless stuff ...
+                // mocks for "Jhon Lennon":
+                new Models.Notification
+                {
+                    Id = 9,
+                    PostId = 4,
+                    ActorId = 1,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 10,
+                    PostId = 4,
+                    ActorId = 2,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 11,
+                    PostId = 4,
+                    ActorId = 3,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 12,
+                    PostId = 4,
+                    ActorId = 4,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 13,
+                    PostId = 4,
+                    ActorId = 5,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 14,
+                    PostId = 4,
+                    ActorId = 6,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 15,
+                    PostId = 4,
+                    ActorId = 3,
+                    NotificationType = ENotificationTypes.Bookmarked
+                },
+                new Models.Notification
+                {
+                    Id = 16,
+                    PostId = 5,
+                    ActorId = 1,
+                    NotificationType = ENotificationTypes.Liked
+                },
+                new Models.Notification
+                {
+                    Id = 17,
+                    PostId = 5,
+                    ActorId = 5,
+                    NotificationType = ENotificationTypes.Bookmarked
+                },
+                new Models.Notification
+                {
+                    Id = 18,
+                    PostId = 5,
+                    ActorId = 1,
+                    NotificationType = ENotificationTypes.Bookmarked
+                }
             };
         }
 

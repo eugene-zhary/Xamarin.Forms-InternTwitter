@@ -2,6 +2,7 @@ using DLToolkit.Forms.Controls;
 using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
 using InterTwitter.Services.ContextMenu;
+using InterTwitter.Services.Notification;
 using InterTwitter.Services.Permission;
 using InterTwitter.Services.Settings;
 using InterTwitter.Services.UserService;
@@ -37,6 +38,7 @@ namespace InterTwitter
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IPermissionManager>(Container.Resolve<PermissionManager>());
 
+            containerRegistry.RegisterInstance<INotificationService>(Container.Resolve<NotificationService>());
             containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
             containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
@@ -62,8 +64,6 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<EmptyPostPage, EmptyPostPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
             containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
-
-            
         }
 
         protected override async void OnInitialized()
