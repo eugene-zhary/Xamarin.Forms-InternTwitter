@@ -7,20 +7,160 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 using InterTwitter.Views.Navigation;
+using System.Threading.Tasks;
+using InterTwitter.Helpers;
+using InterTwitter.ViewModels.Posts;
+using InterTwitter.Services.UserService;
+using InterTwitter.Services.Authorization;
 
 namespace InterTwitter.ViewModels.Navigation
 {
     public class SearchViewModel : BaseTabViewModel
     {
-        private readonly IPostService _postService;
-        private readonly IMockService _mockService;
+        #region Private Variables/Properties
 
-        public SearchViewModel(INavigationService navigation, IPostService postService, IMockService mockService) : base(navigation)
+        private readonly IPostService _postService;
+        private readonly IUserService _userService;
+        private readonly IAuthorizationService _authorizationService;
+
+        #endregion
+
+        #region Constructors
+
+        public SearchViewModel(INavigationService navigation, IPostService postService,
+                               IUserService userService, IAuthorizationService authorizationService) : base(navigation)
         {
             IconPath = "ic_search_gray.png";
             _postService = postService;
-            _mockService = mockService;
+            _userService = userService;
+            _authorizationService = authorizationService;
+            ShowNoResult = false;
+            ShowPostList = false;
+            ShowTagList = true;
         }
+
+        #endregion
+
+        #region -- Public properties --
+
+        #region Bindble Properties
+
+        private ObservableCollection<PopularThemes> _items;
+        public ObservableCollection<PopularThemes> Items
+        {
+            get => _items;
+            set => SetProperty(ref _items, value);
+        }
+
+        private string _text;
+        public string Text
+        {
+            get => _text;
+            set => SetProperty(ref _text, value);
+        }
+
+        private string _noResultText;
+        public string NoResultText
+        {
+            get => _noResultText;
+            set => SetProperty(ref _noResultText, value);
+        }
+
+        private bool _ShowPostList = false;
+        public bool ShowPostList
+        {
+            get => _ShowPostList;
+            set => SetProperty(ref _ShowPostList, value);
+        }
+
+        private bool _ShowNoRsult = false;
+        public bool ShowNoResult
+        {
+            get => _ShowNoRsult;
+            set => SetProperty(ref _ShowNoRsult, value);
+        }
+
+        private bool _ShowTagList = true;
+        public bool ShowTagList
+        {
+            get => _ShowTagList;
+            set => SetProperty(ref _ShowTagList, value);
+        }
+
+        private string _profileImage;
+        public string ProfileImage
+        {
+            get => _profileImage;
+            set => SetProperty(ref _profileImage, value);
+        }
+
+        private ObservableCollection<BasePostViewModel> _searcedPost = new ObservableCollection<BasePostViewModel>();
+        public ObservableCollection<BasePostViewModel> SearchedPosts
+        {
+            get => _searcedPost;
+            set => SetProperty(ref _searcedPost, value);
+        }
+
+        #endregion
+
+        private ICommand _textChangedCommand;
+        public ICommand TextChangedCommand => _textChangedCommand ??= SingleExecutionCommand.FromFunc(OnTextChangedAsync, delayMillisec:0);
+        
+        private ICommand _hidePostsCollectionCommand;
+        public ICommand HidePostsCollectionCommand => _hidePostsCollectionCommand ??= new Command(OnHidePostsCollectionCommand);
+      
+        private ICommand _navigationToSearchCommand;
+        public ICommand NavigationToSearchCommand => _navigationToSearchCommand ??= new Command<PopularThemes>(OnNavigationToSearchAsync);
+
+        #endregion
+
+        #region -- Private helpers -- 
+
+        private async Task OnTextChangedAsync()
+        {
+            await UpdateCollecitonAsync(Text);
+
+            NoResultText = Text.Length > 10 ? Text[..10] + "..." : Text;
+        }
+
+        private void OnHidePostsCollectionCommand(object obj)
+        {
+            ShowPostList = false;
+            ShowTagList = true;
+        }
+
+        private async void OnNavigationToSearchAsync(PopularThemes popularThemes)
+        {
+            await UpdateCollecitonAsync(popularThemes.Tag);
+        }
+
+        private async Task<AOResult> UpdateCollecitonAsync(string Tag)
+        {
+            var result = new AOResult();
+
+            try
+            {
+                SearchedPosts.Clear();
+
+                var posts = await _postService.GetPostsAsync();
+
+                posts.Result.Where(u => u.PostModel.Text.Contains(Tag)).ToList().ForEach(SearchedPosts.Add);
+
+                ShowPostList = true;
+                ShowTagList = false;
+                ShowNoResult = SearchedPosts.Count == 0;
+
+                result.SetSuccess();
+            }
+            catch (Exception ex)
+            {
+                result.SetError($"{nameof(UpdateCollecitonAsync)}", "Something went wrong", ex);
+            }
+
+            return result;
+        }
+
+        #endregion
 
         #region -- Overrides --
 
@@ -33,32 +173,6 @@ namespace InterTwitter.ViewModels.Navigation
         {
             IconPath = "ic_search_gray.png";
         }
-
-        public ICommand TextChangedCommand => new Command<object>(OnTextChangedCommand);
-        public ICommand NavigationToSearchCommand => new Command<PopularThemes>(OnNavigationToSearchCommand);
-
-        private void OnNavigationToSearchCommand(PopularThemes popularThemes)
-        {
-            NavigationParameters keys = new NavigationParameters
-            {
-                { nameof(popularThemes.Tag), popularThemes.Tag }
-            };
-
-            NavigationService.NavigateAsync($"/{nameof(SearchPostsView)}", keys);
-        }
-
-        private void OnTextChangedCommand(object obj)
-        {
-            Console.WriteLine(obj);
-        }
-
-        private ObservableCollection<PopularThemes> _items;
-        public ObservableCollection<PopularThemes> Items 
-        {
-            get => _items;
-            set => SetProperty(ref _items, value);
-        }
-
         public async override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -67,21 +181,26 @@ namespace InterTwitter.ViewModels.Navigation
 
             var Posts = await _postService.GetPostsAsync();
 
-
             Posts.Result.ToList()
                 .ForEach(u => u.PostModel.Text.Split(' ')
                 .Where(u => (u.Contains('#') && !Items.Where(v => v.Tag == u).Any())).ToList()
                 .ForEach(u => Items.Add(new PopularThemes { Tag = u.Replace(",", ""), Count = Posts.Result.Count(v => v.PostModel.Text.Contains(u)) })));
 
             Items = new ObservableCollection<PopularThemes>(Items.OrderByDescending(u => u.Count));
+
+            ProfileImage = (await _userService.GetUserAsync(_authorizationService.GetCurrentUserId)).Result.ProfileImagePath;
         }
 
         #endregion
     }
+
+    #region -- Class Helpers --
 
     public class PopularThemes
     {
         public string Tag { get; set; }
         public int Count { get; set; } = 0;
     }
+
+    #endregion
 }

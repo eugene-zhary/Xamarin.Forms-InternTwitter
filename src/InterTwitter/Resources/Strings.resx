@@ -123,6 +123,9 @@
   <data name="BlankNameError" xml:space="preserve">
     <value>Please, type your name</value>
   </data>
+  <data name="BookmarksTitle" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="GetYourAccount" xml:space="preserve">
     <value>Get your account</value>
+  </data>
+  <data name="HomeTitle" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="InvalidPasswordMessage" xml:space="preserve">
     <value>Use at least 1 uppercase letter and 1 digit</value>
@@ -186,6 +192,9 @@
   <data name="NoSuchUser" xml:space="preserve">
     <value>There's no any user with such email and password! Please, check your inputs once more or visit Sign Up page.</value>
   </data>
+  <data name="NotificationTitle" xml:space="preserve">
+    <value>Notification</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
@@ -200,6 +209,18 @@
   </data>
   <data name="PasswordLengthError" xml:space="preserve">
     <value>Type at least 6 symbols</value>
+  </data>
+  <data name="SaveFailed" xml:space="preserve">
+    <value>Permission for saving is denied</value>
+  </data>
+  <data name="SaveSucces" xml:space="preserve">
+    <value>File was saved to gallery</value>
+  </data>
+  <data name="SaveTitle" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SearchTitle" xml:space="preserve">
+    <value>Search</value>
   </data>
   <data name="SigningIn" xml:space="preserve">
     <value>Signing in...</value>
@@ -218,5 +239,47 @@
   </data>
   <data name="YouLlNeedAPassword" xml:space="preserve">
     <value>You'll need a password</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DeleteAllBookmarks" xml:space="preserve">
+    <value>Delete all bookmarks</value>
+  </data>
+  <data name="DeleteAllBookmarksConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to delete all bookmarks?</value>
+  </data>
+  <data name="DeleteAllBookmarksConfirmTitle" xml:space="preserve">
+    <value>Delete all bookmarks?</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="YouHaveNoBookmarksYet" xml:space="preserve">
+    <value>You have no bookmarks yet</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Block</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="Muted" xml:space="preserve">
+    <value>Muted</value>
+  </data>
+  <data name="ProfileInBlacklist" xml:space="preserve">
+    <value>Profile in blacklist</value>
+  </data>
+  <data name="RemoveFromBlacklist" xml:space="preserve">
+    <value>Remove from blacklist</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes?</value>
+  </data>
+  <data name="Unmute" xml:space="preserve">
+    <value>Unmute</value>
   </data>
 </root>

@@ -7,6 +7,7 @@ using System.Linq;
 using InterTwitter.Services.Settings;
 using System.Threading.Tasks;
 using InterTwitter.Helpers;
+using Prism.Events;
 using Prism.Navigation;
 
 namespace InterTwitter.Services
@@ -15,13 +16,13 @@ namespace InterTwitter.Services
     {
         private readonly IMockService _mock;
         private readonly ISettingsManager _settings;
-        private readonly INavigationService _navigationService;
+        private readonly IEventAggregator _eventAggregator;
 
-        public PostService(IMockService mock, ISettingsManager settings, INavigationService navigationService)
+        public PostService(IMockService mock, ISettingsManager settings, IEventAggregator aggregator)
         {
+            _eventAggregator = aggregator;
             _mock = mock;
             _settings = settings;
-            _navigationService = navigationService;
         }
 
         #region -- IPostManager implementation --
@@ -34,10 +35,10 @@ namespace InterTwitter.Services
             try
             {
                 var posts = (predecate == null) ?
-                    _mock.MockedPosts.ToViewModelCollection(this, _settings.RememberedUserId, _navigationService) :
-                    _mock.MockedPosts.Where(predecate)?.ToViewModelCollection(this, _settings.RememberedUserId, _navigationService);
+                    _mock.MockedPosts.ToViewModelCollection(this, _settings.RememberedUserId) :
+                    _mock.MockedPosts.Where(predecate)?.ToViewModelCollection(this, _settings.RememberedUserId);
 
-                if (posts.Any())
+                if(posts.Any())
                 {
                     result.SetSuccess(posts);
                 }
@@ -46,7 +47,7 @@ namespace InterTwitter.Services
                     result.SetFailure("Post collection is empty");
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 result.SetError($"{nameof(GetPostsAsync)}: exception", "Something went wrong", ex);
             }
@@ -61,7 +62,7 @@ namespace InterTwitter.Services
             {
                 var author = _mock.MockedUsers.Where(user => user.Id == userId).FirstOrDefault();
 
-                if (author != null)
+                if(author != null)
                 {
                     result.SetSuccess(author);
                 }
@@ -70,7 +71,7 @@ namespace InterTwitter.Services
                     result.SetFailure("Non-existent author of post");
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 result.SetError($"{nameof(GetPostAuthorAsync)}: exception", "Something went wrong", ex);
             }
@@ -84,11 +85,12 @@ namespace InterTwitter.Services
 
             try
             {
-                _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault()?.LikedUserIds.Add(_settings.RememberedUserId);
+                var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
+                post.LikedUserIds.Add(_settings.RememberedUserId);
 
                 result.SetSuccess();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 result.SetError($"{nameof(LikePostAsync)}: exception", "Something went wrong", ex);
             }
@@ -102,13 +104,14 @@ namespace InterTwitter.Services
 
             try
             {
-                _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault()?.LikedUserIds.Remove(_settings.RememberedUserId);
+                var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
+                post.LikedUserIds.Remove(_settings.RememberedUserId);
 
                 result.SetSuccess();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                result.SetError($"{nameof(LikePostAsync)}: exception", "Something went wrong", ex);
+                result.SetError($"{nameof(UnlikePostAsync)}: exception", "Something went wrong", ex);
             }
 
             return result;
@@ -120,13 +123,14 @@ namespace InterTwitter.Services
 
             try
             {
-                _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault()?.BookmarkedUserIds.Add(_settings.RememberedUserId);
+                var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
+                post.BookmarkedUserIds.Add(_settings.RememberedUserId);
 
                 result.SetSuccess();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                result.SetError($"{nameof(LikePostAsync)}: exception", "Something went wrong", ex);
+                result.SetError($"{nameof(BookmarkPostAsync)}: exception", "Something went wrong", ex);
             }
 
             return result;
@@ -138,13 +142,14 @@ namespace InterTwitter.Services
 
             try
             {
-                _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault()?.BookmarkedUserIds.Remove(_settings.RememberedUserId);
+                var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
+                post.BookmarkedUserIds.Remove(_settings.RememberedUserId);
 
                 result.SetSuccess();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                result.SetError($"{nameof(LikePostAsync)}: exception", "Something went wrong", ex);
+                result.SetError($"{nameof(UnbookmarkPostAsync)}: exception", "Something went wrong", ex);
             }
 
             return result;

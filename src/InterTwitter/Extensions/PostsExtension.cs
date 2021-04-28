@@ -12,26 +12,25 @@ namespace InterTwitter.Extensions
     {
         #region -- Public methods --
 
-        public static BasePostViewModel ToViewModel(this Post postModel, IPostService postManager, int currentUserId, INavigationService navigationService)
+        public static BasePostViewModel ToViewModel(this Post postModel, IPostService postManager, int currentUserId)
         { 
             BasePostViewModel postViewModel = null;
 
             if (postModel != null)
             {
                 var userModel = postManager.GetPostAuthorAsync(postModel.UserId).Result;
-                
-                switch (postModel.MediaType)
+
+                switch(postModel.MediaType)
                 {
                     case EMediaType.Photo:
-                        postViewModel = new PhotoPostViewModel(userModel, postModel, postManager, navigationService);
-                        break;
-
-                    case EMediaType.Gallery:
-                        postViewModel = new GalleryPostViewModel(userModel, postModel, postManager, navigationService);
-                        break;
-
+                    case EMediaType.Gif:
                     case EMediaType.Video:
-                        postViewModel = new VideoPostViewModel(userModel, postModel, postManager, navigationService);
+                        postViewModel = new OneMediaPostViewModel(userModel, postModel);
+                        break;
+
+                    case EMediaType.Empty:
+                    case EMediaType.Gallery:
+                        postViewModel = new BasePostViewModel(userModel, postModel);
                         break;
                 }
 
@@ -42,14 +41,18 @@ namespace InterTwitter.Extensions
             return postViewModel;
         }
 
-        public static IEnumerable<BasePostViewModel> ToViewModelCollection(this IEnumerable<Post> postCollection, IPostService postManager, int currentUserId, INavigationService navigationService)
+        public static IEnumerable<BasePostViewModel> ToViewModelCollection(this IEnumerable<Post> postCollection, IPostService postManager, int currentUserId)
         {
             List<BasePostViewModel> viewModelCollection = null;
 
             if (postCollection.Any())
             {
                 viewModelCollection = new List<BasePostViewModel>();
-                postCollection.ToList().ForEach(p => viewModelCollection.Add(p.ToViewModel(postManager, currentUserId, navigationService)));
+
+                foreach(var post in postCollection)
+                {
+                    viewModelCollection.Add(post.ToViewModel(postManager, currentUserId));
+                }
             }
 
             return viewModelCollection;

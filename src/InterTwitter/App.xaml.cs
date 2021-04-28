@@ -1,16 +1,19 @@
 using DLToolkit.Forms.Controls;
 using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
+using InterTwitter.Services.ContextMenu;
 using InterTwitter.Services.Permission;
 using InterTwitter.Services.Settings;
 using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels;
 using InterTwitter.ViewModels.Flyout;
 using InterTwitter.ViewModels.Navigation;
+using InterTwitter.ViewModels.PostPage;
+using InterTwitter.ViewModels.Posts;
 using InterTwitter.Views;
 using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
-using Plugin.Media;
+using InterTwitter.Views.PostPage;
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
@@ -20,6 +23,8 @@ namespace InterTwitter
 {
     public partial class App : PrismApplication
     {
+        public static T Resolve<T>() => (Application.Current as App).Container.Resolve<T>();
+
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
         }
@@ -30,15 +35,12 @@ namespace InterTwitter
         {
             containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
-
-            containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
-
             containerRegistry.RegisterInstance<IPermissionManager>(Container.Resolve<PermissionManager>());
 
-            // Services
+            containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
             containerRegistry.RegisterSingleton<IUserService, UserService>();
-            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterInstance<IContextMenuService>(Container.Resolve<ContextMenuService>());
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
@@ -51,14 +53,15 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
             containerRegistry.RegisterForNavigation<BookmarksView, BookmarksViewModel>();
+            containerRegistry.RegisterForNavigation<PhotoPostPage, PhotoPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<GalleryPostPage, GalleryPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<GifPostPage, GifPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<VideoPostPage, VideoPostPageViewModel>();
+            containerRegistry.RegisterForNavigation<PhotoPreviewPage, PhotoPreviewPageViewModel>();
+            containerRegistry.RegisterForNavigation<GalleryPreviewPage, GalleryPreviewPageViewModel>();
+            containerRegistry.RegisterForNavigation<EmptyPostPage, EmptyPostPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
             containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
-
-            // Services
-            containerRegistry.RegisterSingleton<IUserService, UserService>();
-            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
-            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
-            containerRegistry.RegisterForNavigation<SearchPostsView, SearchPostsViewModel>();
         }
 
         protected override async void OnInitialized()

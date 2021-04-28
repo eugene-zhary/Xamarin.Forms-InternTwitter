@@ -25,7 +25,7 @@ namespace InterTwitter.Services.Authorization
 
         public void UnAuthorize()
         {
-            _settingsManager.RememberedUserId = default(int);
+            _settingsManager.ClearLocalSettings();
         }
 
         #endregion

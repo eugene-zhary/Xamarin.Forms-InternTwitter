@@ -9,6 +9,8 @@ namespace InterTwitter.Views.Templates
         public DataTemplate PhotoPostDataTemplate { get; set; }
         public DataTemplate GalleryPostDataTemplate { get; set; }
         public DataTemplate VideoPostDataTemplate { get; set; }
+        public DataTemplate GifPostDataTemplate { get; set; }
+        public DataTemplate EmptyPostDataTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
@@ -28,6 +30,14 @@ namespace InterTwitter.Views.Templates
 
                 case EMediaType.Video:
                     output = VideoPostDataTemplate;
+                    break;
+
+                case EMediaType.Gif:
+                    output = GifPostDataTemplate;
+                    break;
+
+                case EMediaType.Empty:
+                    output = EmptyPostDataTemplate;
                     break;
             }
 

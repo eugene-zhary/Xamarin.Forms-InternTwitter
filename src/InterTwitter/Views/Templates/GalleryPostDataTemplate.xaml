@@ -1,16 +1,14 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<DataTemplate
-    x:Class="InterTwitter.Views.Templates.GalleryPostDataTemplate"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-    xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView">
-
-    <Grid
-        Padding="15,15,15,0"
-        ColumnSpacing="15"
-        RowSpacing="15">
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Views.Templates.GalleryPostDataTemplate"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView">
+    <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15" x:Name="this">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding OpenPostCommand}" CommandParameter="{Binding .}"/>
+        </Grid.GestureRecognizers>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
@@ -32,7 +30,7 @@
                 <fftransformations:CircleTransformation />
             </ffimageloading:CachedImage.Transformations>
             <ffimageloading:CachedImage.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigationToProfileCommand}" />
+                <TapGestureRecognizer Command="{Binding NavigateToProfileCommand}"/>
             </ffimageloading:CachedImage.GestureRecognizers>
 
         </ffimageloading:CachedImage>
@@ -40,37 +38,25 @@
         <!--  POST TEXT CONTENT  -->
 
         <StackLayout Grid.Column="1">
-            <Label FontAttributes="Bold" Text="{Binding UserModel.Name}" />
-            <Label Text="{Binding PostModel.Text}" />
+            <Label Text="{Binding UserModel.Name}" Style="{StaticResource Subtitle2}" FontAttributes="Bold"/>
+            <Label Text="{Binding PostModel.Text}" Style="{StaticResource Body2}"/>
         </StackLayout>
 
 
         <!--  POST MEDIA CONTENT  -->
 
-        <flv:FlowListView
-            Grid.Row="1"
-            Grid.Column="1"
-            FlowColumnCount="3"
-            FlowItemsSource="{Binding PostModel.MediaPaths}"
-            HasUnevenRows="False"
-            HorizontalScrollBarVisibility="Never"
-            RowHeight="100"
-            VerticalScrollBarVisibility="Never">
+        <flv:FlowListView Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Never" RowHeight="100"
+                          FlowColumnCount="3" HasUnevenRows="False" VerticalScrollBarVisibility="Never"
+                          FlowItemsSource="{Binding PostModel.MediaPaths}">
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
-                    <ffimageloading:CachedImage
-                        Margin="2"
-                        Aspect="AspectFit"
-                        Source="{Binding .}">
-                        <ffimageloading:CachedImage.Transformations>
-                            <fftransformations:CornersTransformation
-                                BottomLeftCornerSize="6"
-                                BottomRightCornerSize="6"
-                                CornersTransformType="AllRounded"
-                                TopLeftCornerSize="6"
-                                TopRightCornerSize="6" />
-                        </ffimageloading:CachedImage.Transformations>
-                    </ffimageloading:CachedImage>
+                    <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" HasShadow="False" Margin="2">
+                        <ffimageloading:CachedImage Source="{Binding .}" Aspect="AspectFill">
+                            <ffimageloading:CachedImage.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OpenPostCommand}"/>
+                            </ffimageloading:CachedImage.GestureRecognizers>
+                        </ffimageloading:CachedImage>
+                    </Frame>
                 </DataTemplate>
             </flv:FlowListView.FlowColumnTemplate>
         </flv:FlowListView>
@@ -84,11 +70,8 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <Label
-                FontSize="14"
-                HorizontalOptions="Start"
-                Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}"
-                VerticalOptions="Center" />
+            <Label Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}"
+                TextColor="{StaticResource Dark Grey}" Style="{StaticResource Body2}"/>
 
             <StackLayout
                 Grid.Column="1"
@@ -111,10 +94,7 @@
 
                 <Label
                     Margin="0,0,15,0"
-                    FontSize="14"
-                    Text="{Binding LikesCount}"
-                    TextColor="{StaticResource Dark Grey}"
-                    VerticalOptions="Center">
+                     Text="{Binding LikesCount}" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Dark Grey}" >
                     <Label.Triggers>
                         <DataTrigger
                             Binding="{Binding IsLiked}"

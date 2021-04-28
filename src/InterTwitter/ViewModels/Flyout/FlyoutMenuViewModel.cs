@@ -3,7 +3,6 @@ using InterTwitter.Resources;
 using InterTwitter.Views;
 using InterTwitter.Views.Navigation;
 using Prism.Events;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using System;
@@ -38,25 +37,25 @@ namespace InterTwitter.ViewModels.Flyout
             {
                 new MenuItemViewModel
                 {
-                    Title = "Home",
+                    Title = Strings.HomeTitle,
                     IconSource = "ic_home_gray.png",
                     TargetType = typeof(HomeView)
                 },
                 new MenuItemViewModel
                 {
-                    Title = "Search",
+                    Title = Strings.SearchTitle,
                     IconSource = "ic_search_gray.png",
                     TargetType = typeof(SearchView)
                 },
                 new MenuItemViewModel
                 {
-                    Title = "Notifycation",
+                    Title = Strings.NotificationTitle,
                     IconSource = "ic_notifications_gray.png",
                     TargetType = typeof(NotifycationView)
                 },
                 new MenuItemViewModel
                 {
-                    Title = "Bookmarks",
+                    Title = Strings.BookmarksTitle,
                     IconSource = "ic_bookmarks_gray.png",
                     TargetType = typeof(BookmarksView)
                 }
@@ -73,7 +72,7 @@ namespace InterTwitter.ViewModels.Flyout
             get => _selectedItem;
             set => SetProperty(ref _selectedItem, value, nameof(SelectedItem));
         }
-        
+
         private string _profileImage;
         public string ProfileImage
         {
@@ -96,13 +95,14 @@ namespace InterTwitter.ViewModels.Flyout
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
 
         private ICommand _logoutCommand;
-        public ICommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogout);
+        public ICommand LogoutCommand => _logoutCommand ??= SingleExecutionCommand.FromFunc(OnLogoutAsync);
 
-        private ICommand _navigationToProfileCommand;
-        public ICommand NavigationToProfileCommand => _navigationToProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToProfileCommand);
-      
-        private ICommand _navigationToChangeProfileCommand;
-        public ICommand NavigationToChangeProfileCommand => _navigationToChangeProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToChangeProfileCommand);
+        private ICommand _changeProfileCommand;
+        public ICommand ChangeProfileCommand => _changeProfileCommand ??= SingleExecutionCommand.FromFunc(OnChangeProfileAsync);
+
+        private ICommand _openProfileCommand;
+        public ICommand OpenProfileCommand => _openProfileCommand ??= SingleExecutionCommand.FromFunc(OnOpenProfileAsync);
+
 
         #endregion
 
@@ -124,31 +124,31 @@ namespace InterTwitter.ViewModels.Flyout
 
         #region -- Private helpers --
 
-        private async Task OnNavigationToProfileCommand()
-        {
-            await NavigationService.NavigateAsync($"/{nameof(ProfileView)}");
-        }
-
-        private async Task OnNavigationToChangeProfileCommand()
-        {
-            await NavigationService.NavigateAsync($"/{nameof(ChangeProfileView)}");
-        }
-
-        private async Task OnLogout()
+        private async Task OnLogoutAsync()
         {
             bool shouldLogOut = await _pageDialog.DisplayAlertAsync(Strings.LogoutAlertTitle, Strings.LogoutAlertBody,
                 Strings.LogoutAlertOk, Strings.LogoutAlertCancel);
 
-            if(shouldLogOut)
+            if (shouldLogOut)
             {
                 _authorizationService.UnAuthorize();
                 await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
             }
         }
 
+        private Task OnChangeProfileAsync()
+        {
+            return NavigationService.NavigateAsync($"{nameof(ChangeProfileView)}", null, true, true);
+        }
+
+        private Task OnOpenProfileAsync()
+        {
+            return NavigationService.NavigateAsync($"{nameof(ProfileView)}", null, true, true);
+        }
+
         private void SendSelectedItem()
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
             {
                 _eventAggregator.GetEvent<MenuItemChangedEvent>().Publish(SelectedItem.TargetType);
                 _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(false);
@@ -159,7 +159,7 @@ namespace InterTwitter.ViewModels.Flyout
 
         private void OnMenuItemChanged(Type obj)
         {
-            if(obj != null && SelectedItem?.TargetType != obj)
+            if (obj != null && SelectedItem?.TargetType != obj)
             {
                 ChangeVisualState(obj);
             }
@@ -167,12 +167,12 @@ namespace InterTwitter.ViewModels.Flyout
 
         private void ChangeVisualState(Type selectedType)
         {
-            foreach(var item in MenuItems)
+            foreach (var item in MenuItems)
             {
                 item.IsSelected = (selectedType == item.TargetType);
                 item.TextColor = item.IsSelected ? Color.FromHex("#2356C5") : Color.FromHex("#02060E");
 
-                switch(item.TargetType.Name)
+                switch (item.TargetType.Name)
                 {
                     case nameof(HomeView):
                         item.IconSource = item.IsSelected ? "ic_home_blue.png" : "ic_home_gray.png";

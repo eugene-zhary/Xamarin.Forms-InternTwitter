@@ -1,16 +1,13 @@
 ﻿using InterTwitter.Enums;
+using System.Runtime.CompilerServices;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace InterTwitter.Controls
 {
     public class CustomCollectionView : CollectionView
     {
-        private double _scrolledOffset; 
-
-        public CustomCollectionView()
-        {
-            _scrolledOffset = 0;
-        }
+        private double _scrolledOffset;
 
         #region -- Public properties --
 
@@ -33,9 +30,11 @@ namespace InterTwitter.Controls
             base.OnScrolled(e);
 
             ScrollState = (e.VerticalOffset > _scrolledOffset) ? EScrollState.ScrollDown : EScrollState.ScrollUp;
+
             _scrolledOffset = e.VerticalOffset;
         }
 
         #endregion
+
     }
 }

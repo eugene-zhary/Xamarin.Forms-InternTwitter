@@ -1,13 +1,9 @@
 ﻿using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace InterTwitter.Services.Permission
 {
-
     public class PermissionManager : IPermissionManager
     {
         public async Task<bool> RequestStoragePermissionAsync()

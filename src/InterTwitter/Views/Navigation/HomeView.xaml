@@ -3,7 +3,8 @@
     x:Class="InterTwitter.Views.Navigation.HomeView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors="clr-namespace:InterTwitter.Behaviors"
+    xmlns:behaviors="[behaviors ]clr-namespace:InterTwitter.Behaviors"
+    xmlns:behaviors1="clr-namespace:InterTwitter.Behaviors"
     xmlns:controls="clr-namespace:InterTwitter.Controls"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:local="clr-namespace:InterTwitter.Views"
@@ -11,10 +12,10 @@
     xmlns:resources="clr-namespace:InterTwitter.Resources"
     ios:Page.UseSafeArea="true"
     prism:ViewModelLocator.AutowireViewModel="True"
-    BackgroundColor="White"
+    BackgroundColor="{StaticResource White}"
     IconImageSource="{Binding IconPath}">
     <ContentPage.Behaviors>
-        <behaviors:TabPageBehavior />
+        <behaviors1:TabPageBehavior />
     </ContentPage.Behaviors>
     <ContentPage.Resources>
         <resources:PostTemplates />
@@ -25,30 +26,31 @@
         <controls:CustomCollectionView
             x:Name="collectionView"
             ItemTemplate="{StaticResource postTemplateSelector}"
-            ItemsSource="{Binding PostCollection}"
-            ItemsUpdatingScrollMode="KeepItemsInView">
+            ItemsSource="{Binding PostCollection}">
             <controls:CustomCollectionView.Header>
                 <BoxView BackgroundColor="White" HeightRequest="55" />
             </controls:CustomCollectionView.Header>
+
         </controls:CustomCollectionView>
 
         <!--  FLOATING ACTION BUTTON  -->
         <controls:FloationActionButton
-            Margin="20"
+            Margin="20,40"
             BackgroundColor="{StaticResource Primary}"
-            CornerRadius="25"
-            HeightRequest="50"
+            CornerRadius="30"
+            HeightRequest="60"
             HorizontalOptions="End"
             ImageSource="ic_add_white.png"
             ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
             VerticalOptions="End"
-            WidthRequest="50" />
+            WidthRequest="60" />
 
 
         <!--  NAVIGATION BAR  -->
         <controls:FeedNavigationBar
             Margin="{Binding Margin}"
             HorizontalOptions="FillAndExpand"
+            ImagePath="{Binding ImagePath}"
             ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
             VerticalOptions="Start" />
 

@@ -5,6 +5,7 @@
         Photo,
         Gallery,
         Video,
-        Gif
+        Gif,
+        Empty
     }
 }

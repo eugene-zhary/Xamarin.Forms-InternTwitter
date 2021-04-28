@@ -9,11 +9,13 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using AndroidX.AppCompat.App;
 using FFImageLoading.Forms.Platform;
+using Octane.Xamarin.Forms.VideoPlayer.Android;
 using PanCardView.Droid;
+using Android.Content;
 
 namespace InterTwitter.Droid
 {
-    [Activity(Label = "@string/ApplicationName", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "@string/ApplicationName", Icon = "@mipmap/launcher_foreground", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         #region -- Overrides --
@@ -28,11 +30,14 @@ namespace InterTwitter.Droid
 
             Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
+            UserDialogs.Init(this);
+
             CardsViewRenderer.Preserve();
             CachedImageRenderer.Init(true);
+            FormsVideoPlayer.Init();
+            Xamarin.MediaGallery.Platform.Init(this, savedInstanceState);
 
             AppCompatDelegate.DefaultNightMode = AppCompatDelegate.ModeNightNo;
-            UserDialogs.Init(this);
 
             LoadApplication(new App(new AndroidInitializer()));
         }
@@ -44,6 +49,16 @@ namespace InterTwitter.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
+        {
+            if(Xamarin.MediaGallery.Platform.CheckCanProcessResult(requestCode, resultCode, intent))
+            {
+                Xamarin.MediaGallery.Platform.OnActivityResult(requestCode, resultCode, intent);
+            }
+
+            base.OnActivityResult(requestCode, resultCode, intent);
+        }
+
         #endregion
 
         public class AndroidInitializer : IPlatformInitializer
@@ -52,5 +67,6 @@ namespace InterTwitter.Droid
             {
             }
         }
+
     }
 }

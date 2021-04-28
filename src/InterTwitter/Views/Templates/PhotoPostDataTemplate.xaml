@@ -1,14 +1,13 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<DataTemplate
-    x:Class="InterTwitter.Views.Templates.PhotoPostDataTemplate"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
-    <Grid
-        Padding="15,15,15,0"
-        ColumnSpacing="15"
-        RowSpacing="15">
+<?xml version="1.0" encoding="UTF-8"?>
+<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Views.Templates.PhotoPostDataTemplate"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+    <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding OpenPostCommand}"/>
+        </Grid.GestureRecognizers>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="210" />
@@ -30,7 +29,7 @@
                 <fftransformations:CircleTransformation />
             </ffimageloading:CachedImage.Transformations>
             <ffimageloading:CachedImage.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigationToProfileCommand}" />
+                <TapGestureRecognizer Command="{Binding NavigateToProfileCommand}" />
             </ffimageloading:CachedImage.GestureRecognizers>
 
         </ffimageloading:CachedImage>
@@ -38,21 +37,13 @@
         <!--  POST TEXT CONTENT  -->
 
         <StackLayout Grid.Column="1">
-            <Label FontAttributes="Bold" Text="{Binding UserModel.Name}" />
-            <Label Text="{Binding PostModel.Text}" />
+            <Label Text="{Binding UserModel.Name}" Style="{StaticResource Subtitle2}" FontAttributes="Bold"/>
+            <Label Text="{Binding PostModel.Text}" Style="{StaticResource Body2}"/>
         </StackLayout>
 
 
-        <!--  POST MEDIA CONTENT  -->
-
-        <Frame
-            Grid.Row="1"
-            Grid.Column="1"
-            Padding="0"
-            CornerRadius="5"
-            HasShadow="False"
-            IsClippedToBounds="True">
-            <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding PhotoSource}" />
+        <Frame Padding="0" Grid.Row="1" Grid.Column="1" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
+            <ffimageloading:CachedImage Source="{Binding MediaPath}"  Aspect="AspectFill" LoadingPlaceholder="anim_loading"/>
         </Frame>
 
 
@@ -64,11 +55,8 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <Label
-                FontSize="14"
-                HorizontalOptions="Start"
-                Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}"
-                VerticalOptions="Center" />
+            <Label Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}" Style="{StaticResource Body2}"
+                   TextColor="{StaticResource Dark Grey}"/>
 
             <StackLayout
                 Grid.Column="1"
@@ -89,12 +77,10 @@
                     </ffimageloading:CachedImage.Triggers>
                 </ffimageloading:CachedImage>
 
-                <Label
-                    Margin="0,0,15,0"
-                    FontSize="14"
-                    Text="{Binding LikesCount}"
-                    TextColor="{StaticResource Dark Grey}"
-                    VerticalOptions="Center">
+                <Label Margin="0,0,15,0" Text="{Binding LikesCount}" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Dark Grey}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LikesCommand}"/>
+                    </Label.GestureRecognizers>
                     <Label.Triggers>
                         <DataTrigger
                             Binding="{Binding IsLiked}"

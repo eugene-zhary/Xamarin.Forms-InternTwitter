@@ -20,11 +20,24 @@ namespace InterTwitter.ViewModels.Navigation
 {
 	public class ProfileViewModel : BaseViewModel, INavigatedAware
 	{
+
+		#region Private Variables/Properties
+
+		private readonly IAuthorizationService _authorizationService;
+		private readonly IUserService _userService;
+		private readonly IPostService _postManager;
+		private User CurrentProfile;
+		private User CurrentUser;
+
+		#endregion
+
+		#region Constructors
+
 		public ProfileViewModel(INavigationService navigationService, IAuthorizationService AuthorizationService, IUserService userService, IPostService postManager) : base(navigationService)
 		{
 			_authorizationService = AuthorizationService;
-            _userService = userService;
-            _postManager = postManager;
+			_userService = userService;
+			_postManager = postManager;
 
 
 			RemoveCurrentItemCommand = new Command(() =>
@@ -47,8 +60,12 @@ namespace InterTwitter.ViewModels.Navigation
 				new { PostCollection = UserLikePostCollection, Title = "Likes" },
 			};
 		}
-		
-		private int _currentIndex;
+
+		#endregion
+
+		#region -- Public properties --
+
+		#region Bindble Properties
 
 		private string _userBackGround;
 		public string UserBackGround
@@ -56,6 +73,7 @@ namespace InterTwitter.ViewModels.Navigation
 			get => _userBackGround;
 			set => SetProperty(ref _userBackGround, value);
 		}
+
 		private string _userImagePath;
 		public string UserImagePath
 		{
@@ -67,9 +85,10 @@ namespace InterTwitter.ViewModels.Navigation
 		public string UserMail
 		{
 			get => _userMail;
-			
+
 			set => SetProperty(ref _userMail, value);
 		}
+
 		private string _userName;
 		public string UserName
 		{
@@ -83,12 +102,14 @@ namespace InterTwitter.ViewModels.Navigation
 			get => _IsAlianShowMenu;
 			set => SetProperty(ref _IsAlianShowMenu, value);
 		}
+
 		private bool _IsShowMenu;
 		public bool IsShowMenu
 		{
 			get => _IsShowMenu;
 			set => SetProperty(ref _IsShowMenu, value);
 		}
+
 		private bool _IsAlianProfile;
 		public bool IsAlianProfile
 		{
@@ -102,34 +123,35 @@ namespace InterTwitter.ViewModels.Navigation
 			get => _IsYourProfile;
 			set => SetProperty(ref _IsYourProfile, value);
 		}
+
 		private string _profileInfo;
 		public string ProfileInfo
 		{
 			get => _profileInfo;
 			set => SetProperty(ref _profileInfo, value);
 		}
+
 		private string _blockedMessage;
 		public string BlockedMessage
 		{
 			get => _blockedMessage;
 			set => SetProperty(ref _blockedMessage, value);
 		}
+
 		private string _mutedMessage;
 		public string MutedMessage
 		{
 			get => _mutedMessage;
 			set => SetProperty(ref _mutedMessage, value);
 		}
+
+		private int _currentIndex;
 		public int CurrentIndex
 		{
 			get => _currentIndex;
 			set => SetProperty(ref _currentIndex, value);
 		}
-		public bool IsAutoAnimationRunning { get; set; }
-
-		public bool IsUserInteractionRunning { get; set; }
-
-		public ObservableCollection<object> Items { get; set; }
+		
 
 		private ObservableCollection<BasePostViewModel> _UserPostCollection = new ObservableCollection<BasePostViewModel>();
 		public ObservableCollection<BasePostViewModel> UserPostCollection
@@ -144,46 +166,119 @@ namespace InterTwitter.ViewModels.Navigation
 			set => SetProperty(ref _UserLikePostCollection, value);
 		}
 
+		#endregion
+		public ObservableCollection<object> Items { get; set; }
+		public bool IsAutoAnimationRunning { get; set; }
+		public bool IsUserInteractionRunning { get; set; }
+
 		private ICommand _navigationToChangeProfileCommand;
-		public ICommand NavigationToChangeProfileCommand => _navigationToChangeProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToChangeProfileCommand);
+		public ICommand NavigationToChangeProfileCommand => _navigationToChangeProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToChangeProfileAsync);
 
 		private ICommand _userBlockCommand;
-		public ICommand UserBlockCommand => _userBlockCommand ??= SingleExecutionCommand.FromFunc(OnUserBlockCommand);
+		public ICommand UserBlockCommand => _userBlockCommand ??= SingleExecutionCommand.FromFunc(OnUserBlockAsync);
 
 		private ICommand _userMuteCommand;
-		public ICommand UserMuteCommand => _userMuteCommand ??= SingleExecutionCommand.FromFunc(OnUserMuteCommand);
-	
-		private ICommand _showMenuCommand;
-		public ICommand ShowMenuCommand => _showMenuCommand ??= SingleExecutionCommand.FromFunc(OnShowMenuCommand);
-		
-		private ICommand _backNavigationCommand;
-		public ICommand BackNavigationCommand => _backNavigationCommand ??= SingleExecutionCommand.FromFunc(OnBackNavigationCommand);
+		public ICommand UserMuteCommand => _userMuteCommand ??= SingleExecutionCommand.FromFunc(OnUserMuteAsync);
 
+		private ICommand _showMenuCommand;
+		public ICommand ShowMenuCommand => _showMenuCommand ??= SingleExecutionCommand.FromFunc(OnShowMenuAsync);
+
+		private ICommand _backNavigationCommand;
+		public ICommand BackNavigationCommand => _backNavigationCommand ??= SingleExecutionCommand.FromFunc(OnBackNavigationAsync);
+		
 		public ICommand PanPositionChangedCommand { get; }
 		public ICommand RemoveCurrentItemCommand { get; }
 		public ICommand GoToLastCommand { get; }
 
-		private readonly IAuthorizationService _authorizationService;
-		private readonly IUserService _userService;
-		private readonly IPostService _postManager;
-		private User CurrentProfile;
-		private User CurrentUser;
 
-		private async Task OnBackNavigationCommand()
+		#endregion
+
+		#region -- Overrides --
+
+		public override async void OnNavigatedTo(INavigationParameters parameters)
 		{
-			await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
+			var user = await _userService.GetUserAsync(_authorizationService.GetCurrentUserId);
+
+			User UserModel;
+			if (parameters.TryGetValue(nameof(UserModel), out UserModel))
+			{
+				CurrentProfile = UserModel;
+				CurrentUser = user.Result;
+				UserName = CurrentProfile.Name;
+				UserMail = CurrentProfile.Email;
+				UserBackGround = CurrentProfile.ProfileBackgroundImagePath;
+				UserImagePath = CurrentProfile.ProfileImagePath;
+				IsYourProfile = (CurrentProfile.Id == CurrentUser?.Id || CurrentUser == null);
+				IsAlianProfile = CurrentUser.Id != CurrentProfile.Id;
+
+				UpdatePage();
+
+			}
+			else
+			{
+				if (user.TrackingResult)
+				{
+					CurrentProfile = user.Result;
+					UserName = CurrentProfile.Name;
+					UserMail = CurrentProfile.Email;
+					UserBackGround = CurrentProfile.ProfileBackgroundImagePath;
+					UserImagePath = CurrentProfile.ProfileImagePath;
+				}
+			}
+
+			await UpdateCollecitonAsync();
 		}
 
-		private async Task OnUserBlockCommand()
-        {
+		protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+		{
+			base.OnPropertyChanged(args);
+
+			if (args.PropertyName == nameof(CurrentIndex) && IsYourProfile)
+			{
+				for (int i = UserLikePostCollection.Count - 1; i >= 0; i--)
+				{
+					if (!UserLikePostCollection[i].IsLiked)
+					{
+						UserLikePostCollection.RemoveAt(i);
+					}
+				}
+
+				UserPostCollection.Where(u => u.IsLiked).Where(u => !UserLikePostCollection.Contains(u)).ToList().ForEach(UserLikePostCollection.Add);
+
+				for (int i = 0; i < UserLikePostCollection.Count; i++)
+				{
+					for (int j = i; j < UserLikePostCollection.Count; j++)
+					{
+						if (UserLikePostCollection[i].PostModel.CreationDateTime < UserLikePostCollection[j].PostModel.CreationDateTime)
+						{
+							var t = UserLikePostCollection[i];
+							UserLikePostCollection[i] = UserLikePostCollection[j];
+							UserLikePostCollection[j] = t;
+						}
+					}
+				}
+			}
+		}
+
+		#endregion
+
+		#region -- Private helpers -- 
+
+		private async Task OnBackNavigationAsync()
+		{
+			await NavigationService.GoBackAsync();
+		}
+
+		private async Task OnUserBlockAsync()
+		{
 			var newlist = CurrentUser.BlockedUserIds.ToList();
 
-			if (BlockedMessage == "Block")
-            {
+			if (BlockedMessage == Resources.Strings.Block)
+			{
 				newlist.Add(CurrentProfile.Id);
-            }
-            else
-            {
+			}
+			else
+			{
 				newlist.Remove(CurrentProfile.Id);
 			}
 
@@ -194,11 +289,11 @@ namespace InterTwitter.ViewModels.Navigation
 			UpdatePage();
 		}
 
-		private async Task OnUserMuteCommand()
+		private async Task OnUserMuteAsync()
 		{
 			var newlist = CurrentUser.MutedUserIds.ToList();
 
-			if (MutedMessage == "Mute")
+			if (MutedMessage == Resources.Strings.Mute)
 			{
 				newlist.Add(CurrentProfile.Id);
 			}
@@ -213,12 +308,13 @@ namespace InterTwitter.ViewModels.Navigation
 
 			UpdatePage();
 		}
+
 		private void UpdatePage()
 		{
-			MutedMessage = CurrentUser.MutedUserIds.Contains(CurrentProfile.Id) ? "Unmute" : "Mute";
-			BlockedMessage = CurrentUser.BlockedUserIds.Contains(CurrentProfile.Id) ? "Remove from blacklist" : "Block";
+			MutedMessage = CurrentUser.MutedUserIds.Contains(CurrentProfile.Id) ? Resources.Strings.Unmute : Resources.Strings.Mute;
+			BlockedMessage = CurrentUser.BlockedUserIds.Contains(CurrentProfile.Id) ? Resources.Strings.RemoveFromBlacklist : Resources.Strings.Block;
 
-			ProfileInfo = BlockedMessage != "Block" ? "Profile in blacklist" : MutedMessage != "Mute" ? "Muted" : string.Empty;
+			ProfileInfo = BlockedMessage != Resources.Strings.Block ? Resources.Strings.ProfileInBlacklist : MutedMessage != Resources.Strings.Mute ? Resources.Strings.Muted : string.Empty;
 			if (string.IsNullOrEmpty(ProfileInfo))
 			{
 				IsAlianProfile = false;
@@ -229,16 +325,16 @@ namespace InterTwitter.ViewModels.Navigation
 			}
 		}
 
-		private async Task OnShowMenuCommand()
-        {
-            if (IsYourProfile)
-            {
+		private async Task OnShowMenuAsync()
+		{
+			if (IsYourProfile)
+			{
 				IsShowMenu = true;
-            }
-            else
-            {
+			}
+			else
+			{
 				IsShowAlianMenu = true;
-            }
+			}
 
 			await Task.Delay(3000);
 
@@ -246,43 +342,12 @@ namespace InterTwitter.ViewModels.Navigation
 			IsShowAlianMenu = false;
 		}
 
-        private async Task OnNavigationToChangeProfileCommand()
-        {
-			await NavigationService.NavigateAsync(nameof(ChangeProfileView));
-        }
-
-		protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+		private async Task OnNavigationToChangeProfileAsync()
 		{
-			base.OnPropertyChanged(args);
-			if (args.PropertyName == nameof(CurrentIndex) && IsYourProfile)
-			{
-                for (int i = UserLikePostCollection.Count - 1; i >= 0; i--)
-                {
-                    if (!UserLikePostCollection[i].IsLiked)
-                    {
-                        UserLikePostCollection.RemoveAt(i);
-                    }
-                }
+			await NavigationService.NavigateAsync(nameof(ChangeProfileView));
+		}
 
-                UserPostCollection.Where(u => u.IsLiked).Where(u => !UserLikePostCollection.Contains(u)).ToList().ForEach(UserLikePostCollection.Add);
-
-                for (int i = 0; i < UserLikePostCollection.Count; i++)
-                {
-                    for (int j = i; j < UserLikePostCollection.Count; j++)
-                    {
-                        if (UserLikePostCollection[i].PostModel.CreationDateTime < UserLikePostCollection[j].PostModel.CreationDateTime)
-                        {
-							var t = UserLikePostCollection[i];
-							UserLikePostCollection[i] = UserLikePostCollection[j];
-							UserLikePostCollection[j] = t;
-                        }
-                    }
-                }
-            }
-
-        }
-
-        private async Task<AOResult> UpdateCollecitonAsync()
+		private async Task<AOResult> UpdateCollecitonAsync()
 		{
 			var result = new AOResult();
 
@@ -293,7 +358,7 @@ namespace InterTwitter.ViewModels.Navigation
 
 				var posts = await _postManager.GetPostsAsync();
 
-			    posts.Result.Where(u => CurrentProfile.Id == u.UserModel.Id).ToList().ForEach(UserPostCollection.Add);
+				posts.Result.Where(u => CurrentProfile.Id == u.UserModel.Id).ToList().ForEach(UserPostCollection.Add);
 				posts.Result.Where(u => u.PostModel.LikedUserIds.Contains(CurrentProfile.Id)).ToList().ForEach(UserLikePostCollection.Add);
 
 				result.SetSuccess();
@@ -306,38 +371,7 @@ namespace InterTwitter.ViewModels.Navigation
 			return result;
 		}
 
-		public override async void OnNavigatedTo(INavigationParameters parameters)
-		{
-			var user = await _userService.GetUserAsync(_authorizationService.GetCurrentUserId);
-
-			if (parameters.TryGetValue<User>("UserModel", out var UserModel))
-            {
-				CurrentProfile = UserModel;
-				CurrentUser = user.Result;
-				UserName = CurrentProfile.Name;
-				UserMail = CurrentProfile.Email;
-				UserBackGround = CurrentProfile.ProfileBackgroundImagePath;
-				UserImagePath = CurrentProfile.ProfileImagePath;
-				IsYourProfile = (CurrentProfile.Id == CurrentUser?.Id || CurrentUser == null);
-				IsAlianProfile = CurrentUser.Id != CurrentProfile.Id;
-
-				UpdatePage();
-
-			}
-			else
-            {
-				if (user.TrackingResult)
-				{
-					CurrentProfile = user.Result;
-					UserName = CurrentProfile.Name;
-					UserMail = CurrentProfile.Email;
-					UserBackGround = CurrentProfile.ProfileBackgroundImagePath;
-					UserImagePath = CurrentProfile.ProfileImagePath;
-				}
-			}
-
-			await UpdateCollecitonAsync();
-		}
+		#endregion
 	}
 }
 

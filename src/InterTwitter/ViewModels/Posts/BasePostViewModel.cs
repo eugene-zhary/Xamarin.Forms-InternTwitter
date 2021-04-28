@@ -2,29 +2,34 @@
 using InterTwitter.Models;
 using InterTwitter.Services;
 using InterTwitter.Views.Navigation;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Navigation;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace InterTwitter.ViewModels.Posts
 {
-    public abstract class BasePostViewModel : BindableBase
+    public class BasePostViewModel : BindableBase
     {
-        private readonly IPostService _postManager;
-        private readonly INavigationService _navigationService;
+        private readonly IEventAggregator _eventAggregator;
 
-        public BasePostViewModel(User userModel, Post postModel, IPostService postManager, INavigationService navigation)
+        public BasePostViewModel(User userModel, Post postModel)
         {
+            _eventAggregator = App.Resolve<IEventAggregator>();
+
+            PostService = App.Resolve<IPostService>();
+            NavigationService = App.Resolve<INavigationService>();
+
             _userModel = userModel;
             _postModel = postModel;
-            _postManager = postManager;
-            _navigationService = navigation;
         }
 
         #region -- Public properties --
+
+        protected INavigationService NavigationService { get; private set; }
+        protected IPostService PostService { get; private set; }
 
         private User _userModel;
         public User UserModel
@@ -60,58 +65,69 @@ namespace InterTwitter.ViewModels.Posts
         }
 
         private ICommand _likesCommand;
-        public ICommand LikesCommand => _likesCommand ??= SingleExecutionCommand.FromFunc(OnLikes);
+        public ICommand LikesCommand => _likesCommand ??= SingleExecutionCommand.FromFunc(OnLikesAsync);
 
         private ICommand _bookmarksCommand;
-        public ICommand BookmarksCommand => _bookmarksCommand ??= SingleExecutionCommand.FromFunc(OnBookmarks);
-        
-        private ICommand _navigationToProfileCommand;
-        public ICommand NavigationToProfileCommand => _navigationToProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToProfile);
+        public ICommand BookmarksCommand => _bookmarksCommand ??= SingleExecutionCommand.FromFunc(OnBookmarksAsync);
+
+        private ICommand _openPostCommand;
+        public ICommand OpenPostCommand => _openPostCommand ??= SingleExecutionCommand.FromFunc(OnOpenPostAsync);
+
+        private ICommand _navigateToProfileCommand;
+        public ICommand NavigateToProfileCommand => _navigateToProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToProfileAsync);
 
         #endregion
 
         #region -- Private helpers --
 
-        private async Task OnNavigationToProfile()
+        private async Task OnNavigationToProfileAsync()
         {
             var pairs = new NavigationParameters
             {
                 { nameof(UserModel), UserModel }
             };
 
-            await _navigationService.NavigateAsync($"/{nameof(ProfileView)}", pairs);
+            await NavigationService.NavigateAsync($"{nameof(ProfileView)}", pairs, true, true);
         }
 
-        private async Task OnLikes()
+        private async Task OnLikesAsync()
         {
             IsLiked = !IsLiked;
 
             if (IsLiked)
             {
-                await _postManager.LikePostAsync(PostModel.Id);
+                await PostService.LikePostAsync(PostModel.Id);
             }
             else
             {
-                await _postManager.UnlikePostAsync(PostModel.Id);
+                await PostService.UnlikePostAsync(PostModel.Id);
             }
 
             RaisePropertyChanged(nameof(LikesCount));
         }
 
-        private async Task OnBookmarks()
+        private async Task OnBookmarksAsync()
         {
             IsBookmarked = !IsBookmarked;
 
             if (IsBookmarked)
             {
-                await _postManager.BookmarkPostAsync(PostModel.Id);
+                await PostService.BookmarkPostAsync(PostModel.Id);
             }
             else
             {
-                await _postManager.UnbookmarkPostAsync(PostModel.Id);
+                await PostService.UnbookmarkPostAsync(PostModel.Id);
             }
+        }
+
+        private Task OnOpenPostAsync()
+        {
+            _eventAggregator.GetEvent<NavigationEvent>().Publish(this);
+
+            return Task.CompletedTask;
         }
 
         #endregion
     }
+
 }

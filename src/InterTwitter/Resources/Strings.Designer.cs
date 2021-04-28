@@ -79,6 +79,42 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Block.
+        /// </summary>
+        internal static string Block {
+            get {
+                return ResourceManager.GetString("Block", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Bookmarks.
+        /// </summary>
+        internal static string Bookmarks {
+            get {
+                return ResourceManager.GetString("Bookmarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Bookmarks.
+        /// </summary>
+        internal static string BookmarksTitle {
+            get {
+                return ResourceManager.GetString("BookmarksTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Confirm.
         /// </summary>
         internal static string Confirm {
@@ -102,6 +138,33 @@ namespace InterTwitter.Resources {
         internal static string CreateYourAccount {
             get {
                 return ResourceManager.GetString("CreateYourAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete all bookmarks.
+        /// </summary>
+        internal static string DeleteAllBookmarks {
+            get {
+                return ResourceManager.GetString("DeleteAllBookmarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Are you sure you want to delete all bookmarks?.
+        /// </summary>
+        internal static string DeleteAllBookmarksConfirmMessage {
+            get {
+                return ResourceManager.GetString("DeleteAllBookmarksConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete all bookmarks?.
+        /// </summary>
+        internal static string DeleteAllBookmarksConfirmTitle {
+            get {
+                return ResourceManager.GetString("DeleteAllBookmarksConfirmTitle", resourceCulture);
             }
         }
         
@@ -147,6 +210,15 @@ namespace InterTwitter.Resources {
         internal static string GetYourAccount {
             get {
                 return ResourceManager.GetString("GetYourAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Home.
+        /// </summary>
+        internal static string HomeTitle {
+            get {
+                return ResourceManager.GetString("HomeTitle", resourceCulture);
             }
         }
         
@@ -214,6 +286,24 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Mute.
+        /// </summary>
+        internal static string Mute {
+            get {
+                return ResourceManager.GetString("Mute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Muted.
+        /// </summary>
+        internal static string Muted {
+            get {
+                return ResourceManager.GetString("Muted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Name.
         /// </summary>
         internal static string Name {
@@ -241,15 +331,6 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Next.
-        /// </summary>
-        internal static string Next {
-            get {
-                return ResourceManager.GetString("Next", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на New Password.
         /// </summary>
         internal static string NewPassword {
@@ -259,11 +340,29 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There&apos;s no any user with such email and password! Please, check your inputs once more or visit Sign Up page..
+        ///   Ищет локализованную строку, похожую на Next.
+        /// </summary>
+        internal static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на There&apos;s no any user with such email and password! Please, check your inputs once more or visit Sign Up page..
         /// </summary>
         internal static string NoSuchUser {
             get {
                 return ResourceManager.GetString("NoSuchUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Notification.
+        /// </summary>
+        internal static string NotificationTitle {
+            get {
+                return ResourceManager.GetString("NotificationTitle", resourceCulture);
             }
         }
         
@@ -313,7 +412,70 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Signing in....
+        ///   Ищет локализованную строку, похожую на Profile in blacklist.
+        /// </summary>
+        internal static string ProfileInBlacklist {
+            get {
+                return ResourceManager.GetString("ProfileInBlacklist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Remove from blacklist.
+        /// </summary>
+        internal static string RemoveFromBlacklist {
+            get {
+                return ResourceManager.GetString("RemoveFromBlacklist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Save Changes?.
+        /// </summary>
+        internal static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Permission for saving is denied.
+        /// </summary>
+        internal static string SaveFailed {
+            get {
+                return ResourceManager.GetString("SaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на File was saved to gallery.
+        /// </summary>
+        internal static string SaveSucces {
+            get {
+                return ResourceManager.GetString("SaveSucces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Save.
+        /// </summary>
+        internal static string SaveTitle {
+            get {
+                return ResourceManager.GetString("SaveTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Search.
+        /// </summary>
+        internal static string SearchTitle {
+            get {
+                return ResourceManager.GetString("SearchTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Signing in....
         /// </summary>
         internal static string SigningIn {
             get {
@@ -322,7 +484,7 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign Up.
+        ///   Ищет локализованную строку, похожую на Sign Up.
         /// </summary>
         internal static string SignUp {
             get {
@@ -354,6 +516,33 @@ namespace InterTwitter.Resources {
         internal static string SuchUserAlreadyExists {
             get {
                 return ResourceManager.GetString("SuchUserAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Unmute.
+        /// </summary>
+        internal static string Unmute {
+            get {
+                return ResourceManager.GetString("Unmute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на You have no bookmarks yet.
+        /// </summary>
+        internal static string YouHaveNoBookmarksYet {
+            get {
+                return ResourceManager.GetString("YouHaveNoBookmarksYet", resourceCulture);
             }
         }
         
