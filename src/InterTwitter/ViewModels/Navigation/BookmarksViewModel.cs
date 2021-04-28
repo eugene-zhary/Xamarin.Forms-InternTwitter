@@ -73,7 +73,7 @@ namespace InterTwitter.ViewModels.Navigation
         }
 
         private ICommand _refreshCommand;
-        public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefresh);
+        public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefresh, delayMillisec: 0);
 
         private ICommand _hiddenMenuTapCommand;
 
