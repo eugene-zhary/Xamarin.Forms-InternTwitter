@@ -62,17 +62,12 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<EmptyPostPage, EmptyPostPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
             containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
-
-            
         }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
             FlowListView.Init();
-
-
-            IAuthorizationService AuthorizeService = Container.Resolve<AuthorizationService>();
 
             await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
         }

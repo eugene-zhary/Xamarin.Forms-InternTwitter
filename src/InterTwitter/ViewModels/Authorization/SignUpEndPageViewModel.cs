@@ -184,7 +184,8 @@ namespace InterTwitter.ViewModels
                             Password = Password,
                             BlockedUserIds = new List<int>(),
                             MutedUserIds = new List<int>(),
-                            ProfileImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH
+                            ProfileImagePath = Constants.DEFAULT_PROFILE_IMAGE_PATH,
+                            ProfileBackgroundImagePath = Constants.DEFAULT_PROFILE_BACKGOUN_DIMAGE_PATH
                         };
 
                         var insertionResult = await _userService.InsertUserAsync(newUser);

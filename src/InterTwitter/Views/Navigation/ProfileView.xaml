@@ -6,11 +6,11 @@
     xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:controls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
     xmlns:controls1="clr-namespace:InterTwitter.Controls"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
     xmlns:prism="http://prismlibrary.com"
     xmlns:resources="clr-namespace:InterTwitter.Resources"
     xmlns:views="clr-namespace:InterTwitter.Views"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-	xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
     x:Name="profileView"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
@@ -37,9 +37,9 @@
                 HorizontalOptions="Start"
                 Size="48"
                 VerticalOptions="End">
-                <ffimageloading:CachedImage Source="{Binding UserImagePath}"  Aspect="AspectFill">
+                <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding UserImagePath}">
                     <ffimageloading:CachedImage.Transformations>
-                        <fftransformations:CircleTransformation/>
+                        <fftransformations:CircleTransformation />
                     </ffimageloading:CachedImage.Transformations>
                 </ffimageloading:CachedImage>
             </controls:CircleFrame>
@@ -72,8 +72,14 @@
                 IsVisible="{Binding IsShowMenu}"
                 VerticalOptions="Start">
                 <StackLayout>
-                    <Label Style="{StaticResource LabelCaption1}" Text="Share" />
-                    <Label Style="{StaticResource LabelCaption1}" Text="Change Profile">
+                    <Label
+                        Margin="8"
+                        Style="{StaticResource LabelCaption1}"
+                        Text="Share" />
+                    <Label
+                        Margin="8"
+                        Style="{StaticResource LabelCaption1}"
+                        Text="Change Profile">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigationToChangeProfileCommand}" />
                         </Label.GestureRecognizers>
@@ -90,13 +96,22 @@
                 IsVisible="{Binding IsShowAlianMenu}"
                 VerticalOptions="Start">
                 <StackLayout>
-                    <Label Style="{StaticResource LabelCaption1}" Text="Share" />
-                    <Label Style="{StaticResource LabelCaption1}" Text="{Binding MutedMessage}">
+                    <Label
+                        Margin="8"
+                        Style="{StaticResource LabelCaption1}"
+                        Text="Share" />
+                    <Label
+                        Margin="8"
+                        Style="{StaticResource LabelCaption1}"
+                        Text="{Binding MutedMessage}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding UserMuteCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
-                    <Label Style="{StaticResource LabelCaption1}" Text="{Binding BlockedMessage}">
+                    <Label
+                        Margin="8"
+                        Style="{StaticResource LabelCaption1}"
+                        Text="{Binding BlockedMessage}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding UserBlockCommand}" />
                         </Label.GestureRecognizers>
@@ -157,7 +172,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="22*" />
-                            <ColumnDefinition Width="150*" />
+                            <ColumnDefinition Width="170*" />
                             <ColumnDefinition Width="22*" />
                         </Grid.ColumnDefinitions>
                         <Label
@@ -186,7 +201,7 @@
             </Grid>
 
             <ContentView Grid.Row="2">
-                <controls:TabsControl BindingContext="{x:Reference cube}">
+                <controls:TabsControl BindingContext="{x:Reference Carusel}">
                     <controls:TabsControl.ItemTemplate>
                         <DataTemplate>
                             <Label
@@ -200,8 +215,10 @@
                 </controls:TabsControl>
             </ContentView>
             <cards:CarouselView
-                x:Name="cube"
+                x:Name="Carusel"
                 Grid.Row="3"
+                IsCyclical="False"
+                IsPanInteractionEnabled="False"
                 IsPanSwipeEnabled="False"
                 ItemsSource="{Binding Items}"
                 SelectedIndex="{Binding CurrentIndex}"
