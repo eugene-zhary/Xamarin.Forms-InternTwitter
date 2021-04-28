@@ -145,7 +145,7 @@ namespace InterTwitter.Services
                     Id = 3,
                     UserId = 4,
                     MediaType = EMediaType.Photo,
-                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    Text = "#Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
                     MediaPaths = new List<string>
                     {
                         "https://i.picsum.photos/id/1040/400/400.jpg?hmac=vOoeuciVz-_9Ejrgf5PpfD1ic7vTu0GYm3kn8BxdrHs"
@@ -159,7 +159,7 @@ namespace InterTwitter.Services
                     Id = 4,
                     UserId =1,
                     MediaType = EMediaType.Photo,
-                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    Text = "#Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
                     MediaPaths = new List<string>
                     {
                         "https://i.picsum.photos/id/904/400/400.jpg?hmac=f6UILh_efUs-iFYkEzhc1EFcHjQBgidgfhFwBbScofs"
@@ -173,7 +173,7 @@ namespace InterTwitter.Services
                     Id = 4,
                     UserId = 5,
                     MediaType = EMediaType.Photo,
-                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    Text = "Lorem #ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
                     MediaPaths = new List<string>
                     {
                         "https://i.picsum.photos/id/998/400/400.jpg?hmac=WetZ0aq7zNlX1LHIsGSzZwV5MdHfytypy_ji8IU5ocE"
@@ -187,7 +187,7 @@ namespace InterTwitter.Services
                     Id = 5,
                     UserId = 2,
                     MediaType = EMediaType.Gallery,
-                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    Text = "Lorem ipsum dolor sit #amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
                     MediaPaths = new List<string>
                     {
                         "https://i.picsum.photos/id/885/400/400.jpg?hmac=v75VLk67mKnHmkorr3_6B-7xtrh4zdu9yMXAVz72vVo",
@@ -206,7 +206,7 @@ namespace InterTwitter.Services
                     Id = 6,
                     UserId = 3,
                     MediaType = EMediaType.Gallery,
-                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    Text = "Lorem #ipsum ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
                     MediaPaths = new List<string>
                     {
                         "https://i.picsum.photos/id/686/400/400.jpg?hmac=vyAuUfLG282Gnl-ym3_Fh6faAR0mIj5wMllsXnlkTMY",
@@ -222,7 +222,7 @@ namespace InterTwitter.Services
                     Id = 7,
                     UserId = 5,
                     MediaType = EMediaType.Video,
-                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
+                    Text = "Lorem #ipsum ipsum #dolor sit amet, consectetur adipiscing elit. Donec erat tellus, egestas in hendrerit et, iaculis non ipsum. Nunc euismod justo eu nisi tristique mollis.",
                     MediaPaths = new List<string>
                     {
                         "http://vjs.zencdn.net/v/oceans.mp4",

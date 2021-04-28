@@ -4,12 +4,94 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:InterTwitter.Controls"
+    xmlns:controls1="clr-namespace:PanCardView.Controls;assembly=PanCardView"
     xmlns:local="clr-namespace:InterTwitter.Views"
+    xmlns:navigation="clr-namespace:InterTwitter.ViewModels.Navigation"
     xmlns:prism="http://prismlibrary.com"
+    x:Name="searchView"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="White"
     IconImageSource="{Binding IconPath}">
-    <StackLayout>
-        <controls:SearchNavigationBar />
-    </StackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="455*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48*" />
+                <ColumnDefinition Width="260*" />
+            </Grid.ColumnDefinitions>
+
+            <controls1:CircleFrame Margin="12,12,0,6" HorizontalOptions="Start">
+                <Image Source="pic_profile_big">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PicProfileTapGestureRecognizer}" CommandParameter="{Binding .}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </controls1:CircleFrame>
+            <Frame
+                Grid.Column="1"
+                Margin="0,9,12,11"
+                Padding="0,0,0,0"
+                BackgroundColor="{StaticResource Light Grey}"
+                CornerRadius="20">
+                <controls:BorderlessEntry
+                    Margin="12,0,0,0"
+                    BackgroundColor="{StaticResource Light Grey}"
+                    Placeholder="Search"
+                    PlaceholderColor="{StaticResource Dark Grey}"
+                    Style="{StaticResource EntryCaption}" />
+            </Frame>
+        </Grid>
+        <Line
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            BackgroundColor="{StaticResource Light Grey}" />
+        <ListView
+            x:Name="listView"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Margin="12"
+            ItemsSource="{Binding Items}"
+            SelectedItem="{Binding SelectedItem}">
+            <ListView.Header>
+                <StackLayout>
+                    <Label
+                        Style="{StaticResource Header2}"
+                        Text="Popular Theme"
+                        TextColor="{StaticResource Black}" />
+                    <Line BackgroundColor="{StaticResource Light Grey}" />
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Grid>
+                                <Label
+                                    Grid.Row="0"
+                                    Style="{StaticResource Subtitle2}"
+                                    Text="{Binding Tag}" />
+                                <Label
+                                    Grid.Row="1"
+                                    Style="{StaticResource Caption2}"
+                                    Text="{Binding Count, StringFormat='Posts:{0:D}'}" />
+                                <Image
+                                    Grid.RowSpan="2"
+                                    Grid.Column="1"
+                                    HorizontalOptions="End"
+                                    Source="ic_right_gray">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.NavigationToSearchCommand, Source={x:Reference searchView}}" CommandParameter="{Binding .}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </local:BaseContentPage>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage
+    x:Class="InterTwitter.Views.Navigation.SearchPostsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:InterTwitter.Controls"
+    xmlns:controls1="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:resources="clr-namespace:InterTwitter.Resources"
+    xmlns:views="clr-namespace:InterTwitter.Views"
+    prism:ViewModelLocator.AutowireViewModel="True">
+
+    <views:BaseContentPage.Resources>
+        <resources:PostTemplates />
+    </views:BaseContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="455*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48*" />
+                <ColumnDefinition Width="260*" />
+            </Grid.ColumnDefinitions>
+
+            <controls1:CircleFrame Margin="12,12,0,6" HorizontalOptions="Start">
+                <Image Source="ic_left_gray">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigationToSearchCommand}" CommandParameter="{Binding .}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </controls1:CircleFrame>
+            <Frame
+                Grid.Column="1"
+                Margin="0,9,12,11"
+                Padding="0,0,0,0"
+                BackgroundColor="{StaticResource Light Grey}"
+                CornerRadius="20">
+                <controls:BorderlessEntry
+                    Margin="12,0,0,0"
+                    BackgroundColor="{StaticResource Light Grey}"
+                    Placeholder="Search"
+                    PlaceholderColor="{StaticResource Dark Grey}"
+                    Style="{StaticResource EntryCaption}" />
+            </Frame>
+        </Grid>
+        <Line
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            BackgroundColor="{StaticResource Light Grey}" />
+        <controls:CustomCollectionView
+            x:Name="collectionView"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            ItemTemplate="{StaticResource postTemplateSelector}"
+            ItemsSource="{Binding SearchedPosts}"
+            ItemsUpdatingScrollMode="KeepItemsInView" />
+    </Grid>
+</views:BaseContentPage>
