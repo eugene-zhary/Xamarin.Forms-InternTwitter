@@ -21,15 +21,19 @@
     <Grid>
         
         <!-- COLLECTION VIEW -->
-        <controls:CustomCollectionView x:Name="collectionView"
+        <RefreshView Command="{Binding RefreshCommand}"
+                     IsRefreshing="{Binding IsRefreshing}">
+
+            <controls:CustomCollectionView x:Name="collectionView"
                                        ItemsSource="{Binding PostCollection}"
                                        ItemTemplate="{StaticResource postTemplateSelector}">
-            <controls:CustomCollectionView.Header>
-                <BoxView BackgroundColor="White" HeightRequest="55" />
-            </controls:CustomCollectionView.Header>
-            
-        </controls:CustomCollectionView>
+                <controls:CustomCollectionView.Header>
+                    <BoxView BackgroundColor="White" HeightRequest="55" />
+                </controls:CustomCollectionView.Header>
 
+            </controls:CustomCollectionView>
+
+        </RefreshView>
         <!-- FLOATING ACTION BUTTON -->
         <controls:FloationActionButton ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
                                        VerticalOptions="End" HorizontalOptions="End" ImageSource="ic_add_white.png"
