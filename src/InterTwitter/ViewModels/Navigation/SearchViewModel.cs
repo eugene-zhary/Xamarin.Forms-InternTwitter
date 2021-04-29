@@ -131,7 +131,34 @@ namespace InterTwitter.ViewModels.Navigation
 
         private async void OnNavigationToSearchAsync(PopularThemes popularThemes)
         {
+            Text = popularThemes.Tag;
+
             await UpdateCollecitonAsync(popularThemes.Tag);
+        }
+        private IEnumerable<Span> IncludeSelect(Span span, string Select)
+        {
+            if (!span.Text.Contains(Select) || string.IsNullOrWhiteSpace(Select))
+            {
+                return new Span[] { span };
+            }
+
+            Span BeforeTag = new Span() { Text = span.Text[..span.Text.IndexOf(Select)] };
+            Span AfterTag = new Span() { Text = span.Text[(span.Text.IndexOf(Select) + Select.Length)..] };
+            Span Tag;
+            if (Select.Contains("#"))
+            {
+                Tag = new Span() { Text = Select, TextColor = Color.FromHex("#2356C5")};
+            }
+            else
+            {
+                Tag = new Span() { Text = Select, BackgroundColor = Color.FromHex("#C7D6F7") };
+            }
+
+            var newspan = new List<Span>(IncludeSelect(BeforeTag, Select));
+            newspan.Add(Tag);
+            newspan.AddRange(IncludeSelect(AfterTag, Select));
+
+            return newspan;
         }
 
         private async Task<AOResult> UpdateCollecitonAsync(string Tag)
@@ -145,9 +172,21 @@ namespace InterTwitter.ViewModels.Navigation
                 var posts = await _postService.GetPostsAsync();
 
                 posts.Result.Where(u => u.PostModel.Text.Contains(Tag)).ToList().ForEach(SearchedPosts.Add);
+                var startCount = SearchedPosts.Select(u => u.FormattedString.Spans.Count).ToList();
+                SearchedPosts.ToList().ForEach(u => u.FormattedString.Spans.ToList().ForEach(span => IncludeSelect(span, Tag).ToList().ForEach(v => u.FormattedString.Spans.Add(v))));
 
+
+                for (int i = 0; i < SearchedPosts.Count; i++)
+                {
+                    for (int j = 0; j < SearchedPosts[i].FormattedString.Spans.Count - startCount[i]; j++)
+                    {
+                        SearchedPosts[i].FormattedString.Spans.RemoveAt(0);
+                    }
+                }
                 ShowPostList = true;
                 ShowTagList = false;
+
+
                 ShowNoResult = SearchedPosts.Count == 0;
 
                 result.SetSuccess();
@@ -189,6 +228,11 @@ namespace InterTwitter.ViewModels.Navigation
             Items = new ObservableCollection<PopularThemes>(Items.OrderByDescending(u => u.Count));
 
             ProfileImage = (await _userService.GetUserAsync(_authorizationService.GetCurrentUserId)).Result.ProfileImagePath;
+
+            if (parameters.TryGetValue<string>("Tag", out var tag))
+            {
+                Text = tag;
+            }
         }
 
         #endregion

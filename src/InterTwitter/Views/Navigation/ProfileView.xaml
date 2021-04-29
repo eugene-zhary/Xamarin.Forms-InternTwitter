@@ -226,11 +226,13 @@
                 <cards:CarouselView.ItemTemplate>
                     <DataTemplate>
                         <ContentView>
-                            <controls1:CustomCollectionView
-                                HorizontalScrollBarVisibility="Never"
-                                ItemTemplate="{StaticResource postTemplateSelector}"
-                                ItemsSource="{Binding PostCollection}"
-                                ItemsUpdatingScrollMode="KeepItemsInView" />
+                            <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+                                <controls1:CustomCollectionView
+                                    HorizontalScrollBarVisibility="Never"
+                                    ItemTemplate="{StaticResource postTemplateSelector}"
+                                    ItemsSource="{Binding PostCollection}"
+                                    ItemsUpdatingScrollMode="KeepItemsInView" />
+                            </RefreshView>
                         </ContentView>
                     </DataTemplate>
                 </cards:CarouselView.ItemTemplate>

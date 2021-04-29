@@ -1,13 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InterTwitter.Views.Templates.VideoPostDataTemplate"
-             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
-	         xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
-    <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15">
+<DataTemplate
+    x:Class="InterTwitter.Views.Templates.VideoPostDataTemplate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer">
+    <Grid
+        Padding="15,15,15,0"
+        ColumnSpacing="15"
+        RowSpacing="15">
         <Grid.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding OpenPostCommand}"/>
+            <TapGestureRecognizer Command="{Binding OpenPostCommand}" />
         </Grid.GestureRecognizers>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -30,7 +34,7 @@
                 <fftransformations:CircleTransformation />
             </ffimageloading:CachedImage.Transformations>
             <ffimageloading:CachedImage.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToProfileCommand}"/>
+                <TapGestureRecognizer Command="{Binding NavigateToProfileCommand}" />
             </ffimageloading:CachedImage.GestureRecognizers>
 
         </ffimageloading:CachedImage>
@@ -38,19 +42,37 @@
         <!--  POST TEXT CONTENT  -->
 
         <StackLayout Grid.Column="1">
-            <Label Text="{Binding UserModel.Name}" Style="{StaticResource Subtitle2}" FontAttributes="Bold"/>
-            <Label Text="{Binding PostModel.Text}" Style="{StaticResource Body2}"/>
+            <Label
+                FontAttributes="Bold"
+                LineBreakMode="WordWrap"
+                Style="{StaticResource Subtitle2}"
+                Text="{Binding UserModel.Name}" />
+            <Label
+                FormattedText="{Binding FormattedString}"
+                Style="{StaticResource Body2}"
+                Text="{Binding PostModel.Text}" />
         </StackLayout>
-
 
         <!--  POST MEDIA CONTENT  -->
 
-        <Frame Padding="0" Grid.Row="1" Grid.Column="1" CornerRadius="5" IsClippedToBounds="True" HasShadow="False"
-               BackgroundColor="{StaticResource Black}">
+        <Frame
+            Grid.Row="1"
+            Grid.Column="1"
+            Padding="0"
+            BackgroundColor="{StaticResource Black}"
+            CornerRadius="5"
+            HasShadow="False"
+            IsClippedToBounds="True">
             <Grid>
-                <Frame Padding="10" WidthRequest="40" HeightRequest="40" CornerRadius="30"
-                       VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="{StaticResource Primary}">
-                    <ffimageloading:CachedImage Source="ic_play"/>
+                <Frame
+                    Padding="10"
+                    BackgroundColor="{StaticResource Primary}"
+                    CornerRadius="30"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="40">
+                    <ffimageloading:CachedImage Source="ic_play" />
                 </Frame>
             </Grid>
         </Frame>
@@ -63,8 +85,10 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <Label Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}" Style="{StaticResource Body2}"
-                   TextColor="{StaticResource Dark Grey}"/>
+            <Label
+                Style="{StaticResource Body2}"
+                Text="{Binding PostModel.CreationDateTime, StringFormat='{}{0:dd.MM.yyyy  •  HH:mm}'}"
+                TextColor="{StaticResource Dark Grey}" />
 
             <StackLayout
                 Grid.Column="1"
@@ -85,7 +109,11 @@
                     </ffimageloading:CachedImage.Triggers>
                 </ffimageloading:CachedImage>
 
-                <Label  Margin="0,0,15,0" Text="{Binding LikesCount}" Style="{StaticResource LabelCaption1}" TextColor="{StaticResource Dark Grey}">
+                <Label
+                    Margin="0,0,15,0"
+                    Style="{StaticResource LabelCaption1}"
+                    Text="{Binding LikesCount}"
+                    TextColor="{StaticResource Dark Grey}">
                     <Label.Triggers>
                         <DataTrigger
                             Binding="{Binding IsLiked}"

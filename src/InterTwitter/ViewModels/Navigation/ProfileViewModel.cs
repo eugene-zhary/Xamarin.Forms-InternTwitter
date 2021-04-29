@@ -110,6 +110,13 @@ namespace InterTwitter.ViewModels.Navigation
 			set => SetProperty(ref _IsShowMenu, value);
 		}
 
+		private bool _isRefreshing;
+		public bool IsRefreshing
+		{
+			get => _isRefreshing;
+			set => SetProperty(ref _isRefreshing, value, nameof(IsRefreshing));
+		}
+
 		private bool _IsAlianProfile;
 		public bool IsAlianProfile
 		{
@@ -185,8 +192,11 @@ namespace InterTwitter.ViewModels.Navigation
 
 		private ICommand _backNavigationCommand;
 		public ICommand BackNavigationCommand => _backNavigationCommand ??= SingleExecutionCommand.FromFunc(OnBackNavigationAsync);
-		
-		public ICommand PanPositionChangedCommand { get; }
+	
+		private ICommand _refreshCommand;
+		public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefreshAsync, delayMillisec: 0);
+
+        public ICommand PanPositionChangedCommand { get; }
 		public ICommand RemoveCurrentItemCommand { get; }
 		public ICommand GoToLastCommand { get; }
 
@@ -229,40 +239,13 @@ namespace InterTwitter.ViewModels.Navigation
 			await UpdateCollecitonAsync();
 		}
 
-		protected override void OnPropertyChanged(PropertyChangedEventArgs args)
-		{
-			base.OnPropertyChanged(args);
-
-			if (args.PropertyName == nameof(CurrentIndex) && IsYourProfile)
-			{
-				for (int i = UserLikePostCollection.Count - 1; i >= 0; i--)
-				{
-					if (!UserLikePostCollection[i].IsLiked)
-					{
-						UserLikePostCollection.RemoveAt(i);
-					}
-				}
-
-				UserPostCollection.Where(u => u.IsLiked).Where(u => !UserLikePostCollection.Contains(u)).ToList().ForEach(UserLikePostCollection.Add);
-
-				for (int i = 0; i < UserLikePostCollection.Count; i++)
-				{
-					for (int j = i; j < UserLikePostCollection.Count; j++)
-					{
-						if (UserLikePostCollection[i].PostModel.CreationDateTime < UserLikePostCollection[j].PostModel.CreationDateTime)
-						{
-							var t = UserLikePostCollection[i];
-							UserLikePostCollection[i] = UserLikePostCollection[j];
-							UserLikePostCollection[j] = t;
-						}
-					}
-				}
-			}
-		}
-
 		#endregion
 
 		#region -- Private helpers -- 
+		private async Task OnRefreshAsync()
+		{
+			await UpdateCollecitonAsync();
+		}
 
 		private async Task OnBackNavigationAsync()
 		{
@@ -353,6 +336,8 @@ namespace InterTwitter.ViewModels.Navigation
 
 			try
 			{
+				IsRefreshing = true;
+
 				UserPostCollection.Clear();
 				UserLikePostCollection.Clear();
 
@@ -360,6 +345,8 @@ namespace InterTwitter.ViewModels.Navigation
 
 				posts.Result.Where(u => CurrentProfile.Id == u.UserModel.Id).ToList().ForEach(UserPostCollection.Add);
 				posts.Result.Where(u => u.PostModel.LikedUserIds.Contains(CurrentProfile.Id)).ToList().ForEach(UserLikePostCollection.Add);
+
+				IsRefreshing = false;
 
 				result.SetSuccess();
 			}
