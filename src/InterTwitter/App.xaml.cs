@@ -35,7 +35,6 @@ namespace InterTwitter
         {
             containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
-            containerRegistry.RegisterInstance<IPermissionManager>(Container.Resolve<PermissionManager>());
 
             containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
             containerRegistry.RegisterSingleton<IUserService, UserService>();
@@ -69,10 +68,7 @@ namespace InterTwitter
             InitializeComponent();
             FlowListView.Init();
 
-
-            IAuthorizationService AuthorizeService = Container.Resolve<AuthorizationService>();
-
-            await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
+            await NavigationService.NavigateAsync($"/{nameof(MasterDetailNavigationView)}");
         }
 
         protected override void OnStart()

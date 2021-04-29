@@ -1,72 +1,71 @@
 ﻿using InterTwitter.Helpers;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using System.Threading.Tasks;
 
-namespace InterTwitter.Services.Permission
-{
-    public class PermissionManager : IPermissionManager
-    {
-        #region -- IPermissionManager implementation --
+//namespace InterTwitter.Services.Permission
+//{
+//    public class PermissionManager : IPermissionManager
+//    {
+//        #region -- IPermissionManager implementation --
 
-        public async Task<bool> RequestStoragePermissionAsync()
-        {
-            var request = await RequestPermissionAsync<StoragePermission>();
+//        public async Task<bool> RequestStoragePermissionAsync()
+//        {
+//            var request = await RequestPermissionAsync<StoragePermission>();
 
-            return request.Result;
-        }
+//            return request.Result;
+//        }
 
-        public AOResult GoToAppSettings()
-        {
-            var result = new AOResult();
+//        public AOResult GoToAppSettings()
+//        {
+//            var result = new AOResult();
 
-            try
-            {
-                CrossPermissions.Current.OpenAppSettings();
-                result.SetSuccess();
-            }
-            catch(System.Exception ex)
-            {
-                result.SetError($"{nameof(GoToAppSettings): exception}", "Something went wrong", ex);
-            }
+//            try
+//            {
+//                CrossPermissions.Current.OpenAppSettings();
+//                result.SetSuccess();
+//            }
+//            catch(System.Exception ex)
+//            {
+//                result.SetError($"{nameof(GoToAppSettings): exception}", "Something went wrong", ex);
+//            }
 
-            return result;
-        }
+//            return result;
+//        }
 
-        #endregion
+//        #endregion
 
-        #region -- Private helpers --
+//        #region -- Private helpers --
 
-        private async Task<AOResult<bool>> RequestPermissionAsync<T>() where T : BasePermission, new()
-        {
-            var result = new AOResult<bool>();
+//        private async Task<AOResult<bool>> RequestPermissionAsync<T>() where T : BasePermission, new()
+//        {
+//            var result = new AOResult<bool>();
 
-            try
-            {
-                var status = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>();
 
-                if(status != PermissionStatus.Granted)
-                {
-                    status = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
-                }
+//            try
+//            {
+//                var status = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>();
 
-                if(status == PermissionStatus.Granted)
-                {
-                    result.SetSuccess(true);
-                }
-                else if(status == PermissionStatus.Denied)
-                {
-                    result.SetFailure(false);
-                }
-            }
-            catch(System.Exception ex)
-            {
-                result.SetError($"{nameof(RequestPermissionAsync)} : exeption", "Something went wrong", ex);
-            }
+//                if(status != PermissionStatus.Granted)
+//                {
+//                    status = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
+//                }
 
-            return result;
-        }
+//                if(status == PermissionStatus.Granted)
+//                {
+//                    result.SetSuccess(true);
+//                }
+//                else if(status == PermissionStatus.Denied)
+//                {
+//                    result.SetFailure(false);
+//                }
+//            }
+//            catch(System.Exception ex)
+//            {
+//                result.SetError($"{nameof(RequestPermissionAsync)} : exeption", "Something went wrong", ex);
+//            }
 
-        #endregion
-    }
-}
+//            return result;
+//        }
+
+//        #endregion
+//    }
+//}

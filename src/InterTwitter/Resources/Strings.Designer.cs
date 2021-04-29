@@ -115,6 +115,15 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please change it in settings.
+        /// </summary>
+        internal static string ChangePermissionSettings {
+            get {
+                return ResourceManager.GetString("ChangePermissionSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         internal static string Confirm {
@@ -390,6 +399,15 @@ namespace InterTwitter.Resources {
         internal static string PasswordLengthError {
             get {
                 return ResourceManager.GetString("PasswordLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission was denied.
+        /// </summary>
+        internal static string PermissionDenied {
+            get {
+                return ResourceManager.GetString("PermissionDenied", resourceCulture);
             }
         }
         

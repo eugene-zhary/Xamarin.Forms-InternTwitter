@@ -270,4 +270,10 @@
   <data name="Saving" xml:space="preserve">
     <value>Saving...</value>
   </data>
+  <data name="ChangePermissionSettings" xml:space="preserve">
+    <value>Please change it in settings</value>
+  </data>
+  <data name="PermissionDenied" xml:space="preserve">
+    <value>Permission was denied</value>
+  </data>
 </root>

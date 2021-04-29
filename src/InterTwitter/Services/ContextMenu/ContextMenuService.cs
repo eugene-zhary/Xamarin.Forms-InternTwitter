@@ -10,12 +10,13 @@ namespace InterTwitter.Services.ContextMenu
 {
     public class ContextMenuService : IContextMenuService
     {
-        private readonly IPermissionManager _permissionManager;
+        private readonly IPermissionService _permissionService;
 
-        public ContextMenuService(IPermissionManager permissionManager)
+        public ContextMenuService(IPermissionService permissionService)
         {
-            _permissionManager = permissionManager;
+            _permissionService = permissionService;
         }
+
 
         #region -- IContextMenuService implementation --
 
@@ -25,15 +26,25 @@ namespace InterTwitter.Services.ContextMenu
 
             try
             {
-                byte[] imgData = await DownloadImgAsync(url);
+                var status = await _permissionService.RequestPermissionAsync<SaveMediaPermission>();
 
-                string filePath = $"InterTwitter.{DateTime.Now:dd.MM.yyyy_hh.mm.ss}.jpg";
-                await MediaGallery.SaveAsync(MediaFileType.Image, imgData, filePath);
+                if(status == PermissionStatus.Granted)
+                {
+                    byte[] imgData = await DownloadImgAsync(url);
+                    string filePath = $"InterTwitter.{DateTime.Now:dd.MM.yyyy_hh.mm.ss}.jpg";
 
-                result.SetSuccess();
+                    await MediaGallery.SaveAsync(MediaFileType.Image, imgData, filePath);
+
+                    result.SetSuccess();
+                }
+                else
+                {
+                    result.SetFailure();
+                }
             }
             catch(Exception ex)
             {
+                
                 result.SetError($"{nameof(SaveImg)} : exception", "Something went wrong", ex);
             }
 
@@ -63,7 +74,6 @@ namespace InterTwitter.Services.ContextMenu
         }
 
         #endregion
-
 
         #region -- Private helpers --
 

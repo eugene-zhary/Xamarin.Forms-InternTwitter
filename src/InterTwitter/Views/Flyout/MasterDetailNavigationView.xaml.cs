@@ -14,6 +14,7 @@ namespace InterTwitter.Views.Flyout
 
             PrismApplicationBase.Current.On<Xamarin.Forms.PlatformConfiguration.Android>()
                 .UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Pan);
+
         }
     }
 }

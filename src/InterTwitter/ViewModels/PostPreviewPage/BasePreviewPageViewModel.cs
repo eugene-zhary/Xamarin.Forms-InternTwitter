@@ -1,10 +1,10 @@
-﻿using Acr.UserDialogs;
-using InterTwitter.Helpers;
+﻿using InterTwitter.Helpers;
 using InterTwitter.Resources;
 using InterTwitter.Services.ContextMenu;
 using InterTwitter.Services.Permission;
 using Prism.Navigation;
 using Prism.Services;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -16,18 +16,23 @@ namespace InterTwitter.ViewModels.Posts
             INavigationService navigationService,
             IPageDialogService pageDialogService,
             IContextMenuService contextMenuService,
-            IPermissionManager permissionManager) : base(navigationService)
+            IPermissionService permissionService) : base(navigationService)
         {
             PageDialogService = pageDialogService;
             ContextMenuService = contextMenuService;
-            PermissionManager = permissionManager;
+            PermissionService = permissionService;
+        }
+
+        private void OnPermissionGranted(object sender, EventArgs e)
+        {
+
         }
 
         #region -- Public properties --
 
         protected IPageDialogService PageDialogService { get; private set; }
         protected IContextMenuService ContextMenuService { get; private set; }
-        protected IPermissionManager PermissionManager { get; private set; }
+        protected IPermissionService PermissionService { get; private set; }
 
         private BasePostViewModel _postViewModel;
         public BasePostViewModel PostViewModel
@@ -90,26 +95,17 @@ namespace InterTwitter.ViewModels.Posts
         {
             IsContextMenuVisible = false;
 
-            var isPermissionGranted = await PermissionManager.RequestStoragePermissionAsync();
+            var result = await ContextMenuService.SaveImg(MediaPath);
 
-            if(isPermissionGranted)
+            if(result.IsSuccess)
             {
-                AOResult result = null;
-
-                using(UserDialogs.Instance.Loading(Strings.Saving))
-                {
-                    result = await ContextMenuService.SaveImg(MediaPath);
-                    await Task.Delay(500);
-                }
-
-                await DisplaySaveResultAsync(result.IsSuccess);
+                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveSucces, Strings.Ok);
             }
             else
             {
-                await AskForSettingsAsync();
+                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveFailed, Strings.Ok);
             }
         }
-
 
         protected async Task SharePhotoAsync(string MediaPath)
         {
@@ -139,28 +135,6 @@ namespace InterTwitter.ViewModels.Posts
             IsContextMenuVisible = false;
 
             return Task.CompletedTask;
-        }
-
-        private async Task AskForSettingsAsync()
-        {
-            bool isAgree = await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.AskForStoragePermission, Strings.SettingsTitle, Strings.Ok);
-
-            if(isAgree)
-            {
-                PermissionManager.GoToAppSettings();
-            }
-        }
-
-        private async Task DisplaySaveResultAsync(bool result)
-        {
-            if(result)
-            {
-                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveSucces, Strings.Ok);
-            }
-            else
-            {
-                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveFailed, Strings.Ok);
-            }
         }
 
         #endregion

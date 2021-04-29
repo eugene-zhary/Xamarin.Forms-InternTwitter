@@ -1,7 +1,6 @@
 ﻿using InterTwitter.Resources;
 using InterTwitter.Services.ContextMenu;
 using InterTwitter.Services.Permission;
-using Plugin.Permissions;
 using Prism.Navigation;
 using Prism.Services;
 using System.Linq;
@@ -14,8 +13,8 @@ namespace InterTwitter.ViewModels.Posts
         public GalleryPreviewPageViewModel(INavigationService navigationService,
                                            IPageDialogService pageDialogService,
                                            IContextMenuService contextMenuService,
-                                           IPermissionManager permissionManager) :
-            base(navigationService, pageDialogService, contextMenuService, permissionManager)
+                                           IPermissionService permissionService) :
+            base(navigationService, pageDialogService, contextMenuService, permissionService)
         {
         }
 
