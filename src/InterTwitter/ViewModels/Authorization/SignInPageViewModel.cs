@@ -142,7 +142,7 @@ namespace InterTwitter.ViewModels
 
                         _authorizationService.Authorize(authorizedUser.Id);
 
-                        await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
+                        await NavigationService.NavigateAsync($"/{nameof(MasterDetailNavigationView)}");
                     }
                     else
                     {

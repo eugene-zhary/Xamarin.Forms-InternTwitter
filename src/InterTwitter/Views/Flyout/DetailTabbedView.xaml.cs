@@ -5,9 +5,9 @@ using Xamarin.Forms.Xaml;
 namespace InterTwitter.Views.Flyout
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FlyoutTabbedView : CustomTabbedPage
+    public partial class DetailTabbedView : CustomTabbedPage
     {
-        public FlyoutTabbedView()
+        public DetailTabbedView()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

@@ -4,7 +4,6 @@ using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
 using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels.Posts;
-using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
 using PanCardView.Extensions;
 using Prism.Navigation;
@@ -18,7 +17,7 @@ using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels.Navigation
 {
-	public class ProfileViewModel : BaseViewModel, INavigatedAware
+    public class ProfileViewModel : BaseViewModel, INavigatedAware
 	{
 
 		#region Private Variables/Properties

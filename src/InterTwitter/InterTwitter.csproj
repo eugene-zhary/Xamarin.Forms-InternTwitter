@@ -25,7 +25,6 @@
     <PackageReference Include="CardsView" Version="2.7.6" />
     <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
     <PackageReference Include="Octane.Xam.VideoPlayer" Version="3.1.0" />
-    <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
     <PackageReference Include="Prism.Unity.Forms" Version="8.0.0.1909" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.1.0" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
@@ -42,8 +41,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\Flyout\FlyoutMenuView.xaml.cs">
-      <DependentUpon>FlyoutMenuView.xaml</DependentUpon>
+    <Compile Update="Views\Flyout\DetailTabbedView.xaml.cs">
+      <DependentUpon>DetailTabbedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Flyout\MasterDetailNavigationView.xaml.cs">
+      <DependentUpon>MasterDetailNavigationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Flyout\MasterMenuView.xaml.cs">
+      <DependentUpon>MasterMenuView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Navigation\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -94,13 +99,13 @@
     <EmbeddedResource Update="Views\Authorization\SignUpStartPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Flyout\FlyoutNavigationView.xaml">
+    <EmbeddedResource Update="Views\Flyout\MasterDetailNavigationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Flyout\FlyoutMenuView.xaml">
+    <EmbeddedResource Update="Views\Flyout\MasterMenuView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Flyout\FlyoutTabbedView.xaml">
+    <EmbeddedResource Update="Views\Flyout\DetailTabbedView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Navigation\BookmarksView.xaml">

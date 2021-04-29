@@ -5,7 +5,7 @@ namespace InterTwitter.Services.ContextMenu
 {
     public interface IContextMenuService
     {
-        Task<AOResult> SaveImgFromWeb(string url);
+        Task<AOResult> SaveImg(string url);
         Task<AOResult> ShareImg(string url);
     }
 }

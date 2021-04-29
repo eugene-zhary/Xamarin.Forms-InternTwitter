@@ -1,12 +1,10 @@
 ﻿using InterTwitter.Services;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
-using InterTwitter.Views.Navigation;
 using System.Threading.Tasks;
 using InterTwitter.Helpers;
 using InterTwitter.ViewModels.Posts;

@@ -61,7 +61,16 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Please, type your email.
+        ///   Looks up a localized string similar to InterTwitter needs storage access so that you can save photos. Please enable it in Settings.
+        /// </summary>
+        internal static string AskForStoragePermission {
+            get {
+                return ResourceManager.GetString("AskForStoragePermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please, type your email.
         /// </summary>
         internal static string BlankEmailError {
             get {
@@ -115,7 +124,16 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Confirm.
+        ///   Looks up a localized string similar to Please change it in settings.
+        /// </summary>
+        internal static string ChangePermissionSettings {
+            get {
+                return ResourceManager.GetString("ChangePermissionSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
         /// </summary>
         internal static string Confirm {
             get {
@@ -412,6 +430,14 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permission was denied.
+        /// </summary>
+        internal static string PermissionDenied {
+            get {
+                return ResourceManager.GetString("PermissionDenied", resourceCulture);
+
+            }
+        }
         ///   Ищет локализованную строку, похожую на Profile in blacklist.
         /// </summary>
         internal static string ProfileInBlacklist {
@@ -466,7 +492,16 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Search.
+        ///   Looks up a localized string similar to Saving....
+        /// </summary>
+        internal static string Saving {
+            get {
+                return ResourceManager.GetString("Saving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
         /// </summary>
         internal static string SearchTitle {
             get {
@@ -475,7 +510,16 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Signing in....
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string SettingsTitle {
+            get {
+                return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signing in....
         /// </summary>
         internal static string SigningIn {
             get {
