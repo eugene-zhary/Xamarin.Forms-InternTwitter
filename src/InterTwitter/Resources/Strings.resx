@@ -276,4 +276,25 @@
   <data name="PermissionDenied" xml:space="preserve">
     <value>Permission was denied</value>
   </data>
+  <data name="Block" xml:space="preserve">
+    <value>Block</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="Muted" xml:space="preserve">
+    <value>Muted</value>
+  </data>
+  <data name="ProfileInBlacklist" xml:space="preserve">
+    <value>Profile in blacklist</value>
+  </data>
+  <data name="RemoveFromBlacklist" xml:space="preserve">
+    <value>Remove from blacklist</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes?</value>
+  </data>
+  <data name="Unmute" xml:space="preserve">
+    <value>Unmute</value>
+  </data>
 </root>

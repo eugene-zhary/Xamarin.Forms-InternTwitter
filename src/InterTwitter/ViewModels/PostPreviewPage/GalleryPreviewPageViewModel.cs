@@ -1,5 +1,4 @@
-﻿using InterTwitter.Resources;
-using InterTwitter.Services.ContextMenu;
+﻿using InterTwitter.Services.ContextMenu;
 using InterTwitter.Services.Permission;
 using Prism.Navigation;
 using Prism.Services;

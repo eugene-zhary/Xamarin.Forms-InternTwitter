@@ -1,5 +1,4 @@
-﻿using InterTwitter.ViewModels.Navigation;
-using Prism.Navigation;
+﻿using Prism.Navigation;
 
 namespace InterTwitter.ViewModels.PostPage
 {

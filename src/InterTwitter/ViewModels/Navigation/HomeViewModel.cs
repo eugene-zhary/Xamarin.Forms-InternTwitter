@@ -1,5 +1,7 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Services;
+using InterTwitter.Services.Authorization;
+using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels.Posts;
 using Prism.Events;
 using Prism.Navigation;
@@ -14,15 +16,27 @@ namespace InterTwitter.ViewModels.Navigation
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IPostService _postManager;
+        private readonly IUserService _userService;
+        private readonly IAuthorizationService _authorizationService;
 
-        public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator, IPostService postManager) : base(navigation)
+        public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator, IPostService postManager, IUserService userService, IAuthorizationService authorizationService) : base(navigation)
         {
             _eventAggregator = eventAggregator;
             _postManager = postManager;
+            _userService = userService;
+            _authorizationService = authorizationService;
 
             IconPath = "ic_home_gray.png";
             PostCollection = new ObservableCollection<BasePostViewModel>();
         }
+
+        private string _imagePath;
+        public string ImagePath
+        {
+            get => _imagePath;
+            set => SetProperty(ref _imagePath, value);
+        }
+
 
         #region -- Public region --
 
@@ -49,6 +63,8 @@ namespace InterTwitter.ViewModels.Navigation
         public override async void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+
+            ImagePath = (await _userService.GetUserAsync(_authorizationService.GetCurrentUserId)).Result.ProfileImagePath;
 
             await UpdateCollecitonAsync();
         }

@@ -86,8 +86,7 @@ namespace InterTwitter.ViewModels.Navigation
             _hideMenuButtonCommand ??= SingleExecutionCommand.FromFunc(OnHideMenuButton);
 
         private ICommand _deleteAllBookmarksCommand;
-        public ICommand DeleteAllBookmarksCommand =>
-            _deleteAllBookmarksCommand ??= SingleExecutionCommand.FromFunc(OnDeleteAllBookmarksAsync);
+        public ICommand DeleteAllBookmarksCommand => _deleteAllBookmarksCommand ??= SingleExecutionCommand.FromFunc(OnDeleteAllBookmarksAsync);
 
         #endregion
 

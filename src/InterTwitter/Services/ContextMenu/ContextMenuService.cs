@@ -17,7 +17,6 @@ namespace InterTwitter.Services.ContextMenu
             _permissionService = permissionService;
         }
 
-
         #region -- IContextMenuService implementation --
 
         public async Task<AOResult> SaveImg(string url)
