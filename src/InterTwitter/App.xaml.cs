@@ -68,7 +68,7 @@ namespace InterTwitter
             InitializeComponent();
             FlowListView.Init();
 
-            await NavigationService.NavigateAsync($"/{nameof(MasterDetailNavigationView)}");
+            await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
         }
 
         protected override void OnStart()
