@@ -7,7 +7,6 @@
                      xmlns:resources="clr-namespace:InterTwitter.Resources;assembly=InterTwitter"
                      xmlns:controls="clr-namespace:InterTwitter.Controls;assembly=InterTwitter"
                      xmlns:behaviors="clr-namespace:InterTwitter.Behaviors;assembly=InterTwitter"
-                     xmlns:notifications="clr-namespace:InterTwitter.Views.Templates.Notifications;assembly=InterTwitter"
                      xmlns:stateContainer="clr-namespace:InterTwitter.Controls.StateContainer;assembly=InterTwitter"
                      prism:ViewModelLocator.AutowireViewModel="True"
                      BackgroundColor="White"
@@ -17,10 +16,8 @@
         <behaviors:TabPageBehavior/>
     </ContentPage.Behaviors>
 
-    <!--Notification templates-->
     <ContentPage.Resources>
-        <!--<resources:PostTemplates/>-->
-        <notifications:GalleryPostNotificationDataTemplate x:Key="TmpDataTemplate"/>
+        <resources:NotificationTemplates />
     </ContentPage.Resources>
 
     <Grid>
@@ -43,7 +40,7 @@
                              IsRefreshing="{Binding IsRefreshing}">
 
                     <controls:CustomCollectionView ItemsSource="{Binding NotificationCollection}"
-                                                   ItemTemplate="{StaticResource TmpDataTemplate}">
+                                                   ItemTemplate="{StaticResource NotificationDataTemplateSelector}">
 
                         <controls:CustomCollectionView.Header>
 
