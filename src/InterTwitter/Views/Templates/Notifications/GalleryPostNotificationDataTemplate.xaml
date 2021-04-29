@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Views.Templates.Notifications.GalleryPostNotificationDataTemplate"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView">
+
+    <Grid Padding="15,15,15,0" ColumnSpacing="15" RowSpacing="15" x:Name="this">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Post.OpenPostCommand}" CommandParameter="{Binding Post}"/>
+        </Grid.GestureRecognizers>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.15*" />
+            <ColumnDefinition Width="0.85*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Icon Type : like/bookmark -->
+
+        <ffimageloading:CachedImage Grid.Column="0"
+                                    Source="{Binding NotificationLogoPath}"
+                                    VerticalOptions="Start"
+                                    HorizontalOptions="Center" />
+
+        <!-- Notification filling -->
+
+        <Grid Grid.Column="1"
+              Padding="0,0,0,10">
+
+            <Grid.RowDefinitions>
+                <!-- User avatar & notification text -->
+                <RowDefinition Height="*"/>
+                <!-- Post text -->
+                <RowDefinition Height="Auto"/>
+                <!-- Gallery -->
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <!-- Actor avatar -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Notification text -->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- USER ICON -->
+
+            <ffimageloading:CachedImage Grid.Column="0"
+                                        Grid.Row="0"
+                                        Source="{Binding Actor.ProfileImagePath}"
+                                        VerticalOptions="Start"
+                                        HeightRequest="20">
+
+                <ffimageloading:CachedImage.Transformations>
+                    <fftransformations:CircleTransformation/>
+                </ffimageloading:CachedImage.Transformations>
+
+            </ffimageloading:CachedImage>
+
+            <!-- User name and notification text -->
+
+            <FlexLayout Grid.Column="1"
+                        Grid.Row="0"
+                        Wrap="Wrap">
+
+                <Label Text="{Binding Actor.Name}"
+                       Style="{StaticResource Subtitle2}"
+                       FontAttributes="Bold" Margin="0,0,5, 0" />
+
+                <Label Text="{Binding NotificationDescription}"
+                       Style="{StaticResource Body2}" Margin="0" />
+
+            </FlexLayout>
+
+            <!-- POST TEXT CONTENT -->
+
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Text="{Binding Post.PostModel.Text}"
+                   Style="{StaticResource Body2}"
+                   LineBreakMode="TailTruncation"/>
+
+            <!--  POST MEDIA CONTENT  -->
+
+            <StackLayout Grid.Row="2"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                         InputTransparent="True">
+
+                <controls:FlowListView HorizontalScrollBarVisibility="Never"
+                                       RowHeight="50"
+                                       FlowColumnCount="6"
+                                       HasUnevenRows="False"
+                                       VerticalScrollBarVisibility="Never"
+                                       FlowItemsSource="{Binding Post.PostModel.MediaPaths}">
+
+                    <controls:FlowListView.FlowColumnTemplate>
+
+                        <DataTemplate>
+                            <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" HasShadow="False" Margin="2">
+                                <ffimageloading:CachedImage Source="{Binding .}" Aspect="AspectFill"/>
+                            </Frame>
+                        </DataTemplate>
+
+                    </controls:FlowListView.FlowColumnTemplate>
+
+                </controls:FlowListView>
+            </StackLayout>
+
+        </Grid>
+
+        <!-- SPLITTER -->
+
+        <BoxView Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 VerticalOptions="End"
+                 HeightRequest="1"
+                 BackgroundColor="#DEDFE1"
+                 Margin="-15,0"/>
+    </Grid>
+
+</DataTemplate>

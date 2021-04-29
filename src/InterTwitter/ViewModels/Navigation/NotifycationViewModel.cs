@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using InterTwitter.Enums;
 using InterTwitter.Extensions;
+using InterTwitter.Helpers;
 using InterTwitter.Services.UserService;
 using InterTwitter.Services;
 using InterTwitter.Services.Settings;
 using InterTwitter.ViewModels.Notification;
+using InterTwitter.ViewModels.Posts;
 
 namespace InterTwitter.ViewModels.Navigation
 {
@@ -46,6 +50,23 @@ namespace InterTwitter.ViewModels.Navigation
             set => SetProperty(ref _notificationCollection, value);
         }
 
+        private EPageState _pageState;
+        public EPageState PageState
+        {
+            get => _pageState;
+            set => SetProperty(ref _pageState, value);
+        }
+
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set => SetProperty(ref _isRefreshing, value);
+        }
+
+        private ICommand _refreshCommand;
+        public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefreshAsync);
+
         #endregion
 
         #region -- Overrides --
@@ -67,13 +88,6 @@ namespace InterTwitter.ViewModels.Navigation
             IconPath = "ic_notifications_gray";
         }
 
-        public override async void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            await UpdateCollectionAsync();
-        }
-
         #endregion
 
         #region -- Private helpers --
@@ -85,52 +99,72 @@ namespace InterTwitter.ViewModels.Navigation
 
             if (postResult.IsSuccess)
             {
-                var posts = postResult.Result.ToList();
+                var posts = new List<BasePostViewModel>(postResult.Result);
 
-                List<NotificationViewModel> notificationViewModels = new List<NotificationViewModel>();
-
-                foreach (var post in posts)
+                if (posts.Any())
                 {
-                    // getting all notification for each my post
-                    var notificationResult =
-                        await _notificationService.GetNotificationsAsync(n => n.PostId == post.PostModel.Id);
+                    List<NotificationViewModel> notificationViewModels = new List<NotificationViewModel>();
 
-                    if (notificationResult.IsSuccess)
+                    foreach (var post in posts)
                     {
-                        var notifications = notificationResult.Result.ToList();
+                        // getting all notification for each my post
+                        var notificationResult =
+                            await _notificationService.GetNotificationsAsync(n => n.PostId == post.PostModel.Id);
 
-                        foreach (var notification in notifications)
+                        if (notificationResult.IsSuccess)
                         {
-                            // getting actor of each notification (the user who liked/bookmarked)
-                            var actorResult = await _userService.GetUserAsync(notification.ActorId);
+                            var notifications = notificationResult.Result.ToList();
 
-                            if (actorResult.IsSuccess)
+                            foreach (var notification in notifications)
                             {
-                                notificationViewModels.Add(notification.ToViewModel(actorResult.Result, post));
+                                // getting actor of each notification (the user who liked/bookmarked)
+                                var actorResult = await _userService.GetUserAsync(notification.ActorId);
+
+                                if (actorResult.IsSuccess)
+                                {
+                                    notificationViewModels.Add(notification.ToViewModel(actorResult.Result, post));
+                                }
                             }
                         }
                     }
+
+                    // sort: newest first
+                    notificationViewModels.Sort((n1, n2) =>
+                    {
+                        int result = 0;
+
+                        if (n1.Notification.Id > n2.Notification.Id)
+                        {
+                            result = -1;
+                        }
+                        else if (n1.Notification.Id < n2.Notification.Id)
+                        {
+                            result = 1;
+                        }
+
+                        return result;
+                    });
+
+                    NotificationCollection = new ObservableCollection<NotificationViewModel>(notificationViewModels);
+
+                    PageState = EPageState.Normal;
                 }
-
-                // sort: newest first
-                notificationViewModels.Sort((n1, n2) =>
+                else
                 {
-                    int result = 0;
-
-                    if (n1.Notification.Id > n2.Notification.Id)
-                    {
-                        result = -1;
-                    }
-                    else if (n1.Notification.Id < n2.Notification.Id)
-                    {
-                        result = 1;
-                    }
-
-                    return result;
-                });
-
-                NotificationCollection = new ObservableCollection<NotificationViewModel>(notificationViewModels);
+                    PageState = EPageState.Empty;
+                }
             }
+            else
+            {
+                PageState = EPageState.Empty;
+            }
+        }
+
+        private async Task OnRefreshAsync()
+        {
+            await UpdateCollectionAsync();
+
+            IsRefreshing = false;
         }
 
         #endregion

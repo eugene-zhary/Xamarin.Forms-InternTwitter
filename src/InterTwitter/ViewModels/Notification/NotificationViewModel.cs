@@ -1,4 +1,6 @@
-﻿using InterTwitter.Models;
+﻿using InterTwitter.Enums;
+using InterTwitter.Models;
+using InterTwitter.Resources;
 using InterTwitter.ViewModels.Posts;
 using Prism.Mvvm;
 
@@ -28,6 +30,15 @@ namespace InterTwitter.ViewModels.Notification
             get => _notification;
             set => SetProperty(ref _notification, value);
         }
+
+        public string NotificationLogoPath => Notification.NotificationType == ENotificationTypes.Liked
+            ? "ic_like_blue"
+            : "ic_bookmarks_blue";
+
+        public string NotificationDescription => Notification.NotificationType == ENotificationTypes.Liked
+            ? Strings.LikedYourPost
+            : Strings.SavedYourPost;
+
 
         #endregion
     }

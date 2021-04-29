@@ -1,15 +1,101 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InterTwitter.Views.Navigation.NotifycationView"
-             xmlns:prism="http://prismlibrary.com"
-             xmlns:local="clr-namespace:InterTwitter.Views"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             BackgroundColor="White"
-             IconImageSource="{Binding IconPath}">
-    <ContentPage.Content>
-        <Label Text="Notifications!" TextColor="#02060E"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-    </ContentPage.Content>
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     x:Class="InterTwitter.Views.Navigation.NotifycationView"
+                     xmlns:prism="http://prismlibrary.com"
+                     xmlns:local="clr-namespace:InterTwitter.Views"
+                     xmlns:resources="clr-namespace:InterTwitter.Resources;assembly=InterTwitter"
+                     xmlns:controls="clr-namespace:InterTwitter.Controls;assembly=InterTwitter"
+                     xmlns:behaviors="clr-namespace:InterTwitter.Behaviors;assembly=InterTwitter"
+                     xmlns:notifications="clr-namespace:InterTwitter.Views.Templates.Notifications;assembly=InterTwitter"
+                     xmlns:stateContainer="clr-namespace:InterTwitter.Controls.StateContainer;assembly=InterTwitter"
+                     prism:ViewModelLocator.AutowireViewModel="True"
+                     BackgroundColor="White"
+                     IconImageSource="{Binding IconPath}">
+
+    <ContentPage.Behaviors>
+        <behaviors:TabPageBehavior/>
+    </ContentPage.Behaviors>
+
+    <!--Notification templates-->
+    <ContentPage.Resources>
+        <!--<resources:PostTemplates/>-->
+        <notifications:GalleryPostNotificationDataTemplate x:Key="TmpDataTemplate"/>
+    </ContentPage.Resources>
+
+    <Grid>
+
+        <stateContainer:StateContainer State="{Binding PageState}">
+
+            <stateContainer:StateCondition State="Loading">
+
+                <ActivityIndicator IsRunning="True"
+                                   Color="{StaticResource Primary}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+
+            </stateContainer:StateCondition>
+
+            <stateContainer:StateCondition State="Normal">
+
+                <!-- COLLECTION VIEW -->
+                <RefreshView Command="{Binding RefreshCommand}"
+                             IsRefreshing="{Binding IsRefreshing}">
+
+                    <controls:CustomCollectionView ItemsSource="{Binding NotificationCollection}"
+                                                   ItemTemplate="{StaticResource TmpDataTemplate}">
+
+                        <controls:CustomCollectionView.Header>
+
+                            <BoxView HeightRequest="55" 
+                                     BackgroundColor="White"/>
+
+                        </controls:CustomCollectionView.Header>
+
+                    </controls:CustomCollectionView>
+
+                </RefreshView>
+
+            </stateContainer:StateCondition>
+
+            <stateContainer:StateCondition State="Empty">
+
+                <StackLayout HorizontalOptions="FillAndExpand"
+                             VerticalOptions="CenterAndExpand">
+
+                    <Image Source="pic_empty_state"/>
+
+                    <Label Text="{x:Static resources:Strings.YouHaveNoNotificationsYet}"
+                           Style="{StaticResource Body1}"
+                           TextColor="{StaticResource Black}"
+                           HorizontalOptions="Center"/>
+
+                </StackLayout>
+
+            </stateContainer:StateCondition>
+
+        </stateContainer:StateContainer>
+
+        <!-- Navbar -->
+
+        <Grid VerticalOptions="Start"
+              HeightRequest="55"
+              BackgroundColor="{StaticResource White}"
+              RowDefinitions="*">
+
+            <Label Grid.Row="0"
+                   Text="{x:Static resources:Strings.NotificationTitle}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Style="{StaticResource Header2}"
+                   TextColor="{StaticResource Black}"/>
+
+            <BoxView VerticalOptions="End"
+                     HeightRequest="1"
+                     BackgroundColor="{StaticResource Light Grey}" />
+
+        </Grid>
+
+    </Grid>
+
 </local:BaseContentPage>
