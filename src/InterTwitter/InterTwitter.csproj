@@ -114,6 +114,9 @@
     <EmbeddedResource Update="Views\Navigation\BookmarksView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\PostPage\AddPostPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\PostPage\EmptyPostPage.xaml">
      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

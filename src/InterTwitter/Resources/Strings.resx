@@ -306,4 +306,10 @@
   <data name="Unmute" xml:space="preserve">
     <value>Unmute</value>
   </data>
+  <data name="PostEmpty" xml:space="preserve">
+    <value>Please write any text to your post</value>
+  </data>
+  <data name="PostTitle" xml:space="preserve">
+    <value>Post</value>
+  </data>
 </root>

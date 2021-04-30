@@ -448,6 +448,24 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please write any text to your post.
+        /// </summary>
+        internal static string PostEmpty {
+            get {
+                return ResourceManager.GetString("PostEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post.
+        /// </summary>
+        internal static string PostTitle {
+            get {
+                return ResourceManager.GetString("PostTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile in blacklist.
         /// </summary>
         internal static string ProfileInBlacklist {

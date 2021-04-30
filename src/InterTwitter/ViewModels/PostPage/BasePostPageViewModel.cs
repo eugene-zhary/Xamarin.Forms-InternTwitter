@@ -10,7 +10,6 @@ namespace InterTwitter.ViewModels.PostPage
     {
         public BasePostPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-
         }
 
         #region -- Public properties --

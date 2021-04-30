@@ -6,7 +6,6 @@ namespace InterTwitter.ViewModels.Posts
     {
         public GalleryPostViewModel(User userModel, Post postModel): base(userModel, postModel)
         {
-
         }
     }
 }

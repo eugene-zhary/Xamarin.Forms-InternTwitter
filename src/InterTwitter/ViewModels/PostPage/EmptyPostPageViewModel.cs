@@ -6,7 +6,6 @@ namespace InterTwitter.ViewModels.PostPage
     {
         public EmptyPostPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-
         }
     }
 }

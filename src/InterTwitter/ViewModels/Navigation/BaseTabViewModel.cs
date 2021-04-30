@@ -7,7 +7,6 @@ namespace InterTwitter.ViewModels.Navigation
     {
         public BaseTabViewModel(INavigationService navigation) : base(navigation)
         {
-
         }
 
         #region -- Public properties --
@@ -25,12 +24,10 @@ namespace InterTwitter.ViewModels.Navigation
 
         public virtual void OnAppearing()
         {
-
         }
 
         public virtual void OnDisappearing()
         {
-
         }
 
         #endregion
