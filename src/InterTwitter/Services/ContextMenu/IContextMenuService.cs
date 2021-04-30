@@ -7,5 +7,6 @@ namespace InterTwitter.Services.ContextMenu
     {
         Task<AOResult> SaveImgFromWeb(string url);
         Task<AOResult> ShareImg(string url);
+        Task<AOResult> ShareProfile(string ProfileName ,string ImagePath);
     }
 }

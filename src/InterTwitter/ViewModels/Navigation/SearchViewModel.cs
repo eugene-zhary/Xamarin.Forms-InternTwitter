@@ -17,15 +17,9 @@ namespace InterTwitter.ViewModels.Navigation
 {
     public class SearchViewModel : BaseTabViewModel
     {
-        #region Private Variables/Properties
-
         private readonly IPostService _postService;
         private readonly IUserService _userService;
         private readonly IAuthorizationService _authorizationService;
-
-        #endregion
-
-        #region Constructors
 
         public SearchViewModel(INavigationService navigation, IPostService postService,
                                IUserService userService, IAuthorizationService authorizationService) : base(navigation)
@@ -39,11 +33,7 @@ namespace InterTwitter.ViewModels.Navigation
             ShowTagList = true;
         }
 
-        #endregion
-
         #region -- Public properties --
-
-        #region Bindble Properties
 
         private ObservableCollection<PopularThemes> _items;
         public ObservableCollection<PopularThemes> Items
@@ -101,8 +91,6 @@ namespace InterTwitter.ViewModels.Navigation
             set => SetProperty(ref _searcedPost, value);
         }
 
-        #endregion
-
         private ICommand _textChangedCommand;
         public ICommand TextChangedCommand => _textChangedCommand ??= SingleExecutionCommand.FromFunc(OnTextChangedAsync, delayMillisec:0);
         
@@ -127,6 +115,8 @@ namespace InterTwitter.ViewModels.Navigation
         {
             ShowPostList = false;
             ShowTagList = true;
+
+            Text = "";
         }
 
         private async void OnNavigationToSearchAsync(PopularThemes popularThemes)
@@ -161,42 +151,30 @@ namespace InterTwitter.ViewModels.Navigation
             return newspan;
         }
 
-        private async Task<AOResult> UpdateCollecitonAsync(string Tag)
+        private async Task UpdateCollecitonAsync(string Tag)
         {
-            var result = new AOResult();
+            SearchedPosts.Clear();
 
-            try
+            var posts = await _postService.GetPostsAsync();
+
+            posts.Result.Where(u => u.PostModel.Text.Contains(Tag)).ToList().ForEach(SearchedPosts.Add);
+            var startCount = SearchedPosts.Select(u => u.FormattedString.Spans.Count).ToList();
+            SearchedPosts.ToList().ForEach(u => u.FormattedString.Spans.ToList().ForEach(span => IncludeSelect(span, Tag).ToList().ForEach(v => u.FormattedString.Spans.Add(v))));
+
+
+            for (int i = 0; i < SearchedPosts.Count; i++)
             {
-                SearchedPosts.Clear();
-
-                var posts = await _postService.GetPostsAsync();
-
-                posts.Result.Where(u => u.PostModel.Text.Contains(Tag)).ToList().ForEach(SearchedPosts.Add);
-                var startCount = SearchedPosts.Select(u => u.FormattedString.Spans.Count).ToList();
-                SearchedPosts.ToList().ForEach(u => u.FormattedString.Spans.ToList().ForEach(span => IncludeSelect(span, Tag).ToList().ForEach(v => u.FormattedString.Spans.Add(v))));
-
-
-                for (int i = 0; i < SearchedPosts.Count; i++)
+                for (int j = 0; j < SearchedPosts[i].FormattedString.Spans.Count - startCount[i]; j++)
                 {
-                    for (int j = 0; j < SearchedPosts[i].FormattedString.Spans.Count - startCount[i]; j++)
-                    {
-                        SearchedPosts[i].FormattedString.Spans.RemoveAt(0);
-                    }
+                    SearchedPosts[i].FormattedString.Spans.RemoveAt(0);
                 }
-                ShowPostList = true;
-                ShowTagList = false;
-
-
-                ShowNoResult = SearchedPosts.Count == 0;
-
-                result.SetSuccess();
-            }
-            catch (Exception ex)
-            {
-                result.SetError($"{nameof(UpdateCollecitonAsync)}", "Something went wrong", ex);
             }
 
-            return result;
+            ShowPostList = true;
+            ShowTagList = false;
+
+
+            ShowNoResult = SearchedPosts.Count == 0;
         }
 
         #endregion

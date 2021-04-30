@@ -17,18 +17,11 @@ namespace InterTwitter.ViewModels.Navigation
 {
     public class ChangeProfileViewModel : BaseViewModel, INavigatedAware
     {
-
-        #region Private Variables/Properties
-
         private readonly IAuthorizationService _authorizationService;
         private readonly IUserService _userService;
         private readonly IPageDialogService _dialogService;
         private readonly IPermissionManager _permissionManager;
         private User CurrentUser;
-
-        #endregion
-
-        #region Constructors
         public ChangeProfileViewModel(
           INavigationService navigationService, IAuthorizationService AuthorizationService,
           IUserService userService, IPageDialogService dialogService, IPermissionManager permissionManager) : base(navigationService)
@@ -38,9 +31,6 @@ namespace InterTwitter.ViewModels.Navigation
             _dialogService = dialogService;
             _permissionManager = permissionManager;
         }
-
-
-        #endregion
 
         #region -- Public properties --
 

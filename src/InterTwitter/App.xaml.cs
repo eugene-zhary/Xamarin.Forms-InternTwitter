@@ -69,7 +69,12 @@ namespace InterTwitter
             InitializeComponent();
             FlowListView.Init();
 
-            await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
+
+            IAuthorizationService authorizationService = Container.Resolve<AuthorizationService>();
+
+            authorizationService.Authorize(2);
+
+            await NavigationService.NavigateAsync($"/{nameof(FlyoutNavigationView)}");
         }
 
         protected override void OnStart()

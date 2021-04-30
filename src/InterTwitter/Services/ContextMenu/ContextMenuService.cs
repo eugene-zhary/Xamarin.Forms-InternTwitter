@@ -1,6 +1,7 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Services.Permission;
 using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -71,7 +72,26 @@ namespace InterTwitter.Services.ContextMenu
 
             }
         }
+        public async Task<AOResult> ShareProfile(string ProfileName, string ImagePath)
+        {
+            var result = new AOResult();
+            try
+            {
+                await Share.RequestAsync(new ShareTextRequest
+                {
+                    Title = ProfileName,
+                    Uri = ImagePath
+                });
 
+                result.SetSuccess();
+            }
+            catch (Exception ex)
+            {
+                result.SetError($"{nameof(ShareImg)} : exception", "Something went wrong", ex);
+            }
+
+            return result;
+        }
         public async Task<AOResult> ShareImg(string url)
         {
             var result = new AOResult();
