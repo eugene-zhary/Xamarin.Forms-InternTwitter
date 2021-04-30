@@ -118,13 +118,6 @@ namespace InterTwitter.ViewModels.Navigation
             }
         }
 
-        public override async void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-
-            await UpdateCollectionAsync();
-        }
-
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -168,12 +161,13 @@ namespace InterTwitter.ViewModels.Navigation
 
         }
 
-        private Task OnRefresh()
+        private async Task OnRefresh()
         {
-            IsRefreshing = false;
             IsMenuButtonVisible = false;
 
-            return UpdateCollectionAsync();
+            await UpdateCollectionAsync();
+
+            IsRefreshing = false;
         }
 
         private Task OnHiddenMenuTap()

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:notifications="clr-namespace:InterTwitter.Views.Templates.Notifications;assembly=InterTwitter"
+             x:Class="InterTwitter.Resources.NotificationTemplates">
+
+    <notifications:EmptyPostNotificationDataTemplate x:Key="EmptyPostNotificationDataTemplate"/>
+    <notifications:GalleryPostNotificationDataTemplate x:Key="GalleryPostNotificationDataTemplate"/>
+    <notifications:GifPostNotificationDataTemplate x:Key="GifPostNotificationDataTemplate"/>
+    <notifications:VideoPostNotificationDataTemplate x:Key="VideoPostNotificationDataTemplate"/>
+
+    <notifications:NotificationDataTemplateSelector x:Key="NotificationDataTemplateSelector"
+                                                    EmptyPostDataTemplate="{StaticResource EmptyPostNotificationDataTemplate}"
+                                                    GalleryPostDataTemplate="{StaticResource GalleryPostNotificationDataTemplate}"
+                                                    GifPostDataTemplate="{StaticResource GifPostNotificationDataTemplate}"
+                                                    VideoPostDataTemplate="{StaticResource VideoPostNotificationDataTemplate}"/>
+</ResourceDictionary>

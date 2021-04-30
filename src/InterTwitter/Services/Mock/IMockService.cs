@@ -1,7 +1,5 @@
 ﻿using InterTwitter.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace InterTwitter.Services
 {
@@ -9,5 +7,6 @@ namespace InterTwitter.Services
     {
         IList<User> MockedUsers { get; set; }
         IList<Post> MockedPosts { get; set; }
+        IList<Models.Notification> MockedNotifications { get; set; }
     }
 }

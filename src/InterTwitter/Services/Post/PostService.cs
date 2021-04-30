@@ -8,6 +8,8 @@ using InterTwitter.Services.Settings;
 using System.Threading.Tasks;
 using InterTwitter.Helpers;
 using Prism.Events;
+using InterTwitter.Services.Notification;
+using InterTwitter.Enums;
 
 namespace InterTwitter.Services
 {
@@ -16,12 +18,18 @@ namespace InterTwitter.Services
         private readonly IMockService _mock;
         private readonly ISettingsManager _settings;
         private readonly IEventAggregator _eventAggregator;
+        private readonly INotificationService _notificationService;
 
-        public PostService(IMockService mock, ISettingsManager settings, IEventAggregator aggregator)
+        public PostService(
+            IMockService mock,
+            ISettingsManager settings,
+            IEventAggregator aggregator,
+            INotificationService notificationService)
         {
             _eventAggregator = aggregator;
             _mock = mock;
             _settings = settings;
+            _notificationService = notificationService;
         }
 
         #region -- IPostManager implementation --
@@ -100,6 +108,8 @@ namespace InterTwitter.Services
                 var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
                 post.LikedUserIds.Add(_settings.RememberedUserId);
 
+                await SaveNotificationAsync(postId, _settings.RememberedUserId, ENotificationTypes.Liked);
+
                 result.SetSuccess();
             }
             catch(Exception ex)
@@ -119,6 +129,8 @@ namespace InterTwitter.Services
             {
                 var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
                 post.LikedUserIds.Remove(_settings.RememberedUserId);
+
+                await DeleteNotificationAsync(postId, _settings.RememberedUserId, ENotificationTypes.Liked);
 
                 result.SetSuccess();
             }
@@ -140,6 +152,8 @@ namespace InterTwitter.Services
                 var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
                 post.BookmarkedUserIds.Add(_settings.RememberedUserId);
 
+                await SaveNotificationAsync(postId, _settings.RememberedUserId, ENotificationTypes.Bookmarked);
+
                 result.SetSuccess();
             }
             catch(Exception ex)
@@ -159,6 +173,8 @@ namespace InterTwitter.Services
             {
                 var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
                 post.BookmarkedUserIds.Remove(_settings.RememberedUserId);
+
+                await DeleteNotificationAsync(postId, _settings.RememberedUserId, ENotificationTypes.Bookmarked);
 
                 result.SetSuccess();
             }
@@ -189,6 +205,34 @@ namespace InterTwitter.Services
             }
 
             return result;
+        }
+
+        #endregion
+
+        #region -- Private helpers --
+
+        private Task DeleteNotificationAsync(int postId, int actorId, ENotificationTypes notificationType)
+        {
+            var notification = new Models.Notification
+            {
+                PostId = postId,
+                ActorId = actorId,
+                NotificationType = notificationType
+            };
+
+            return _notificationService.DeleteNotificationAsync(notification);
+        }
+
+        private Task SaveNotificationAsync(int postId, int actorId, ENotificationTypes notificationType)
+        {
+            var notification = new Models.Notification
+            {
+                PostId = postId,
+                ActorId = actorId,
+                NotificationType = notificationType
+            };
+
+            return _notificationService.InsertNotificationAsync(notification);
         }
 
         #endregion

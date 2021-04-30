@@ -261,6 +261,15 @@
   <data name="YouHaveNoBookmarksYet" xml:space="preserve">
     <value>You have no bookmarks yet</value>
   </data>
+  <data name="YouHaveNoNotificationsYet" xml:space="preserve">
+    <value>You have no notifications yet</value>
+  </data>
+  <data name="LikedYourPost" xml:space="preserve">
+    <value>liked your post</value>
+  </data>
+  <data name="SavedYourPost" xml:space="preserve">
+    <value>saved your post</value>
+  </data>
   <data name="AskForStoragePermission" xml:space="preserve">
     <value>InterTwitter needs storage access so that you can save photos. Please enable it in Settings</value>
   </data>

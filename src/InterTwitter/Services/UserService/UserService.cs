@@ -45,6 +45,24 @@ namespace InterTwitter.Services.UserService
             return result;
         }
 
+        public async Task<AOResult<IEnumerable<User>>> GetUsersAsync(Expression<Func<User, bool>> predicate)
+        {
+            var result = new AOResult<IEnumerable<User>>();
+
+            try
+            {
+                var allUsers = (await GetUserMocksAsync()).ToList();
+
+                result.SetSuccess(allUsers.Where(predicate.Compile()));
+            }
+            catch (Exception e)
+            {
+                result.SetError($"{nameof(GetUserAsync)}: exception", "Something went wrong", e);
+            }
+
+            return result;
+        }
+
         public async Task<AOResult<User>> GetUserAsync(int id)
         {
             var result = new AOResult<User>();

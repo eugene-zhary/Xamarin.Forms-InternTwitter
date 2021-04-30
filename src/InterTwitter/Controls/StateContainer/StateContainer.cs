@@ -24,7 +24,7 @@ namespace InterTwitter.Controls.StateContainer
         private static async void StateChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var parent = bindable as StateContainer;
-            if(parent != null)
+            if (parent != null)
             {
                 await parent.ChooseStateProperty(newValue);
             }
@@ -35,7 +35,7 @@ namespace InterTwitter.Controls.StateContainer
         }
         private async Task ChooseStateProperty(object newValue)
         {
-            if(Conditions == null && Conditions?.Count == 0)
+            if (Conditions == null && Conditions?.Count == 0)
             {
                 return;
             }
@@ -45,9 +45,9 @@ namespace InterTwitter.Controls.StateContainer
             }
             try
             {
-                foreach(var stateCondition in Conditions.Where(stateCondition => stateCondition.State != null && stateCondition.State.ToString().Equals(newValue.ToString())))
+                foreach (var stateCondition in Conditions.Where(stateCondition => stateCondition.State != null && stateCondition.State.ToString().Equals(newValue.ToString())))
                 {
-                    if(Content != null)
+                    if (Content != null)
                     {
                         await Content.FadeTo(0, 100U);
                         Content.IsVisible = false;
@@ -64,7 +64,7 @@ namespace InterTwitter.Controls.StateContainer
                     break;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine($"StateContainer ChooseStateProperty {newValue} error {e}");
             }

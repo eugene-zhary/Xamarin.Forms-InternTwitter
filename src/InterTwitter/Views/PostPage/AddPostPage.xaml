@@ -7,8 +7,7 @@
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
              xmlns:controls="clr-namespace:InterTwitter.Controls" 
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView" 
-             xmlns:helpers="clr-namespace:InterTwitter.Helpers" 
-             xmlns:templates="clr-namespace:InterTwitter.Views.Templates.AddPost"
+             xmlns:helpers="clr-namespace:InterTwitter.Helpers"
              xmlns:stateContainer="clr-namespace:InterTwitter.Controls.StateContainer;assembly=InterTwitter"
              x:Class="InterTwitter.Views.PostPage.AddPostPage"
              x:Name="this">

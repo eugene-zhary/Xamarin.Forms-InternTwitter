@@ -250,6 +250,15 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to liked your post.
+        /// </summary>
+        internal static string LikedYourPost {
+            get {
+                return ResourceManager.GetString("LikedYourPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log In.
         /// </summary>
         internal static string LogIn {
@@ -484,6 +493,15 @@ namespace InterTwitter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to saved your post.
+        /// </summary>
+        internal static string SavedYourPost {
+            get {
+                return ResourceManager.GetString("SavedYourPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permission for saving is denied.
         /// </summary>
         internal static string SaveFailed {
@@ -606,6 +624,15 @@ namespace InterTwitter.Resources {
         internal static string YouHaveNoBookmarksYet {
             get {
                 return ResourceManager.GetString("YouHaveNoBookmarksYet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have no notifications yet.
+        /// </summary>
+        internal static string YouHaveNoNotificationsYet {
+            get {
+                return ResourceManager.GetString("YouHaveNoNotificationsYet", resourceCulture);
             }
         }
         
