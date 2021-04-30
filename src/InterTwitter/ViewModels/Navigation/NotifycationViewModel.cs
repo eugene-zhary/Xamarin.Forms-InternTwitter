@@ -94,60 +94,53 @@ namespace InterTwitter.ViewModels.Navigation
 
         private async Task UpdateCollectionAsync()
         {
+            PageState = EPageState.Loading;
+
             // getting all my posts
             var postResult = await _postService.GetPostsAsync(p => p.UserId == _settingsManager.RememberedUserId);
 
             if (postResult.IsSuccess)
             {
                 var posts = new List<BasePostViewModel>(postResult.Result);
+                var postIds = posts.Select(p => p.PostModel.Id).ToList();
 
-                if (posts.Any())
+                // getting all notifications for my posts
+                var notificationResult =
+                    await _notificationService.GetNotificationsAsync(n => postIds.Contains(n.PostId));
+
+                if (notificationResult.IsSuccess)
                 {
-                    List<NotificationViewModel> notificationViewModels = new List<NotificationViewModel>();
+                    var notificationModels = notificationResult.Result.ToList();
+                    var actorIds = notificationModels.Select(nm => nm.ActorId);
 
-                    foreach (var post in posts)
+                    // getting all actors (users, who liked/bookmarked)
+                    var actorResult = await _userService.GetUsersAsync(u => actorIds.Contains(u.Id));
+
+                    if (actorResult.IsSuccess)
                     {
-                        // getting all notification for each my post
-                        var notificationResult =
-                            await _notificationService.GetNotificationsAsync(n => n.PostId == post.PostModel.Id);
+                        var actors = actorResult.Result.ToList();
+                        var notificationViewModels = new List<NotificationViewModel>();
 
-                        if (notificationResult.IsSuccess)
+                        foreach (var notification in notificationModels)
                         {
-                            var notifications = notificationResult.Result.ToList();
-
-                            foreach (var notification in notifications)
-                            {
-                                // getting actor of each notification (the user who liked/bookmarked)
-                                var actorResult = await _userService.GetUserAsync(notification.ActorId);
-
-                                if (actorResult.IsSuccess)
-                                {
-                                    notificationViewModels.Add(notification.ToViewModel(actorResult.Result, post));
-                                }
-                            }
+                            notificationViewModels.Add(notification.ToViewModel(
+                                actors.First(a => a.Id == notification.ActorId),
+                                posts.First(p => p.PostModel.Id == notification.PostId)));
                         }
+
+                        // sort: newest first
+                        notificationViewModels.Sort((n1, n2) =>
+                            n2.Notification.Id - n1.Notification.Id);
+
+                        NotificationCollection =
+                            new ObservableCollection<NotificationViewModel>(notificationViewModels);
+
+                        PageState = EPageState.Normal;
                     }
-
-                    // sort: newest first
-                    notificationViewModels.Sort((n1, n2) =>
+                    else
                     {
-                        int result = 0;
-
-                        if (n1.Notification.Id > n2.Notification.Id)
-                        {
-                            result = -1;
-                        }
-                        else if (n1.Notification.Id < n2.Notification.Id)
-                        {
-                            result = 1;
-                        }
-
-                        return result;
-                    });
-
-                    NotificationCollection = new ObservableCollection<NotificationViewModel>(notificationViewModels);
-
-                    PageState = EPageState.Normal;
+                        PageState = EPageState.Empty;
+                    }
                 }
                 else
                 {
@@ -162,9 +155,9 @@ namespace InterTwitter.ViewModels.Navigation
 
         private async Task OnRefreshAsync()
         {
-            await UpdateCollectionAsync();
-
             IsRefreshing = false;
+
+            await UpdateCollectionAsync();
         }
 
         #endregion

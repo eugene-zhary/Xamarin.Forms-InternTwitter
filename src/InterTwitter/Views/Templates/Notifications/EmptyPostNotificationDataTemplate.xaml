@@ -67,7 +67,8 @@
 
                 <Label Text="{Binding Actor.Name}" 
                        Style="{StaticResource Subtitle2}" 
-                       FontAttributes="Bold" />
+                       FontAttributes="Bold"
+                       Margin="0,0,5, 0" />
 
                 <Label Text="{Binding NotificationDescription}" 
                        Style="{StaticResource Body2}" />

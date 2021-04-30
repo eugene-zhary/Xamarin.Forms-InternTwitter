@@ -67,10 +67,11 @@
 
                 <Label Text="{Binding Actor.Name}"
                        Style="{StaticResource Subtitle2}"
-                       FontAttributes="Bold" Margin="0,0,5, 0" />
+                       FontAttributes="Bold"
+                       Margin="0,0,5, 0" />
 
                 <Label Text="{Binding NotificationDescription}"
-                       Style="{StaticResource Body2}" Margin="0" />
+                       Style="{StaticResource Body2}" />
 
             </FlexLayout>
 
