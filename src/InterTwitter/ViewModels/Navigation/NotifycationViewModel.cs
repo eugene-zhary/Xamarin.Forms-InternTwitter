@@ -65,7 +65,7 @@ namespace InterTwitter.ViewModels.Navigation
         }
 
         private ICommand _refreshCommand;
-        public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefreshAsync);
+        public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefreshAsync, delayMillisec: 0);
 
         #endregion
 
@@ -94,8 +94,6 @@ namespace InterTwitter.ViewModels.Navigation
 
         private async Task UpdateCollectionAsync()
         {
-            PageState = EPageState.Loading;
-
             // getting all my posts
             var postResult = await _postService.GetPostsAsync(p => p.UserId == _settingsManager.RememberedUserId);
 
@@ -155,9 +153,9 @@ namespace InterTwitter.ViewModels.Navigation
 
         private async Task OnRefreshAsync()
         {
-            IsRefreshing = false;
-
             await UpdateCollectionAsync();
+
+            IsRefreshing = false;
         }
 
         #endregion

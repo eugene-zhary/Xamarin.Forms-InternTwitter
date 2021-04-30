@@ -73,7 +73,7 @@ namespace InterTwitter.ViewModels.Navigation
         }
 
         private ICommand _refreshCommand;
-        public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefresh);
+        public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefresh, delayMillisec: 0);
 
         private ICommand _hiddenMenuTapCommand;
 
@@ -126,13 +126,11 @@ namespace InterTwitter.ViewModels.Navigation
             await UpdateCollectionAsync();
         }
 
-        public override async void OnNavigatedTo(INavigationParameters parameters)
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
             IsMenuButtonVisible = false;
-
-            await UpdateCollectionAsync();
         }
 
         public override void OnAppearing()
@@ -169,12 +167,13 @@ namespace InterTwitter.ViewModels.Navigation
 
         }
 
-        private Task OnRefresh()
+        private async Task OnRefresh()
         {
-            IsRefreshing = false;
             IsMenuButtonVisible = false;
 
-            return UpdateCollectionAsync();
+            await UpdateCollectionAsync();
+
+            IsRefreshing = false;
         }
 
         private Task OnHiddenMenuTap()

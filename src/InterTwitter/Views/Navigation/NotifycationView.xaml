@@ -20,9 +20,35 @@
         <resources:NotificationTemplates />
     </ContentPage.Resources>
 
-    <Grid>
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <stateContainer:StateContainer State="{Binding PageState}">
+        <!-- Navbar -->
+
+        <Grid Grid.Row="0"
+              VerticalOptions="Start"
+              HeightRequest="55"
+              BackgroundColor="{StaticResource White}"
+              RowDefinitions="*">
+
+            <Label Grid.Row="0"
+                   Text="{x:Static resources:Strings.NotificationTitle}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Style="{StaticResource Header2}"
+                   TextColor="{StaticResource Black}"/>
+
+            <BoxView VerticalOptions="End"
+                     HeightRequest="1"
+                     BackgroundColor="{StaticResource Light Grey}" />
+
+        </Grid>
+
+        <stateContainer:StateContainer Grid.Row="1"
+                                       State="{Binding PageState}">
 
             <stateContainer:StateCondition State="Loading">
 
@@ -40,16 +66,7 @@
                              IsRefreshing="{Binding IsRefreshing}">
 
                     <controls:CustomCollectionView ItemsSource="{Binding NotificationCollection}"
-                                                   ItemTemplate="{StaticResource NotificationDataTemplateSelector}">
-
-                        <controls:CustomCollectionView.Header>
-
-                            <BoxView HeightRequest="55" 
-                                     BackgroundColor="White"/>
-
-                        </controls:CustomCollectionView.Header>
-
-                    </controls:CustomCollectionView>
+                                                   ItemTemplate="{StaticResource NotificationDataTemplateSelector}"/>
 
                 </RefreshView>
 
@@ -72,26 +89,6 @@
             </stateContainer:StateCondition>
 
         </stateContainer:StateContainer>
-
-        <!-- Navbar -->
-
-        <Grid VerticalOptions="Start"
-              HeightRequest="55"
-              BackgroundColor="{StaticResource White}"
-              RowDefinitions="*">
-
-            <Label Grid.Row="0"
-                   Text="{x:Static resources:Strings.NotificationTitle}"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   Style="{StaticResource Header2}"
-                   TextColor="{StaticResource Black}"/>
-
-            <BoxView VerticalOptions="End"
-                     HeightRequest="1"
-                     BackgroundColor="{StaticResource Light Grey}" />
-
-        </Grid>
 
     </Grid>
 

@@ -26,7 +26,17 @@ namespace InterTwitter.Services.Notification
             {
                 await Task.Delay(100);
 
-                result.SetSuccess(_mock.MockedNotifications.Where(predicate.Compile()));
+                var resultCollection = _mock.MockedNotifications.Where(predicate.Compile()).ToList();
+
+                if (resultCollection.Any())
+                {
+                    result.SetSuccess(resultCollection);
+                }
+                else
+                {
+                    result.SetFailure();
+                }
+                
             }
             catch (Exception e)
             {
