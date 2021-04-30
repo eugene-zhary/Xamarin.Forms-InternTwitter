@@ -51,18 +51,6 @@ namespace InterTwitter.Services.ContextMenu
             return result;
         }
 
-        private async void WebClient_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
-        {
-            try
-            {
-                string filePath = $"InterTwitter.{DateTime.Now:dd.MM.yyyy_hh.mm.ss}.jpg";
-                await MediaGallery.SaveAsync(MediaFileType.Image, e.Result, filePath);
-            }
-            catch(Exception ex)
-            {
-
-            }
-        }
         public async Task<AOResult> ShareProfile(string ProfileName, string ImagePath)
         {
             var result = new AOResult();
@@ -109,11 +97,11 @@ namespace InterTwitter.Services.ContextMenu
 
         #region -- Private helpers --
 
-        private async Task<byte[]> DownloadImgAsync(string url)
+        private Task<byte[]> DownloadImgAsync(string url)
         {
             using var webClient = new WebClient();
 
-            return await Task.Run(() => webClient.DownloadData(url));
+            return webClient.DownloadDataTaskAsync(url);
         }
 
         #endregion
