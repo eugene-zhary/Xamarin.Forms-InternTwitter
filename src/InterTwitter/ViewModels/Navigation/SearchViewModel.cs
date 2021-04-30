@@ -10,20 +10,15 @@ using InterTwitter.Helpers;
 using InterTwitter.ViewModels.Posts;
 using InterTwitter.Services.UserService;
 using InterTwitter.Services.Authorization;
+using System.Collections.Generic;
 
 namespace InterTwitter.ViewModels.Navigation
 {
     public class SearchViewModel : BaseTabViewModel
     {
-        #region Private Variables/Properties
-
         private readonly IPostService _postService;
         private readonly IUserService _userService;
         private readonly IAuthorizationService _authorizationService;
-
-        #endregion
-
-        #region Constructors
 
         public SearchViewModel(INavigationService navigation, IPostService postService,
                                IUserService userService, IAuthorizationService authorizationService) : base(navigation)
@@ -37,11 +32,7 @@ namespace InterTwitter.ViewModels.Navigation
             ShowTagList = true;
         }
 
-        #endregion
-
         #region -- Public properties --
-
-        #region Bindble Properties
 
         private ObservableCollection<PopularThemes> _items;
         public ObservableCollection<PopularThemes> Items
@@ -99,8 +90,6 @@ namespace InterTwitter.ViewModels.Navigation
             set => SetProperty(ref _searcedPost, value);
         }
 
-        #endregion
-
         private ICommand _textChangedCommand;
         public ICommand TextChangedCommand => _textChangedCommand ??= SingleExecutionCommand.FromFunc(OnTextChangedAsync, delayMillisec:0);
         
@@ -125,37 +114,66 @@ namespace InterTwitter.ViewModels.Navigation
         {
             ShowPostList = false;
             ShowTagList = true;
+
+            Text = "";
         }
 
         private async void OnNavigationToSearchAsync(PopularThemes popularThemes)
         {
+            Text = popularThemes.Tag;
+
             await UpdateCollecitonAsync(popularThemes.Tag);
         }
-
-        private async Task<AOResult> UpdateCollecitonAsync(string Tag)
+        private IEnumerable<Span> IncludeSelect(Span span, string Select)
         {
-            var result = new AOResult();
-
-            try
+            if (!span.Text.Contains(Select) || string.IsNullOrWhiteSpace(Select))
             {
-                SearchedPosts.Clear();
-
-                var posts = await _postService.GetPostsAsync();
-
-                posts.Result.Where(u => u.PostModel.Text.Contains(Tag)).ToList().ForEach(SearchedPosts.Add);
-
-                ShowPostList = true;
-                ShowTagList = false;
-                ShowNoResult = SearchedPosts.Count == 0;
-
-                result.SetSuccess();
-            }
-            catch (Exception ex)
-            {
-                result.SetError($"{nameof(UpdateCollecitonAsync)}", "Something went wrong", ex);
+                return new Span[] { span };
             }
 
-            return result;
+            Span BeforeTag = new Span() { Text = span.Text[..span.Text.IndexOf(Select)] };
+            Span AfterTag = new Span() { Text = span.Text[(span.Text.IndexOf(Select) + Select.Length)..] };
+            Span Tag;
+            if (Select.Contains("#"))
+            {
+                Tag = new Span() { Text = Select, TextColor = Color.FromHex("#2356C5")};
+            }
+            else
+            {
+                Tag = new Span() { Text = Select, BackgroundColor = Color.FromHex("#C7D6F7") };
+            }
+
+            var newspan = new List<Span>(IncludeSelect(BeforeTag, Select));
+            newspan.Add(Tag);
+            newspan.AddRange(IncludeSelect(AfterTag, Select));
+
+            return newspan;
+        }
+
+        private async Task UpdateCollecitonAsync(string Tag)
+        {
+            SearchedPosts.Clear();
+
+            var posts = await _postService.GetPostsAsync();
+
+            posts.Result.Where(u => u.PostModel.Text.Contains(Tag)).ToList().ForEach(SearchedPosts.Add);
+            var startCount = SearchedPosts.Select(u => u.FormattedString.Spans.Count).ToList();
+            SearchedPosts.ToList().ForEach(u => u.FormattedString.Spans.ToList().ForEach(span => IncludeSelect(span, Tag).ToList().ForEach(v => u.FormattedString.Spans.Add(v))));
+
+
+            for (int i = 0; i < SearchedPosts.Count; i++)
+            {
+                for (int j = 0; j < SearchedPosts[i].FormattedString.Spans.Count - startCount[i]; j++)
+                {
+                    SearchedPosts[i].FormattedString.Spans.RemoveAt(0);
+                }
+            }
+
+            ShowPostList = true;
+            ShowTagList = false;
+
+
+            ShowNoResult = SearchedPosts.Count == 0;
         }
 
         #endregion
@@ -187,6 +205,11 @@ namespace InterTwitter.ViewModels.Navigation
             Items = new ObservableCollection<PopularThemes>(Items.OrderByDescending(u => u.Count));
 
             ProfileImage = (await _userService.GetUserAsync(_authorizationService.GetCurrentUserId)).Result.ProfileImagePath;
+
+            if (parameters.TryGetValue<string>("Tag", out var tag))
+            {
+                Text = tag;
+            }
         }
 
         #endregion

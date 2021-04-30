@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:BaseContentPage
-    x:Class="InterTwitter.Views.Navigation.SearchView"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:InterTwitter.Controls"
-    xmlns:controls1="clr-namespace:PanCardView.Controls;assembly=PanCardView"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-    xmlns:local="clr-namespace:InterTwitter.Views"
-    xmlns:navigation="clr-namespace:InterTwitter.ViewModels.Navigation"
-    xmlns:prism="http://prismlibrary.com"
-    xmlns:resources="clr-namespace:InterTwitter.Resources"
-    x:Name="searchView"
-    prism:ViewModelLocator.AutowireViewModel="True"
-    BackgroundColor="White"
-    IconImageSource="{Binding IconPath}">
+<local:BaseContentPage x:Class="InterTwitter.Views.Navigation.SearchView"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:controls="clr-namespace:InterTwitter.Controls"
+                       xmlns:controls1="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+                       xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                       xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                       xmlns:local="clr-namespace:InterTwitter.Views"
+                       xmlns:navigation="clr-namespace:InterTwitter.ViewModels.Navigation"
+                       xmlns:prism="http://prismlibrary.com"
+                       xmlns:resources="clr-namespace:InterTwitter.Resources"
+                       x:Name="searchView"
+                       prism:ViewModelLocator.AutowireViewModel="True"
+                       BackgroundColor="White"
+                       IconImageSource="{Binding IconPath}">
 
     <local:BaseContentPage.Resources>
         <resources:PostTemplates />
     </local:BaseContentPage.Resources>
 
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="48*" />
             <RowDefinition Height="1*" />
@@ -32,11 +32,10 @@
                 <ColumnDefinition Width="260*" />
             </Grid.ColumnDefinitions>
 
-            <ffimageloading:CachedImage
-                Margin="12,12,0,6"
-                HorizontalOptions="Start"
-                IsVisible="{Binding ShowTagList}"
-                Source="{Binding ProfileImage}">
+            <ffimageloading:CachedImage Margin="12,12,0,6"
+                                        HorizontalOptions="Start"
+                                        IsVisible="{Binding ShowTagList}"
+                                        Source="{Binding ProfileImage}">
                 <ffimageloading:CachedImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PicProfileTapGestureRecognizer}" />
                 </ffimageloading:CachedImage.GestureRecognizers>
@@ -45,75 +44,74 @@
                 </ffimageloading:CachedImage.Transformations>
             </ffimageloading:CachedImage>
 
-            <controls1:CircleFrame
-                Margin="12,12,0,6"
-                HorizontalOptions="Start"
-                IsVisible="{Binding ShowPostList}">
+            <controls1:CircleFrame Margin="12,12,0,6"
+                                   HorizontalOptions="Start"
+                                   IsVisible="{Binding ShowPostList}">
                 <Image Source="ic_left_gray" />
                 <controls1:CircleFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding HidePostsCollectionCommand}" />
                 </controls1:CircleFrame.GestureRecognizers>
             </controls1:CircleFrame>
-            <Frame
-                Grid.Column="1"
-                Margin="0,9,12,11"
-                Padding="0,0,0,0"
-                BackgroundColor="{StaticResource Light Grey}"
-                CornerRadius="20"
-                HasShadow="False"
-                IsClippedToBounds="True">
-                <controls:BorderlessEntry
-                    Margin="12,0,0,0"
-                    BackgroundColor="{StaticResource Light Grey}"
-                    Placeholder="Search"
-                    PlaceholderColor="{StaticResource Dark Grey}"
-                    Style="{StaticResource EntryCaption}"
-                    Text="{Binding Text}">
+
+            <Frame Grid.Column="1"
+                   Margin="0,9,12,11"
+                   Padding="0,0,0,0"
+                   BackgroundColor="{StaticResource Light Grey}"
+                   CornerRadius="20"
+                   HasShadow="False"
+                   IsClippedToBounds="True">
+
+                <controls:BorderlessEntry Margin="12,0,0,0"
+                                          BackgroundColor="{StaticResource Light Grey}"
+                                          Placeholder="Search"
+                                          PlaceholderColor="{StaticResource Dark Grey}"
+                                          Style="{StaticResource EntryCaption}"
+                                          Text="{Binding Text}">
                     <controls:BorderlessEntry.Behaviors>
-                        <prism:EventToCommandBehavior
-                            Command="{Binding TextChangedCommand}"
-                            CommandParameter="{Binding .}"
-                            EventName="TextChanged" />
+                        <prism:EventToCommandBehavior Command="{Binding TextChangedCommand}"
+                                                      CommandParameter="{Binding .}"
+                                                      EventName="TextChanged" />
                     </controls:BorderlessEntry.Behaviors>
                 </controls:BorderlessEntry>
+
             </Frame>
+
         </Grid>
-        <Line
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            BackgroundColor="{StaticResource Light Grey}" />
-        <controls:CustomCollectionView
-            x:Name="collectionView"
-            Grid.Row="2"
-            Grid.ColumnSpan="2"
-            IsVisible="{Binding ShowPostList}"
-            ItemTemplate="{StaticResource postTemplateSelector}"
-            ItemsSource="{Binding SearchedPosts}"
-            ItemsUpdatingScrollMode="KeepItemsInView" />
-        <ListView
-            x:Name="listView"
-            Grid.Row="2"
-            Grid.ColumnSpan="2"
-            Margin="12"
-            HasUnevenRows="True"
-            HeightRequest="60"
-            IsVisible="{Binding ShowTagList}"
-            ItemsSource="{Binding Items}"
-            SelectedItem="{Binding SelectedItem}"
-            SeparatorColor="{StaticResource Light Grey}">
+
+        <Line Grid.Row="1"
+              Grid.ColumnSpan="2"
+              BackgroundColor="{StaticResource Light Grey}" />
+        <controls:CustomCollectionView x:Name="collectionView"
+                                       Grid.Row="2"
+                                       Grid.ColumnSpan="2"
+                                       IsVisible="{Binding ShowPostList}"
+                                       ItemTemplate="{StaticResource postTemplateSelector}"
+                                       ItemsSource="{Binding SearchedPosts}"
+                                       ItemsUpdatingScrollMode="KeepItemsInView" />
+        <ListView x:Name="listView"
+                  Grid.Row="2"
+                  Grid.ColumnSpan="2"
+                  Margin="12"
+                  HasUnevenRows="True"
+                  HeightRequest="60"
+                  IsVisible="{Binding ShowTagList}"
+                  ItemsSource="{Binding Items}"
+                  SelectedItem="{Binding SelectedItem}"
+                  SeparatorColor="{StaticResource Light Grey}">
+
             <ListView.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="1" />
                     </Grid.RowDefinitions>
-                    <Label
-                        Style="{StaticResource Header2}"
-                        Text="Popular Theme"
-                        TextColor="{StaticResource Black}" />
+                    <Label Style="{StaticResource Header2}"
+                           Text="Popular Theme"
+                           TextColor="{StaticResource Black}" />
                     <Line Grid.Row="1" BackgroundColor="{StaticResource Light Grey}" />
                 </Grid>
             </ListView.Header>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -123,10 +121,9 @@
                                     <Label Style="{StaticResource Subtitle2}" Text="{Binding Tag}" />
                                     <Label Style="{StaticResource Caption2}" Text="{Binding Count, StringFormat='Posts:{0:D}'}" />
                                 </StackLayout>
-                                <Image
-                                    Grid.Column="1"
-                                    HorizontalOptions="End"
-                                    Source="ic_right_gray">
+                                <Image Grid.Column="1"
+                                       HorizontalOptions="End"
+                                       Source="ic_right_gray">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Path=BindingContext.NavigationToSearchCommand, Source={x:Reference searchView}}" CommandParameter="{Binding .}" />
                                     </Image.GestureRecognizers>
@@ -136,16 +133,21 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
+
         </ListView>
-        <StackLayout
-            Grid.Row="2"
-            Grid.ColumnSpan="2"
-            HorizontalOptions="Center"
-            IsVisible="{Binding ShowNoResult}"
-            VerticalOptions="Center">
+
+        <StackLayout Grid.Row="2"
+                     Grid.ColumnSpan="2"
+                     HorizontalOptions="Center"
+                     IsVisible="{Binding ShowNoResult}"
+                     VerticalOptions="Center">
+
             <Image Source="pic_empty_state" />
+
             <Label HorizontalOptions="Center" Text="No Results for" />
+
             <Label Text="{Binding NoResultText, StringFormat='&quot;{0}&quot;'}" />
+
         </StackLayout>
     </Grid>
 </local:BaseContentPage>

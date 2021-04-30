@@ -1,27 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Grid
-    x:Class="InterTwitter.Controls.FeedNavigationBar"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:InterTwitter.Controls"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-    xmlns:navigation="clr-namespace:InterTwitter.ViewModels.Navigation"
-    x:Name="customNavigationBar"
-    x:DataType="navigation:HomeViewModel"
-    Style="{StaticResource CustomNavBar}">
+<Grid x:Class="InterTwitter.Controls.FeedNavigationBar"
+      xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:controls="clr-namespace:InterTwitter.Controls"
+      xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+      xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+      xmlns:navigation="clr-namespace:InterTwitter.ViewModels.Navigation"
+      x:Name="customNavigationBar"
+      x:DataType="navigation:HomeViewModel"
+      Style="{StaticResource CustomNavBar}">
 
     <Grid.RowDefinitions>
         <RowDefinition Height="47*" />
         <RowDefinition Height="1*" />
     </Grid.RowDefinitions>
-    <ffimageloading:CachedImage
-        Margin="12,12,0,6"
-        Aspect="AspectFit"
-        HeightRequest="24"
-        HorizontalOptions="Start"
-        Source="{Binding ImagePath}"
-        WidthRequest="24">
+    <ffimageloading:CachedImage Margin="12,12,0,6"
+                                Aspect="AspectFit"
+                                HeightRequest="24"
+                                HorizontalOptions="Start"
+                                Source="{Binding ImagePath}"
+                                WidthRequest="24">
         <ffimageloading:CachedImage.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding PicProfileTapGestureRecognizer}" />
         </ffimageloading:CachedImage.GestureRecognizers>
@@ -30,23 +28,22 @@
         </ffimageloading:CachedImage.Transformations>
     </ffimageloading:CachedImage>
 
-    <Label
-        Grid.Column="1"
-        HorizontalTextAlignment="Center"
-        Style="{StaticResource Header2}"
-        Text="Home" />
-    <Image
-        Grid.Column="2"
-        Margin="0,12,12,6"
-        HorizontalOptions="End"
-        Source="ic_add_blue">
+    <Label Grid.Column="1"
+           HorizontalTextAlignment="Center"
+           Style="{StaticResource Header2}"
+           Text="Home" />
+    
+    <Image Grid.Column="2"
+           Margin="0,12,12,6"
+           HorizontalOptions="End"
+           Source="ic_add_blue">
+        
         <Image.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding Path=AddPostTapGestureRecognizer, Source={x:Reference customNavigationBar}}" CommandParameter="{Binding .}" />
         </Image.GestureRecognizers>
     </Image>
-    <Line
-        Grid.Row="1"
-        Grid.Column="0"
-        Grid.ColumnSpan="3"
-        BackgroundColor="{StaticResource Light Grey}" />
+    <Line Grid.Row="1"
+          Grid.Column="0"
+          Grid.ColumnSpan="3"
+          BackgroundColor="{StaticResource Light Grey}" />
 </Grid>

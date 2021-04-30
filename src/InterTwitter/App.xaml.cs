@@ -67,6 +67,7 @@ namespace InterTwitter
             InitializeComponent();
             FlowListView.Init();
 
+
             await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
         }
 
