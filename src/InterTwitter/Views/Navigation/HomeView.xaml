@@ -30,7 +30,7 @@
                                        ItemsSource="{Binding PostCollection}"
                                        ItemTemplate="{StaticResource postTemplateSelector}">
                 <controls:CustomCollectionView.Header>
-                    <BoxView BackgroundColor="White" HeightRequest="55" />
+                    <BoxView BackgroundColor="{StaticResource White}" HeightRequest="55" />
                 </controls:CustomCollectionView.Header>
 
             </controls:CustomCollectionView>
@@ -40,7 +40,8 @@
         <controls:FloationActionButton ScrollState="{Binding Source={x:Reference collectionView}, Path=ScrollState}"
                                        VerticalOptions="End" HorizontalOptions="End" ImageSource="ic_add_white.png"
                                        Margin="20,40" HeightRequest="60" WidthRequest="60"
-                                       CornerRadius="30" BackgroundColor="{StaticResource Primary}"/>
+                                       CornerRadius="30" BackgroundColor="{StaticResource Primary}"
+                                       Command="{Binding AddPostCommand}"/>
 
 
         <!--  NAVIGATION BAR  -->

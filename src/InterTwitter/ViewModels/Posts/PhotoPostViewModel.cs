@@ -1,6 +1,4 @@
 ﻿using InterTwitter.Models;
-using InterTwitter.Services;
-using Prism.Navigation;
 using System.Linq;
 
 namespace InterTwitter.ViewModels.Posts

@@ -8,7 +8,6 @@ using InterTwitter.Services.Settings;
 using System.Threading.Tasks;
 using InterTwitter.Helpers;
 using Prism.Events;
-using Prism.Navigation;
 
 namespace InterTwitter.Services
 {
@@ -34,14 +33,24 @@ namespace InterTwitter.Services
 
             try
             {
-                var posts = (predecate == null) ?
-                    _mock.MockedPosts.ToViewModelCollection(this, _settings.RememberedUserId) :
-                    _mock.MockedPosts.Where(predecate)?.ToViewModelCollection(this, _settings.RememberedUserId);
+                var posts = (predecate == null)
+                    ? _mock.MockedPosts
+                    : _mock.MockedPosts.Where(predecate);
 
-                if(posts.Any())
+                var postsResult = new List<BasePostViewModel>();
+
+                foreach(var post in posts)
                 {
-                    posts.ToList().Sort((p1, p2) => p1.PostModel.CreationDateTime.CompareTo(p2.PostModel.CreationDateTime));
-                    result.SetSuccess(posts);
+                    var postAuthor = await GetPostAuthorAsync(post.UserId);
+                    if(postAuthor.IsSuccess)
+                    {
+                        postsResult.Add(post.ToViewModel(postAuthor.Result, _settings.RememberedUserId));
+                    }
+                }
+
+                if(postsResult!= null && postsResult.Any())
+                {
+                    result.SetSuccess(postsResult.OrderByDescending(p => p.PostModel.CreationDateTime));
                 }
                 else
                 {
@@ -55,7 +64,8 @@ namespace InterTwitter.Services
 
             return result;
         }
-        public AOResult<User> GetPostAuthorAsync(int userId)
+
+        public Task<AOResult<User>> GetPostAuthorAsync(int userId)
         {
             var result = new AOResult<User>();
 
@@ -77,8 +87,9 @@ namespace InterTwitter.Services
                 result.SetError($"{nameof(GetPostAuthorAsync)}: exception", "Something went wrong", ex);
             }
 
-            return result;
+            return Task.FromResult(result);
         }
+
         public async Task<AOResult> LikePostAsync(int postId)
         {
             var result = new AOResult();
@@ -98,6 +109,7 @@ namespace InterTwitter.Services
 
             return result;
         }
+
         public async Task<AOResult> UnlikePostAsync(int postId)
         {
             var result = new AOResult();
@@ -117,6 +129,7 @@ namespace InterTwitter.Services
 
             return result;
         }
+
         public async Task<AOResult> BookmarkPostAsync(int postId)
         {
             var result = new AOResult();
@@ -136,6 +149,7 @@ namespace InterTwitter.Services
 
             return result;
         }
+
         public async Task<AOResult> UnbookmarkPostAsync(int postId)
         {
             var result = new AOResult();
@@ -151,6 +165,27 @@ namespace InterTwitter.Services
             catch(Exception ex)
             {
                 result.SetError($"{nameof(UnbookmarkPostAsync)}: exception", "Something went wrong", ex);
+            }
+
+            return result;
+        }
+
+        public async Task<AOResult> AddPostAsync(Post post)
+        {
+            var result = new AOResult();
+            await Task.Delay(100);
+
+            try
+            {
+                var lastPostId = _mock.MockedPosts.Last().Id;
+                post.Id = ++lastPostId;
+
+                _mock.MockedPosts.Add(post);
+                result.SetSuccess();
+            }
+            catch(Exception ex)
+            {
+                result.SetError($"{nameof(AddPostAsync)}: exception", "Something went wrong", ex);
             }
 
             return result;
