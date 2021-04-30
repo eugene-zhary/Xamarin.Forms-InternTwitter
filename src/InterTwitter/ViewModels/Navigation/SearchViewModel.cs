@@ -19,6 +19,7 @@ namespace InterTwitter.ViewModels.Navigation
         private readonly IPostService _postService;
         private readonly IUserService _userService;
         private readonly IAuthorizationService _authorizationService;
+        
 
         public SearchViewModel(INavigationService navigation, IPostService postService,
                                IUserService userService, IAuthorizationService authorizationService) : base(navigation)
