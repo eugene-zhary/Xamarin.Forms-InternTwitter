@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseContentPage  
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:local="clr-namespace:InterTwitter.Views" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
+             xmlns:controls="clr-namespace:InterTwitter.Controls" 
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView" 
+             xmlns:helpers="clr-namespace:InterTwitter.Helpers" 
+             xmlns:templates="clr-namespace:InterTwitter.Views.Templates.AddPost"
+             xmlns:stateContainer="clr-namespace:InterTwitter.Controls.StateContainer;assembly=InterTwitter"
+             x:Class="InterTwitter.Views.PostPage.AddPostPage"
+             x:Name="this">
+    <ContentPage.Content>
+        <Grid Padding="15,10,15,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition/>
+                <RowDefinition Height="110"/>
+            </Grid.RowDefinitions>
+
+
+            <!-- HEADER -->
+
+            <ffimageloading:CachedImage Source="ic_cansell"
+                HorizontalOptions="Start" VerticalOptions="Center">
+                <ffimageloading:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CancelCommand}"/>
+                </ffimageloading:CachedImage.GestureRecognizers>
+            </ffimageloading:CachedImage>
+
+            <Button BackgroundColor="{StaticResource Primary}" Text="Post"
+                    FontAttributes="Bold" FontSize="14" TextColor="{StaticResource White}"
+                    WidthRequest="120" HeightRequest="46" CornerRadius="23"
+                    HorizontalOptions="End" VerticalOptions="Center"
+                    Command="{Binding PostCommand}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsEmpty}" Value="true">
+                        <Setter Property="BackgroundColor" Value="{StaticResource Dark Grey}"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+
+            <!-- MAIN CONTENT -->
+
+            <Grid Grid.Row="1" ColumnSpacing="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <ffimageloading:CachedImage Source="{Binding CurrentUser.ProfileImagePath}" VerticalOptions="Start">
+                    <ffimageloading:CachedImage.Transformations>
+                        <fftransformations:CircleTransformation/>
+                    </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+
+                <controls:BorderlessEditor Grid.Column="1" Style="{StaticResource Body2Editor}" Text="{Binding PostText}"
+                                           Placeholder="Start writing" PlaceholderColor="{StaticResource Dark Grey}"/>
+            </Grid>
+
+
+
+            <!-- FOOTER -->
+
+            <controls:MovableFrame Padding="0" Grid.Row="2" Margin="-15,0" IsVisible="True" BackgroundColor="{StaticResource White}"
+                                   HasShadow="False">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid IsVisible="{Binding IsMediaItemsVisible}" Padding="15,0" RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        
+                        <BoxView BackgroundColor="{StaticResource Light Grey}" Margin="-15,0"/>
+
+                        <stateContainer:StateContainer Grid.Row="1" State="{Binding MediaState}">
+
+                            <!-- MEDIA STATE -->
+
+                            <stateContainer:StateCondition State="Media">
+
+                                <CollectionView Grid.Row="1" VerticalOptions="End"
+                                        HorizontalScrollBarVisibility="Never" 
+                                        VerticalScrollBarVisibility="Never"
+                                        ItemsSource="{Binding MediaPaths}">
+
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal" />
+                                    </CollectionView.ItemsLayout>
+
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+
+                                                <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" Margin="8,0"
+                                                   HasShadow="False" HeightRequest="45" WidthRequest="45"
+                                                   VerticalOptions="End" HorizontalOptions="Center">
+
+                                                    <ffimageloading:CachedImage Source="{Binding .}" Aspect="AspectFill" />
+
+                                                </Frame>
+
+                                                <ffimageloading:CachedImage Source="ic_clear_filled" 
+                                                                        HeightRequest="25" WidthRequest="25"
+                                                                        VerticalOptions="Start" HorizontalOptions="End">
+                                                    <ffimageloading:CachedImage.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.RemoveMediaItemCommand}"
+                                                                          CommandParameter="{Binding .}"/>
+                                                    </ffimageloading:CachedImage.GestureRecognizers>
+                                                </ffimageloading:CachedImage>
+
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+
+                                </CollectionView>
+
+                            </stateContainer:StateCondition>
+
+
+                            <!-- VIDEO STATE -->
+
+                            <stateContainer:StateCondition State="Video">
+
+                                <StackLayout Orientation="Horizontal">
+
+                                    <ffimageloading:CachedImage Source="ic_video" VerticalOptions="Center"/>
+
+                                    <Label Text="Video" TextColor="{StaticResource Primary}" VerticalOptions="Center"/>
+
+                                    <ffimageloading:CachedImage Source="ic_clear_filled" 
+                                    HeightRequest="25" WidthRequest="25"
+                                    VerticalOptions="Center">
+                                        <ffimageloading:CachedImage.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding RemoveVidoCommand}"/>
+                                        </ffimageloading:CachedImage.GestureRecognizers>
+                                    </ffimageloading:CachedImage>
+                                </StackLayout>
+
+                            </stateContainer:StateCondition>
+
+                        </stateContainer:StateContainer>
+
+                    </Grid>
+                    
+
+                    
+                    <!-- MEDIA PICKERS -->
+                    
+                    <Grid Grid.Row="1" RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+
+                        <BoxView BackgroundColor="{StaticResource Light Grey}"/>
+
+                        <StackLayout Grid.Row="1" Spacing="20" Padding="15,0" Orientation="Horizontal">
+
+                            <ffimageloading:CachedImage Source="ic_media">
+                                <ffimageloading:CachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding MediaCommand}"/>
+                                </ffimageloading:CachedImage.GestureRecognizers>
+                                <ffimageloading:CachedImage.Triggers>
+                                    <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding MediaEnabled}" Value="False">
+                                        <Setter Property="Source" Value="ic_media_disabled"/>
+                                    </DataTrigger>
+                                </ffimageloading:CachedImage.Triggers>
+                            </ffimageloading:CachedImage>
+
+                            <ffimageloading:CachedImage Source="ic_video">
+                                <ffimageloading:CachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding VideoCommand}"/>
+                                </ffimageloading:CachedImage.GestureRecognizers>
+                                <ffimageloading:CachedImage.Triggers>
+                                    <DataTrigger TargetType="ffimageloading:CachedImage" Binding="{Binding VideoEnabled}" Value="False">
+                                        <Setter Property="Source" Value="ic_video_disabled"/>
+                                    </DataTrigger>
+                                </ffimageloading:CachedImage.Triggers>
+                            </ffimageloading:CachedImage>
+
+                        </StackLayout>
+
+                    </Grid>
+                </Grid>
+
+
+            </controls:MovableFrame>
+
+        </Grid>
+    </ContentPage.Content>
+</local:BaseContentPage>

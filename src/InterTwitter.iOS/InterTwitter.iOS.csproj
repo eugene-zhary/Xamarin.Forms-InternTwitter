@@ -120,6 +120,7 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Controls\BorderlessEditorRenderer.cs" />
     <Compile Include="Controls\TintedImageRenderer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />

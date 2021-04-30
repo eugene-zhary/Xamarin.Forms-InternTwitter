@@ -9,6 +9,7 @@ namespace InterTwitter.Services
 {
     public interface IPostService
     {
+        Task<AOResult> AddPostAsync(Post post);
         Task<AOResult<IEnumerable<BasePostViewModel>>> GetPostsAsync(Func<Post, bool> predecate = null);
         AOResult<User> GetPostAuthorAsync(int userId);
         Task<AOResult> LikePostAsync(int postId);

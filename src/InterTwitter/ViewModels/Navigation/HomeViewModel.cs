@@ -3,6 +3,7 @@ using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
 using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels.Posts;
+using InterTwitter.Views.PostPage;
 using Prism.Events;
 using Prism.Navigation;
 using System;
@@ -37,7 +38,6 @@ namespace InterTwitter.ViewModels.Navigation
             set => SetProperty(ref _imagePath, value);
         }
 
-
         #region -- Public region --
 
         private bool _isRefreshing;
@@ -55,7 +55,9 @@ namespace InterTwitter.ViewModels.Navigation
         private ICommand _refreshCommand;
         public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefreshAsync, delayMillisec: 0);
 
-        
+        private ICommand _addPostCommand;
+        public ICommand AddPostCommand => _addPostCommand ??= SingleExecutionCommand.FromFunc(OnAddPostAsync);
+
         #endregion
 
         #region -- Overrides --
@@ -82,6 +84,11 @@ namespace InterTwitter.ViewModels.Navigation
         #endregion
 
         #region -- Private helpers --
+
+        private Task OnAddPostAsync()
+        {
+            return NavigationService.NavigateAsync(nameof(AddPostPage), null, true, true);
+        }
 
         private Task OnRefreshAsync()
         {

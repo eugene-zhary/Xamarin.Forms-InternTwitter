@@ -40,7 +40,10 @@ namespace InterTwitter.Services
 
                 if(posts.Any())
                 {
-                    posts.ToList().Sort((p1, p2) => p1.PostModel.CreationDateTime.CompareTo(p2.PostModel.CreationDateTime));
+                    posts = from p in posts
+                            orderby p.PostModel.CreationDateTime descending
+                            select p;
+
                     result.SetSuccess(posts);
                 }
                 else
@@ -151,6 +154,26 @@ namespace InterTwitter.Services
             catch(Exception ex)
             {
                 result.SetError($"{nameof(UnbookmarkPostAsync)}: exception", "Something went wrong", ex);
+            }
+
+            return result;
+        }
+        public async Task<AOResult> AddPostAsync(Post post)
+        {
+            var result = new AOResult();
+            await Task.Delay(100);
+
+            try
+            {
+                var lastPostId = _mock.MockedPosts.Last().Id;
+                post.Id = ++lastPostId;
+
+                _mock.MockedPosts.Add(post);
+                result.SetSuccess();
+            }
+            catch(Exception ex)
+            {
+                result.SetError($"{nameof(AddPostAsync)}: exception", "Something went wrong", ex);
             }
 
             return result;

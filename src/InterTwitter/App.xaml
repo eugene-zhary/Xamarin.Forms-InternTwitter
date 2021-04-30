@@ -58,6 +58,11 @@
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
             </Style>
+            <Style x:Key="Body2Editor" TargetType="Editor">
+                <!--<Setter Property="FontFamily" Value="Ubuntu"/>-->
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextColor" Value="{StaticResource Black}" />
+            </Style>
             <Style x:Key="Button" TargetType="Label">
                 <!--<Setter Property="FontFamily" Value="Ubuntu"/>-->
                 <Setter Property="FontSize" Value="14" />
