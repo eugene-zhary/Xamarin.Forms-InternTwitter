@@ -7,9 +7,7 @@
              xmlns:local="clr-namespace:InterTwitter.Views"
              xmlns:controls="clr-namespace:InterTwitter.Controls;assembly=InterTwitter"
              xmlns:resources="clr-namespace:InterTwitter.Resources;assembly=InterTwitter"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:behaviors="clr-namespace:InterTwitter.Behaviors;assembly=InterTwitter"
-             ios:Page.UseSafeArea="true"
              BackgroundColor="{StaticResource White}"
              IconImageSource="{Binding IconPath}">
 

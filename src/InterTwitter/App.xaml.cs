@@ -36,7 +36,6 @@ namespace InterTwitter
         {
             containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
-            containerRegistry.RegisterInstance<IPermissionManager>(Container.Resolve<PermissionManager>());
 
             containerRegistry.RegisterInstance<INotificationService>(Container.Resolve<NotificationService>());
             containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
@@ -48,9 +47,9 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<SignUpStartPage, SignUpStartPageViewModel>();
             containerRegistry.RegisterForNavigation<SignUpEndPage, SignUpEndPageViewModel>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
-            containerRegistry.RegisterForNavigation<FlyoutMenuView, FlyoutMenuViewModel>();
-            containerRegistry.RegisterForNavigation<FlyoutTabbedView, FlyoutTabbedViewMode>();
-            containerRegistry.RegisterForNavigation<FlyoutNavigationView, FlyoutNavigationViewModel>();
+            containerRegistry.RegisterForNavigation<MasterMenuView, MasterMenuViewModel>();
+            containerRegistry.RegisterForNavigation<DetailTabbedView, DetailTabbedViewMode>();
+            containerRegistry.RegisterForNavigation<MasterDetailNavigationView, MasterDetailNavigationViewModel>();
             containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>();
             containerRegistry.RegisterForNavigation<SearchView, SearchViewModel>();
             containerRegistry.RegisterForNavigation<NotifycationView, NotifycationViewModel>();
@@ -71,8 +70,6 @@ namespace InterTwitter
             InitializeComponent();
             FlowListView.Init();
 
-
-            IAuthorizationService AuthorizeService = Container.Resolve<AuthorizationService>();
 
             await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
         }

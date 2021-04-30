@@ -1,5 +1,7 @@
 ﻿using FFImageLoading.Forms.Platform;
 using Foundation;
+using InterTwitter.iOS.Services;
+using InterTwitter.Services.Permission;
 using Octane.Xamarin.Forms.VideoPlayer.iOS;
 using PanCardView.iOS;
 using Prism;
@@ -33,6 +35,7 @@ namespace InterTwitter.iOS
         {
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
+                containerRegistry.RegisterSingleton<IPermissionService, PermissionService>();
             }
         }
     }

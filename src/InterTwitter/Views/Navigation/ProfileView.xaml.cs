@@ -7,6 +7,8 @@ namespace InterTwitter.Views.Navigation
         public ProfileView()
         {
             InitializeComponent();
+
+            RefreshView refreshView = new RefreshView();
         }
     }
 }

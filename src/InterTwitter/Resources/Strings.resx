@@ -269,5 +269,40 @@
   </data>
   <data name="SavedYourPost" xml:space="preserve">
     <value>saved your post</value>
+  <data name="AskForStoragePermission" xml:space="preserve">
+    <value>InterTwitter needs storage access so that you can save photos. Please enable it in Settings</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+  <data name="ChangePermissionSettings" xml:space="preserve">
+    <value>Please change it in settings</value>
+  </data>
+  <data name="PermissionDenied" xml:space="preserve">
+    <value>Permission was denied</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Block</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="Muted" xml:space="preserve">
+    <value>Muted</value>
+  </data>
+  <data name="ProfileInBlacklist" xml:space="preserve">
+    <value>Profile in blacklist</value>
+  </data>
+  <data name="RemoveFromBlacklist" xml:space="preserve">
+    <value>Remove from blacklist</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes?</value>
+  </data>
+  <data name="Unmute" xml:space="preserve">
+    <value>Unmute</value>
   </data>
 </root>

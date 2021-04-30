@@ -1,5 +1,7 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Services;
+using InterTwitter.Services.Authorization;
+using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels.Posts;
 using Prism.Events;
 using Prism.Navigation;
@@ -7,8 +9,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels.Navigation
 {
@@ -16,22 +16,46 @@ namespace InterTwitter.ViewModels.Navigation
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IPostService _postManager;
+        private readonly IUserService _userService;
+        private readonly IAuthorizationService _authorizationService;
 
-        public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator, IPostService postManager) : base(navigation)
+        public HomeViewModel(INavigationService navigation, IEventAggregator eventAggregator, IPostService postManager, IUserService userService, IAuthorizationService authorizationService) : base(navigation)
         {
             _eventAggregator = eventAggregator;
             _postManager = postManager;
+            _userService = userService;
+            _authorizationService = authorizationService;
 
             IconPath = "ic_home_gray.png";
             PostCollection = new ObservableCollection<BasePostViewModel>();
         }
 
+        private string _imagePath;
+        public string ImagePath
+        {
+            get => _imagePath;
+            set => SetProperty(ref _imagePath, value);
+        }
+
+
         #region -- Public region --
+
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set => SetProperty(ref _isRefreshing, value, nameof(IsRefreshing));
+        }
 
         public ObservableCollection<BasePostViewModel> PostCollection { get; set; }
 
-        public ICommand PicProfileTapGestureRecognizer => new Command(OnPicProfileTapGestureRecognizer);
+        private ICommand _picProfileTapGestureRecognizer;
+        public ICommand PicProfileTapGestureRecognizer => _picProfileTapGestureRecognizer ??= SingleExecutionCommand.FromFunc(OnPicProfileTapGestureRecognizerAsync);
 
+        private ICommand _refreshCommand;
+        public ICommand RefreshCommand => _refreshCommand ??= SingleExecutionCommand.FromFunc(OnRefreshAsync, delayMillisec: 0);
+
+        
         #endregion
 
         #region -- Overrides --
@@ -40,12 +64,7 @@ namespace InterTwitter.ViewModels.Navigation
         {
             base.Initialize(parameters);
 
-            await UpdateCollecitonAsync();
-        }
-
-        public override async void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
+            ImagePath = (await _userService.GetUserAsync(_authorizationService.GetCurrentUserId)).Result.ProfileImagePath;
 
             await UpdateCollecitonAsync();
         }
@@ -64,9 +83,16 @@ namespace InterTwitter.ViewModels.Navigation
 
         #region -- Private helpers --
 
+        private Task OnRefreshAsync()
+        {
+            return UpdateCollecitonAsync();
+        }
+
         private async Task<AOResult> UpdateCollecitonAsync()
         {
             var result = new AOResult();
+
+            IsRefreshing = true;
 
             try
             {
@@ -86,12 +112,16 @@ namespace InterTwitter.ViewModels.Navigation
                 result.SetError($"{nameof(UpdateCollecitonAsync)}", "Something went wrong", ex);
             }
 
+            IsRefreshing = false;
+
             return result;
         }
 
-        private void OnPicProfileTapGestureRecognizer()
+        private Task OnPicProfileTapGestureRecognizerAsync()
         {
             _eventAggregator.GetEvent<MenuVisibilityChangedEvent>().Publish(true);
+
+            return Task.CompletedTask;
         }
 
         #endregion

@@ -15,8 +15,12 @@ namespace InterTwitter.Controls
 
         #region -- Public properties --
 
-        public static readonly BindableProperty ScrollStateProperty
-            = BindableProperty.Create(nameof(ScrollState), typeof(EScrollState), typeof(CustomCollectionView), propertyChanged: OnScrollStateChanged, defaultBindingMode: BindingMode.TwoWay);
+        public static readonly BindableProperty ScrollStateProperty = BindableProperty.Create(
+                nameof(ScrollState),
+                typeof(EScrollState), 
+                typeof(CustomCollectionView),
+                propertyChanged: OnScrollStateChanged,
+                defaultBindingMode: BindingMode.TwoWay);
 
         public EScrollState ScrollState
         {

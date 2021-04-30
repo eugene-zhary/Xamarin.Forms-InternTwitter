@@ -1,48 +1,39 @@
 ﻿using InterTwitter.Helpers;
 using InterTwitter.Services.Permission;
 using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 using Xamarin.MediaGallery;
 
 namespace InterTwitter.Services.ContextMenu
 {
     public class ContextMenuService : IContextMenuService
     {
-        private readonly IPermissionManager _permissionManager;
+        private readonly IPermissionService _permissionService;
 
-        public ContextMenuService(IPermissionManager permissionManager)
+        public ContextMenuService(IPermissionService permissionService)
         {
-            _permissionManager = permissionManager;
+            _permissionService = permissionService;
         }
 
-        public async Task<AOResult> SaveImgFromWeb(string url)
+        #region -- IContextMenuService implementation --
+
+        public async Task<AOResult> SaveImg(string url)
         {
             var result = new AOResult();
 
             try
             {
-                bool isGranted = false;
+                var status = await _permissionService.RequestPermissionAsync<SaveMediaPermission>();
 
-                if (Device.RuntimePlatform == Device.iOS)
+                if(status == PermissionStatus.Granted)
                 {
-                    isGranted = await _permissionManager.RequestStoragePermissionAsync();
-                }
-                else if (Device.RuntimePlatform == Device.Android)
-                {
-                    var status = await Permissions.CheckStatusAsync<SaveMediaPermission>();
-                    isGranted = status == PermissionStatus.Granted;
-                }
+                    byte[] imgData = await DownloadImgAsync(url);
+                    string filePath = $"InterTwitter.{DateTime.Now:dd.MM.yyyy_hh.mm.ss}.jpg";
 
-
-                if (isGranted)
-                {
-                    using var webClient = new WebClient();
-
-                    webClient.DownloadDataAsync(new Uri(url));
-                    webClient.DownloadDataCompleted += WebClient_DownloadDataCompleted;
+                    await MediaGallery.SaveAsync(MediaFileType.Image, imgData, filePath);
 
                     result.SetSuccess();
                 }
@@ -53,25 +44,33 @@ namespace InterTwitter.Services.ContextMenu
             }
             catch(Exception ex)
             {
-                result.SetError($"{nameof(SaveImgFromWeb)} : exception", "Something went wrong", ex);
+                
+                result.SetError($"{nameof(SaveImg)} : exception", "Something went wrong", ex);
             }
 
             return result;
         }
 
-        private async void WebClient_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
+        public async Task<AOResult> ShareProfile(string ProfileName, string ImagePath)
         {
+            var result = new AOResult();
             try
             {
-                string filePath = $"InterTwitter.{DateTime.Now:dd.MM.yyyy_hh.mm.ss}.jpg";
-                await MediaGallery.SaveAsync(MediaFileType.Image, e.Result, filePath);
+                await Share.RequestAsync(new ShareTextRequest
+                {
+                    Title = ProfileName,
+                    Uri = ImagePath
+                });
+
+                result.SetSuccess();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
+                result.SetError($"{nameof(ShareImg)} : exception", "Something went wrong", ex);
             }
-        }
 
+            return result;
+        }
         public async Task<AOResult> ShareImg(string url)
         {
             var result = new AOResult();
@@ -93,5 +92,18 @@ namespace InterTwitter.Services.ContextMenu
 
             return result;
         }
+
+        #endregion
+
+        #region -- Private helpers --
+
+        private Task<byte[]> DownloadImgAsync(string url)
+        {
+            using var webClient = new WebClient();
+
+            return webClient.DownloadDataTaskAsync(url);
+        }
+
+        #endregion
     }
 }

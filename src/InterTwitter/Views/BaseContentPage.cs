@@ -15,6 +15,8 @@ namespace InterTwitter.Views
             ViewModelLocator.SetAutowireViewModel(this, true);
 
             Page.SetUseSafeArea(On<iOS>(), true);
+
+            BackgroundColor = Color.FromHex("#FCFDFE");
         }
 
         #region -- Overrides --
