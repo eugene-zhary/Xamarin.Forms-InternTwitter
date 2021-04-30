@@ -8,9 +8,9 @@ using Prism.Navigation;
 
 namespace InterTwitter.ViewModels.Flyout
 {
-    public class FlyoutNavigationViewModel : BaseViewModel
+    public class MasterDetailNavigationViewModel : BaseViewModel
     {
-        public FlyoutNavigationViewModel(INavigationService navigationService, IEventAggregator aggregator) : base(navigationService)
+        public MasterDetailNavigationViewModel(INavigationService navigationService, IEventAggregator aggregator) : base(navigationService)
         {
             aggregator.GetEvent<MenuVisibilityChangedEvent>().Subscribe(OnMenuVisibilityChanged);
             aggregator.GetEvent<NavigationEvent>().Subscribe(OnNavigation);

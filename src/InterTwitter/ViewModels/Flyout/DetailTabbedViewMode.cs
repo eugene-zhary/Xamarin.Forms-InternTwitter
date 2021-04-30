@@ -7,11 +7,11 @@ using System.ComponentModel;
 
 namespace InterTwitter.ViewModels.Flyout
 {
-    public class FlyoutTabbedViewMode : BaseViewModel
+    public class DetailTabbedViewMode : BaseViewModel
     {
         private readonly IEventAggregator _eventAggregator;
 
-        public FlyoutTabbedViewMode(INavigationService navigation, IEventAggregator aggregator) : base(navigation)
+        public DetailTabbedViewMode(INavigationService navigation, IEventAggregator aggregator) : base(navigation)
         {
             _eventAggregator = aggregator;
             aggregator.GetEvent<MenuItemChangedEvent>().Subscribe(OnMenuItemChanged);

@@ -1,5 +1,5 @@
-﻿using InterTwitter.Resources;
-using InterTwitter.Services.ContextMenu;
+﻿using InterTwitter.Services.ContextMenu;
+using InterTwitter.Services.Permission;
 using Prism.Navigation;
 using Prism.Services;
 using System.Linq;
@@ -11,8 +11,9 @@ namespace InterTwitter.ViewModels.Posts
     {
         public GalleryPreviewPageViewModel(INavigationService navigationService,
                                            IPageDialogService pageDialogService,
-                                           IContextMenuService contextMenuService) :
-            base(navigationService, pageDialogService, contextMenuService)
+                                           IContextMenuService contextMenuService,
+                                           IPermissionService permissionService) :
+            base(navigationService, pageDialogService, contextMenuService, permissionService)
         {
         }
 
@@ -52,27 +53,14 @@ namespace InterTwitter.ViewModels.Posts
             }
         }
 
-        protected override async Task OnShareAsync()
+        protected override Task OnShareAsync()
         {
-            IsContextMenuVisible = false;
-
-            await ContextMenuService.ShareImg(SelectedMediaPath);
+            return SharePhotoAsync(SelectedMediaPath);
         }
 
-        protected override async Task OnSaveAsync()
+        protected override Task OnSaveAsync()
         {
-            IsContextMenuVisible = false;
-
-            var result = await ContextMenuService.SaveImgFromWeb(SelectedMediaPath);
-
-            if(result.IsSuccess)
-            {
-                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveSucces, Strings.Ok);
-            }
-            else
-            {
-                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveFailed, Strings.Ok);
-            }
+            return SavePhotoAsync(SelectedMediaPath);
         }
 
         #endregion

@@ -12,6 +12,8 @@ using FFImageLoading.Forms.Platform;
 using Octane.Xamarin.Forms.VideoPlayer.Android;
 using PanCardView.Droid;
 using Android.Content;
+using InterTwitter.Droid.Services;
+using InterTwitter.Services.Permission;
 
 namespace InterTwitter.Droid
 {
@@ -44,7 +46,7 @@ namespace InterTwitter.Droid
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
-            Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -65,6 +67,7 @@ namespace InterTwitter.Droid
         {
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
+                containerRegistry.RegisterSingleton<IPermissionService, PermissionService>();
             }
         }
 

@@ -20,11 +20,11 @@ namespace InterTwitter.ViewModels.Navigation
         private readonly IAuthorizationService _authorizationService;
         private readonly IUserService _userService;
         private readonly IPageDialogService _dialogService;
-        private readonly IPermissionManager _permissionManager;
+        private readonly IPermissionService _permissionManager;
         private User CurrentUser;
         public ChangeProfileViewModel(
-          INavigationService navigationService, IAuthorizationService AuthorizationService,
-          IUserService userService, IPageDialogService dialogService, IPermissionManager permissionManager) : base(navigationService)
+            INavigationService navigationService, IAuthorizationService AuthorizationService,
+            IUserService userService, IPageDialogService dialogService, IPermissionService permissionManager) : base(navigationService)
         {
             _authorizationService = AuthorizationService;
             _userService = userService;
@@ -118,7 +118,9 @@ namespace InterTwitter.ViewModels.Navigation
         {
             try
             {
-                if (await _permissionManager.RequestStoragePermissionAsync())
+                var status = await _permissionManager.RequestPermissionAsync<Permissions.StorageRead>();
+
+                if (status == PermissionStatus.Granted)
                 {
                     var file = await MediaPicker.PickPhotoAsync();
 
@@ -137,7 +139,9 @@ namespace InterTwitter.ViewModels.Navigation
         {
             try
             {
-                if (await _permissionManager.RequestStoragePermissionAsync())
+                var status = await _permissionManager.RequestPermissionAsync<Permissions.StorageRead>();
+
+                if(status == PermissionStatus.Granted)
                 {
                     var file = await MediaPicker.PickPhotoAsync();
 
@@ -213,7 +217,7 @@ namespace InterTwitter.ViewModels.Navigation
             }
             else
             {
-                await NavigationService.NavigateAsync($"{nameof(FlyoutNavigationView)}");
+                await NavigationService.NavigateAsync($"{nameof(MasterDetailNavigationView)}");
             }
         }
 

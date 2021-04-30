@@ -1,7 +1,10 @@
 ﻿using InterTwitter.Helpers;
+using InterTwitter.Resources;
 using InterTwitter.Services.ContextMenu;
+using InterTwitter.Services.Permission;
 using Prism.Navigation;
 using Prism.Services;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -9,16 +12,27 @@ namespace InterTwitter.ViewModels.Posts
 {
     public class BasePreviewPageViewModel : BaseViewModel
     {
-        public BasePreviewPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService, IContextMenuService contextMenuService) : base(navigationService)
+        public BasePreviewPageViewModel(
+            INavigationService navigationService,
+            IPageDialogService pageDialogService,
+            IContextMenuService contextMenuService,
+            IPermissionService permissionService) : base(navigationService)
         {
             PageDialogService = pageDialogService;
             ContextMenuService = contextMenuService;
+            PermissionService = permissionService;
+        }
+
+        private void OnPermissionGranted(object sender, EventArgs e)
+        {
+
         }
 
         #region -- Public properties --
 
         protected IPageDialogService PageDialogService { get; private set; }
         protected IContextMenuService ContextMenuService { get; private set; }
+        protected IPermissionService PermissionService { get; private set; }
 
         private BasePostViewModel _postViewModel;
         public BasePostViewModel PostViewModel
@@ -65,6 +79,43 @@ namespace InterTwitter.ViewModels.Posts
 
         #endregion
 
+        #region -- Protected helpers --
+
+        protected virtual Task OnShareAsync()
+        {
+            return Task.CompletedTask;
+        }
+
+        protected virtual Task OnSaveAsync()
+        {
+            return Task.CompletedTask;
+        }
+
+        protected async Task SavePhotoAsync(string MediaPath)
+        {
+            IsContextMenuVisible = false;
+
+            var result = await ContextMenuService.SaveImg(MediaPath);
+
+            if(result.IsSuccess)
+            {
+                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveSucces, Strings.Ok);
+            }
+            else
+            {
+                await PageDialogService.DisplayAlertAsync(Strings.SaveTitle, Strings.SaveFailed, Strings.Ok);
+            }
+        }
+
+        protected async Task SharePhotoAsync(string MediaPath)
+        {
+            IsContextMenuVisible = false;
+
+            await ContextMenuService.ShareImg(MediaPath);
+        }
+
+        #endregion
+
         #region -- Private helpers --
 
         private Task OnGoBackAsync()
@@ -72,26 +123,17 @@ namespace InterTwitter.ViewModels.Posts
             return NavigationService.GoBackAsync();
         }
 
-        private async Task OnContextMenuAsync()
+        private Task OnContextMenuAsync()
         {
             IsContextMenuVisible = true;
 
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
-        private async Task OnPageFocusAsync()
+        private Task OnPageFocusAsync()
         {
             IsContextMenuVisible = false;
 
-            await Task.CompletedTask;
-        }
-
-        protected virtual Task OnShareAsync()
-        {
-            return Task.CompletedTask;
-        }
-        protected virtual Task OnSaveAsync()
-        {
             return Task.CompletedTask;
         }
 

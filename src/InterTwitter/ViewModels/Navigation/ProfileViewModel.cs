@@ -5,7 +5,6 @@ using InterTwitter.Services.Authorization;
 using InterTwitter.Services.ContextMenu;
 using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels.Posts;
-using InterTwitter.Views.Flyout;
 using InterTwitter.Views.Navigation;
 using PanCardView.Extensions;
 using Prism.Navigation;
@@ -20,7 +19,7 @@ using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels.Navigation
 {
-	public class ProfileViewModel : BaseViewModel, INavigatedAware
+    public class ProfileViewModel : BaseViewModel, INavigatedAware
 	{
 		private readonly IAuthorizationService _authorizationService;
 		private readonly IUserService _userService;

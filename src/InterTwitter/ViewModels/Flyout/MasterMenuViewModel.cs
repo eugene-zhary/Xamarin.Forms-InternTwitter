@@ -17,14 +17,14 @@ using InterTwitter.Services.UserService;
 
 namespace InterTwitter.ViewModels.Flyout
 {
-    public class FlyoutMenuViewModel : BaseViewModel, IViewActionsHandler
+    public class MasterMenuViewModel : BaseViewModel, IViewActionsHandler
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IPageDialogService _pageDialog;
         private readonly IAuthorizationService _authorizationService;
         private readonly IUserService _userService;
 
-        public FlyoutMenuViewModel(INavigationService navigationService, IEventAggregator aggregator, IPageDialogService pageDialog, IAuthorizationService authorizationService, IUserService userService) : base(navigationService)
+        public MasterMenuViewModel(INavigationService navigationService, IEventAggregator aggregator, IPageDialogService pageDialog, IAuthorizationService authorizationService, IUserService userService) : base(navigationService)
         {
             _eventAggregator = aggregator;
             _pageDialog = pageDialog;
