@@ -71,9 +71,9 @@ namespace InterTwitter.ViewModels.Navigation
 
         #region -- Overrides --
 
-        public override async void Initialize(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.Initialize(parameters);
+            base.OnNavigatedTo(parameters);
 
             await UpdateCollectionAsync();
         }

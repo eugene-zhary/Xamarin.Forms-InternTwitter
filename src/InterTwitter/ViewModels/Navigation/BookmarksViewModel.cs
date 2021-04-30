@@ -118,18 +118,13 @@ namespace InterTwitter.ViewModels.Navigation
             }
         }
 
-        public override async void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-
-            await UpdateCollectionAsync();
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
             IsMenuButtonVisible = false;
+
+            await UpdateCollectionAsync();
         }
 
         public override void OnAppearing()
