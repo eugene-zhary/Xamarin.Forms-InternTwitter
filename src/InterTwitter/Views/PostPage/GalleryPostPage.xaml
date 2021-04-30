@@ -49,6 +49,7 @@
             <!-- POST MEDIA CONTENT -->
 
             <flv:FlowListView HorizontalScrollBarVisibility="Never" RowHeight="120"
+                              VerticalOptions="Start" BackgroundColor="{StaticResource White}"
                           FlowColumnCount="3" HasUnevenRows="False" VerticalScrollBarVisibility="Never"
                           FlowItemsSource="{Binding PostViewModel.PostModel.MediaPaths}">
                 <flv:FlowListView.FlowColumnTemplate>
