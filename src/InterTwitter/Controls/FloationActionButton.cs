@@ -5,7 +5,6 @@ namespace InterTwitter.Controls
 {
     public class FloationActionButton : Button
     {
-
         #region -- Public properties --
 
         public static readonly BindableProperty ScrollStateProperty
@@ -31,7 +30,7 @@ namespace InterTwitter.Controls
             {
                 if(newState == EScrollState.ScrollUp)
                 {
-                    button.TranslateTo(0, 100, easing: Easing.Linear);
+                    button.TranslateTo(0, 120, easing: Easing.Linear);
                 }
                 else
                 {

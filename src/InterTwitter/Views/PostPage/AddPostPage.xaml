@@ -57,8 +57,11 @@
                     </ffimageloading:CachedImage.Transformations>
                 </ffimageloading:CachedImage>
 
-                <controls:BorderlessEditor Grid.Column="1" Style="{StaticResource Body2Editor}" Text="{Binding PostText}"
-                                           Placeholder="Start writing" PlaceholderColor="{StaticResource Dark Grey}"/>
+                <controls:BorderlessEditor Grid.Column="1" Style="{StaticResource Body2Editor}" 
+                                           Text="{Binding PostText}" 
+                                           BackgroundColor="{StaticResource White}"
+                                           Placeholder="Start writing" 
+                                           PlaceholderColor="{StaticResource Dark Grey}"/>
             </Grid>
 
 
@@ -78,7 +81,7 @@
                             <RowDefinition Height="1"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        
+
                         <BoxView BackgroundColor="{StaticResource Light Grey}" Margin="-15,0"/>
 
                         <stateContainer:StateContainer Grid.Row="1" State="{Binding MediaState}">
@@ -150,11 +153,11 @@
                         </stateContainer:StateContainer>
 
                     </Grid>
-                    
 
-                    
+
+
                     <!-- MEDIA PICKERS -->
-                    
+
                     <Grid Grid.Row="1" RowSpacing="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1"/>

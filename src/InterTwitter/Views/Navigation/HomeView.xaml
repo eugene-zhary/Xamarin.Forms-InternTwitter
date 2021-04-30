@@ -30,7 +30,7 @@
                                        ItemsSource="{Binding PostCollection}"
                                        ItemTemplate="{StaticResource postTemplateSelector}">
                 <controls:CustomCollectionView.Header>
-                    <BoxView BackgroundColor="White" HeightRequest="55" />
+                    <BoxView BackgroundColor="{StaticResource White}" HeightRequest="55" />
                 </controls:CustomCollectionView.Header>
 
             </controls:CustomCollectionView>

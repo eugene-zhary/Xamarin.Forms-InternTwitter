@@ -76,11 +76,11 @@ namespace InterTwitter.Services.ContextMenu
 
         #region -- Private helpers --
 
-        private async Task<byte[]> DownloadImgAsync(string url)
+        private Task<byte[]> DownloadImgAsync(string url)
         {
             using var webClient = new WebClient();
 
-            return await Task.Run(() => webClient.DownloadData(url));
+            return webClient.DownloadDataTaskAsync(url);
         }
 
         #endregion

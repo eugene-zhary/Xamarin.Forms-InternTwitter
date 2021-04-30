@@ -4,7 +4,6 @@ using InterTwitter.Services.ContextMenu;
 using InterTwitter.Services.Permission;
 using Prism.Navigation;
 using Prism.Services;
-using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -21,11 +20,6 @@ namespace InterTwitter.ViewModels.Posts
             PageDialogService = pageDialogService;
             ContextMenuService = contextMenuService;
             PermissionService = permissionService;
-        }
-
-        private void OnPermissionGranted(object sender, EventArgs e)
-        {
-
         }
 
         #region -- Public properties --

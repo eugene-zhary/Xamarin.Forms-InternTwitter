@@ -156,9 +156,7 @@ namespace InterTwitter.ViewModels.PostPage
 
         #endregion
 
-
         #region -- Private helpers --
-
 
         private Task OnCancelAsync()
         {
@@ -228,10 +226,10 @@ namespace InterTwitter.ViewModels.PostPage
                     if(file != null)
                     {
                         MediaPaths.Add(file.FullPath);
-                    }
 
-                    IsMediaItemsVisible = true;
-                    VideoEnabled = false;
+                        IsMediaItemsVisible = true;
+                        VideoEnabled = false;
+                    }
                 }
 
                 MediaState = EMediaState.Media;
@@ -256,10 +254,10 @@ namespace InterTwitter.ViewModels.PostPage
                     if(file != null)
                     {
                         VideoPath = file.FullPath;
+                        
+                        IsMediaItemsVisible = true;
+                        MediaEnabled = VideoEnabled = false;
                     }
-
-                    IsMediaItemsVisible = true;
-                    MediaEnabled = VideoEnabled = false;
                 }
 
                 MediaState = EMediaState.Video;
