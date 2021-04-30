@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterTwitter.Views.Templates.Notifications.EmptyPostNotificationDataTemplate"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+
+    <Grid Padding="15,15,15,0" 
+          ColumnSpacing="15"
+          RowSpacing="15">
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Post.OpenPostCommand}" 
+                                  CommandParameter="{Binding Post}"/>
+        </Grid.GestureRecognizers>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.15*" />
+            <ColumnDefinition Width="0.85*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Icon Type : like/bookmark -->
+
+        <ffimageloading:CachedImage Grid.Column="0"
+                                    Source="{Binding NotificationLogoPath}"
+                                    VerticalOptions="Start"
+                                    HorizontalOptions="Center" />
+
+        <!-- Notification filling -->
+
+        <Grid Grid.Column="1"
+              Padding="0,0,0,10">
+
+            <Grid.RowDefinitions>
+                <!-- User avatar & notification text -->
+                <RowDefinition />
+                <!-- Post text -->
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <!-- Actor avatar -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Notification text -->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- USER ICON -->
+
+            <ffimageloading:CachedImage Grid.Column="0"
+                                        Grid.Row="0"
+                                        Source="{Binding Actor.ProfileImagePath}"
+                                        VerticalOptions="Start"
+                                        HeightRequest="20">
+
+                <ffimageloading:CachedImage.Transformations>
+                    <fftransformations:CircleTransformation/>
+                </ffimageloading:CachedImage.Transformations>
+
+            </ffimageloading:CachedImage>
+
+            <!-- User name and notification text -->
+
+            <FlexLayout Grid.Column="1"
+                        Grid.Row="0"
+                        Wrap="Wrap">
+
+                <Label Text="{Binding Actor.Name}" 
+                       Style="{StaticResource Subtitle2}" 
+                       FontAttributes="Bold"
+                       Margin="0,0,5, 0" />
+
+                <Label Text="{Binding NotificationDescription}" 
+                       Style="{StaticResource Body2}" />
+
+            </FlexLayout>
+
+            <!-- POST TEXT CONTENT -->
+
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Text="{Binding Post.PostModel.Text}"
+                   Style="{StaticResource Body2}"
+                   LineBreakMode="TailTruncation"/>
+
+        </Grid>
+
+        <!-- SPLITTER -->
+
+        <BoxView Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 VerticalOptions="End"
+                 HeightRequest="1"
+                 BackgroundColor="#DEDFE1"
+                 Margin="-15,0"/>
+    </Grid>
+
+</DataTemplate>

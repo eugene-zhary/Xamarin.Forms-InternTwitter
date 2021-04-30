@@ -10,6 +10,7 @@ namespace InterTwitter.Services.UserService
     public interface IUserService
     {
         Task<AOResult<IEnumerable<User>>> GetUsersAsync();
+        Task<AOResult<IEnumerable<User>>> GetUsersAsync(Expression<Func<User, bool>> predicate);
 
         Task<AOResult<User>> GetUserAsync(int id);
         Task<AOResult<User>> GetUserAsync(Expression<Func<User, bool>> predicate);

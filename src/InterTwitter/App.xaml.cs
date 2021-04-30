@@ -2,6 +2,8 @@ using DLToolkit.Forms.Controls;
 using InterTwitter.Services;
 using InterTwitter.Services.Authorization;
 using InterTwitter.Services.ContextMenu;
+using InterTwitter.Services.Notification;
+using InterTwitter.Services.Permission;
 using InterTwitter.Services.Settings;
 using InterTwitter.Services.UserService;
 using InterTwitter.ViewModels;
@@ -35,6 +37,7 @@ namespace InterTwitter
             containerRegistry.RegisterInstance<IMockService>(Container.Resolve<MockService>());
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
 
+            containerRegistry.RegisterInstance<INotificationService>(Container.Resolve<NotificationService>());
             containerRegistry.RegisterInstance<IPostService>(Container.Resolve<PostService>());
             containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
@@ -60,6 +63,7 @@ namespace InterTwitter
             containerRegistry.RegisterForNavigation<EmptyPostPage, EmptyPostPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfileView, ProfileViewModel>();
             containerRegistry.RegisterForNavigation<ChangeProfileView, ChangeProfileViewModel>();
+            containerRegistry.RegisterForNavigation<AddPostPage, AddPostPageViewModel>();
         }
 
         protected override async void OnInitialized()
@@ -67,12 +71,7 @@ namespace InterTwitter
             InitializeComponent();
             FlowListView.Init();
 
-
-            IAuthorizationService authorizationService = Container.Resolve<AuthorizationService>();
-
-            authorizationService.Authorize(2);
-
-            await NavigationService.NavigateAsync($"/{nameof(MasterDetailNavigationView)}");
+            await NavigationService.NavigateAsync($"/{nameof(SignUpStartPage)}");
         }
 
         protected override void OnStart()

@@ -19,46 +19,21 @@
         <resources:PostTemplates/>
     </ContentPage.Resources>
 
-    <Grid>
+    <Grid RowSpacing="0">
 
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding HideMenuButtonCommand}"/>
         </Grid.GestureRecognizers>
 
-        <!-- COLLECTION VIEW -->
-        <RefreshView IsVisible="{Binding IsThereAnyBookmarks}"
-                     Command="{Binding RefreshCommand}"
-                     IsRefreshing="{Binding IsRefreshing}">
-
-            <controls:CustomCollectionView ItemsSource="{Binding PostCollection}"
-                                           ItemTemplate="{StaticResource postTemplateSelector}">
-
-                <controls:CustomCollectionView.Header>
-                    <BoxView HeightRequest="55" BackgroundColor="White"/>
-                </controls:CustomCollectionView.Header>
-
-            </controls:CustomCollectionView>
-
-        </RefreshView>
-
-        <!-- Empty state fillings -->
-
-        <StackLayout IsVisible="{Binding IsEmptyState}"
-                     HorizontalOptions="FillAndExpand"
-                     VerticalOptions="CenterAndExpand">
-
-            <Image Source="pic_empty_state"/>
-
-            <Label Text="{x:Static resources:Strings.YouHaveNoBookmarksYet}"
-                   Style="{StaticResource Body1}"
-                   TextColor="{StaticResource Black}"
-                   HorizontalOptions="Center"/>
-
-        </StackLayout>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
         <!-- Navbar -->
 
-        <Grid VerticalOptions="Start"
+        <Grid Grid.Row="0"
+              VerticalOptions="Start"
               HeightRequest="55"
               BackgroundColor="{StaticResource White}"
               RowDefinitions="*">
@@ -91,6 +66,32 @@
                      BackgroundColor="{StaticResource Light Grey}" />
 
         </Grid>
+
+        <!-- COLLECTION VIEW -->
+        <RefreshView Grid.Row="1"
+                     IsVisible="{Binding IsThereAnyBookmarks}"
+                     Command="{Binding RefreshCommand}"
+                     IsRefreshing="{Binding IsRefreshing}">
+
+            <controls:CustomCollectionView ItemsSource="{Binding PostCollection}"
+                                           ItemTemplate="{StaticResource postTemplateSelector}"/>
+
+        </RefreshView>
+
+        <!-- Empty state fillings -->
+
+        <StackLayout Grid.Row="1" IsVisible="{Binding IsEmptyState}"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="CenterAndExpand">
+
+            <Image Source="pic_empty_state"/>
+
+            <Label Text="{x:Static resources:Strings.YouHaveNoBookmarksYet}"
+                   Style="{StaticResource Body1}"
+                   TextColor="{StaticResource Black}"
+                   HorizontalOptions="Center"/>
+
+        </StackLayout>
 
         <!-- Delete all bookmarks button -->
 

@@ -8,7 +8,8 @@ using InterTwitter.Services.Settings;
 using System.Threading.Tasks;
 using InterTwitter.Helpers;
 using Prism.Events;
-using Prism.Navigation;
+using InterTwitter.Services.Notification;
+using InterTwitter.Enums;
 
 namespace InterTwitter.Services
 {
@@ -17,12 +18,18 @@ namespace InterTwitter.Services
         private readonly IMockService _mock;
         private readonly ISettingsManager _settings;
         private readonly IEventAggregator _eventAggregator;
+        private readonly INotificationService _notificationService;
 
-        public PostService(IMockService mock, ISettingsManager settings, IEventAggregator aggregator)
+        public PostService(
+            IMockService mock,
+            ISettingsManager settings,
+            IEventAggregator aggregator,
+            INotificationService notificationService)
         {
             _eventAggregator = aggregator;
             _mock = mock;
             _settings = settings;
+            _notificationService = notificationService;
         }
 
         #region -- IPostManager implementation --
@@ -34,14 +41,24 @@ namespace InterTwitter.Services
 
             try
             {
-                var posts = (predecate == null) ?
-                    _mock.MockedPosts.ToViewModelCollection(this, _settings.RememberedUserId) :
-                    _mock.MockedPosts.Where(predecate)?.ToViewModelCollection(this, _settings.RememberedUserId);
+                var posts = (predecate == null)
+                    ? _mock.MockedPosts
+                    : _mock.MockedPosts.Where(predecate);
 
-                if(posts.Any())
+                var postsResult = new List<BasePostViewModel>();
+
+                foreach(var post in posts)
                 {
-                    posts.ToList().Sort((p1, p2) => p1.PostModel.CreationDateTime.CompareTo(p2.PostModel.CreationDateTime));
-                    result.SetSuccess(posts);
+                    var postAuthor = await GetPostAuthorAsync(post.UserId);
+                    if(postAuthor.IsSuccess)
+                    {
+                        postsResult.Add(post.ToViewModel(postAuthor.Result, _settings.RememberedUserId));
+                    }
+                }
+
+                if(postsResult!= null && postsResult.Any())
+                {
+                    result.SetSuccess(postsResult.OrderByDescending(p => p.PostModel.CreationDateTime));
                 }
                 else
                 {
@@ -55,7 +72,8 @@ namespace InterTwitter.Services
 
             return result;
         }
-        public AOResult<User> GetPostAuthorAsync(int userId)
+
+        public Task<AOResult<User>> GetPostAuthorAsync(int userId)
         {
             var result = new AOResult<User>();
 
@@ -77,8 +95,9 @@ namespace InterTwitter.Services
                 result.SetError($"{nameof(GetPostAuthorAsync)}: exception", "Something went wrong", ex);
             }
 
-            return result;
+            return Task.FromResult(result);
         }
+
         public async Task<AOResult> LikePostAsync(int postId)
         {
             var result = new AOResult();
@@ -89,6 +108,8 @@ namespace InterTwitter.Services
                 var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
                 post.LikedUserIds.Add(_settings.RememberedUserId);
 
+                await SaveNotificationAsync(postId, _settings.RememberedUserId, ENotificationTypes.Liked);
+
                 result.SetSuccess();
             }
             catch(Exception ex)
@@ -98,6 +119,7 @@ namespace InterTwitter.Services
 
             return result;
         }
+
         public async Task<AOResult> UnlikePostAsync(int postId)
         {
             var result = new AOResult();
@@ -108,6 +130,8 @@ namespace InterTwitter.Services
                 var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
                 post.LikedUserIds.Remove(_settings.RememberedUserId);
 
+                await DeleteNotificationAsync(postId, _settings.RememberedUserId, ENotificationTypes.Liked);
+
                 result.SetSuccess();
             }
             catch(Exception ex)
@@ -117,6 +141,7 @@ namespace InterTwitter.Services
 
             return result;
         }
+
         public async Task<AOResult> BookmarkPostAsync(int postId)
         {
             var result = new AOResult();
@@ -127,6 +152,8 @@ namespace InterTwitter.Services
                 var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
                 post.BookmarkedUserIds.Add(_settings.RememberedUserId);
 
+                await SaveNotificationAsync(postId, _settings.RememberedUserId, ENotificationTypes.Bookmarked);
+
                 result.SetSuccess();
             }
             catch(Exception ex)
@@ -136,6 +163,7 @@ namespace InterTwitter.Services
 
             return result;
         }
+
         public async Task<AOResult> UnbookmarkPostAsync(int postId)
         {
             var result = new AOResult();
@@ -146,6 +174,8 @@ namespace InterTwitter.Services
                 var post = _mock.MockedPosts.Where(p => p.Id == postId).FirstOrDefault();
                 post.BookmarkedUserIds.Remove(_settings.RememberedUserId);
 
+                await DeleteNotificationAsync(postId, _settings.RememberedUserId, ENotificationTypes.Bookmarked);
+
                 result.SetSuccess();
             }
             catch(Exception ex)
@@ -154,6 +184,55 @@ namespace InterTwitter.Services
             }
 
             return result;
+        }
+
+        public async Task<AOResult> AddPostAsync(Post post)
+        {
+            var result = new AOResult();
+            await Task.Delay(100);
+
+            try
+            {
+                var lastPostId = _mock.MockedPosts.Last().Id;
+                post.Id = ++lastPostId;
+
+                _mock.MockedPosts.Add(post);
+                result.SetSuccess();
+            }
+            catch(Exception ex)
+            {
+                result.SetError($"{nameof(AddPostAsync)}: exception", "Something went wrong", ex);
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region -- Private helpers --
+
+        private Task DeleteNotificationAsync(int postId, int actorId, ENotificationTypes notificationType)
+        {
+            var notification = new Models.Notification
+            {
+                PostId = postId,
+                ActorId = actorId,
+                NotificationType = notificationType
+            };
+
+            return _notificationService.DeleteNotificationAsync(notification);
+        }
+
+        private Task SaveNotificationAsync(int postId, int actorId, ENotificationTypes notificationType)
+        {
+            var notification = new Models.Notification
+            {
+                PostId = postId,
+                ActorId = actorId,
+                NotificationType = notificationType
+            };
+
+            return _notificationService.InsertNotificationAsync(notification);
         }
 
         #endregion

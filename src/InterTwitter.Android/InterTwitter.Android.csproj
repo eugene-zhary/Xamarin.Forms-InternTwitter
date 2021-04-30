@@ -130,7 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\CustomTabbedPageRenderer.cs" />
-    <Compile Include="Controls\TintedImageRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\BorderlessEditorRenderer.cs" />
     <Compile Include="Renderers\BorderlessEntryRenderer.cs" />

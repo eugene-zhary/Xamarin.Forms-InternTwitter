@@ -10,6 +10,7 @@
                        xmlns:navigation="clr-namespace:InterTwitter.ViewModels.Navigation"
                        xmlns:prism="http://prismlibrary.com"
                        xmlns:resources="clr-namespace:InterTwitter.Resources"
+                       xmlns:stateContainer="clr-namespace:InterTwitter.Controls.StateContainer"
                        x:Name="searchView"
                        prism:ViewModelLocator.AutowireViewModel="True"
                        BackgroundColor="White"
@@ -81,75 +82,94 @@
         <Line Grid.Row="1"
               Grid.ColumnSpan="2"
               BackgroundColor="{StaticResource Light Grey}" />
-        <controls:CustomCollectionView x:Name="collectionView"
-                                       Grid.Row="2"
+
+
+        <stateContainer:StateContainer Grid.Row="2"
                                        Grid.ColumnSpan="2"
-                                       IsVisible="{Binding ShowPostList}"
-                                       ItemTemplate="{StaticResource postTemplateSelector}"
-                                       ItemsSource="{Binding SearchedPosts}"
-                                       ItemsUpdatingScrollMode="KeepItemsInView" />
-        <ListView x:Name="listView"
-                  Grid.Row="2"
-                  Grid.ColumnSpan="2"
-                  Margin="12"
-                  HasUnevenRows="True"
-                  HeightRequest="60"
-                  IsVisible="{Binding ShowTagList}"
-                  ItemsSource="{Binding Items}"
-                  SelectedItem="{Binding SelectedItem}"
-                  SeparatorColor="{StaticResource Light Grey}">
+                                       State="{Binding PageState}">
 
-            <ListView.Header>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="1" />
-                    </Grid.RowDefinitions>
-                    <Label Style="{StaticResource Header2}"
-                           Text="Popular Theme"
-                           TextColor="{StaticResource Black}" />
-                    <Line Grid.Row="1" BackgroundColor="{StaticResource Light Grey}" />
-                </Grid>
-            </ListView.Header>
+            <stateContainer:StateCondition State="Loading">
+                <ListView x:Name="listView"
+                          Grid.Row="2"
+                          Margin="12"
+                          HasUnevenRows="True"
+                          HeightRequest="60"
+                          ItemsSource="{Binding Items}"
+                          SelectedItem="{Binding SelectedItem}"
+                          SeparatorColor="{StaticResource Light Grey}">
 
+                    <ListView.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+                            <Label Style="{StaticResource Header2}"
+                                   Text="Popular Theme"
+                                   TextColor="{StaticResource Black}" />
+                            <Line Grid.Row="1" BackgroundColor="{StaticResource Light Grey}" />
+                        </Grid>
+                    </ListView.Header>
 
-
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout>
-                            <Grid>
-                                <StackLayout Grid.Row="0" Margin="0,12,0,6">
-                                    <Label Style="{StaticResource Subtitle2}" Text="{Binding Tag}" />
-                                    <Label Style="{StaticResource Caption2}" Text="{Binding Count, StringFormat='Posts:{0:D}'}" />
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Grid>
+                                        <StackLayout Grid.Row="0" Margin="0,12,0,6">
+                                            <Label Style="{StaticResource Subtitle2}" Text="{Binding Tag}" />
+                                            <Label Style="{StaticResource Caption2}" Text="{Binding Count, StringFormat='Posts:{0:D}'}" />
+                                        </StackLayout>
+                                        <Image Grid.Column="1"
+                                               HorizontalOptions="End"
+                                               Source="ic_right_gray">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.NavigationToSearchCommand, Source={x:Reference searchView}}" CommandParameter="{Binding .}" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </Grid>
                                 </StackLayout>
-                                <Image Grid.Column="1"
-                                       HorizontalOptions="End"
-                                       Source="ic_right_gray">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.NavigationToSearchCommand, Source={x:Reference searchView}}" CommandParameter="{Binding .}" />
-                                    </Image.GestureRecognizers>
-                                </Image>
-                            </Grid>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-        </ListView>
+            </stateContainer:StateCondition>
 
-        <StackLayout Grid.Row="2"
-                     Grid.ColumnSpan="2"
-                     HorizontalOptions="Center"
-                     IsVisible="{Binding ShowNoResult}"
-                     VerticalOptions="Center">
+            <stateContainer:StateCondition State="Normal">
 
-            <Image Source="pic_empty_state" />
+                <!--  COLLECTION VIEW  -->
+                <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
 
-            <Label HorizontalOptions="Center" Text="No Results for" />
+                    <controls:CustomCollectionView x:Name="collectionView"
+                                                   Grid.Row="2"
+                                                   Grid.ColumnSpan="2"
+                                                   ItemTemplate="{StaticResource postTemplateSelector}"
+                                                   ItemsSource="{Binding SearchedPosts}"
+                                                   ItemsUpdatingScrollMode="KeepItemsInView" />
+                </RefreshView>
 
-            <Label Text="{Binding NoResultText, StringFormat='&quot;{0}&quot;'}" />
+            </stateContainer:StateCondition>
 
-        </StackLayout>
+            <stateContainer:StateCondition State="Empty">
+
+                <StackLayout Grid.Row="2"
+                             Grid.ColumnSpan="2"
+                             HorizontalOptions="Center"
+                             IsVisible="{Binding ShowNoResult}"
+                             VerticalOptions="Center">
+
+                    <Image Source="pic_empty_state" />
+
+                    <Label HorizontalOptions="Center" Text="No Results for" />
+
+                    <Label Text="{Binding NoResultText, StringFormat='&quot;{0}&quot;'}" />
+
+                </StackLayout>
+
+            </stateContainer:StateCondition>
+
+        </stateContainer:StateContainer>
+
     </Grid>
 </local:BaseContentPage>

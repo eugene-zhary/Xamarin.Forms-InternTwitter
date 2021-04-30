@@ -11,6 +11,7 @@ using InterTwitter.ViewModels.Posts;
 using InterTwitter.Services.UserService;
 using InterTwitter.Services.Authorization;
 using System.Collections.Generic;
+using InterTwitter.Enums;
 
 namespace InterTwitter.ViewModels.Navigation
 {
@@ -31,6 +32,7 @@ namespace InterTwitter.ViewModels.Navigation
             ShowNoResult = false;
             ShowPostList = false;
             ShowTagList = true;
+            PageState = EPageState.Loading;
         }
 
         #region -- Public properties --
@@ -56,6 +58,12 @@ namespace InterTwitter.ViewModels.Navigation
             set => SetProperty(ref _noResultText, value);
         }
 
+        private EPageState _pageState;
+        public EPageState PageState
+        {
+            get => _pageState;
+            set => SetProperty(ref _pageState, value);
+        }
         private bool _ShowPostList = false;
         public bool ShowPostList
         {
@@ -113,9 +121,9 @@ namespace InterTwitter.ViewModels.Navigation
 
         private void OnHidePostsCollectionCommand(object obj)
         {
+            PageState = EPageState.Loading;
             ShowPostList = false;
             ShowTagList = true;
-
             Text = "";
         }
 
@@ -135,6 +143,7 @@ namespace InterTwitter.ViewModels.Navigation
             Span BeforeTag = new Span() { Text = span.Text[..span.Text.IndexOf(Select)] };
             Span AfterTag = new Span() { Text = span.Text[(span.Text.IndexOf(Select) + Select.Length)..] };
             Span Tag;
+
             if (Select.Contains("#"))
             {
                 Tag = new Span() { Text = Select, TextColor = Color.FromHex("#2356C5")};
@@ -173,8 +182,14 @@ namespace InterTwitter.ViewModels.Navigation
             ShowPostList = true;
             ShowTagList = false;
 
-
-            ShowNoResult = SearchedPosts.Count == 0;
+            if (SearchedPosts.Count == 0)
+            {
+                PageState = EPageState.Empty;
+            }
+            else
+            {
+                PageState = EPageState.Normal;
+            }
         }
 
         #endregion

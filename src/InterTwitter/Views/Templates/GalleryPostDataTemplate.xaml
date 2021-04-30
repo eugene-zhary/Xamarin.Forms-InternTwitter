@@ -57,15 +57,14 @@
 
         <!--  POST MEDIA CONTENT  -->
 
-        <flv:FlowListView
-            Grid.Row="1"
-            Grid.Column="1"
-            FlowColumnCount="3"
-            FlowItemsSource="{Binding PostModel.MediaPaths}"
-            HasUnevenRows="False"
-            HorizontalScrollBarVisibility="Never"
-            RowHeight="100"
-            VerticalScrollBarVisibility="Never">
+        <flv:FlowListView Grid.Row="1"
+                          Grid.Column="1"
+                          HorizontalScrollBarVisibility="Never"
+                          RowHeight="100"
+                          FlowColumnCount="3"
+                          HasUnevenRows="False"
+                          VerticalScrollBarVisibility="Never"
+                          FlowItemsSource="{Binding PostModel.MediaPaths}">
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
                     <Frame
