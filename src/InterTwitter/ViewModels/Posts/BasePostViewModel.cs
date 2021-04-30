@@ -1,13 +1,17 @@
-﻿using InterTwitter.Helpers;
+﻿using InterTwitter.Extensions;
+using InterTwitter.Helpers;
 using InterTwitter.Models;
 using InterTwitter.Services;
 using InterTwitter.Views.Navigation;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Navigation;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace InterTwitter.ViewModels.Posts
 {
@@ -24,6 +28,15 @@ namespace InterTwitter.ViewModels.Posts
 
             _userModel = userModel;
             _postModel = postModel;
+            FormattedString = new FormattedString();
+
+            FormattedString.Spans.Add(new Span() { Text = postModel.Text});
+            FormattedString.Spans.ToList().ForEach(u => u.Text.Split(' ').Where(u => u.Contains("#")).ToList().ForEach(v => IncludeSelect(u, v).ToList().ForEach(u => FormattedString.Spans.Add(u))));
+            if (FormattedString.Spans.Count != 1)
+            {
+                FormattedString.Spans.RemoveAt(0);
+            }
+
         }
 
         #region -- Public properties --
@@ -59,6 +72,13 @@ namespace InterTwitter.ViewModels.Posts
             set => SetProperty(ref _isBookmarked, value, nameof(IsBookmarked));
         }
 
+        private FormattedString _formattedString;
+        public FormattedString FormattedString
+        {
+            get => _formattedString;
+            set => SetProperty(ref _formattedString, value);
+        }
+
         public int LikesCount
         {
             get => PostModel.LikedUserIds.Count();
@@ -76,9 +96,46 @@ namespace InterTwitter.ViewModels.Posts
         private ICommand _navigateToProfileCommand;
         public ICommand NavigateToProfileCommand => _navigateToProfileCommand ??= SingleExecutionCommand.FromFunc(OnNavigationToProfileAsync);
 
+        private ICommand _tagTapCommad;
+        public ICommand TagTapCommand => _tagTapCommad ??= SingleExecutionCommand.FromFunc<string>(OnTagTapAsync);
+
+        private async Task OnTagTapAsync(string Tag)
+        {
+            NavigationParameters pairs = new NavigationParameters();
+            pairs.Add(nameof(Tag), Tag);
+
+            await NavigationService.SelectTabFromFlyoutAsync(nameof(SearchView), pairs);
+        }
+
         #endregion
 
         #region -- Private helpers --
+
+        private IEnumerable<Span> IncludeSelect(Span span, string Select)
+        {
+            if (!span.Text.Contains(Select) || string.IsNullOrWhiteSpace(Select))
+            {
+                return new Span[] { span };
+            }
+
+            Span BeforeTag = new Span() { Text = span.Text[..span.Text.IndexOf(Select)]};
+            Span AfterTag = new Span() { Text = span.Text[(span.Text.IndexOf(Select) + Select.Length)..] };
+            Span Tag; 
+            if (Select.Contains("#"))
+            {
+                Tag = new Span() { Text = Select, TextColor = Color.FromHex("#2356C5") };
+                Tag.GestureRecognizers.Add(new TapGestureRecognizer() { Command = TagTapCommand, CommandParameter = Tag.Text });
+            }
+            else
+            {
+                Tag = new Span() { Text = Select, BackgroundColor = Color.FromHex("#C7D6F7") };
+            }
+
+            var newspan = new List<Span>(IncludeSelect(BeforeTag, Select).Append(Tag));
+            newspan.AddRange(IncludeSelect(AfterTag, Select));
+
+            return newspan;
+        }
 
         private async Task OnNavigationToProfileAsync()
         {
